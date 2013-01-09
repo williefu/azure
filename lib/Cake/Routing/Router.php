@@ -518,7 +518,7 @@ class Router {
 		$ext = null;
 		$out = array();
 
-		if ($url && strpos($url, '/') !== 0) {
+		if (strlen($url) && strpos($url, '/') !== 0) {
 			$url = '/' . $url;
 		}
 		if (strpos($url, '?') !== false) {
@@ -633,7 +633,7 @@ class Router {
  * @return array Parameter information
  */
 	public static function getParams($current = false) {
-		if ($current) {
+		if ($current && self::$_requests) {
 			return self::$_requests[count(self::$_requests) - 1]->params;
 		}
 		if (isset(self::$_requests[0])) {
