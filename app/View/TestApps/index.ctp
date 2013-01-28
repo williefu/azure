@@ -2,6 +2,7 @@
 	<h2><?php echo __('Test Apps'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
+			<!--th><?php print_r($this->userAuth->getUser()); ?></th-->
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
@@ -13,8 +14,14 @@
 		<td><?php echo h($testApp['TestApp']['name']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $testApp['TestApp']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $testApp['TestApp']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $testApp['TestApp']['id']), null, __('Are you sure you want to delete # %s?', $testApp['TestApp']['id'])); ?>
+			<?php 
+				if($this->userAuth->getGroupId()==1 || $this->userAuth->getGroupId()==4) {
+					echo $this->Html->link(__('Edit'), array('action' => 'edit', $testApp['TestApp']['id'])); 
+			}?>
+			<?php 
+			if($this->userAuth->getGroupId()==1) {
+				echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $testApp['TestApp']['id']), null, __('Are you sure you want to delete # %s?', $testApp['TestApp']['id'])); 
+			}?>
 		</td>
 	</tr>
 <?php endforeach; ?>
