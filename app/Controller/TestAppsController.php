@@ -1,11 +1,15 @@
 <?php
 App::uses('AppController', 'Controller');
+//App::uses('UsersController', 'Usermgmt.Controller');
 /**
  * TestApps Controller
  *
  * @property TestApp $TestApp
  */
 class TestAppsController extends AppController {
+
+	var $uses = array('TestApp','TestAppsArticle');
+
 
 /**
  * index method
@@ -15,6 +19,9 @@ class TestAppsController extends AppController {
 	public function index() {
 		$this->TestApp->recursive = 0;
 		$this->set('testApps', $this->paginate());
+		//$appdata = $this->TestAppsArticle->find('all');
+		//debug($appdata);
+		//$this->set('appdata', $appdata);
 	}
 
 /**
@@ -70,6 +77,8 @@ class TestAppsController extends AppController {
 			}
 		} else {
 			$this->request->data = $this->TestApp->read(null, $id);
+			$this->request->data2 = $this->TestAppsArticle->read(null, $id);
+			print_r($this->request->data2);
 		}
 	}
 
