@@ -13,7 +13,9 @@ class TestAppTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.test_app'
+		'app.test_app',
+		'app.article',
+		'app.test_apps_article'
 	);
 
 /**

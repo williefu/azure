@@ -1,14 +1,15 @@
 <div class="testApps view">
-<h2><?php  echo __('Test App'); ?></h2>
+<h2><?php  //echo __('Article'); ?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($testApp['TestApp']['id']); ?>
-			&nbsp;
-		</dd>
+		<dt><?php echo $this->Html->image($testApp['TestAppsArticle'][0]['image'], array('width' => 500, 'height' => 300));?></dt>
 		<dt><?php echo __('Name'); ?></dt>
 		<dd>
 			<?php echo h($testApp['TestApp']['name']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Description'); ?></dt>
+		<dd>
+			<?php echo h($testApp['TestAppsArticle'][0]['desc']); ?>
 			&nbsp;
 		</dd>
 	</dl>

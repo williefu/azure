@@ -19,7 +19,7 @@ class TestAppsArticle extends AppModel {
  *
  * @var array
  */
-	public $validate = array(
+/*	public $validate = array(
 		'desc' => array(
 			'alphanumeric' => array(
 				'rule' => array('alphanumeric'),
@@ -31,7 +31,7 @@ class TestAppsArticle extends AppModel {
 			),
 		),
 	);
-
+*/
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**

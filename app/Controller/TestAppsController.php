@@ -46,12 +46,30 @@ class TestAppsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			//print_r($this->request->data);
 			$this->TestApp->create();
+			
 			if ($this->TestApp->save($this->request->data)) {
+			//if ($this->TestApp->saveAll($this->request->data)) {
+				//$this->Session->setFlash(__('The test app has been saved'));
+				//$this->redirect(array('action' => 'index'));
+				$last = $this->TestApp->read(null, $this->TestApp->id);
+				$this->redirect(array('action' => 'add_articles', $last['TestApp']['id']));
+			} else {
+				$this->Session->setFlash(__('The test app could not be saved. Please, try again.'));
+			}
+		}
+	}
+	
+	public function add_articles() {
+		if ($this->request->is('post')) {
+			$this->TestAppsArticle->create();
+			
+			if ($this->TestAppsArticle->save($this->request->data)) {
 				$this->Session->setFlash(__('The test app has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The test app could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The article could not be saved. Please, try again.'));
 			}
 		}
 	}
@@ -77,8 +95,6 @@ class TestAppsController extends AppController {
 			}
 		} else {
 			$this->request->data = $this->TestApp->read(null, $id);
-			$this->request->data2 = $this->TestAppsArticle->read(null, $id);
-			print_r($this->request->data2);
 		}
 	}
 
