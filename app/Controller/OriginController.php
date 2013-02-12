@@ -41,12 +41,4 @@ class OriginController extends Controller {
 
 	}
 	
-	/**
-	 * syndi method
-	 *
-	 * @return void
-	 */
-	public function syndi() {
-		print_r('syndi!!!!!!!!!');
-	}
 }

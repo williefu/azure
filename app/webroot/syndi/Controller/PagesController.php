@@ -34,7 +34,7 @@ class PagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array();
+	public $uses = array('WebsvcOrochi');
 
 /**
  * Displays a view
@@ -61,7 +61,30 @@ class PagesController extends AppController {
 		}
 		$this->set(compact('page', 'subpage'));
 		$this->set('title_for_layout', $title);
+		$this->set('orochis', $this->paginate());
+		//$this->redirect(array('action' => 'index'));
 		$this->render(implode('/', $path));
 	}
-
+	
+	public function index() {
+	print_r('heyyyyyyyyyyyyyyyyyy');
+		$this->set('title', 'hola');
+	}
+	
+	public function getData() {
+		//data from orochi table
+		//$this->WebsvcOrochi->id = $id;
+		if (!$this->WebsvcOrochi->exists()) {
+			throw new NotFoundException(__('Invalid test app'));
+		}
+		//$this->set('orochi', $this->WebsvcOrochi->find('all'));
+		$this->set('orochi', $this->WebsvcOrochi->read());
+		//$this->set('orochi', $this->WebsvcOrochi->read(null, $id));
+	}
+	/*
+	function beforeRender() {
+	   parent::beforeRender();
+	   $this->set('orochi', $this->WebsvcOrochi->read(null, $id));
+	   //$this->set('categories', $this->Category->find('all', array('recursive'=>0)));
+	}*/
 }
