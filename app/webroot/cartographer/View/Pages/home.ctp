@@ -1,5 +1,5 @@
 <div class="">
-	<h2><?php echo __('Syndi'); ?></h2>
+	<h2><?php echo __('Cartographer'); ?></h2>
 </div>
 <div class="actions">
 	<h3><?php echo __('List'); ?></h3>
@@ -18,7 +18,7 @@
 		<td><?php echo h($orochi['WebsvcOrochi']['id']); ?>&nbsp;</td>
 		<td><?php echo h($orochi['WebsvcOrochi']['title']); ?>&nbsp;</td>
 		<td><?php echo h($orochi['WebsvcOrochi']['manager']); ?>&nbsp;</td>
-		<td><?php echo $this->Html->link(__('View'), array('action' => 'view', $orochi['WebsvcOrochi']['id'])); ?></td>
+		
 	</tr>
 <?php endforeach; ?>
 	</table>

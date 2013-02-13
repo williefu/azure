@@ -34,7 +34,7 @@ class PagesController extends AppController {
  *
  * @var array
  */
-	public $uses = array('WebsvcOrochi');
+	public $uses = array();
 
 /**
  * Displays a view
@@ -61,48 +61,7 @@ class PagesController extends AppController {
 		}
 		$this->set(compact('page', 'subpage'));
 		$this->set('title_for_layout', $title);
-		$this->set('orochis', $this->paginate());
-		
-		//$this->render(implode('/', $path));
-		//$this->render('/pages/view');
-		$page = Inflector::slug($page);
-		if (method_exists($this, $page)) {
-			$this->$page();
-		}
+		$this->render(implode('/', $path));
+	}
 
-		$this->render(join('/', $path));
-		return;
-	}
-	
-	public function getData() {
-		//data from orochi table
-		//$this->WebsvcOrochi->id = $id;
-		if (!$this->WebsvcOrochi->exists()) {
-			throw new NotFoundException(__('Invalid test app'));
-		}
-		//$this->set('orochi', $this->WebsvcOrochi->find('all'));
-		$this->set('orochi', $this->WebsvcOrochi->read());
-		//$this->set('orochi', $this->WebsvcOrochi->read(null, $id));
-	}
-	/*
-	function beforeRender() {
-	   parent::beforeRender();
-	   $this->set('orochi', $this->WebsvcOrochi->read(null, $id));
-	   //$this->set('categories', $this->Category->find('all', array('recursive'=>0)));
-	}*/
-	
-	/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		$this->WebsvcOrochi->id = $id;
-		if (!$this->WebsvcOrochi->exists()) {
-			throw new NotFoundException(__('Invalid test app'));
-		}
-		$this->set('orochi', $this->WebsvcOrochi->read(null, $id));
-	}
 }
