@@ -1,16 +1,28 @@
 <div class="" ng-app="monitorApp.services">
 	<h2><?php echo __('Monitor'); ?></h2>
 	<h3><?php //echo $monitor; ?></h3>
-	<h1>Testing GA API v3</h1>
+	<h1>Top Events</h1>
 	<script src="../monitor/webroot/js/controller.js"></script>
 	<script src="../monitor/webroot/js/services.js"></script>
 	<div id="workspaceCtrl" ng:controller="workspaceCtrl" class="">
-	
-		<span class=""></span>
-		<!--ul>
-			<li ng-repeat="item in data"></li>
-		</ul-->
+	<div id="totals">
+		<div class="total-titles">
+				<span class="title-total-events"><?php echo __('Total Events');?></span>&nbsp
+				<span class="title-unique-events"><?php echo __('Unique Events');?></span>
+			</div>
+			<span class="item-total-events">{{monitor_totals.totalEvents}}</span>&nbsp
+			<span class="item-unique-events">{{monitor_totals.uniqueEvents}}</span>
 	</div>
+	<div id="list">
+		<span class=""></span>
+		<ul>
+			<li ng-repeat="item in list">
+				{{item.category}}
+			</li>
+			
+		</ul>
+	</div>
+</div>
 <!--
 <hr>
 

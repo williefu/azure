@@ -1,5 +1,5 @@
 'use strict';
-//http://local.azure_github/app/webroot/monitor/Json/monitorlist
+
 angular.module('monitorApp.services',[])
 	.factory('Workspace', function($http){
 		var Workspace = {
@@ -19,5 +19,3 @@ angular.module('monitorApp.services',[])
 
 			return Workspace;
 	});
-	
-//$http.get('/someUrl').success(successCallback);
