@@ -22,19 +22,19 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo $cakeDescription ?>:
-		<?php echo $title_for_layout; ?>
-	</title>
+	<title>Origin - <?php echo $title_for_layout; ?></title>
 	<?php
-		echo $this->Html->meta('icon');
-
-		echo $this->Html->css('cake.generic');
-		echo $this->html->css('origin');
-		echo $this->Html->css('/usermgmt/css/umstyle');
+		//echo $this->Html->meta('icon');
+		//echo $this->Html->css('cake.generic');
+		//echo $this->Html->css('origin');
+		//echo $this->Html->css('/usermgmt/css/umstyle');
+		
+		echo $this->Minify->css(array('cake.generic', '/usermgmt/css/umstyle', 'origin'));
+		echo $this->Minify->script(array('origin.plugin', 'origin'));
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+		
 	?>
 </head>
 <body>

@@ -32,6 +32,9 @@ App::uses('Controller', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class NexusController extends Controller {
+	public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
+	public $components 	= array('Session','RequestHandler', 'Usermgmt.UserAuth');
+	
 	/**
 	 * index method
 	 *

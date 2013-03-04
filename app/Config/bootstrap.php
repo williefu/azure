@@ -145,8 +145,8 @@ Cache::config('default', array('engine' => 'File'));
 // load Usermgmt plugin and apply plugin routes. Keep all the other plugins you are using here
 CakePlugin::loadAll(array(
         'Usermgmt' => array('routes' => true, 'bootstrap' => true),
+        'Minify'=>array('routes'=>true)
 ));
-
 
 /**
  * You can attach event listeners to the request lifecyle as Dispatcher Filter . By Default CakePHP bundles two filters:

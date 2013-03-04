@@ -32,9 +32,9 @@ App::uses('Controller', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-
-		var $helpers = array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth');
-		public $components = array('Session','RequestHandler', 'Usermgmt.UserAuth');
+		public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
+		public $components 	= array('Session','RequestHandler', 'Usermgmt.UserAuth');
+		
 		function beforeFilter(){
 			$this->userAuth();
 		}
