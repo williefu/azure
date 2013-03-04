@@ -9,5 +9,6 @@
 		<li><?php echo $this->Html->link(__('Logout'), array('action' => '../logout')); ?></li>
 		<li><?php echo $this->Html->link(__('Syndi'), array('action' => '../syndi')); ?></li>
 		<li><?php echo $this->Html->link(__('Cartographer'), array('action' => '../cartographer')); ?></li>
+		<li><?php echo $this->Html->link(__('Monitor'), array('action' => '../monitor')); ?></li>
 	</ul>
 </div>

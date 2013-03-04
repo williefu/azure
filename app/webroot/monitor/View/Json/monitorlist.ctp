@@ -8,6 +8,8 @@
 	$monitorTotal = $monitor->totals;
 	
 	$index = 0;
+	$monitorList['filter']->startDate = $monitorTotal->{"start_date"};
+	$monitorList['filter']->endDate = $monitorTotal->{"end_date"};
 	$monitorList['total']->totalEvents = $monitorTotal->{"ga:totalEvents"};
 	$monitorList['total']->uniqueEvents = $monitorTotal->{"ga:uniqueEvents"};
 
