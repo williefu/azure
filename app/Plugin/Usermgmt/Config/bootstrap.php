@@ -80,7 +80,7 @@ function UsermgmtInIt(&$controller) {
 	*/
 	if(!defined("LOGIN_REDIRECT_URL")) {
 		//define("LOGIN_REDIRECT_URL", '/dashboard');
-		define("LOGIN_REDIRECT_URL", '/Origin');
+		define("LOGIN_REDIRECT_URL", '/Nexus');
 	}
 
 	/*
