@@ -14,13 +14,18 @@
 			<span class="item-unique-events">{{monitor_totals.uniqueEvents}}</span>
 	</div>
 	<div id="list">
-		<span class=""></span>
-		<ul>
-			<li ng-repeat="item in list">
-				{{item.category}}
-			</li>
-			
-		</ul>
+		<table>
+			<tr>
+				<td><?php echo __('Event Category');?></td>
+				<td><?php echo __('Total Events');?></td>
+				<td><?php echo __('Unique Events');?></td>
+			</tr>
+			<tr ng-repeat="item in monitor_list">
+				<td>{{item.category}}</td>
+				<td>{{item.totalEvents}}</td>
+				<td>{{item.uniqueEvents}}</td>
+			</tr>
+		</table>
 	</div>
 </div>
 <!--

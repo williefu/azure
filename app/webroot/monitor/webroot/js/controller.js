@@ -37,8 +37,9 @@ var workspaceCtrl = function($scope, Workspace) {
 	
 	//Load Monitor data
 	Workspace.get('Json/monitorlist').then(function(data) {
+			$scope.monitor_filter = data['filter'];
 			$scope.monitor_totals = data['total'];
-			$scope.list = data['data'];
+			$scope.monitor_list = data['data'];
 	});
 
 /*

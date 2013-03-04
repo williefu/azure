@@ -46,9 +46,9 @@ class WebsvcEmcMonitor extends AppModel {
 	function pullCategoriesData($dimensions=false, $start_date, $end_date, $save=false, $filters=false) {
 		//debug(App::Path('vendors') );
 		//Google count
-		$login = 'beatriz.murillo@gorillanation.com';
+		$login = '';
 		//si-tech@gorillanation.com
-		$password = 'bmpsite1337';
+		$password = '';
 
 		//Table Id of  webservices
 		$id = 'ga:26782196';
