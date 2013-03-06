@@ -27,11 +27,12 @@
 	<?php
 		echo $this->Html->meta('icon');
 		
-		echo $this->Html->script('jquery/jquery1.8.0.min');
+		/*echo $this->Html->script('jquery/jquery1.8.0.min');
 		echo $this->Html->script('angularjs/angular.min');
 		echo $this->Html->script('angularjs/angular-resource.min');
-		echo $this->Html->script('angularui/angular-ui.min');
-	
+		echo $this->Html->script('angularui/angular-ui.min');*/
+		echo $this->Minify->script(array('..//js/origin.plugin', '..//js/origin','..//js/jquery/jquery1.8.0.min'));
+		
 		echo $this->Html->css('cake.generic');
 
 		echo $this->fetch('meta');

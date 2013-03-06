@@ -41,6 +41,11 @@ var workspaceCtrl = function($scope, Workspace) {
 			$scope.monitor_totals = data['total'];
 			$scope.monitor_list = data['data'];
 	});
+	
+	$scope.proceed = function() {
+		console.log($scope);
+		//console.log($user);
+	}
 
 /*
 	function refreshOrigin(data) {
