@@ -13,13 +13,15 @@ class CreatorController extends Controller {
 	}
 
 	public function index() {
-		$this -> viewPath = 'list';
+		$this->render('list');
 	
+/*
 		$ad_units	= $this->Creator->find('all');
 		//print_r($ad_units);
 		$this->set(array(
 			'ad_units'=>$ad_units,
 			'_serialize'=>array('ad_units')
 		));
+*/
 	}
 }
