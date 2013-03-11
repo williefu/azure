@@ -1,9 +1,9 @@
 <?php
 
 class Creator extends AppModel {
-	public $useTable = 'ad_units';
+	public $useTable = 'origin_ads';
 	
 	public function index() {
-		
+		echo 'here';
 	}
 }

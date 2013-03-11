@@ -1,9 +1,10 @@
 <?php
 
-class CreatorController extends Controller {
+class CreatorController extends AppController {
 	public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
-	public $components 	= array('Session','RequestHandler', 'Usermgmt.UserAuth');
+	public $components 	= array('Session', 'RequestHandler', 'Usermgmt.UserAuth');
 
+/*
 	function beforeFilter(){
 		$this->userAuth();
 	}
@@ -11,9 +12,10 @@ class CreatorController extends Controller {
 	private function userAuth(){
 		$this->UserAuth->beforeFilter($this);
 	}
+*/
 
 	public function index() {
-		$this->render('list');
+		
 	
 /*
 		$ad_units	= $this->Creator->find('all');
@@ -23,5 +25,23 @@ class CreatorController extends Controller {
 			'_serialize'=>array('ad_units')
 		));
 */
+	}
+	
+	public function adList() {
+		
+	}
+	
+	public function edit($id) {
+		//echo $id;
+	}
+	
+	/**
+	AngularJS Feeds
+	*/
+	public function jsonList() {
+		$origin_ads		= $this->Creator->find('all');
+		$this->set(array(
+			'origin_ads'=>$origin_ads
+		));
 	}
 }

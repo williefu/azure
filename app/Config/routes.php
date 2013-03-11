@@ -32,12 +32,16 @@
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
 
-	
-//Origin - Enable REST API
+/**
+* Origin - Enable REST API
+*/
 	Router::mapResources('creator');
 	Router::parseExtensions();
 	
-
+/**
+* Origin - Creator
+*/
+Router::connect('/creator/list', array('controller' => 'creator', 'action' => 'adList'));
 
 
 /**
