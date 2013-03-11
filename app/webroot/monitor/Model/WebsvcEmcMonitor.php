@@ -78,14 +78,18 @@ class WebsvcEmcMonitor extends AppModel {
 				$total = $api->data($id, '', 'ga:totalEvents,ga:uniqueEvents', '', $start_date, $end_date, 1, 1, $filters);
 				//print_r($total);
 				//$data = $api->data($id, 'ga:eventCategory', 'ga:totalEvents,ga:uniqueEvents', '-ga:totalEvents', $start_date, $end_date, 500, 1, $filters);
+				$graphData = $api->data($id, 'ga:date', 'ga:visits', 'ga:date', $start_date, $end_date, 500, 1, $filters);
+				
 				$analyticsData = array();
 				//$date = array('start_date'=>$start_date,'end_date'=>$end_date);
 				//array_push($total, "'start_date'=>$start_date", "'end_date'=>$end_date");
 				$total['start_date'] = $start_date;
 				$total['end_date'] = $end_date;
 				//$analyticsData['date'] = $date;                 
+				$analyticsData['visits'] = $graphData;
 				$analyticsData['totals'] = $total;   
-				$analyticsData['data'] = $data;                 
+				$analyticsData['data'] = $data;     
+				
 				$jsonData = json_encode($analyticsData);
 				if($save) {
 					//print_r($jsonData);
@@ -97,6 +101,8 @@ class WebsvcEmcMonitor extends AppModel {
 					$monitorTable->save($monitor);*/
 				}
 				//print_r($jsonData);
+				
+			  
 				return $jsonData;
 			}
 		}
