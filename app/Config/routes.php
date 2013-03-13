@@ -42,6 +42,8 @@
 * Origin - Creator
 */
 Router::connect('/administrator', array('controller'=>'origin', 'action'=>'index'));
+Router::connect('/administrator/list', array('controller'=>'origin', 'action'=>'ad_list'));
+
 //Router::connect('/creator/list', array('controller'=>'creator', 'action'=>'adList'));
 
 

@@ -14,7 +14,7 @@ $cakeDescription = __d('cake_dev', 'Origin');
 		//echo $this->Html->css('/usermgmt/css/umstyle');
 		
 		echo $this->Minify->css(array(/* 'cake.generic',  */'/usermgmt/css/umstyle', 'normalize', 'origin', 'bootstrap'));
-		echo $this->Minify->script(array('jquery', 'angularjs', 'angularui-bootstrap', 'origin', 'creator/controller', 'creator/services', 'creator/directives', 'creator/filters'));
+		echo $this->Minify->script(array('jquery', 'angularjs', 'angularui-bootstrap', 'origin', 'controller', 'services', 'directives', 'filters'));
 		//echo $this->fetch('meta');
 		//echo $this->fetch('css');
 		//echo $this->fetch('script');
@@ -33,7 +33,7 @@ $cakeDescription = __d('cake_dev', 'Origin');
 						<a href="javascript:void(0);">Settings</a>
 					</li>
 					<li>
-						<a href="javascript:void(0);">Logout</a>
+						<a href="/logout">Logout</a>
 					</li>
 				</ul>
 			</div>

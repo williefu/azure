@@ -18,6 +18,7 @@ body {
 }
 
 #footer {
+	clear: both;
 	font-size: 12px;
 	text-align: center;
 }
@@ -48,6 +49,7 @@ body {
 	text-indent: -5000em;
 	width: 26px;
 	height: 26px;
+	cursor: pointer;
 }
 
 .originUiIcon-settings {
