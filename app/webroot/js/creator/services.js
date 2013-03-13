@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('creatorApp.services', [])
+angular.module('originApp.services', [])
 	.factory('List', function($http) {
 		var List = {
 			get: function() {
-				var promise = $http.get('/creator/jsonList.json').then(function(response) {
+				var promise = $http.get('/origin/jsonList.json').then(function(response) {
 					return response.data;
 				});
 				return promise;

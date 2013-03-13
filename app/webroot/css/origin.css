@@ -22,6 +22,11 @@ body {
 	text-align: center;
 }
 
+/***** START: BOOTSTRAP *****/
+
+/***** END: BOOTSTRAP *****/
+
+
 /***** START: UI *****/
 .originUI-bgTexture {
 	background-color: #0a3960;
@@ -47,6 +52,8 @@ body {
 
 .originUiIcon-settings {
 	background-image: url(/img/icon-settings.png);
+	height: 100%;
+	padding: 0 5px;
 }
 
 .originUiIcon-settings:hover {
@@ -75,11 +82,15 @@ body {
 }
 
 #originBar-settings {
-	padding: 0 5px;
 	height: inherit;
 	position: absolute;
 	right: 0;
 	top: 0;
+}
+
+#originBar-settings .dropdown-menu {
+	right: 0;
+	left: auto;
 }
 /***** END: ORIGIN BAR *****/
 

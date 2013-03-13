@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('creatorApp.directives', []);
+angular.module('originApp.directives', []);

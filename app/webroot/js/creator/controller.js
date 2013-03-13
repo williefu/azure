@@ -3,7 +3,7 @@
 /**
 * List Controller
 **/
-angular.module('listApp', ['creatorApp.services', 'creatorApp.directives', 'creatorApp.filters']);
+//angular.module('listApp', ['originApp.services', 'originApp.directives', 'originApp.filters']);
 
 
 //'creatorApp.services', 'creatorApp.directives'
