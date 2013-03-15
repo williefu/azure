@@ -4,18 +4,7 @@ class OriginController extends AppController {
 	public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
 	public $components 	= array('Session', 'RequestHandler', 'Usermgmt.UserAuth');
 
-/*
-	function beforeFilter(){
-		$this->userAuth();
-	}
-	
-	private function userAuth(){
-		$this->UserAuth->beforeFilter($this);
-	}
-*/
-
 	public function index() {
-		
 	
 /*
 		$ad_units	= $this->Creator->find('all');

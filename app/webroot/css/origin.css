@@ -3,6 +3,15 @@ body {
 	margin: 0;
 	padding: 0;
 	position: relative;
+	color: #BDBDBD;
+}
+
+a {
+	color: #BDBDBD;
+}
+
+a:hover {
+	color: #BDBDBD;
 }
 
 .wrapper {
@@ -29,15 +38,41 @@ body {
 
 
 /***** START: UI *****/
+input[type="text"],
+input[type="password"] {
+	background-color: #19191a;
+	border: 1px solid #5f5f61;
+	height: 24px;	
+	color: #bdbdbd;
+	text-indent: 5px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+	border: 1px solid #fff;
+}
+
+input::-webkit-input-placeholder {
+	color: transparent;
+}
+
+input:focus:-moz-placeholder {
+	color: transparent;
+}
+input:-ms-input-placeholder {
+	color: transparent;
+}
+
+.inline {
+	display: inline-block;
+	vertical-align: top;
+}
+
 .originUI-bgTexture {
 	background-color: #0a3960;
 	background-image: url(/img/bg-texture.png);
 	background-repeat: repeat;
 	
-}
-
-.originUI-text {
-	color: #BDBDBD;
 }
 
 .originUI-icon {
@@ -52,14 +87,28 @@ body {
 	cursor: pointer;
 }
 
+.originUI-icon:hover {
+	transform: scale(1.02, 1.02);
+}
+
+.originUiIcon-forward {
+	background-image: url(/img/icon-forward.png);
+}
+
+.originUiIcon-login,
 .originUiIcon-settings {
 	background-image: url(/img/icon-settings.png);
 	height: 100%;
 	padding: 0 5px;
 }
 
+.originUiIcon-login:hover,
 .originUiIcon-settings:hover {
 	background-color: rgba(255, 255, 255, .15);	
+}
+
+.originUiIcon-login {
+	background-image: url(/img/icon-login.png);
 }
 
 /***** END: UI *****/
@@ -83,6 +132,7 @@ body {
 	background-color: rgba(255, 255, 255, .15);
 }
 
+#originBar-login,
 #originBar-settings {
 	height: inherit;
 	position: absolute;
@@ -97,9 +147,73 @@ body {
 /***** END: ORIGIN BAR *****/
 
 /***** START: USER MANAGEMENT *****/
-.route-login .umtop {
-	width: 500px;
-	margin: 0 auto;
+.origin-usermgmt-login {
+	width: 300px;
+	height: 160px;
+	background-color: #212123;
+	float: right;
+	position: relative;
+}
+
+.origin-usermgmt-login ul {
+	width: 270px;
+	margin: 0px auto;
+}
+
+.origin-usermgmt-login li {
+	margin: 10px 0;
+}
+
+.origin-usermgmt-login input[type="text"],
+.origin-usermgmt-login input[type="password"] {
+	width: 100%;
+}
+
+li#login-password {
+	margin-bottom: 0px;
+}
+
+li#login-settings {
+	margin-top: 5px;
+	font-size: 12px;
+}
+
+.login-remember-input label {
+	margin: 0 0 0 5px;
+}
+
+.login-remember-input input,
+.login-remember-input label {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#forgot-password-submit,
+#login-submit {
+	background-position: right center;
+	position: absolute;
+	text-indent: 0;
+	width: 95px;
+	height: 26px;
+	text-transform: uppercase;
+	font-size: 18px;
+	line-height: 26px;
+	right: 13px;
+	bottom: 10px;
+}
+
+#forgot-password-submit input,
+#login-submit input {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+}
+
+#forgot-password-submit {
+	width: 135px;
 }
 /***** END: USER MANAGEMENT *****/
 

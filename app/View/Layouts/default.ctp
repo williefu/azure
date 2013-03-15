@@ -13,7 +13,7 @@ $cakeDescription = __d('cake_dev', 'Origin');
 		//echo $this->Html->css('origin');
 		//echo $this->Html->css('/usermgmt/css/umstyle');
 		
-		echo $this->Minify->css(array(/* 'cake.generic',  */'/usermgmt/css/umstyle', 'normalize', 'origin', 'bootstrap'));
+		echo $this->Minify->css(array(/* 'cake.generic',  */'/usermgmt/css/umstyle', 'normalize', 'bootstrap', 'origin'));
 		echo $this->Minify->script(array('jquery', 'angularjs', 'angularui-bootstrap', 'origin', 'controller', 'services', 'directives', 'filters'));
 		//echo $this->fetch('meta');
 		//echo $this->fetch('css');
@@ -21,31 +21,11 @@ $cakeDescription = __d('cake_dev', 'Origin');
 	?>
 </head>
 <body class="originUI-bgTexture originUI-text route-<?php echo $this->request->url;?>" ng:controller="originCtrl" ng:app="originApp">
-	<div id="origin-bar">
-		<div class="wrapper">
-			<a href="/" id="originBar-logo">Origin</a>
-			
-			
-			<div id="originBar-settings">
-				<a href="javascript:void(0);" class="originUI-icon originUiIcon-settings dropdown-toggle">Settings</a>
-				<ul class="dropdown-menu">
-					<li>
-						<a href="javascript:void(0);">Settings</a>
-					</li>
-					<li>
-						<a href="/logout">Logout</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	<?php echo $this->element('bar');?>
 	<div id="container" class="wrapper">
 		<?php echo $this->Session->flash(); ?>
 		<?php echo $this->fetch('content'); ?>
 	</div>
-	<div id="footer">
-		&copy;2013 All Rights Reserved. EVOLVE MEDIA, LLC
-	</div>
-	<?php echo $this->element('sql_dump'); ?>
+	<?php echo $this->element('footer');?>
 </body>
 </html>
