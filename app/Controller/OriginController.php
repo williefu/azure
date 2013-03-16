@@ -3,9 +3,9 @@
 class OriginController extends AppController {
 	public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
 	public $components 	= array('Session', 'RequestHandler', 'Usermgmt.UserAuth');
+	public $uses		= array('OriginAd', 'OriginAdSchedule', 'OriginAdContent');
 
 	public function index() {
-	
 /*
 		$ad_units	= $this->Creator->find('all');
 		//print_r($ad_units);
@@ -21,16 +21,13 @@ class OriginController extends AppController {
 	}
 	
 	public function edit($id) {
-		//echo $id;
 	}
 	
 	/**
 	AngularJS Feeds
 	*/
 	public function jsonList() {
-		$origin_ads		= $this->Origin->find('all');
-		$this->set(array(
-			'origin_ads'=>$origin_ads
-		));
+		$origin_ads		= $this->OriginAd->find('all', array('recursive'=>-1));
+		$this->set('origin_ads', $origin_ads);
 	}
 }

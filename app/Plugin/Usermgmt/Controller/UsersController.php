@@ -60,7 +60,7 @@ class UsersController extends UserMgmtAppController {
 			$user = $this->User->read(null, $userId);
 			$this->set('user', $user);
 		} else {
-			$this->redirect('/allUsers');
+			$this->redirect('/administrator/allUsers');
 		}
 	}
 	/**
@@ -153,7 +153,7 @@ class UsersController extends UserMgmtAppController {
 	public function register() {
 		$userId = $this->UserAuth->getUserId();
 		if ($userId) {
-			$this->redirect("/dashboard");
+			$this->redirect("/administrator/dashboard");
 		}
 		if (SITE_REGISTRATION) {
 			$userGroups=$this->UserGroup->getGroupsForRegistration();
@@ -196,13 +196,13 @@ class UsersController extends UserMgmtAppController {
 						$this->redirect('/');
 					} else {
 						$this->Session->setFlash(__('Please check your mail and confirm your registration'));
-						$this->redirect('/register');
+						$this->redirect('/administrator/register');
 					}
 				}
 			}
 		} else {
 			$this->Session->setFlash(__('Sorry new registration is currently disabled, please try again later'));
-			$this->redirect('/login');
+			$this->redirect('/administrator/login');
 		}
 	}
 	/**
@@ -224,7 +224,7 @@ class UsersController extends UserMgmtAppController {
 				$this->User->save($user,false);
 				$this->LoginToken->deleteAll(array('LoginToken.user_id'=>$userId), false);
 				$this->Session->setFlash(__('Password changed successfully'));
-				$this->redirect('/dashboard');
+				$this->redirect('/administrator/dashboard');
 			}
 		}
 	}
@@ -250,11 +250,11 @@ class UsersController extends UserMgmtAppController {
 					$this->User->save($user,false);
 					$this->LoginToken->deleteAll(array('LoginToken.user_id'=>$userId), false);
 					$this->Session->setFlash(__('Password for %s changed successfully', $name));
-					$this->redirect('/allUsers');
+					$this->redirect('/administrator/allUsers');
 				}
 			}
 		} else {
-			$this->redirect('/allUsers');
+			$this->redirect('/administrator/allUsers');
 		}
 	}
 	/**
@@ -276,7 +276,7 @@ class UsersController extends UserMgmtAppController {
 				$this->request->data['User']['password'] = $this->UserAuth->makePassword($this->request->data['User']['password'], $salt);
 				$this->User->save($this->request->data,false);
 				$this->Session->setFlash(__('The user is successfully added'));
-				$this->redirect('/addUser');
+				$this->redirect('/administrator/addUser');
 			}
 		}
 	}
@@ -296,7 +296,7 @@ class UsersController extends UserMgmtAppController {
 				if ($this->User->RegisterValidate()) {
 					$this->User->save($this->request->data,false);
 					$this->Session->setFlash(__('The user is successfully updated'));
-					$this->redirect('/allUsers');
+					$this->redirect('/administrator/allUsers');
 				}
 			} else {
 				$user = $this->User->read(null, $userId);
@@ -307,7 +307,7 @@ class UsersController extends UserMgmtAppController {
 				}
 			}
 		} else {
-			$this->redirect('/allUsers');
+			$this->redirect('/administrator/allUsers');
 		}
 	}
 	/**
@@ -325,9 +325,9 @@ class UsersController extends UserMgmtAppController {
 					$this->Session->setFlash(__('User is successfully deleted'));
 				}
 			}
-			$this->redirect('/allUsers');
+			$this->redirect('/administrator/allUsers');
 		} else {
-			$this->redirect('/allUsers');
+			$this->redirect('/administrator/allUsers');
 		}
 	}
 	/**
@@ -361,7 +361,7 @@ class UsersController extends UserMgmtAppController {
 				$this->Session->setFlash(__('User is successfully deactivated'));
 			}
 		}
-		$this->redirect('/allUsers');
+		$this->redirect('/administrator/allUsers');
 	}
 	/**
 	 * Used to verify email of user by Admin
@@ -378,7 +378,7 @@ class UsersController extends UserMgmtAppController {
 			$this->User->save($user,false);
 			$this->Session->setFlash(__('User email is successfully verified'));
 		}
-		$this->redirect('/allUsers');
+		$this->redirect('/administrator/allUsers');
 	}
 	/**
 	 * Used to show access denied page if user want to view the page without permission
@@ -421,7 +421,7 @@ class UsersController extends UserMgmtAppController {
 		} else {
 			$this->Session->setFlash(__('Sorry something went wrong, please click on the link again'));
 		}
-		$this->redirect('/login');
+		$this->redirect('/administrator/login');
 	}
 	/**
 	 * Used to send forgot password email to user
@@ -449,7 +449,7 @@ class UsersController extends UserMgmtAppController {
 				}
 				$this->User->forgotPassword($user);
 				$this->Session->setFlash(__('Please check your mail for reset your password'));
-				$this->redirect('/login');
+				$this->redirect('/administrator/login');
 			}
 		}
 	}
@@ -479,7 +479,7 @@ class UsersController extends UserMgmtAppController {
 							$user['User']['password'] = $this->UserAuth->makePassword($user['User']['password'], $salt);
 							$this->User->save($user,false);
 							$this->Session->setFlash(__('Your password has been reset successfully'));
-							$this->redirect('/login');
+							$this->redirect('/administrator/login');
 						} else {
 							$this->Session->setFlash(__('Something went wrong, please send password reset link again'));
 						}
@@ -522,7 +522,7 @@ class UsersController extends UserMgmtAppController {
 				} else {
 					$this->Session->setFlash(__('Your email is already verified'));
 				}
-				$this->redirect('/login');
+				$this->redirect('/administrator/login');
 			}
 		}
 	}

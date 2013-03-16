@@ -3,9 +3,9 @@
 	<h2 class="origin-header">Ad Listing</h2>
     <div id="">
     	<a href="javascript:void(0);" id="list-create" class="list-ad" ng:click="listCreateNew()">Create New</a>
-		<a href="/creator/edit/{{item.Creator.id}}" id="" class="list-ad" ng:repeat="item in originCreator.list" ng:class="item.Origin.config.type">
+		<a href="edit/{{item.OriginAd.id}}" id="" class="list-ad" ng:repeat="item in originCreator.list" ng:class="item.OriginAd.config.type">
 			<!-- <img ng:src="/assets/creator/{{item.Creator.id}}/{{item.Creator.config.triggered_desktop}}"/> -->
-			<span>{{item.Origin.name}}</span>
+			<span>{{item.OriginAd.name}}</span>
 		</a>
     </div>
     
@@ -16,7 +16,6 @@
 </div>
 
 <?php
-	echo $this->Minify->css(array('creator/creator'));
 	
 	/*
 	

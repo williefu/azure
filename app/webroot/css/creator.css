@@ -1,0 +1,48 @@
+/***** OVERRIDE *****/
+body {
+	position: static;
+}
+
+#container {
+	width: auto;
+	position: static;
+}
+
+
+#creator-panel-top {
+	width: 100%;
+	background-color: red;
+}
+
+#creator-panel-left,
+#creator-panel-workspace {
+	position: absolute;
+	bottom: 0;
+	overflow: auto;
+}
+
+#creator-panel-left {
+	background-color: gray;
+}
+
+#creator-panel-workspace {
+	background-color: green;
+	right: 0;
+}
+
+#creator-panel-left {
+	width: 200px;
+}
+
+#creator-panel-workspace {
+	left: 200px;
+}
+
+#creator-panel-top {
+	height: 50px;
+}
+
+#creator-panel-left,
+#creator-panel-workspace {
+	top: 82px;
+}

@@ -65,14 +65,14 @@ function UsermgmtInIt(&$controller) {
 		set email address for sending emails
 	*/
 	if(!defined("EMAIL_FROM_ADDRESS")) {
-		define("EMAIL_FROM_ADDRESS", 'example@example.com');
+		define("EMAIL_FROM_ADDRESS", 'si-tech@evolvemediallc.com');
 	}
 
 	/*
 		set site name for sending emails
 	*/
 	if(!defined("EMAIL_FROM_NAME")) {
-		define("EMAIL_FROM_NAME", 'User Management Plugin');
+		define("EMAIL_FROM_NAME", 'Evolve Origin');
 	}
 
 	/*

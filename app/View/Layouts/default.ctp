@@ -20,7 +20,7 @@ $cakeDescription = __d('cake_dev', 'Origin');
 		//echo $this->fetch('script');
 	?>
 </head>
-<body class="originUI-bgTexture originUI-text route-<?php echo $this->request->url;?>" ng:controller="originCtrl" ng:app="originApp">
+<body class="originUI-bgTexture" ng:app="originApp">
 	<?php echo $this->element('bar');?>
 	<div id="container" class="wrapper">
 		<?php echo $this->Session->flash(); ?>

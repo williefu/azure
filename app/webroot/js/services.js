@@ -11,6 +11,17 @@ angular.module('originApp.services', [])
 			}
 		}
 		return List;
+	})
+	.factory('Users', function($http) {
+		var Users = {
+			get: function() {
+				var promise = $http.get('/administrator/allUsers.json').then(function(response) {
+					return response.data;
+				});
+				return promise;
+			}
+		}
+		return Users;
 	});
 
 

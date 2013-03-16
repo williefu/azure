@@ -80,7 +80,7 @@ class UserAuthComponent extends Component {
 						$cUrl=substr($rUrl, $pos, strlen($rUrl));
 					}
 					$c->Session->write('Usermgmt.OriginAfterLogin', $cUrl);
-					$c->redirect('/login');
+					$c->redirect('/administrator/login');
 				}
 			} else {
 				if (!$userGroupModel->isUserGroupAccess($controller, $action, $this->getGroupId())) {

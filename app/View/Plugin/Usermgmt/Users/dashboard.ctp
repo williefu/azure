@@ -1,8 +1,14 @@
-<?php
-	echo $this->element('test');
-?>
 <div id="user-dashboard" class="origin-usermgmt">
-	<?php echo $this->Session->flash(); ?>
+	<?php echo $this->element('dashboard');?>
+	
+	<a href="/administrator/changePassword" class="originUI-tiles">Password</a>
+	<a href="/administrator/allUsers" class="originUI-tiles">Users</a>
+	<a href="/administrator/allGroups" class="originUI-tiles">Groups</a>
+</div>
+
+<!---
+
+<?php echo $this->Session->flash(); ?>
 	<?php echo $this->element('dashboard'); ?>
 	<div class="um_box_up"></div>
 	<div class="um_box_mid">
@@ -35,4 +41,6 @@
 		</div>
 	</div>
 	<div class="um_box_down"></div>
-</div>
+
+
+-->

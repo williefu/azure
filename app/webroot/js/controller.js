@@ -1,5 +1,15 @@
 'use strict';
 
+
+var originAllUsers = function($scope, $filter, Users) {
+	$scope.originUsers	= {};
+	
+	Users.get().then(function(response) {
+		$scope.originUsers	= response;
+		$scope.sortBy		= 'User.id';
+	});
+}
+
 /**
 * List Controller
 **/

@@ -30,6 +30,7 @@ a:hover {
 	clear: both;
 	font-size: 12px;
 	text-align: center;
+	margin: 10px 0;
 }
 
 /***** START: BOOTSTRAP *****/
@@ -68,6 +69,10 @@ input:-ms-input-placeholder {
 	vertical-align: top;
 }
 
+.originUI-bgColor {
+	background-color: #212123;
+}
+
 .originUI-bgTexture {
 	background-color: #0a3960;
 	background-image: url(/img/bg-texture.png);
@@ -103,8 +108,10 @@ input:-ms-input-placeholder {
 }
 
 .originUiIcon-login:hover,
-.originUiIcon-settings:hover {
-	background-color: rgba(255, 255, 255, .15);	
+.originUiIcon-settings:hover,
+.open .originUiIcon-settings {
+	background-color: #212123;
+	/* background-color: rgba(255, 255, 255, .15);	*/
 }
 
 .originUiIcon-login {
@@ -144,6 +151,16 @@ input:-ms-input-placeholder {
 	right: 0;
 	left: auto;
 }
+
+#originBar-settings .dropdown-menu a:hover {
+}
+
+#originBar-settings .dropdown-menu a:hover {
+	color: #000;
+	background-image: none;
+	background-color: #bdbdbd;
+}
+
 /***** END: ORIGIN BAR *****/
 
 /***** START: USER MANAGEMENT *****/
@@ -151,7 +168,6 @@ input:-ms-input-placeholder {
 	width: 300px;
 	height: 160px;
 	background-color: #212123;
-	float: right;
 	position: relative;
 }
 
@@ -215,5 +231,50 @@ li#login-settings {
 #forgot-password-submit {
 	width: 135px;
 }
+
+
+.origin-usermgmt {
+	padding: 5px 10px;
+	text-align: left;
+}
+
+#user-add {
+	width: 100%;
+	height: 42px;
+	display: block;
+	margin: 20px 0;
+}
 /***** END: USER MANAGEMENT *****/
 
+/***** START: AD LIST *****/
+#list {
+
+}
+
+#list-create {
+	width: 200px;
+	height: 200px;
+	background-color: white;
+}
+
+.list-ad {
+	float: left;
+	margin: 0 5px 5px 0;
+	
+	background-color: white;
+}
+
+.list-ad img {
+	width: 300px;
+}
+
+.list-ad.horizon {
+	width: 100px;
+	height: 50px;
+}
+
+.list-ad.nova {
+	width: 50px;
+	height: 50px;
+}
+/***** END: AD LIST *****/

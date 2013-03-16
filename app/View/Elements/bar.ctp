@@ -1,11 +1,15 @@
+<?php
+	$userId		= $this->Session->read('UserAuth.User.id');
+	$linkLogo	= ($userId)? '/administrator/': '/';
+?>
 <div id="origin-bar">
 	<div class="wrapper">
-		<a href="/" id="originBar-logo">Origin</a>
+		<a href="<?php echo $linkLogo;?>" id="originBar-logo">Origin</a>
 		
-		<?php if($this->Session->read('UserAuth.User.id')) {?>
+		<?php if($userId) {?>
 		<div id="originBar-settings">
 			<a href="javascript:void(0);" class="originUI-icon originUiIcon-settings dropdown-toggle">Settings</a>
-			<ul class="dropdown-menu">
+			<ul class="dropdown-menu originUI-bgColor">
 				<li>
 					<a href="/administrator/dashboard">Account</a>
 				</li>
@@ -14,7 +18,7 @@
 				</li>
 				
 				<li>
-					<a href="/logout">Logout</a>
+					<a href="/administrator/logout">Logout</a>
 				</li>
 				
 			</ul>
