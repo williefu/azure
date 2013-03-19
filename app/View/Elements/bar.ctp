@@ -1,5 +1,5 @@
 <?php
-	$userId		= $this->Session->read('UserAuth.User.id');
+	$userId		= $this->UserAuth->getUserId();
 	$linkLogo	= ($userId)? '/administrator/': '/';
 ?>
 <div id="origin-bar">
@@ -10,17 +10,20 @@
 		<div id="originBar-settings">
 			<a href="javascript:void(0);" class="originUI-icon originUiIcon-settings dropdown-toggle">Settings</a>
 			<ul class="dropdown-menu originUI-bgColor">
+				<?php if($this->UserAuth->isAdmin()) { ?>
 				<li>
-					<a href="/administrator/dashboard">Account</a>
+					<a href="/administrator/dashboard">Origin Settings</a>
+				</li>
+				<?php } ?>
+				<li>
+					<a href="/administrator/editUser/<?php echo $userId;?>">Update Profile</a>
 				</li>
 				<li>
-					<a href="javascript:void(0);">Users</a>
+					<a href="/administrator/changePassword">Update Password</a>
 				</li>
-				
 				<li>
 					<a href="/administrator/logout">Logout</a>
-				</li>
-				
+				</li>		
 			</ul>
 		</div>
 		<?php } else { ?>

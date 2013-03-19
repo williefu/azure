@@ -3,8 +3,14 @@
 angular.module('originApp.services', [])
 	.factory('List', function($http) {
 		var List = {
-			get: function() {
-				var promise = $http.get('/origin/jsonList.json').then(function(response) {
+			get: function(action) {
+				var promise = $http.get('/administrator/Origin/'+action+'.json').then(function(response) {
+					return response.data;
+				});
+				return promise;
+			},
+			post: function(data) {
+				var promise = $http.post('/administrator/Origin/Post', data).then(function(response) {
 					return response.data;
 				});
 				return promise;
@@ -14,8 +20,8 @@ angular.module('originApp.services', [])
 	})
 	.factory('Users', function($http) {
 		var Users = {
-			get: function() {
-				var promise = $http.get('/administrator/allUsers.json').then(function(response) {
+			get: function(action) {
+				var promise = $http.get('/administrator/'+action+'.json').then(function(response) {
 					return response.data;
 				});
 				return promise;

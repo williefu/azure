@@ -4,6 +4,7 @@
 	<a href="/administrator/changePassword" class="originUI-tiles">Password</a>
 	<a href="/administrator/allUsers" class="originUI-tiles">Users</a>
 	<a href="/administrator/allGroups" class="originUI-tiles">Groups</a>
+	<a href="/administrator/adTemplates" class="originUI-tiles">Ad Templates</a>
 </div>
 
 <!---

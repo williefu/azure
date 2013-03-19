@@ -70,6 +70,12 @@ Router::connect('/administrator/viewUser/*', array('plugin' => 'usermgmt', 'cont
 Router::connect('/administrator', array('controller'=>'origin', 'action'=>'index'));
 Router::connect('/administrator/list', array('controller'=>'origin', 'action'=>'ad_list'));
 Router::connect('/administrator/edit/*', array('controller'=>'origin', 'action'=>'edit'));
+Router::connect('/administrator/Origin/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));
+Router::connect('/administrator/Origin/ads', array('controller'=>'origin', 'action'=>'jsonList'));
+
+Router::connect('/administrator/Origin/Post', array('controller'=>'origin', 'action'=>'post'));
+
+Router::connect('/administrator/adTemplates', array('controller'=>'origin', 'action'=>'templateList'));
 
 //Router::connect('/creator/list', array('controller'=>'creator', 'action'=>'adList'));
 

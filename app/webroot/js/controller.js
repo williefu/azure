@@ -4,10 +4,54 @@
 var originAllUsers = function($scope, $filter, Users) {
 	$scope.originUsers	= {};
 	
-	Users.get().then(function(response) {
+	Users.get('allUsers').then(function(response) {
 		$scope.originUsers	= response;
 		$scope.sortBy		= 'User.id';
 	});
+}
+
+var originAllGroups = function($scope, Users) {
+	$scope.originGroups = {};
+	Users.get('allGroups').then(function(response) {
+		$scope.originGroups	= response;
+		$scope.sortBy		= 'UserGroup.id';
+	});
+}
+
+var originTemplates	= function($scope, List) {
+	$scope.originTemplates					= {};
+	$scope.originTemplates.editor			= {};
+	$scope.originTemplates.modalOptions 	= {
+		backdropFade: true
+	}
+	
+	List.get('templates').then(function(response) {
+		$scope.originTemplates	= response;		
+	});
+	
+	$scope.templateCreate = function() {
+		$scope.templateModal 	= true;
+	}
+	
+	$scope.templateEdit = function(data) {
+		$scope.originTemplates.editor	= data.OriginAdTemplate;
+		$scope.templateModal			= true;
+	}
+	
+	$scope.templateModalClose = function() {
+		$scope.templateModal	= false;
+	}
+	
+	$scope.templateSave = function() {
+		$scope.originTemplates.editor.route	= 'templateSave';
+	
+		List.post($scope.originTemplates.editor).then(function(response) {
+			$scope.originTemplates 	= response;
+			$scope.templateModal 	= false;
+			//console.log(response);
+		});
+		//console.log($scope.originTemplates.editor);
+	}
 }
 
 /**
@@ -18,11 +62,17 @@ var originAllUsers = function($scope, $filter, Users) {
 
 //'creatorApp.services', 'creatorApp.directives'
 var listCtrl = function($scope, $filter, List) {
-	$scope.originCreator = {};
+	$scope.originCreator 		= {};
+	$scope.originCreator.form	= {};
 	
-	List.get().then(function(response) {
-		$scope.originCreator.list 	= response.origin_ads;
-		//console.log($scope.originCreator.list.origin_ads[0].Creator);
+	List.get('templates').then(function(response) {
+		$scope.originCreator.templates	= response;
+		$scope.originCreator.form		= $scope.originCreator.templates[0];
+		
+		List.get('ads').then(function(response) {
+			$scope.originCreator.list 	= response.origin_ads;
+			//console.log($scope.originCreator.list.origin_ads[0].Creator);
+		});
 	});
 	
 	

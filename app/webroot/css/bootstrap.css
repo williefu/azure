@@ -754,6 +754,7 @@ h6 small {
   color: #999999;
 }
 
+/*
 h1,
 h2,
 h3 {
@@ -799,6 +800,7 @@ h3 small {
 h4 small {
   font-size: 14px;
 }
+*/
 
 .page-header {
   padding-bottom: 9px;
@@ -1021,9 +1023,11 @@ pre code {
   overflow-y: scroll;
 }
 
+/*
 form {
   margin: 0 0 20px;
 }
+*/
 
 fieldset {
   padding: 0;
@@ -5092,9 +5096,6 @@ input[type="submit"].btn.btn-mini {
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3);
   *border: 1px solid #999;
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
   outline: none;
   -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
      -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);

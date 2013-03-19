@@ -1,6 +1,12 @@
-<a href="" id="user-add">Add New User</a>
+<div id="originUI-header">
+	<a href="/administrator/dashboard" class="inline">
+		<img src="/img/icon-back.png" alt="back"/>
+	</a>
+	<h2 id="" class="origin-header inline">Origin Users</h2>
+	<a href="/administrator/addUser" id="user-add" class="originUI-bgColor inline">Add New User</a>
+</div>
 
-<div id="user-list" class="origin-usermgmt originUI-bgColor" ng:controller="originAllUsers">	
+<div id="user-list" class="origin-usermgmt originUI-bgColor originUI-layout-list" ng:controller="originAllUsers">	
 	<table cellspacing="0" cellpadding="0" width="100%" border="0">
 		<thead>
 			<tr>
@@ -14,57 +20,36 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng:repeat="user in originUsers | orderBy:sortBy:reverse" ng:class:even="'originUI-even'" ng:class:odd="'originUI-odd'">
-				
-				<td ng:show="user.User.active == '1'">Active</td>
-				<td ng:show="user.User.active != '1'">Inactive</td>
-				<td>{{user.User.id}}</td>
-				<td><a href="/administrator/editUser/{{user.User.id}}">{{user.User.first_name}} {{user.User.last_name}}</a></td>
-				<td>{{user.User.username}} ({{user.User.email}})</td>
-				<td>{{user.UserGroup.name}}</td>
-				<td>{{user.User.modified|date:'medium'}}</td>
+			<tr class="user-list-row" ng:repeat="user in originUsers | orderBy:sortBy:reverse" ng:class:even="'originUI-even'" ng:class:odd="'originUI-odd'">
+				<td ng:show="user.User.active == '1'" class="list-row-status">
+					<a href="/usermgmt/users/makeActiveInactive/{{user.User.id}}/0">
+						<img src="/img/icon-check.png" alt="Active" ng:click=""/>
+					</a>
+				</td>
+				<td ng:show="user.User.active != '1'" class="list-row-status">
+					<a href="/usermgmt/users/makeActiveInactive/{{user.User.id}}/1">
+						<img src="/img/icon-cancel.png" alt="Inactive" ng:click=""/>
+					</a>
+				</td>
+				<td class="list-row-id">{{user.User.id}}</td>
+				<td class="list-row-name">
+					<a href="/administrator/editUser/{{user.User.id}}">{{user.User.first_name}} {{user.User.last_name}}</a>
+				</td>
+				<td class="list-row-username">{{user.User.username}} ({{user.User.email}})</td>
+				<td class="list-row-group">{{user.UserGroup.name}}</td>
+				<td class="list-row-date">{{user.User.modified|date:'medium'}}</td>
 				<td></td>
 			</tr>
 		</tbody>
 	</table>
 
 <!--
-	<?php echo $this->Session->flash(); ?>
-	
-	<table cellspacing="0" cellpadding="0" width="100%" border="0" >
-		<thead>
-			<tr>
-				<th>&nbsp;</th>
-				<th><?php echo __('ID');?></th>
-				<th><?php echo __('Name');?></th>
-				<th><?php echo __('Username');?>/<?php echo __('Email');?></th>
-				<th><?php echo __('Group');?></th>
-				<th><?php echo __('Created');?></th>
-				<th><?php echo __('Action');?></th>
-			</tr>
-		</thead>
-		<tbody>
-		<?php
-			if (!empty($users)) {
-				$sl=0;
-				foreach ($users as $row) {
-					$sl++;
-					echo "<tr>";
-					
-					echo "<td>";
-					
 					if ($row['User']['active']==0) {
 							echo "<span class='icon'><a href='".$this->Html->url('/usermgmt/users/makeActiveInactive/'.$row['User']['id'].'/1')."'><img src='".SITE_URL."usermgmt/img/dis-approve.png' border='0' alt='Make Active' title='Make Active'></a></span>";
 						} else {
 							echo "<span class='icon'><a href='".$this->Html->url('/usermgmt/users/makeActiveInactive/'.$row['User']['id'].'/0')."'><img src='".SITE_URL."usermgmt/img/approve.png' border='0' alt='Make Inactive' title='Make Inactive'></a></span>";
 						}
-/*
-					if ($row['User']['active']==1) {
-						echo "Active";
-					} else {
-						echo "Inactive";
-					}
-*/
+
 					echo"</td>";
 					echo "<td>".$sl."</td>";
 					echo "<td><a href='".$this->Html->url('/administrator/editUser/'.$row['User']['id'])."'>".h($row['User']['first_name'])." ".h($row['User']['last_name'])."</a></td>";
