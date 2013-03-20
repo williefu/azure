@@ -2,16 +2,17 @@
 	<h2 class="originUI-header">Origin Templates</h2>
     <div id="">
     	<a href="javascript:void(0);" id="template-create" class="" ng:click="templateCreate()">Add New</a>
-    </div>	
+    </div>
+    
 	<div id="template-list" class="originUI-bgColor originUI-layout-list">
 		<table cellspacing="0" cellpadding="0" width="100%" border="0">
 			<thead>
 				<tr>
-					<th ng:click="sortBy = 'OriginAdTemplate.id';reverse=!reverse">ID</th>
-					<th ng:click="sortBy = 'OriginAdTemplate.name';reverse=!reverse">Name</th>
+					<th ng:click="sortBy='OriginAdTemplate.id';reverse=!reverse">ID</th>
+					<th ng:click="sortBy='OriginAdTemplate.name';reverse=!reverse">Name</th>
 					<th>Alias</th>
-					<th>Thumbnail</th>
 					<th>Description</th>
+					<th>Storyboard</th>
 					<th>Created</th>
 					<th>Modified</th>
 				</tr>
@@ -21,8 +22,8 @@
 					<td>{{template.OriginAdTemplate.id}}</td>
 					<td ng:click="templateEdit(template)">{{template.OriginAdTemplate.name}}</td>
 					<td>{{template.OriginAdTemplate.alias}}</td>
-					<td>{{template.OriginAdTemplate.img_thumbnail}}</td>
 					<td>{{template.OriginAdTemplate.description}}</td>
+					<td>{{template.OriginAdTemplate.file_storyboard}}</td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -31,51 +32,27 @@
 	</div>
 	
 	<div modal="templateModal" close="templateModalClose()" options="originTemplates.modalOptions">
-		<form id="template-add" id="template-add" class="originUI-bgColor originUI-modal">
+		<form id="template-add" name="template-add" class="originUI-bgColor originUI-modal">
 			<h3 class="originUI-header">Origin Template</h3>
 			<ul>
 				<li>
 					<label>Name</label>
-					<input type="text" ng:model="originTemplates.editor.name"/>
-				</li>
-				<li>
-					<label>Alias</label>
-					<input type="text" ng:model="originTemplates.editor.alias" alias="originTemplates.editor.name"/>
+					<input type="text" ng:model="originTemplates.editor.name" required/>
 				</li>
 				<li>
 					<label>Description</label>
-					<input type="text" ng:model="originTemplates.editor.description"/>
+					<textarea>{{originTemplates.editor.description}}</textarea>
 				</li>
 			</ul>
-			<div ng:click="templateSave()">Save</div>
+			
+			<input type="file" name="files[]" id="tempalteAdd-upload-template" class="" ng:model="originTemplates.editor.file_storyboard" fileupload>
+<!--
+			<input type="file" name="files[]" id="templateAdd-upload-logo" class="" fileupload>
+			<input type="file" name="files[]" id="templateAdd-upload-specs" class="" fileupload>
+-->
+			<input type="hidden" name="uploadDir" value="/templates/"/>
+			<button ng:click="templateSave()" ng:disabled="templateUnchanged()">Save</button>
 		</form>
 	</div>
 	
 </div>
-
-<!--
-
-
-    <div id="">
-    	<a href="javascript:void(0);" id="list-create" class="list-ad" ng:click="listCreateNew()">Create New</a>
-		<a href="edit/{{item.OriginAd.id}}" id="" class="list-ad" ng:repeat="item in originCreator.list" ng:class="item.OriginAd.config.type">
-			<span>{{item.OriginAd.name}}</span>
-		</a>
-    </div>
-    {{originCreator.templates[0].OriginAdTemplate.name}}
-    
-    <div modal="listCreateModal" close="listCreateModalClose()" options="listCreateModalOptions">
-    	<form ng:model="originCreator.form" id="list-create-modal" class="originUI-bgColor">
-    		<h3 id="create-modal-title" class="originUI-header">Select Origin Ad Template</h3>
-    		<p id="create-modal-description">
-	    		{{originCreator.form.OriginAdTemplate.description}}
-    		</p>
-    		<img id="create-modal-image" ng:src="{{originCreator.form.OriginAdTemplate.img_large}}"/>
-    		<select ng:model="originCreator.form" ng:options="template.OriginAdTemplate.name for template in originCreator.templates"></select>
-    		
-    		
-	    </form>
-    </div>
-
-
--->

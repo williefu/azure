@@ -1,5 +1,6 @@
 'use strict';
 
+var $j = jQuery.noConflict();
 
 var originAllUsers = function($scope, $filter, Users) {
 	$scope.originUsers	= {};
@@ -18,7 +19,7 @@ var originAllGroups = function($scope, Users) {
 	});
 }
 
-var originTemplates	= function($scope, List) {
+var originTemplates	= function($scope, $filter, List) {
 	$scope.originTemplates					= {};
 	$scope.originTemplates.editor			= {};
 	$scope.originTemplates.modalOptions 	= {
@@ -39,18 +40,24 @@ var originTemplates	= function($scope, List) {
 	}
 	
 	$scope.templateModalClose = function() {
-		$scope.templateModal	= false;
+		$scope.originTemplates.editor	= {};
+		$scope.templateModal			= false;
 	}
 	
 	$scope.templateSave = function() {
+		$scope.originTemplates.editor.alias	= $filter('createAlias')($scope.originTemplates.editor.name);
 		$scope.originTemplates.editor.route	= 'templateSave';
-	
+		
 		List.post($scope.originTemplates.editor).then(function(response) {
 			$scope.originTemplates 	= response;
 			$scope.templateModal 	= false;
 			//console.log(response);
 		});
 		//console.log($scope.originTemplates.editor);
+	}
+	
+	$scope.templateUnchanged = function() {
+		return angular.equals(undefined, $scope.originTemplates.editor);
 	}
 }
 

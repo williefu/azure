@@ -1,15 +1,27 @@
 'use strict';
 
 angular.module('originApp.directives', [])
-	.directive('alias', function() {
+	.directive('fileupload', function() {
 		return {
 			restrict: 'A',
 			scope: {
-				alias: '='
-			},
+				ngModel: '='
+      		},
 			link: function(scope, element, attrs) {
-				console.log(scope);
-				//scope.originTemplates.editor.alias	= scope.alias;
+				element.fileupload({
+					dataType: 'json',
+					url: '/administrator/Origin/upload',
+					add: function(e, data) {
+						//console.log($j(e.target).data('path'));
+						//console.log(data);
+						data.submit();
+					},
+					done: function(e, data) {					
+						scope.$apply(function() {
+							scope.ngModel	= data.result[0].path;
+						});
+					}
+				});
 			}
 		}
-	})
+	});

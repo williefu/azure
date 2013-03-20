@@ -47,11 +47,37 @@ class OriginController extends AppController {
 	}
 	
 	public function templateSave($data) {
-		if ($this->OriginAdTemplate->save($data)) {
-			
+		//$origin['modify_date']	= date('Y-m-d H:i:s');
+		
+		
+		if ($this->OriginAdTemplate->save($data)) {	
 			$data	= json_encode($this->OriginAdTemplate->find('all'));
 			return $data;
 		}
+	}
+	
+	public function upload() {
+		App::import('Vendor', 'UploadHandler', array('file'=>'UploadHandler/uploadHandler.class.php'));
+		
+		$upload_handler = new UploadHandler();
+		header('Pragma: no-cache');
+		header('Cache-Control: private, no-cache');
+		header('Content-Disposition: inline; filename="files.json"');
+		header('X-Content-Type-Options: nosniff');
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Methods: OPTIONS, HEAD, GET, POST, PUT, DELETE');
+		header('Access-Control-Allow-Headers: X-File-Name, X-File-Type, X-File-Size');
+		
+		switch ($_SERVER['REQUEST_METHOD']) {
+			case 'POST':
+				$upload_handler->post();
+		        break;
+		    default:
+		        header('HTTP/1.1 405 Method Not Allowed');
+		}
+		
+		
+		exit;
 	}
 	
 	

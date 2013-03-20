@@ -48,12 +48,17 @@ a:hover {
 
 /***** START: UI *****/
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+textarea {
 	background-color: #19191a;
 	border: 1px solid #5f5f61;
 	height: 24px;	
 	color: #bdbdbd;
 	text-indent: 5px;
+}
+
+textarea {
+	height: auto;
 }
 
 input[type="text"]:focus,
