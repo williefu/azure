@@ -1,9 +1,14 @@
 <div id="ad-template" ng:controller="originTemplates">
-	<h2 class="originUI-header">Origin Templates</h2>
-    <div id="">
-    	<a href="javascript:void(0);" id="template-create" class="" ng:click="templateCreate()">Add New</a>
+	<h2 class="originUI-header">Ad Templates</h2>
+    <div id="adTemplate-add" class="adTemplate-item originUI-tiles" ng:click="templateCreate()">
+    	<div class="originTile-title">New Template</div>
+    </div><!--
+    --><div class="adTemplate-item originUI-bgColor originUI-tiles" ng:repeat="template in originTemplates|filter:searchOrigin" ng:click="templateEdit(template)">
+    	<h3 class="adTemplateItem-title">{{template.OriginAdTemplate.name}}</h3>
+    	<img class="adTemplateItem-storyboard" src="http://placekitten.com/300/100" ng:src="{{template.OriginAdTemplate.content.file_storyboard}}"/>
+    	<p class="adTemplateItem-description">{{template.OriginAdTemplate.content.description}}</p>
     </div>
-    
+<!--
 	<div id="template-list" class="originUI-bgColor originUI-layout-list">
 		<table cellspacing="0" cellpadding="0" width="100%" border="0">
 			<thead>
@@ -24,34 +29,66 @@
 					<td>{{template.OriginAdTemplate.alias}}</td>
 					<td>{{template.OriginAdTemplate.description}}</td>
 					<td>{{template.OriginAdTemplate.file_storyboard}}</td>
-					<td></td>
-					<td></td>
+					<td>{{deleteConfirm}}</td>
+					<?php if($this->UserAuth->isAdmin()) { ?>
+					<td>
+						<button ng:show="!deleteConfirm" ng:click="deleteConfirm=!deleteConfirm">Delete</button>
+						<button ng:show="deleteConfirm" ng:click="templateDelete(template)">Confirm</button>
+					</td>
+					<?php } ?>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+-->
 	
 	<div modal="templateModal" close="templateModalClose()" options="originTemplates.modalOptions">
 		<form id="template-add" name="template-add" class="originUI-bgColor originUI-modal">
-			<h3 class="originUI-header">Origin Template</h3>
-			<ul>
-				<li>
-					<label>Name</label>
-					<input type="text" ng:model="originTemplates.editor.name" required/>
-				</li>
-				<li>
-					<label>Description</label>
-					<textarea>{{originTemplates.editor.description}}</textarea>
-				</li>
-			</ul>
+			<input type="hidden" name="uploadDir" value="/assets/templates/"/>
+			<input type="hidden" ng:model="originTemplates.editor.id"/>
 			
-			<input type="file" name="files[]" id="tempalteAdd-upload-template" class="" ng:model="originTemplates.editor.file_storyboard" fileupload>
-<!--
-			<input type="file" name="files[]" id="templateAdd-upload-logo" class="" fileupload>
-			<input type="file" name="files[]" id="templateAdd-upload-specs" class="" fileupload>
--->
-			<input type="hidden" name="uploadDir" value="/templates/"/>
-			<button ng:click="templateSave()" ng:disabled="templateUnchanged()">Save</button>
+			<h3 id="templateAdd-header" class="originUiModal-header" ng:show="!originTemplates.editor.id">New Template</h3>
+			<h3 id="templateAdd-header" class="originUiModal-header" ng:show="originTemplates.editor.id">Edit Template</h3>
+			
+			
+			
+			<div class="originUiModal-content">
+				<div id="templateAdd-left">
+					<ul class="originUI-list">
+						<li>
+							<label>Name</label>
+							<input type="text" id="templateAdd-name" ng:model="originTemplates.editor.name" required/>
+						</li>
+						<li>
+							<label>Description</label>
+							<textarea id="templateAdd-description">{{originTemplates.editor.content.description}}</textarea>
+						</li>
+					</ul>
+				</div>
+				<div id="templateAdd-right">
+					<ul class="originUI-list">
+						<li>
+							<label>Storyboard Image</label>
+							<div id="templateAdd-storyboard">
+								<img src="http://placekitten.com/300/100" ng:src="{{originTemplates.editor.content.file_storyboard}}"/>
+								<div class="originUI-upload originUI-icon originUiIcon-upload">
+									<span class="originUI-uploadLabel">Upload Image</span>
+									<input type="file" name="files[]" id="tempalteAdd-upload-template" class="originUI-uploadInput" ng:model="originTemplates.editor.content.file_storyboard" fileupload>
+								</div>
+							</div>
+						</li>
+						<li ng:show="originTemplates.editor.id">
+							<div id="templateAdd-delete" class="originUI-icon originUiIcon-delete" ng:show="!originTemplates.confirmDelete" ng:click="originTemplates.confirmDelete=!originTemplates.confirmDelete">Delete</div>
+							<div id="templateAdd-confirm" class="originUI-icon originUiIcon-delete" ng:show="originTemplates.confirmDelete" ng:click="templateDelete()">Confirm</div>
+						</li>
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="originUiModal-footer">
+				<div class="originUiModalFooter-left" ng:click="templateModalClose()">Cancel</div>
+				<div class="originUiModalFooter-right" ng:click="templateSave()">Save</div>
+			</div>
 		</form>
 	</div>
 	

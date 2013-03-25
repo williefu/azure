@@ -1,6 +1,23 @@
 'use strict';
 
 angular.module('originApp.services', [])
+	.factory('Origin', function($http) {
+		var Origin = {
+			get: function(action) {
+				var promise = $http.get('/administrator/Origin/'+action+'.json').then(function(response) {
+					return response.data;
+				});
+				return promise;
+			},
+			post: function(data) {
+				var promise = $http.post('/administrator/Origin/Post', data).then(function(response) {
+					return response.data;
+				});
+				return promise;
+			}
+		}
+		return Origin;
+	})
 	.factory('List', function($http) {
 		var List = {
 			get: function(action) {

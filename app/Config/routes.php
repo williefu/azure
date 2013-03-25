@@ -69,7 +69,7 @@ Router::connect('/administrator/viewUser/*', array('plugin' => 'usermgmt', 'cont
 
 Router::connect('/administrator', array('controller'=>'origin', 'action'=>'index'));
 Router::connect('/administrator/list', array('controller'=>'origin', 'action'=>'ad_list'));
-Router::connect('/administrator/edit/*', array('controller'=>'origin', 'action'=>'edit'));
+Router::connect('/administrator/Origin/ad/edit/*', array('controller'=>'origin', 'action'=>'edit'));
 
 
 Router::connect('/administrator/Origin/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));

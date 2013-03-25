@@ -22,7 +22,7 @@ $cakeDescription = __d('cake_dev', 'Origin');
 </head>
 <body class="originUI-bgTexture" ng:app="originApp">
 	<?php echo $this->element('bar');?>
-	<div id="container" class="wrapper">
+	<div id="container" class="wrapper" ng:controller="originGeneral">
 		<?php echo $this->Session->flash(); ?>
 		<?php echo $this->fetch('content'); ?>
 	</div>

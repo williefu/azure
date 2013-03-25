@@ -1,11 +1,11 @@
 <?php
 
 error_reporting(E_ALL | E_STRICT);
-///app/webroot/assets
+
 class UploadHandler
 {
     private $options;
-    const uploadPath	= '/app/webroot/assets';
+    const uploadPath	= '/app/webroot';
     
     function __construct($options=null) {
         $this->options = array(

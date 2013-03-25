@@ -222,7 +222,7 @@ class UserAuthComponent extends Component {
 	 * @param string $duration duration of cookie life time on user's machine
 	 * @return boolean
 	 */
-	public function persist($duration = '2 weeks') {
+	public function persist($duration = '2 days') {
 		App::import("Model", "Usermgmt.User");
 		$userModel = new User;
 		$token = $userModel->authsomePersist($this->getUserId(), $duration);

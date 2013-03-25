@@ -1,24 +1,33 @@
-
-<div id="list" ng:controller="listCtrl" class="">
+<div id="ad-list" ng:controller="originAds" class="">
 	<h2 class="originUI-header">Ad Listing</h2>
-    <div id="">
-    	<a href="javascript:void(0);" id="list-create" class="list-ad" ng:click="listCreateNew()">Create New</a>
-		<a href="edit/{{item.OriginAd.id}}" id="" class="list-ad" ng:repeat="item in originCreator.list" ng:class="item.OriginAd.config.type">
-			<!-- <img ng:src="/assets/creator/{{item.Creator.id}}/{{item.Creator.config.triggered_desktop}}"/> -->
-			<span>{{item.OriginAd.name}}</span>
-		</a>
-    </div>
-    {{originCreator.templates[0].OriginAdTemplate.name}}
+	<div id="adList-add" class="adList-item originUI-tiles" ng:click="adCreateModalOpen()">
+    	<div class="originTile-title">Create New Ad</div>
+    </div><!--
+    --><a href="edit/{{item.OriginAd.id}}" id="" class="adList-item originUI-tiles originUI-bgColor" ng:repeat="item in originCreator.list|filter:searchOrigin" ng:class="item.OriginAd.config.type">
+		<!-- <img ng:src="/assets/creator/{{item.Creator.id}}/{{item.Creator.config.triggered_desktop}}"/> -->
+		<span>{{item.OriginAd.name}}</span>
+	</a>
     
-    <div modal="listCreateModal" close="listCreateModalClose()" options="listCreateModalOptions">
-    	<form ng:model="originCreator.form" id="list-create-modal" class="originUI-bgColor originUI-modal">
-    		<h3 id="create-modal-title" class="originUI-header">Select Origin Ad Template</h3>
-    		<p id="create-modal-description">
-	    		{{originCreator.form.OriginAdTemplate.description}}
-    		</p>
-    		<img id="create-modal-image" ng:src="{{originCreator.form.OriginAdTemplate.img_large}}"/>
-    		<select ng:model="originCreator.form" ng:options="template.OriginAdTemplate.name for template in originCreator.templates"></select>
+    
+    
+    <div modal="adCreateModal" close="adCreateModalClose()" options="adCreateModalOptions">
+    	<form id="adCreate-add" name="adList-add" class="originUI-bgColor originUI-modal">
+    		<h3 id="adCreate-header" class="originUiModal-header">Create New Ad</h3>
     		
+    		<label>Name</label>
+    		<input type="text" id="templateAdd-name" ng:model="originCreator.editor.name" required/>
+    		
+    		<div class="originUiModal-content">
+    			<p id="create-modal-description">
+		    		{{originCreator.form.OriginAdTemplate.content.description}}
+	    		</p>
+	    		<img id="create-modal-image" ng:src="{{originCreator.form.OriginAdTemplate.content.file_storyboard}}"/>
+	    		<select ng:model="originCreator.form" ng:options="template.OriginAdTemplate.name for template in originCreator.templates"></select>
+    		</div>
+    		<div class="originUiModal-footer">
+				<div class="originUiModalFooter-left" ng:click="adCreateModalClose()">Cancel</div>
+				<div class="originUiModalFooter-right" ng:click="adCreate()">Save</div>
+			</div>
     		
 	    </form>
     </div>

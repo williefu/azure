@@ -1,3 +1,4 @@
+<!--
 <div id="originUI-header">
 	<a href="/administrator/dashboard" class="inline">
 		<img src="/img/icon-back.png" alt="back"/>
@@ -5,8 +6,26 @@
 	<h2 id="" class="origin-header inline">Origin Users</h2>
 	<a href="/administrator/addUser" id="user-add" class="originUI-bgColor inline">Add New User</a>
 </div>
+-->
 
-<div id="user-list" class="origin-usermgmt originUI-bgColor originUI-layout-list" ng:controller="originAllUsers">	
+<h2 class="originUI-header">User List</h2>
+
+<div id="user-list" class="origin-usermgmt" ng:controller="originAllUsers">	
+	
+	<div id="userList-left" class="">
+		<div id="userList-add" class="userList-item originUI-tiles" ng:click="userCreate()">
+    		<div class="originTile-title">New User</div>
+    	</div>
+	</div>
+	<div id="userList-right" class="">
+	    <div class="userList-item originUI-bgColor originUI-tiles" ng:repeat="user in originUsers|filter:searchOrigin" ng:click="templateEdit(template)">
+	    	<h3 class="userListItem-title">{{user.User.first_name}} {{user.User.last_name}}</h3>
+	    </div>
+	    <div class="clear"></div>
+	</div>    
+    
+    
+<!--
 	<table cellspacing="0" cellpadding="0" width="100%" border="0">
 		<thead>
 			<tr>
@@ -42,6 +61,7 @@
 			</tr>
 		</tbody>
 	</table>
+-->
 
 <!--
 					if ($row['User']['active']==0) {

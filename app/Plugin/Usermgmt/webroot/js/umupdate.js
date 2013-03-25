@@ -25,7 +25,7 @@ function update_fields(value) {
 	else if (window.ActiveXObject) {
 		self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	self.xmlHttpReq.open('POST', url+'update_permission', true);
+	self.xmlHttpReq.open('POST', url+'administrator/update_permission', true);
 	self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	self.xmlHttpReq.onreadystatechange = function() {
 		if (self.xmlHttpReq.readyState == 4) {

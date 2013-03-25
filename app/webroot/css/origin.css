@@ -35,14 +35,35 @@ a:hover {
 	vertical-align: top;
 }
 
+.none {
+	display: none;
+}
+
 #footer {
 	clear: both;
 	font-size: 12px;
 	text-align: center;
-	margin: 10px 0;
+	margin: 15px 0 0;
 }
 
 /***** START: BOOTSTRAP *****/
+label {
+	cursor: default;
+}
+
+li {
+	line-height: normal;
+	margin: 10px 0;
+}
+
+.modal-backdrop {
+	background-color: #fff;
+}
+
+.modal-backdrop,
+.modal-backdrop.fade.in {
+	opacity: .6;
+}
 /***** END: BOOTSTRAP *****/
 
 
@@ -78,7 +99,10 @@ input:-ms-input-placeholder {
 }
 
 .originUI-header {
-	margin: 0;
+	margin: 10px 0;
+	opacity: .7;
+	text-transform: uppercase;
+	font-weight: normal;
 	line-height: normal;
 }
 
@@ -93,35 +117,73 @@ input:-ms-input-placeholder {
 	
 }
 
+/*
 .originUI-modal {
 	padding: 10px;
 }
+*/
 
 .originUI-layout-list {
 	padding: 5px 10px;
 	text-align: left;
 }
 
+.originUI-list {
+	margin: 0;
+}
+
 .originUI-tiles {
 	display: inline-block;
 	vertical-align: top;
-	margin: 5px;	
+	margin: 10px;
+	box-shadow: 0 0 4px 1px rgba(0, 0, 0, .5);
+	/* box-shadow: 0 0 3px 2px rgba(33, 33, 35, 1); */
+	cursor: pointer;
 }
 
+.originUI-tiles:hover {
+	transform: scale(1.01, 1.01);
+}
 
+.originUI-tiles:active {
+	transform: scale(1, 1);
+}
+
+.originUI-upload {
+	position: relative;
+	overflow: hidden;
+}
+
+.originUI-uploadLabel {
+	position: absolute;
+}
+
+.originUI-uploadInput {
+	cursor: pointer;
+	font-size: 500px;
+	height: 100%;
+	opacity: .3;
+	position: absolute;
+	right: 0;
+	opacity: 0;
+}
 
 .originUI-icon {
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: center center;
+	border: 0 none;
 	display: inline-block;
 	vertical-align: top;
 	text-indent: -5000em;
 	width: 26px;
 	height: 26px;
 	cursor: pointer;
+	text-transform: uppercase;
+	font-size: 18px;
 }
 
+.originUI-iconWrapper:hover,
 .originUI-icon:hover {
 	transform: scale(1.02, 1.02);
 }
@@ -140,21 +202,195 @@ input:-ms-input-placeholder {
 .originUiIcon-login:hover,
 .originUiIcon-settings:hover,
 .open .originUiIcon-settings {
-	background-color: #212123;
-	/* background-color: rgba(255, 255, 255, .15);	*/
+	/* background-color: #212123; */
+	background-color: rgba(255, 255, 255, .1);	
+}
+
+.originUiButton-bottom-left,
+.originUiButton-bottom-right,
+.originUiButton-top-left,
+.originUiButton-top-right {
+	text-indent: 0;
+	position: absolute;
+}
+
+.originUiButton-bottom-left,
+.originUiButton-bottom-right {
+	bottom: 10px;
+}
+
+.originUiButton-top-left,
+.originUiButton-top-right {
+	top: 8px;
+}
+
+.originUiButton-bottom-right,
+.originUiButton-top-right {
+	right: 8px;
+	text-align: left;
+	background-position: right center;
+}
+
+.originUiButton-top-left,
+.originUiButton-bottom-left {
+	left: 10px;
+	text-align: right;
+	background-position: left center;
+}
+
+.originUiIcon-button {
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.originUiModal-header {
+	color: #0099cc;
+	border-bottom: 2px solid #0099cc;
+	text-indent: 40px;
+	font-size: 22px;
+	line-height: 22px;
+	margin: 0;
+	padding: 10px 0;
+	font-weight: normal;
+}
+
+.originUiModal-content {
+	padding: 0 15px;
+}
+
+.originUiModal-footer {
+	border-top: 1px solid rgba(189, 189, 189, .2);
+	height: 42px;
+	position: relative;
+}
+
+.originUiModal-footer .originUI-icon:hover {
+	background-color: rgba(255, 255, 255, .1);
+}
+
+.originUiModalFooter-left,
+.originUiModalFooter-right {
+	position: absolute;
+	width: 50%;
+	height: 100%;
+	overflow: hidden;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 14px;
+	line-height: 42px;
+	cursor: pointer;
+}
+
+.originUiModalFooter-left:hover,
+.originUiModalFooter-right:hover {
+	background-color: rgba(255, 255, 255, .1);
+}
+
+.originUiModalFooter-left {
+	border-right: 1px solid rgba(189, 189, 189, .2);
+}
+
+.originUiModalFooter-right {
+	right: 0;
+}
+
+.originUiIcon-cancel {
+	background-image: url(/img/icon-cancel.png);
+}
+
+.originUiIcon-delete {
+	background-image: url(/img/icon-delete.png);
 }
 
 .originUiIcon-login {
 	background-image: url(/img/icon-login.png);
 }
 
+.originUiIcon-save {
+	background-image: url(/img/icon-check.png);
+}
+
+.originUiIcon-upload {
+	background-image: url(/img/icon-upload.png);
+	background-position: right center;
+}
+
 /***** END: UI *****/
+
+/***** START: NOTIFICATION *****/
+#origin-notification {
+	z-index: 10000;
+	position: absolute;
+	top: 50px;
+	right: 10px;
+	width: 250px;
+	height: 50px;
+	box-shadow: 0 0 2px 1px rgba(255, 255, 255, .1);
+}
+
+#originNotification-icon {
+	width: 50px;
+	height: 100%;
+	margin-right: 10px;
+	/* background-color: #1D3741; */
+	background: #0099cc url(/img/notification-default.png) no-repeat center center;
+}
+
+.originNotification-alert {
+	background-color: #cc0000;
+}
+
+.originNotification-update {
+	background-color: #669900;
+}
+
+#originNotification-message {
+	width: 190px;
+	height: 100%;
+	position: relative;
+}
+
+#originNotification-close {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background: transparent url(/img/notification-close.png) no-repeat 0 0;
+	text-indent: -5000em;
+	width: 14px;
+	height: 14px;
+	opacity: .3;
+}
+
+#originNotification-close:hover {
+	opacity: 1;
+}
+
+#originNotification-header {
+	color: #fff;
+	text-transform:  uppercase;
+	font-size: 16px;
+	line-height: 14px;
+	margin: 5px 0;
+}
+
+#originNotification-content {
+	font-size: 14px;
+}
+
+/***** END: NOTIFICATION *****/
+
 
 /***** START: ORIGIN BAR *****/
 #origin-bar {
 	width: 100%;
-	height: 32px;
-	background-color: #000;
+	height: 37px;
+	border-bottom: 1px solid rgba(0, 153, 204, 1);
+	
+	/* border-bottom: 1px solid rgba(255, 255, 255, .25); */
 }
 
 #originBar-logo {
@@ -166,15 +402,27 @@ input:-ms-input-placeholder {
 }
 
 #originBar-logo:hover {
-	background-color: rgba(255, 255, 255, .15);
+	background-color: rgba(255, 255, 255, .1);
 }
 
 #originBar-login,
+#originBar-search,
 #originBar-settings {
 	height: inherit;
 	position: absolute;
 	right: 0;
 	top: 0;
+}
+
+#originBar-search {
+	height: 22px;
+	width: 300px;
+	left: 50%;
+	top: 50%;
+	margin: -13px 0 0 -150px;
+	background-image: url('/img/icon-search.png');
+	background-position: right center;
+	background-repeat: no-repeat;
 }
 
 #originBar-settings .dropdown-menu {
@@ -235,6 +483,7 @@ li#login-settings {
 	vertical-align: top;
 }
 
+#user-edit-submit,
 #forgot-password-submit,
 #login-submit {
 	background-position: right center;
@@ -249,6 +498,7 @@ li#login-settings {
 	bottom: 10px;
 }
 
+#user-edit-submit input,
 #forgot-password-submit input,
 #login-submit input {
 	width: 100%;
@@ -271,6 +521,7 @@ padding: 5px 10px;
 */
 }
 
+/*
 #user-add {
 	width: 200px;
 	height: 42px;
@@ -283,15 +534,181 @@ padding: 5px 10px;
 .list-row-status {
 	width: 35px;
 }
+*/
+
+#userList-left {
+	width: 200px;
+	float: left;
+}
+
+#userList-right {
+	width: 800px;
+	float: left;
+}
+
+div#userList-add {
+	background: #0099cc;
+	box-shadow: 0 0 4px 1px rgba(153, 204, 0, .3);
+	height: 180px;
+}
+
+.userList-item {
+	display: block;
+	float: left;
+	width: 180px;
+	height: 50px;
+}
 
 /***** END: USER MANAGEMENT *****/
 
 
 /***** START: AD TEMPLATES *****/
+#adTemplate-add {
+	background: #0099cc url(/img/tile-add.png) no-repeat center 30%;
+	box-shadow: 0 0 4px 1px rgba(153, 204, 0, .3);
+}
+
+#adTemplate-add .originTile-title {
+	color: #fff;
+	font-size: 20px;
+	text-transform: uppercase;
+	position: absolute;
+	bottom: 5px;
+	right: 10px;
+	width: 80%;
+	text-align: right;
+	border-top: 1px solid #33b5e5;
+}
+
+.adTemplate-item {
+	padding: 10px;
+	position: relative;
+}
+
+.adTemplate-item {
+	width: 210px;
+	height: 150px;
+	overflow: hidden;
+}
+
+.adTemplateItem-description:after {
+	background-image: -moz-linear-gradient(center top , rgba(33, 33, 35, 0) 0px, #212123 80%);
+	background-size: 100% auto;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 20%;
+	left: 0;
+	position: absolute;
+	width: 100%;
+}
+
+.adTemplateItem-title {
+	margin: 0;
+}
+
+.adTemplateItem-storyboard {
+	margin: 10px auto;
+}
+
+.adTemplateItem-description {
+	font-size: 14px;
+	line-height: 16px;
+}
+
+#templateAdd-header {
+	background: transparent url(/img/icon-template.png) no-repeat 10px center;
+}
+
+#templateAdd-left,
+#templateAdd-right {
+	float: left;
+	width: 50%;
+	height: 225px;
+}
+
+#templateAdd-name,
+#templateAdd-description {
+	font-size: 14px;
+	width: 95%;
+}
+
+#templateAdd-description {
+	height: 100px;
+}
+
+#templateAdd-storyboard .originUI-upload {
+	height: 26px;
+	width: 160px;
+	text-indent: 0;
+	margin: 10px auto;
+	display: block;
+}
+
+#templateAdd-cancel,
+#templateAdd-submit {
+	width: 100%;
+	height: 100%;
+	text-transform: uppercase;
+	text-align: center;
+	line-height: 42px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+#templateAdd-cancel:hover,
+#templateAdd-submit:hover {
+	background-color: rgba(255, 255, 255, .1);
+}
+
+/*
+#templateAdd-submit {
+	width: 72px;
+}
+
+#templateAdd-confirm {
+	width: 110px;
+}
+
+#templateAdd-delete {
+	width: 90px;
+}
+*/
+
 
 /***** END: AD TEMPLATES *****/
 
 /***** START: AD LIST *****/
+
+#adList-add {
+	background: #0099cc url(/img/tile-add.png) no-repeat center 30%;
+	box-shadow: 0 0 4px 1px rgba(153, 204, 0, .3);
+	position: relative;
+}
+
+#adList-add .originTile-title {
+	color: #fff;
+	font-size: 20px;
+	text-transform: uppercase;
+	position: absolute;
+	bottom: 5px;
+	right: 10px;
+	width: 80%;
+	text-align: right;
+	border-top: 1px solid #33b5e5;
+}
+
+.adList-item {
+	width: 210px;
+	height: 150px;
+	overflow: hidden;
+}
+
+#adCreate-header {
+	background: transparent url(/img/icon-edit.png) no-repeat 10px center;
+}
+
+/*
 #list {
 
 }
@@ -322,4 +739,20 @@ padding: 5px 10px;
 	width: 50px;
 	height: 50px;
 }
+*/
 /***** END: AD LIST *****/
+
+
+/***** START: 404 *****/
+#error {
+	position: relative;
+	height: 400px;
+	overflow: hidden;
+}
+
+#error-image,
+#error-message {
+	position: absolute;
+}
+
+/***** END: 404 *****/

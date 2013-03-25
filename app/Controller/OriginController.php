@@ -41,18 +41,47 @@ class OriginController extends AppController {
 	public function post() {
 		if($this->request->data['route']) {
 			$route		= $this->request->data['route'];
+			unset($this->request->data['route']);
 			$response	= $this->$route($this->request->data);
 			$this->set('post', $response);
 		}
 	}
 	
-	public function templateSave($data) {
+	private function adCreate($data) {
+		$data['config']			= json_encode($data);
+		$data['create_by']		= $this->UserAuth->getUserId();
+		$data['modify_by']		= $this->UserAuth->getUserId();
+		$data['modify_date']	= date('Y-m-d H:i:s');
+		
+		
+		if($this->OriginAd->save($data)) {
+			return '/administrator/Origin/ad/edit/'.$this->OriginAd->id;
+		}
+	}
+	
+	private function templateDisable() {
+		
+	}
+	
+	private function templateDelete($data) {
+		$id		= $data['id'];
+		
+		if($this->OriginAdTemplate->delete($id)) {
+			return json_encode($this->OriginAdTemplate->find('all'));
+		}
+	}
+	
+	private function templateSave($data) {
 		//$origin['modify_date']	= date('Y-m-d H:i:s');
+		if(!isset($data['id'])) {
+			$data['create_by']	= $this->UserAuth->getUserId();
+		}
 		
+		$data['modify_date']	= date('Y-m-d H:i:s');
+		$data['modify_by']		= $this->UserAuth->getUserId();
 		
-		if ($this->OriginAdTemplate->save($data)) {	
-			$data	= json_encode($this->OriginAdTemplate->find('all'));
-			return $data;
+		if($this->OriginAdTemplate->save($data)) {	
+			return json_encode($this->OriginAdTemplate->find('all'));
 		}
 	}
 	

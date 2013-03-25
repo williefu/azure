@@ -11,6 +11,10 @@ nbproject/*
 !app/webroot/css/packed/.htaccess
 /app/webroot/js/packed/*
 !app/webroot/js/packed/.htaccess
+/app/webroot/assets/creator/*
+!app/webroot/assets/creator/.htaccess
+/app/webroot/assets/templates/*
+!app/webroot/assets/templates/.htaccess
  
 # MAC
 .DS_Store

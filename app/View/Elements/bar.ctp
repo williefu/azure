@@ -2,9 +2,11 @@
 	$userId		= $this->UserAuth->getUserId();
 	$linkLogo	= ($userId)? '/administrator/': '/';
 ?>
-<div id="origin-bar">
+<div id="origin-bar" class="originUI-bgColor">
 	<div class="wrapper">
 		<a href="<?php echo $linkLogo;?>" id="originBar-logo">Origin</a>
+		
+		<input type="text" id="originBar-search" ng:model="searchOrigin"/>
 		
 		<?php if($userId) {?>
 		<div id="originBar-settings">
@@ -32,5 +34,6 @@
 			<a href="/administrator/login" class="originUI-icon originUiIcon-login">Login</a>
 		</div>
 		<?php } ?>
+		<?php echo $this->element('notification');?>
 	</div>
 </div>
