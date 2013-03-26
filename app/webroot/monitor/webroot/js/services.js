@@ -10,10 +10,10 @@ angular.module('monitorApp.services',[])
 					return promise;
 				},
 				post: function(task, data) {
-					var promise = $http.post('index.php?option=com_emc_origin&task='+task, data).then(function(response) {
+					/*var promise = $http.post('index.php?option=com_emc_origin&task='+task, data).then(function(response) {
 						return response.data;
 					});
-					return promise;
+					return promise;*/
 				}
 			};
 

@@ -29,7 +29,7 @@
 * Workspace Controller
 **/
 
-angular.module('workspaceApp', ['monitorApp.services', 'ui']);
+angular.module('workspaceApp', ['monitorApp.services', 'monitorApp.directive']);
 
 var workspaceCtrl = function($scope, Workspace) {
 	//Global Monitor object
@@ -38,12 +38,20 @@ var workspaceCtrl = function($scope, Workspace) {
 	//Load Monitor data
 	Workspace.get('Json/monitorlist').then(function(data) {
 			$scope.monitor_filter = data['filter'];
+			$scope.monitor_visits = data['visits'];
 			$scope.monitor_totals = data['total'];
 			$scope.monitor_list = data['data'];
 	});
+
+	
+	//Load Monitor data
+	/*Workspace.get('Json/charts').then(function(data) {
+			//console.log(data);
+			$scope.monitor_url = data;
+	});*/
 	
 	$scope.proceed = function() {
-		console.log($scope);
+		console.log($scope.monitorObj);
 		//console.log($user);
 	}
 
@@ -64,3 +72,4 @@ var workspaceCtrl = function($scope, Workspace) {
 		}
 	}*/
 }
+
