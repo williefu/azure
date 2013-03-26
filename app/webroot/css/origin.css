@@ -8,6 +8,7 @@ body {
 
 a {
 	color: #BDBDBD;
+	outline: none !important;
 }
 
 a:hover {
@@ -70,12 +71,12 @@ li {
 /***** START: UI *****/
 input[type="text"],
 input[type="password"],
+select,
 textarea {
 	background-color: #19191a;
 	border: 1px solid #5f5f61;
 	height: 24px;	
 	color: #bdbdbd;
-	text-indent: 5px;
 }
 
 textarea {
@@ -262,6 +263,12 @@ input:-ms-input-placeholder {
 	padding: 0 15px;
 }
 
+.originUiModal-hr {
+	border-color: rgba(189, 189, 189, .5);
+	margin: 10px 0;
+	border-bottom: 0 none;
+}
+
 .originUiModal-footer {
 	border-top: 1px solid rgba(189, 189, 189, .2);
 	height: 42px;
@@ -295,6 +302,7 @@ input:-ms-input-placeholder {
 }
 
 .originUiModalFooter-right {
+	background: transparent url(/img/icon-next.png) no-repeat 175px 13px;
 	right: 0;
 }
 
@@ -661,6 +669,10 @@ div#userList-add {
 	background-color: rgba(255, 255, 255, .1);
 }
 
+#template-add .originUiModalFooter-right {
+	background: none;
+}
+
 /*
 #templateAdd-submit {
 	width: 72px;
@@ -699,13 +711,64 @@ div#userList-add {
 }
 
 .adList-item {
-	width: 210px;
-	height: 150px;
+	width: 230px;
+	height: 170px;
 	overflow: hidden;
 }
 
 #adCreate-header {
 	background: transparent url(/img/icon-edit.png) no-repeat 10px center;
+}
+
+#adCreate-add .originUiModal-content {
+	height: 250px;
+}
+
+#addCreate-name {
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+}
+
+#addCreate-templateSelect {
+	margin: 1px 5px;
+	height: 24px;
+	font-size: 14px;
+}
+
+#addCreate-templateSlide {
+	margin: 0 auto;
+	width: 405px;
+	height: 100px;
+}
+
+#addCreate-templateNext,
+#addCreate-templatePrev {
+	width: 48px;
+	height: 100%;
+	text-indent: -5000em;
+	opacity: .5;
+}
+
+#addCreate-templateNext:hover,
+#addCreate-templatePrev:hover {
+	opacity: 1;
+}
+
+#addCreate-templateNext {
+	background: transparent url(/img/modal-next.png) no-repeat center center;
+}
+
+#addCreate-templatePrev {
+	background: transparent url(/img/modal-prev.png) no-repeat center center;
+}
+
+#addCreate-templateImage {
+	width: 300px;
+}
+
+#addCreate-templateDescription {
+	font-size: 14px;
 }
 
 /*

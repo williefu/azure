@@ -61,7 +61,7 @@
 						</li>
 						<li>
 							<label>Description</label>
-							<textarea id="templateAdd-description">{{originTemplates.editor.content.description}}</textarea>
+							<textarea id="templateAdd-description" ng:model="originTemplates.editor.content.description"></textarea>
 						</li>
 					</ul>
 				</div>

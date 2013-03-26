@@ -6,6 +6,41 @@ var originGeneral = function($scope) {
 	$scope.formSubmit = function() {
 		$j('#UserEditUserForm').submit();
 	}
+	
+	$scope.notification = function() {
+		
+	}
+	
+	$scope._arrayLoop = function(array, index, direction) {
+		var i 		= (index)? index: 0;
+		var size	= array.length;
+		
+		switch(direction) {
+			case 'next':
+				i 	= (i+1)%size;
+				break;
+			case 'prev':
+				i 	= (i-1)%size;
+				if(i < 0) {
+					i = (size-1);
+				}
+				break;
+		}	
+			
+		return i;
+	}
+	
+	
+	/*
+	index = (index + 1) % numTestimonials;
+	
+	
+	
+	setInterval(function() { 
+    $('div').html(test[  (i = (i + 1) % length)  ]) },
+5000);
+	
+	*/
 } 
 
 var originAllUsers = function($scope, $filter, Users) {
@@ -67,9 +102,8 @@ var originTemplates	= function($scope, $filter, List) {
 	}
 	
 	$scope.templateSave = function() {
-		$scope.originTemplates.editor.alias	= $filter('createAlias')($scope.originTemplates.editor.name);
-		$scope.originTemplates.editor.route	= 'templateSave';
-		
+		$scope.originTemplates.editor.content.alias	= $filter('createAlias')($scope.originTemplates.editor.name);
+		$scope.originTemplates.editor.route			= 'templateSave';
 		List.post($scope.originTemplates.editor).then(function(response) {
 			$scope.templateRefresh(response);
 		});
@@ -92,10 +126,11 @@ var originAds = function($scope, $filter, Origin) {
 	$scope.originCreator 		= {};
 	$scope.originCreator.editor	= {};
 	$scope.originCreator.form	= {};
+	$scope.originCreator.index 	= 0;
 	
 	Origin.get('templates').then(function(response) {
 		$scope.originCreator.templates	= response;
-		$scope.originCreator.form		= $scope.originCreator.templates[0];
+		$scope.originCreator.form		= $scope.originCreator.templates[$scope.originCreator.index];
 		
 		Origin.get('ads').then(function(response) {
 			$scope.originCreator.list 	= response.origin_ads;
@@ -104,9 +139,9 @@ var originAds = function($scope, $filter, Origin) {
 	});
 	
 	$scope.adCreate = function() {
-		$scope.originCreator.editor.route	= 'adCreate';
-		$scope.originCreator.editor.type 	= $scope.originCreator.form.OriginAdTemplate.content.alias;
-
+		$scope.originCreator.editor.route		= 'adCreate';
+		$scope.originCreator.editor.type_alias 	= $scope.originCreator.form.OriginAdTemplate.content.alias;
+		$scope.originCreator.editor.type_id		= $scope.originCreator.form.OriginAdTemplate.id;
 		Origin.post($scope.originCreator.editor).then(function(response) {
 			window.location		= response;
 		});
@@ -125,25 +160,21 @@ var originAds = function($scope, $filter, Origin) {
 		backdropFade:	true
 	}
 	
+	$scope.adTemplateSelect = function(type) {
+		//$scope.originCreator.templates.length
+	
+		switch(type) {
+			case 'next':
+				$scope.originCreator.index	= $scope._arrayLoop($scope.originCreator.templates, $scope.originCreator.index, 'next');
+				//console.log($scope.originCreator.index);
+				//$scope.originCreator.form		= $scope.originCreator.templates[1];
+				break;
+			case 'prev':
+				$scope.originCreator.index	= $scope._arrayLoop($scope.originCreator.templates, $scope.originCreator.index, 'prev');
+				//console.log($scope.originCreator.index);
+				break;
+		}
+		
+		$scope.originCreator.form		= $scope.originCreator.templates[$scope.originCreator.index];
+	}
 }
-
-/*
-
-
-  $scope.open = function () {
-    $scope.shouldBeOpen = true;
-  };
-
-  $scope.close = function () {
-    $scope.closeMsg = 'I was closed at: ' + new Date();
-    $scope.shouldBeOpen = false;
-  };
-
-  $scope.items = ['item1', 'item2'];
-
-  $scope.opts = {
-    backdropFade: true,
-    dialogFade:true
-  };
-
-*/

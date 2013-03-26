@@ -1,5 +1,4 @@
 <?php
-	//print_r($origin_ads);
 	foreach($origin_ads as $key=>&$origin_ad) {
 		$origin_ad['OriginAd']['config'] 		= json_decode($origin_ad['OriginAd']['config']);
 	}

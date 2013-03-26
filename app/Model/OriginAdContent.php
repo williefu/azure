@@ -3,5 +3,5 @@
 App::uses('Origin', 'Model');
 
 class OriginAdContent extends AppModel {
-	public $belongsTo	= 'OriginAdSchedule';
+	//public $belongsTo	= 'OriginAdSchedule';
 }

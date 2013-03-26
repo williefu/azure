@@ -69,11 +69,15 @@ Router::connect('/administrator/viewUser/*', array('plugin' => 'usermgmt', 'cont
 
 Router::connect('/administrator', array('controller'=>'origin', 'action'=>'index'));
 Router::connect('/administrator/list', array('controller'=>'origin', 'action'=>'ad_list'));
-Router::connect('/administrator/Origin/ad/edit/*', array('controller'=>'origin', 'action'=>'edit'));
+Router::connect('/administrator/Origin/ad/edit/:originAd_id', array('controller'=>'origin', 'action'=>'edit'));
 
 
 Router::connect('/administrator/Origin/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));
+Router::connect('/administrator/Origin/template/:template_id', array('controller'=>'origin', 'action'=>'jsonAdTemplate'));
+
+
 Router::connect('/administrator/Origin/ads', array('controller'=>'origin', 'action'=>'jsonList'));
+Router::connect('/administrator/Origin/ad/:originAd_id', array('controller'=>'origin', 'action'=>'jsonAdUnit'));
 Router::connect('/administrator/Origin/Post', array('controller'=>'origin', 'action'=>'post'));
 Router::connect('/administrator/Origin/upload', array('controller'=>'origin', 'action'=>'upload'));
 

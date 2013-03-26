@@ -3,7 +3,7 @@
 	<div id="adList-add" class="adList-item originUI-tiles" ng:click="adCreateModalOpen()">
     	<div class="originTile-title">Create New Ad</div>
     </div><!--
-    --><a href="edit/{{item.OriginAd.id}}" id="" class="adList-item originUI-tiles originUI-bgColor" ng:repeat="item in originCreator.list|filter:searchOrigin" ng:class="item.OriginAd.config.type">
+    --><a href="/administrator/Origin/ad/edit/{{item.OriginAd.id}}" id="" class="adList-item originUI-tiles originUI-bgColor" ng:repeat="item in originCreator.list|filter:searchOrigin" ng:class="item.OriginAd.config.type">
 		<!-- <img ng:src="/assets/creator/{{item.Creator.id}}/{{item.Creator.config.triggered_desktop}}"/> -->
 		<span>{{item.OriginAd.name}}</span>
 	</a>
@@ -13,22 +13,26 @@
     <div modal="adCreateModal" close="adCreateModalClose()" options="adCreateModalOptions">
     	<form id="adCreate-add" name="adList-add" class="originUI-bgColor originUI-modal">
     		<h3 id="adCreate-header" class="originUiModal-header">Create New Ad</h3>
-    		
-    		<label>Name</label>
-    		<input type="text" id="templateAdd-name" ng:model="originCreator.editor.name" required/>
-    		
     		<div class="originUiModal-content">
-    			<p id="create-modal-description">
+    			<label>Ad Name</label>
+    			<input type="text" id="addCreate-name" ng:model="originCreator.editor.name" required/>
+    			<hr class="originUiModal-hr"/>
+    			<label class="inline">Select Template</label>
+    			<select id="addCreate-templateSelect" class="inline" ng:model="originCreator.form" ng:options="template.OriginAdTemplate.name for template in originCreator.templates"></select>
+	    		
+	    		<div id="addCreate-templateSlide">
+		    		<a href="javascript:void(0)" id="addCreate-templatePrev" class="inline" ng:click="adTemplateSelect('prev')">Prev</a>
+		    		<img id="templateAdd-templateImage" class="inline" ng:src="{{originCreator.form.OriginAdTemplate.content.file_storyboard}}"/>
+		    		<a href="javascript:void(0)" id="addCreate-templateNext" class="inline" ng:click="adTemplateSelect('next')">Next</a>
+	    		</div>
+	    		<div id="addCreate-templateDescription">
 		    		{{originCreator.form.OriginAdTemplate.content.description}}
-	    		</p>
-	    		<img id="create-modal-image" ng:src="{{originCreator.form.OriginAdTemplate.content.file_storyboard}}"/>
-	    		<select ng:model="originCreator.form" ng:options="template.OriginAdTemplate.name for template in originCreator.templates"></select>
+	    		</div>
     		</div>
     		<div class="originUiModal-footer">
 				<div class="originUiModalFooter-left" ng:click="adCreateModalClose()">Cancel</div>
-				<div class="originUiModalFooter-right" ng:click="adCreate()">Save</div>
+				<div class="originUiModalFooter-right" ng:click="adCreate()">Continue</div>
 			</div>
-    		
 	    </form>
     </div>
 </div>

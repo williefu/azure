@@ -3,7 +3,7 @@
 class OriginController extends AppController {
 	public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
 	public $components 	= array('Session', 'RequestHandler', 'Usermgmt.UserAuth');
-	public $uses		= array('OriginAd', 'OriginAdSchedule', 'OriginAdContent', 'OriginAdTemplate');
+	public $uses		= array('OriginAd', 'OriginAdTemplate');
 
 	public function index() {
 /*
@@ -20,7 +20,7 @@ class OriginController extends AppController {
 		$this->render('list');
 	}
 	
-	public function edit($id) {
+	public function edit() {
 	}
 	
 	
@@ -53,7 +53,6 @@ class OriginController extends AppController {
 		$data['modify_by']		= $this->UserAuth->getUserId();
 		$data['modify_date']	= date('Y-m-d H:i:s');
 		
-		
 		if($this->OriginAd->save($data)) {
 			return '/administrator/Origin/ad/edit/'.$this->OriginAd->id;
 		}
@@ -67,12 +66,15 @@ class OriginController extends AppController {
 		$id		= $data['id'];
 		
 		if($this->OriginAdTemplate->delete($id)) {
-			return json_encode($this->OriginAdTemplate->find('all'));
+			$origin_templates	= $this->OriginAdTemplate->find('all');
+			$this->set('origin_templates', $origin_templates);
+			return $this->render('/Origin/json/json_template');
 		}
 	}
 	
 	private function templateSave($data) {
-		//$origin['modify_date']	= date('Y-m-d H:i:s');
+		$data['content']		= json_encode($data['content']);
+		
 		if(!isset($data['id'])) {
 			$data['create_by']	= $this->UserAuth->getUserId();
 		}
@@ -80,8 +82,10 @@ class OriginController extends AppController {
 		$data['modify_date']	= date('Y-m-d H:i:s');
 		$data['modify_by']		= $this->UserAuth->getUserId();
 		
-		if($this->OriginAdTemplate->save($data)) {	
-			return json_encode($this->OriginAdTemplate->find('all'));
+		if($this->OriginAdTemplate->save($data)) {
+			$origin_templates	= $this->OriginAdTemplate->find('all');
+			$this->set('origin_templates', $origin_templates);
+			return $this->render('/Origin/json/json_template');
 		}
 	}
 	
@@ -105,22 +109,44 @@ class OriginController extends AppController {
 		        header('HTTP/1.1 405 Method Not Allowed');
 		}
 		
-		
 		exit;
 	}
-	
-	
 	
 	/**
 	* JSON Feeds
 	*/
+	public function jsonAdTemplate() {
+		$template_id		= $this->request->params['template_id'];
+		$origin_template	= $this->OriginAdTemplate->find('first', 
+			array(
+				'conditions'=>array('OriginAdTemplate.id'=>$template_id)
+			)
+		);
+		$this->set('origin_template', $origin_template);
+	}
+	
+	public function jsonAdUnit() {
+		$originAd_id 	= $this->request->params['originAd_id'];
+		$origin_ad		= $this->OriginAd->find('first', 
+			array(
+				'recursive'=>2,
+				'conditions'=>array('OriginAd.id'=>$originAd_id)
+			)
+		);
+		$this->set('origin_ad', $origin_ad);
+	}
+	
 	public function jsonList() {
 		$origin_ads		= $this->OriginAd->find('all', array('recursive'=>-1));
 		$this->set('origin_ads', $origin_ads);
 	}
 	
 	public function jsonTemplate() {
-		$origin_templates	= $this->OriginAdTemplate->find('all');
+		$origin_templates	= $this->OriginAdTemplate->find('all',
+			array(
+				'order'=>array('OriginAdTemplate.name ASC')
+			)
+		);
 		$this->set('origin_templates', $origin_templates);
 	}
 }
