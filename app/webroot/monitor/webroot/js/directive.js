@@ -6,7 +6,7 @@ angular.module('monitorApp.directive',[])
           restrict: 'A',
           link: function($scope, $element, $attr) {
 			//Load Monitor data
-			Workspace.get('Json/monitorlist').then(function(data) {
+			Workspace.get('Json/json_visits').then(function(data) {
 				
 				$scope.monitor_visits = data['visits'];
 				var data = new google.visualization.DataTable();
