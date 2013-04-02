@@ -83,6 +83,8 @@ Router::connect('/administrator/Origin/upload', array('controller'=>'origin', 'a
 
 Router::connect('/administrator/adTemplates', array('controller'=>'origin', 'action'=>'templateList'));
 
+Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor'));
+
 //Router::connect('/creator/list', array('controller'=>'creator', 'action'=>'adList'));
 
 
