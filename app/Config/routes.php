@@ -101,7 +101,9 @@ Router::connect('/administrator/get/users', array('plugin' => 'usermgmt', 'contr
 Router::connect('/administrator/Origin/Post', array('controller'=>'origin', 'action'=>'post'));
 Router::connect('/administrator/Origin/upload', array('controller'=>'origin', 'action'=>'upload'));
 
-//Router::connect('/creator/list', array('controller'=>'creator', 'action'=>'adList'));
+
+
+Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor'));
 
 
 /**
