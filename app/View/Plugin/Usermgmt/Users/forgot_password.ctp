@@ -1,26 +1,16 @@
-	<div id="user-forgot-password" class="origin-usermgmt origin-usermgmt-login">
-		<?php 
-			echo $this->Form->create('User', array('action' => 'forgotPassword'));
-		?>
-			<ul>
-				<li><?php echo __('Enter Email / Username');?></li>
-				<li><?php echo $this->Form->input('email', array('label'=>false, 'div'=>false, 'class'=>''));?></li>
-			</ul>
-		<?php
-			echo $this->Form->Submit(
-				__('Send Email'), 
-				array(
-					'before'=>'Send Email',
-					'div'=>array(
-						'class'=>'originUI-icon originUiIcon-forward',
-						'id'=>'forgot-password-submit'
-					)
-				)
-			);
-			echo $this->Form->end();
-		?>
+<div id="user-forgot-password" class="origin-usermgmt origin-usermgmt-login">
+	<h2 class="originUiModal-header originUI-borderColor originUI-textColor originUI-textColor">Forgot Password</h2>
+	<form accept-charset="utf-8" method="post" id="UserForgotPasswordForm" action="/administrator/forgotPassword" class="originUiModal-content">
+		<div class="originUI-field">
+			<div class="originUI-fieldBracket"></div>
+			<input type="text" id="email" class="originUI-input originUI-bgColorSecondary" name="data[email]" placeholder="Enter Email/Username">
+		</div>
+	</form>
+	<div class="originUiModal-footer">
+		<div class="originUiModalFooter-center" ng:click="formSubmit('UserForgotPasswordForm')">Send Password Reset</div>
 	</div>
-	
-	<script>
-	document.getElementById('UserEmail').focus();
-	</script>
+</div>
+
+<script>
+document.getElementById('UserEmail').focus();
+</script>

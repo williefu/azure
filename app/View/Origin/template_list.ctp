@@ -4,64 +4,35 @@
     	<div class="originTile-title">New Template</div>
     </div><!--
     --><div class="adTemplate-item originUI-bgColor originUI-tiles" ng:repeat="template in originTemplates|filter:searchOrigin" ng:click="templateEdit(template)">
-    	<h3 class="adTemplateItem-title">{{template.OriginAdTemplate.name}}</h3>
-    	<img class="adTemplateItem-storyboard" src="http://placekitten.com/300/100" ng:src="{{template.OriginAdTemplate.content.file_storyboard}}"/>
-    	<p class="adTemplateItem-description">{{template.OriginAdTemplate.content.description}}</p>
+    	<h3 class="adTemplateItem-title">{{template.OriginTemplate.name}}</h3>
+    	<img class="adTemplateItem-storyboard" src="http://placekitten.com/300/100" ng:src="{{template.OriginTemplate.content.file_storyboard}}"/>
+    	<p class="adTemplateItem-description">{{template.OriginTemplate.content.description}}</p>
     </div>
-<!--
-	<div id="template-list" class="originUI-bgColor originUI-layout-list">
-		<table cellspacing="0" cellpadding="0" width="100%" border="0">
-			<thead>
-				<tr>
-					<th ng:click="sortBy='OriginAdTemplate.id';reverse=!reverse">ID</th>
-					<th ng:click="sortBy='OriginAdTemplate.name';reverse=!reverse">Name</th>
-					<th>Alias</th>
-					<th>Description</th>
-					<th>Storyboard</th>
-					<th>Created</th>
-					<th>Modified</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="template-list-row" ng:repeat="template in originTemplates|orderBy:sortBy:reverse" ng:class:even="'originUI-even'" ng:class:odd="'originUI-odd'">
-					<td>{{template.OriginAdTemplate.id}}</td>
-					<td ng:click="templateEdit(template)">{{template.OriginAdTemplate.name}}</td>
-					<td>{{template.OriginAdTemplate.alias}}</td>
-					<td>{{template.OriginAdTemplate.description}}</td>
-					<td>{{template.OriginAdTemplate.file_storyboard}}</td>
-					<td>{{deleteConfirm}}</td>
-					<?php if($this->UserAuth->isAdmin()) { ?>
-					<td>
-						<button ng:show="!deleteConfirm" ng:click="deleteConfirm=!deleteConfirm">Delete</button>
-						<button ng:show="deleteConfirm" ng:click="templateDelete(template)">Confirm</button>
-					</td>
-					<?php } ?>
-				</tr>
-			</tbody>
-		</table>
-	</div>
--->
-	
+    
 	<div modal="templateModal" close="templateModalClose()" options="originTemplates.modalOptions">
-		<form id="template-add" name="template-add" class="originUI-bgColor originUI-modal">
+		<form id="template-add" name="template-add" class="originUI-bgColorSecondary originUI-modal">
 			<input type="hidden" name="uploadDir" value="/assets/templates/"/>
 			<input type="hidden" ng:model="originTemplates.editor.id"/>
 			
-			<h3 id="templateAdd-header" class="originUiModal-header" ng:show="!originTemplates.editor.id">New Template</h3>
-			<h3 id="templateAdd-header" class="originUiModal-header" ng:show="originTemplates.editor.id">Edit Template</h3>
-			
-			
+			<h3 id="templateAdd-header" class="originUiModal-header originUI-borderColor originUI-textColor" ng:show="!originTemplates.editor.id">New Template</h3>
+			<h3 id="templateAdd-header" class="originUiModal-header originUI-borderColor originUI-textColor" ng:show="originTemplates.editor.id">Edit Template</h3>
 			
 			<div class="originUiModal-content">
 				<div id="templateAdd-left">
 					<ul class="originUI-list">
-						<li>
+						<li id="templateAdd-name">
 							<label>Name</label>
-							<input type="text" id="templateAdd-name" ng:model="originTemplates.editor.name" required/>
+							<div class="originUI-field">
+								<div class="originUI-fieldBracket"></div>
+								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.name"/>
+							</div>
 						</li>
-						<li>
+						<li id="templateAdd-description">
 							<label>Description</label>
-							<textarea id="templateAdd-description" ng:model="originTemplates.editor.content.description"></textarea>
+							<div class="originUI-field">
+								<div class="originUI-fieldBracket"></div>
+								<textarea class="originUI-textarea originUI-bgColorSecondary" ng:model="originTemplates.editor.content.description"></textarea>
+							</div>
 						</li>
 					</ul>
 				</div>

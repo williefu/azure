@@ -307,6 +307,7 @@ class UsersController extends UserMgmtAppController {
 				}
 			}
 		} else {
+			//$this->redirect('/administrator/dashboard/profile/'.$userId);
 			$this->redirect('/administrator/allUsers');
 		}
 	}

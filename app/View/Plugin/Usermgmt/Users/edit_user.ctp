@@ -1,114 +1,56 @@
-<h2 class="originUI-header">Edit Profile</h2>
-<div id="user-edit" class="origin-usermgmt origin-usermgmt-edit originUI-bgColor">
-	<form action="/administrator/editUser/1" method="post" id="UserEditUserForm">
-		<?php echo $this->Form->create('User'); ?>
-		<?php echo $this->Form->input('id' ,array('type'=>'hidden', 'label'=>false, 'div'=>false))?>
-		<ul>
-			<li>
-				<label>Group</label>
-				<?php echo $this->Form->input('user_group_id', array('type'=>'select', 'label'=>false, 'div'=>false, 'class'=>''));?>
-			</li>
-			<li>
-				<label>Username</label>
-				<?php echo $this->Form->input('username', array('label'=>false, 'div'=>false, 'class'=>''));?>
-			</li>
-			<li>
-				<label>First Name</label>
-				<?php echo $this->Form->input('first_name', array('label'=>false, 'div'=>false, 'class'=>''));?>
-			</li>
-			<li>
-				<label>Last Name</label>
-				<?php echo $this->Form->input('last_name', array('label'=>false, 'div'=>false, 'class'=>''));?>
-			</li>
-			<li>
-				<label>Email</label>
-				<?php echo $this->Form->input('email', array('label'=>false, 'div'=>false, 'class'=>''));?>
-			</li>
-		</ul>
-		<div id="userEdit-submit" class="originUI-icon originUiIcon-forward originUiButton-right" ng:click="formSubmit('UserEditUserForm')">Save</div>
-		<!--
-		<div id="templateAdd-submit" class="originUI-icon originUiIcon-save originUiButton-right" ng:click="templateSave()">Save</div>
-		-->
-		<?php
-/*
-			echo $this->Form->Submit(
-				__('Update'), 
-				array(
-					'before'=>'Update',
-					'div'=>array(
-						'class'=>'originUI-icon originUiIcon-forward',
-						'id'=>'user-edit-submit'
-					)
-				)
-			);
-*/
-		?>
-	</form>
+<?php
+	$user		= $this->request->data;
+?>
+
+<div id="user-account">
+	<h2 class="originUI-header">My Account</h2>
+	<div id="userAccount-left" class="dashboard-left inline">
+		<a href="/administrator/dashboard/password" id="userAccount-password" class="originUI-tiles">
+			<div class="originTile-title">Update Password</div>
+		</a>
+	</div><!--
+	--><div id="userAccount-right" class="dashboard-right inline originUI-bgColor">
+		<h3 id="userAccount-header" class="originUiModal-header originUI-borderColor originUI-textColor">Profile</h3>
+		<form accept-charset="utf-8" method="post" id="UserEditUserForm" action="/administrator/dashboard/profile/<?php echo $user['User']['id'];?>" class="originUiModal-content">
+		
+			<input type="hidden" id="id" name="data[id]" value="<?php echo $user['User']['id'];?>">
+			<input type="hidden" value="PUT" name="_method">
+			
+			<ul>
+				<?php if($this->UserAuth->isAdmin()) {?>
+				<li>
+					<label>Group</label>
+					<?php echo $this->Form->input('user_group_id', array('type'=>'select', 'label'=>false, 'div'=>false, 'class'=>''));?>
+				</li>
+				<?php } ?>
+<li class="originUI-field">
+					First Name
+					<div class="originUI-fieldBracket"></div>
+					<input type="text" id="first_name" class="originUI-input originUI-bgColorSecondary" name="data[first_name]" value="<?php echo $user['User']['first_name'];?>" placeholder="First Name">
+				</li>
+				<li class="originUI-field">
+					Last Name
+					<div class="originUI-fieldBracket"></div>
+					<input type="text" id="last_name" class="originUI-input originUI-bgColorSecondary" name="data[last_name]" value="<?php echo $user['User']['last_name'];?>" placeholder="Last Name">
+				</li>
+				<li class="originUI-field">
+					Username
+					<div class="originUI-fieldBracket"></div>
+					<input type="text" id="username" class="originUI-input originUI-bgColorSecondary" name="data[username]" value="<?php echo $user['User']['username'];?>" placeholder="Username">
+				</li>
+				<li class="originUI-field">
+					Email
+					<div class="originUI-fieldBracket"></div>
+					<input type="text" id="email" class="originUI-input originUI-bgColorSecondary" name="data[email]" value="<?php echo $user['User']['email'];?>" placeholder="Email">
+				</li>
+			</ul>
+		</form>
+		<div class="originUiModal-footer">
+			<div class="originUiModalFooter-center" ng:click="formSubmit('UserEditUserForm')">Update Profile</div>
+		</div>
+	</div>
 </div>
 
 <script>
-document.getElementById("UserUserGroupId").focus();
+//document.getElementById("UserUserGroupId").focus();
 </script>
-
-<!--
-
-<div class="umtop">
-	<?php echo $this->Session->flash(); ?>
-	<?php echo $this->element('dashboard'); ?>
-	<div class="um_box_up"></div>
-	<div class="um_box_mid">
-		<div class="um_box_mid_content">
-			<div class="um_box_mid_content_top">
-				<span class="umstyle1"><?php echo __('Edit User'); ?></span>
-				<span class="umstyle2" style="float:right"><?php echo $this->Html->link(__("Home",true),"/") ?></span>
-				<div style="clear:both"></div>
-			</div>
-			<div class="umhr"></div>
-			<div class="um_box_mid_content_mid" id="register">
-				<div class="um_box_mid_content_mid_left">
-					<?php echo $this->Form->create('User'); ?>
-					<?php echo $this->Form->input("id" ,array('type' => 'hidden', 'label' => false,'div' => false))?>
-			<?php   if (count($userGroups) >2) { ?>
-						<div>
-							<div class="umstyle3"><?php echo __('Group');?><font color='red'>*</font></div>
-							<div class="umstyle4" ><?php echo $this->Form->input("user_group_id" ,array('type' => 'select', 'label' => false,'div' => false,'class'=>"umstyle5" ))?></div>
-							<div style="clear:both"></div>
-						</div>
-			<?php   }   ?>
-					<div>
-						<div class="umstyle3"><?php echo __('Username');?><font color='red'>*</font></div>
-						<div class="umstyle4" ><?php echo $this->Form->input("username" ,array('label' => false,'div' => false,'class'=>"umstyle5" ))?></div>
-						<div style="clear:both"></div>
-					</div>
-					<div>
-						<div class="umstyle3"><?php echo __('First Name');?><font color='red'>*</font></div>
-						<div class="umstyle4" ><?php echo $this->Form->input("first_name" ,array('label' => false,'div' => false,'class'=>"umstyle5" ))?></div>
-						<div style="clear:both"></div>
-					</div>
-					<div>
-						<div class="umstyle3"><?php echo __('Last Name');?><font color='red'>*</font></div>
-						<div class="umstyle4" ><?php echo $this->Form->input("last_name" ,array('label' => false,'div' => false,'class'=>"umstyle5" ))?></div>
-						<div style="clear:both"></div>
-					</div>
-					<div>
-						<div class="umstyle3"><?php echo __('Email');?><font color='red'>*</font></div>
-						<div class="umstyle4" ><?php echo $this->Form->input("email" ,array('label' => false,'div' => false,'class'=>"umstyle5" ))?></div>
-						<div style="clear:both"></div>
-					</div>
-					<div>
-						<div class="umstyle3"></div>
-						<div class="umstyle4"><?php echo $this->Form->Submit(__('Update User'));?></div>
-						<div style="clear:both"></div>
-					</div>
-					<?php echo $this->Form->end(); ?>
-				</div>
-				<div class="um_box_mid_content_mid_right" align="right"></div>
-				<div style="clear:both"></div>
-			</div>
-		</div>
-	</div>
-	<div class="um_box_down"></div>
-</div>
-
-
--->

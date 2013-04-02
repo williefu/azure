@@ -18,15 +18,15 @@
     			<input type="text" id="addCreate-name" ng:model="originCreator.editor.name" required/>
     			<hr class="originUiModal-hr"/>
     			<label class="inline">Select Template</label>
-    			<select id="addCreate-templateSelect" class="inline" ng:model="originCreator.form" ng:options="template.OriginAdTemplate.name for template in originCreator.templates"></select>
+    			<select id="addCreate-templateSelect" class="inline" ng:model="originCreator.form" ng:options="template.OriginTemplate.name for template in originCreator.templates"></select>
 	    		
 	    		<div id="addCreate-templateSlide">
 		    		<a href="javascript:void(0)" id="addCreate-templatePrev" class="inline" ng:click="adTemplateSelect('prev')">Prev</a>
-		    		<img id="templateAdd-templateImage" class="inline" ng:src="{{originCreator.form.OriginAdTemplate.content.file_storyboard}}"/>
+		    		<img id="templateAdd-templateImage" class="inline" ng:src="{{originCreator.form.OriginTemplate.content.file_storyboard}}"/>
 		    		<a href="javascript:void(0)" id="addCreate-templateNext" class="inline" ng:click="adTemplateSelect('next')">Next</a>
 	    		</div>
 	    		<div id="addCreate-templateDescription">
-		    		{{originCreator.form.OriginAdTemplate.content.description}}
+		    		{{originCreator.form.OriginTemplate.content.description}}
 	    		</div>
     		</div>
     		<div class="originUiModal-footer">

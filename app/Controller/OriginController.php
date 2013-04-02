@@ -3,7 +3,7 @@
 class OriginController extends AppController {
 	public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
 	public $components 	= array('Session', 'RequestHandler', 'Usermgmt.UserAuth');
-	public $uses		= array('OriginAd', 'OriginAdTemplate');
+	public $uses		= array('OriginAd', 'OriginTemplate', 'OriginComponent', 'OriginAdSchedule');
 
 	public function index() {
 /*
@@ -23,6 +23,18 @@ class OriginController extends AppController {
 	public function edit() {
 	}
 	
+	public function dashboard() {
+		
+	}
+	
+	public function dashboardAccess() {
+		
+	}
+	
+	public function dashboardUser() {
+		
+	}
+	
 	
 	/**
 	* Ad templates
@@ -32,6 +44,13 @@ class OriginController extends AppController {
 	}
 	
 	public function templateEdit($id) {
+		
+	}
+	
+	/**
+	* Components
+	*/
+	public function componentList() {
 		
 	}
 	
@@ -54,7 +73,44 @@ class OriginController extends AppController {
 		$data['modify_date']	= date('Y-m-d H:i:s');
 		
 		if($this->OriginAd->save($data)) {
+			
+			$schedule['origin_ad_id']	= $this->OriginAd->id;
+			$this->OriginAdSchedule->save($schedule);
+			
 			return '/administrator/Origin/ad/edit/'.$this->OriginAd->id;
+		}
+	}
+	
+	private function componentDelete($data) {
+		$id		= $data['id'];
+		
+		if($this->OriginComponent->delete($id)) {
+			$origin_components	= $this->OriginComponent->find('all',
+			array(
+				'order'=>array('OriginComponent.name ASC')
+			));
+			$this->set('origin_components', $origin_components);
+			return $this->render('/Origin/json/json_component');
+		}
+	}
+	
+	private function componentSave($data) {
+		$data['content']		= json_encode($data['content']);
+		
+		if(!isset($data['id'])) {
+			$data['create_by']	= $this->UserAuth->getUserId();
+		}
+		
+		$data['modify_date']	= date('Y-m-d H:i:s');
+		$data['modify_by']		= $this->UserAuth->getUserId();
+		
+		if($this->OriginComponent->save($data)) {
+			$origin_components	= $this->OriginComponent->find('all',
+			array(
+				'order'=>array('OriginComponent.name ASC')
+			));
+			$this->set('origin_components', $origin_components);
+			return $this->render('/Origin/json/json_component');
 		}
 	}
 	
@@ -65,8 +121,11 @@ class OriginController extends AppController {
 	private function templateDelete($data) {
 		$id		= $data['id'];
 		
-		if($this->OriginAdTemplate->delete($id)) {
-			$origin_templates	= $this->OriginAdTemplate->find('all');
+		if($this->OriginTemplate->delete($id)) {
+			$origin_templates	= $this->OriginTemplate->find('all',
+			array(
+				'order'=>array('OriginTemplate.name ASC')
+			));
 			$this->set('origin_templates', $origin_templates);
 			return $this->render('/Origin/json/json_template');
 		}
@@ -82,8 +141,11 @@ class OriginController extends AppController {
 		$data['modify_date']	= date('Y-m-d H:i:s');
 		$data['modify_by']		= $this->UserAuth->getUserId();
 		
-		if($this->OriginAdTemplate->save($data)) {
-			$origin_templates	= $this->OriginAdTemplate->find('all');
+		if($this->OriginTemplate->save($data)) {
+			$origin_templates	= $this->OriginTemplate->find('all',
+			array(
+				'order'=>array('OriginTemplate.name ASC')
+			));
 			$this->set('origin_templates', $origin_templates);
 			return $this->render('/Origin/json/json_template');
 		}
@@ -117,9 +179,9 @@ class OriginController extends AppController {
 	*/
 	public function jsonAdTemplate() {
 		$template_id		= $this->request->params['template_id'];
-		$origin_template	= $this->OriginAdTemplate->find('first', 
+		$origin_template	= $this->OriginTemplate->find('first', 
 			array(
-				'conditions'=>array('OriginAdTemplate.id'=>$template_id)
+				'conditions'=>array('OriginTemplate.id'=>$template_id)
 			)
 		);
 		$this->set('origin_template', $origin_template);
@@ -141,10 +203,19 @@ class OriginController extends AppController {
 		$this->set('origin_ads', $origin_ads);
 	}
 	
-	public function jsonTemplate() {
-		$origin_templates	= $this->OriginAdTemplate->find('all',
+	public function jsonComponent() {
+		$origin_components	= $this->OriginComponent->find('all',
 			array(
-				'order'=>array('OriginAdTemplate.name ASC')
+				'order'=>array('OriginComponent.name ASC')
+			)
+		);
+		$this->set('origin_components', $origin_components);
+	}
+	
+	public function jsonTemplate() {
+		$origin_templates	= $this->OriginTemplate->find('all',
+			array(
+				'order'=>array('OriginTemplate.name ASC')
 			)
 		);
 		$this->set('origin_templates', $origin_templates);

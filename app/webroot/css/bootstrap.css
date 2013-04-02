@@ -221,6 +221,7 @@ textarea {
   }
 }
 
+/*
 body {
   margin: 0;
   color: #333333;
@@ -237,6 +238,7 @@ a:focus {
   color: #005580;
   text-decoration: underline;
 }
+*/
 
 .img-rounded {
   -webkit-border-radius: 6px;

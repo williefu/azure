@@ -4,7 +4,7 @@ angular.module('originApp.services', [])
 	.factory('Origin', function($http) {
 		var Origin = {
 			get: function(action) {
-				var promise = $http.get('/administrator/Origin/'+action+'.json').then(function(response) {
+				var promise = $http.get('/administrator/get/'+action+'.json').then(function(response) {
 					return response.data;
 				});
 				return promise;
@@ -18,6 +18,7 @@ angular.module('originApp.services', [])
 		}
 		return Origin;
 	})
+/*
 	.factory('List', function($http) {
 		var List = {
 			get: function(action) {
@@ -35,6 +36,7 @@ angular.module('originApp.services', [])
 		}
 		return List;
 	})
+*/
 	.factory('Users', function($http) {
 		var Users = {
 			get: function(action) {

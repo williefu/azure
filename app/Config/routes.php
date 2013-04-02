@@ -47,14 +47,14 @@ Router::connect('/administrator/activatePassword/*', array('plugin' => 'usermgmt
 Router::connect('/administrator/addGroup', array('plugin' => 'usermgmt', 'controller' => 'user_groups', 'action' => 'addGroup'));
 Router::connect('/administrator/addUser', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'addUser'));
 Router::connect('/administrator/allGroups', array('plugin' => 'usermgmt', 'controller' => 'user_groups', 'action' => 'index'));
-Router::connect('/administrator/allUsers', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
-Router::connect('/administrator/changePassword', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'changePassword'));
+//Router::connect('/administrator/allUsers', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
+//Router::connect('/administrator/changePassword', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'changePassword'));
 Router::connect('/administrator/changeUserPassword/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'changeUserPassword'));
-Router::connect('/administrator/dashboard', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'dashboard'));
+//Router::connect('/administrator/dashboard', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'dashboard'));
 Router::connect('/administrator/deleteGroup/*', array('plugin' => 'usermgmt', 'controller' => 'user_groups', 'action' => 'deleteGroup'));
 Router::connect('/administrator/deleteUser/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'deleteUser'));
 Router::connect('/administrator/editGroup/*', array('plugin' => 'usermgmt', 'controller' => 'user_groups', 'action' => 'editGroup'));
-Router::connect('/administrator/editUser/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'editUser'));
+//Router::connect('/administrator/editUser/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'editUser'));
 Router::connect('/administrator/emailVerification', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'emailVerification'));
 Router::connect('/administrator/forgotPassword', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'forgotPassword'));
 Router::connect('/administrator/login', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'login'));
@@ -67,21 +67,39 @@ Router::connect('/administrator/userVerification/*', array('plugin' => 'usermgmt
 Router::connect('/administrator/viewUser/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'viewUser'));
 
 
+//SYSTEMS
+Router::connect('/administrator/dashboard', array('controller' => 'origin', 'action' => 'dashboard'));
+Router::connect('/administrator/dashboard/access', array('controller'=>'origin', 'action'=>'dashboardAccess'));
+Router::connect('/administrator/dashboard/profile/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'editUser'));
+Router::connect('/administrator/dashboard/password', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'changePassword'));
+Router::connect('/administrator/dashboard/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
+
+Router::connect('/administrator/dashboard/templates', array('controller'=>'origin', 'action'=>'templateList'));
+Router::connect('/administrator/dashboard/components', array('controller'=>'origin', 'action'=>'componentList'));
+
+//AD CREATOR
 Router::connect('/administrator', array('controller'=>'origin', 'action'=>'index'));
 Router::connect('/administrator/list', array('controller'=>'origin', 'action'=>'ad_list'));
 Router::connect('/administrator/Origin/ad/edit/:originAd_id', array('controller'=>'origin', 'action'=>'edit'));
 
 
-Router::connect('/administrator/Origin/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));
-Router::connect('/administrator/Origin/template/:template_id', array('controller'=>'origin', 'action'=>'jsonAdTemplate'));
+//Router::connect('/administrator/Origin/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));
+//Router::connect('/administrator/Origin/template/:template_id', array('controller'=>'origin', 'action'=>'jsonAdTemplate'));
 
 
-Router::connect('/administrator/Origin/ads', array('controller'=>'origin', 'action'=>'jsonList'));
-Router::connect('/administrator/Origin/ad/:originAd_id', array('controller'=>'origin', 'action'=>'jsonAdUnit'));
+
+//JSON Feeds
+Router::connect('/administrator/get/ads', array('controller'=>'origin', 'action'=>'jsonList'));
+Router::connect('/administrator/get/ad/:originAd_id', array('controller'=>'origin', 'action'=>'jsonAdUnit'));
+Router::connect('/administrator/get/components', array('controller'=>'origin', 'action'=>'jsonComponent'));
+Router::connect('/administrator/get/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));
+Router::connect('/administrator/get/template/:template_id', array('controller'=>'origin', 'action'=>'jsonAdTemplate'));
+Router::connect('/administrator/get/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
+
+
+
 Router::connect('/administrator/Origin/Post', array('controller'=>'origin', 'action'=>'post'));
 Router::connect('/administrator/Origin/upload', array('controller'=>'origin', 'action'=>'upload'));
-
-Router::connect('/administrator/adTemplates', array('controller'=>'origin', 'action'=>'templateList'));
 
 //Router::connect('/creator/list', array('controller'=>'creator', 'action'=>'adList'));
 

@@ -8,12 +8,6 @@ body {
 	position: static;
 }
 
-
-#creator-panel-top {
-	width: 100%;
-	background-color: red;
-}
-
 #creator-panel-left,
 #creator-panel-workspace {
 	position: absolute;
@@ -38,11 +32,162 @@ body {
 	left: 200px;
 }
 
-#creator-panel-top {
-	height: 50px;
-}
+
 
 #creator-panel-left,
 #creator-panel-workspace {
 	top: 82px;
 }
+
+
+/***** START: TOP PANEL *****/
+#creator-panel-top {
+	position: relative;
+	height: 42px;
+	width: 100%;
+	border-bottom: 2px solid #0099CC;
+}
+
+
+/*
+#display,
+#display-icon {
+	position: absolute;
+}
+*/
+
+#display-wrapper {
+	position: absolute;
+	width: 315px;
+	left: 50%;
+	margin: 0 0 0 -160px;
+	height: 100%;
+}
+
+#display-icon {
+	width: 48px;
+	height: 100%;
+	background: transparent url(/img/creator-view.png) no-repeat center center;
+	cursor: pointer;
+}
+
+#display {
+	margin: 8px 0 0 -5px;
+	width: 265px;
+}
+
+#display-icon:hover {
+	transform: scale(1.05, 1.05);
+}
+
+#display-icon:active {
+	transform: scale(.9, .9);
+}
+
+/*
+#display-icon:hover {
+	transform: scale(1.1, 1.1);
+}
+*/
+
+.originUI-switchActive .originUI-switchText:before {
+	left: 133px;
+}
+
+.originUI-switchInactive .originUI-switchText:before {
+	right: 132px;
+}
+
+
+
+
+
+
+
+#schedules {
+	position: absolute;
+	width: 200px;
+	top: 10px;
+	left: 50%;
+	margin: 0 0 0 -100px;
+	/* background: transparent url(/img/icon-calendar.png) no-repeat left center; */
+}
+
+#schedules:after {
+	background: transparent url(/img/icon-calendar.png) no-repeat left center; 
+	content: "";
+	width: 42px;
+	height: 42px;
+	position: absolute;
+	right: -45px;
+	top: -10px;
+}
+
+#schedules .dropdown-menu {
+	left: -50px;
+	top: 32px;
+	width: 250px;
+	border-left: 3px solid #0099cc;
+	border-bottom: 1px solid #0099cc;
+}
+
+
+/*
+#creator-panel-top {
+	height: 42px;
+	width: 100%;
+	border-bottom: 2px solid #0099CC;
+}
+
+.creatorPanelTop-icons {
+	position: relative;
+	margin: 0 10px;
+}
+
+
+.creatorPanelTop-icons .originUI-icon {
+	width: 42px;
+	height: 42px;
+}
+
+.creatorPanelTop-icons .originUI-icon:hover,
+.creatorPanelTop-icons.open .originUI-icon {
+	border-bottom: 5px solid #0099cc;
+	height: 37px;
+	background-position: center 0px;
+}
+
+#components .originUI-icon {
+	background-image: url(/img/icon-components.png);
+}
+
+#schedules .originUI-icon {
+	background-image: url(/img/icon-calendar.png);
+}
+
+.creatorPanelTop-icons .dropdown-menu {
+	left: -25px;
+	top: 42px;
+	border-left: 3px solid #0099cc;
+	border-bottom: 1px solid #0099cc;
+}
+
+#schedules .dropdown-menu > .active > a {
+	border-left: 5px solid #0099cc;
+	cursor: default;
+}
+*/
+
+/***** END: TOP PANEL *****/
+
+
+
+/***** START: MODAL SCHEDULE *****/
+#scheduleAdd-header {
+	background: transparent url(/img/modal-schedule.png) no-repeat 10px center;
+}
+
+#schedule-add .originUiModalFooter-right {
+	background-image: none;
+}
+/***** END: MODAL SCHEDULE *****/

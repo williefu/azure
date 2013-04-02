@@ -86,7 +86,7 @@ class UserAuthComponent extends Component {
 				if (!$userGroupModel->isUserGroupAccess($controller, $action, $this->getGroupId())) {
 					$c->log('permission: actionUrl-'.$actionUrl, LOG_DEBUG);
 					$c->Session->write('permission_error_redirect','/users/login');
-					$c->redirect('/accessDenied');
+					$c->redirect('/administrator/accessDenied');
 				}
 			}
 		}
