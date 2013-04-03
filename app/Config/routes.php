@@ -95,6 +95,8 @@ Router::connect('/administrator/get/components', array('controller'=>'origin', '
 Router::connect('/administrator/get/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));
 Router::connect('/administrator/get/template/:template_id', array('controller'=>'origin', 'action'=>'jsonAdTemplate'));
 Router::connect('/administrator/get/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
+Router::connect('/administrator/get/monitor/list', array('controller' => 'monitor', 'action' => 'jsonList'));
+Router::connect('/administrator/get/monitor/visits', array('controller' => 'monitor', 'action' => 'jsonVisits'));
 
 
 
