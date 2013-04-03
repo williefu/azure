@@ -5,7 +5,7 @@ $cakeDescription = __d('cake_dev', 'Origin');
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<?php echo $this->Html->charset(); ?>
-	<title>Origin - <?php echo $title_for_layout; ?></title>
+	<title><?php echo $title_for_layout;?> | Origin</title>
 	<link rel="shortcut icon" href="/favicon.ico"/>
 	<?php
 		//echo $this->Html->meta('icon');

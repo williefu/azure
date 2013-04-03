@@ -17,18 +17,20 @@ class OriginController extends AppController {
 	}
 	
 	public function ad_list() {
+		$this->set('title_for_layout', 'Origin Ads');
 		$this->render('list');
 	}
 	
 	public function edit() {
+		$this->set('title_for_layout', 'Editor');
 	}
 	
 	public function dashboard() {
-		
+		$this->set('title_for_layout', 'Dashboard');
 	}
 	
 	public function dashboardAccess() {
-		
+		$this->set('title_for_layout', 'System Settings');
 	}
 	
 	public function dashboardUser() {
@@ -40,7 +42,7 @@ class OriginController extends AppController {
 	* Ad templates
 	*/
 	public function templateList() {
-		
+		$this->set('title_for_layout', 'Ad Templates');
 	}
 	
 	public function templateEdit($id) {
@@ -51,7 +53,7 @@ class OriginController extends AppController {
 	* Components
 	*/
 	public function componentList() {
-		
+		$this->set('title_for_layout', 'Ad Components');
 	}
 	
 	/**

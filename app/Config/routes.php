@@ -70,6 +70,8 @@ Router::connect('/administrator/viewUser/*', array('plugin' => 'usermgmt', 'cont
 //SYSTEMS
 Router::connect('/administrator/dashboard', array('controller' => 'origin', 'action' => 'dashboard'));
 Router::connect('/administrator/dashboard/access', array('controller'=>'origin', 'action'=>'dashboardAccess'));
+
+
 Router::connect('/administrator/dashboard/profile/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'editUser'));
 Router::connect('/administrator/dashboard/password', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'changePassword'));
 Router::connect('/administrator/dashboard/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));

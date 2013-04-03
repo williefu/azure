@@ -1,5 +1,5 @@
-<div id="dashboard" class="origin-usermgmt">
-	<h2 class="originUI-header">Origin Dashboard</h2>
+<div id="dashboard" class="">
+	<h2 class="originUI-header">Dashboard</h2>
 	<a href="/administrator/dashboard/templates" id="dashboard-templates" class="originUI-tiles">
 		<div class="originTile-title">Ad Templates</div>
 	</a><!--

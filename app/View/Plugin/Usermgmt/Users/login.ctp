@@ -17,23 +17,24 @@
 			</li>
 			<li id="login-settings">
 			<?php 
-				if(!isset($this->request->data['User']['remember'])) {$this->request->data['User']['remember']=true;}
-				
-				echo $this->Form->input('remember', array('type'=>'checkbox', 'label' =>__('Remember me'), 'div'=>'inline login-remember-input'));
-				//echo $this->Html->tag('span', __('Remember me'), array('class'=>'inline login-remember'));
-				echo __(' | ');
-				echo $this->Html->link(__('Forgot Password?', true),'/administrator/forgotPassword', array('class'=>'inline login-forgot'));
+				if(!isset($this->request->data['User']['remember'])) {
+					$this->request->data['User']['remember']=true;
+					$checked	= "checked='checked'";
+				} else {
+					$checked	= "";
+				}
 			?>
+				<div class="inline login-remember-input">
+					<input type="hidden" value="0" id="remember_" name="data[remember]">
+					<input type="checkbox" id="remember" value="1" name="data[remember]"<?php echo $checked;?>>
+					<label for="remember">Remember me</label>
+				</div> |
+				<a class="inline login-forgot" href="/administrator/forgotPassword">Forgot Password?</a>
 			</li>
 		</ul>
 	</form>
 	<div class="originUiModal-footer">
 		<div class="originUiModalFooter-center" ng:click="formSubmit('UserLoginForm')">Sign In</div>
-<!--
-		<div id="login-submit" class="originUI-icon originUiIcon-forward">
-			Sign In<input type="submit" value="Sign In">
-		</div>
--->
 	</div>
 </div>
 <script>
