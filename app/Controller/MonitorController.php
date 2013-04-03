@@ -12,14 +12,16 @@ class MonitorController extends AppController {
 		$this->render('monitor');
 	}
 	
-	public function monitorlist() {
+	public function jsonList() {
 		$monitor = $this->Monitor->getMonitor();
-		$this->set('monitor', serialize($monitor));
+		//$this->set('monitor', serialize($monitor));
+		$this->set('monitor', $monitor);
 	}
 	
-	public function visits() {
-		$monitor = $this->Monitor->getMonitor();
-		$this->set('monitor', serialize($monitor));
+	public function jsonVisits() {
+		$visits = $this->Monitor->getVisits();
+		//$this->set('monitor', serialize($monitor));
+		$this->set('visits', $visits);
 	}
 	
 

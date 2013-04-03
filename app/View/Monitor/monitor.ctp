@@ -64,7 +64,7 @@
 	<script src="../monitor/webroot/js/directive.js"></script>
 	<script src="../monitor/webroot/js/services.js"></script-->
 	<script type="text/javascript">
-		$( '#picker_simple' ).pickadate({
+		/*$( '#picker_simple' ).pickadate({
 			
 		})
 		$( '#datepicker_from' ).pickadate({
@@ -89,9 +89,8 @@
 		function createDateArray( date ) {
 			return date.split( '-' ).map(function( value ) { return +value })
 		}
-
+*/
     </script>
 <?php
 	echo $this->Minify->css(array('monitor/pickadate/pickadate.01.default'));
 	echo $this->Minify->script(array('monitor/controller','monitor/services','monitor/directives','monitor/pickadate/pickadate'));
-	
