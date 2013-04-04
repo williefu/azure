@@ -8,7 +8,6 @@ angular.module('workspaceApp', ['monitorApp.services', 'monitorApp.directive']);
 var workspaceCtrl = function($scope, Workspace) {
 	//Global Monitor object
 	$scope.monitorObj = {};
-	console.log('innnnnnnn');
 	//Load Monitor data
 	//Workspace.get('Json/monitorlist').then(function(data) {
 	Workspace.get('list').then(function(data) {

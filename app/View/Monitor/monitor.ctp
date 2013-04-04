@@ -3,14 +3,9 @@
 	<h3><?php //echo $monitor; ?></h3>
 	<h1></h1>
 	
-	<div id="workspaceCtrl" ng:controller="workspaceCtrl" class="">
+<div id="workspaceCtrl" ng:controller="workspaceCtrl" class="">
 	<div id="visits">
 		<div chart></div>
-	<!--img width='600' height='200' src='../monitor/View/Json/chart'-->
-	<!--img width='600' height='200' src='{{monitor_url}}'-->
-	
-	<!--img src="https://chart.googleapis.com/chart?cht=p3&chs=250x100&chd=t:60,40&chl=Hello|World"/-->
-	
 	</div>
 	<div id="filter" style="float:right;">
 	       			
@@ -37,6 +32,11 @@
 				<td>{{monitor_totals.totalEvents}}</td>
 				<td>{{monitor_totals.uniqueEvents}}</td>
 			</tr>
+			<tr ng-repeat="index in monitor_totals">
+				<td>{{index}}</td>
+				<!--td>{{test.totalEvents}}</td>
+				<td>{{test.uniqueEvents}}</td-->
+			</tr>
 		</table>
 		
 	</div>
@@ -48,7 +48,7 @@
 				<td><?php echo __('Total Events');?></td>
 				<td><?php echo __('Unique Events');?></td>
 			</tr>
-			<tr ng-repeat="item in monitor_list">
+			<tr ng:repeat="item in monitor_list|filter:monitorObj.category">
 				<td>{{item.category}}</td>
 				<td>{{item.totalEvents}}</td>
 				<td>{{item.uniqueEvents}}</td>
@@ -58,39 +58,33 @@
 </div>
 </div>
 <script src="https://www.google.com/jsapi"></script>
-<!--script src="../monitor/webroot/js/pickadate/pickadate.js"></script>
-<script src="https://www.google.com/jsapi"></script>
-	<script src="../monitor/webroot/js/controller.js"></script>
-	<script src="../monitor/webroot/js/directive.js"></script>
-	<script src="../monitor/webroot/js/services.js"></script-->
-	<script type="text/javascript">
-		/*$( '#picker_simple' ).pickadate({
-			
-		})
-		$( '#datepicker_from' ).pickadate({
+<?php
+	echo $this->Minify->css(array('monitor/pickadate/pickadate.01.default'));
+	echo $this->Minify->script(array('monitor/controller','monitor/services','monitor/directives','monitor/pickadate/pickadate'));
+?>
+
+<script type="text/javascript">
+		jQuery( '#datepicker_from' ).pickadate({
 			format: 'mmm dd, yyyy',
 			formatSubmit: 'yyyy-m-d',
 			onSelect: function() {
-				$( '#start_date' ).val(this.getDate( 'yyyy-mm-dd' ));
+				jQuery( '#start_date' ).val(this.getDate( 'yyyy-mm-dd' ));
 			},
 			onStart: function() {
 				var calendar = this;
 			}
 		})
 		
-		var picker_to = $( '#datepicker_to' ).pickadate({
+		var picker_to = jQuery( '#datepicker_to' ).pickadate({
 			format: 'mmm dd, yyyy',
 			formatSubmit: 'yyyy-m-d',
 			onSelect: function() {
-				$( '#end_date' ).val(this.getDate( 'yyyy-mm-dd' ));
+				jQuery( '#end_date' ).val(this.getDate( 'yyyy-mm-dd' ));
 			}
 		})
 		
 		function createDateArray( date ) {
 			return date.split( '-' ).map(function( value ) { return +value })
 		}
-*/
-    </script>
-<?php
-	echo $this->Minify->css(array('monitor/pickadate/pickadate.01.default'));
-	echo $this->Minify->script(array('monitor/controller','monitor/services','monitor/directives','monitor/pickadate/pickadate'));
+
+</script>

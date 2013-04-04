@@ -3,7 +3,7 @@
 angular.module('monitorApp.services',[])
 	.factory('Workspace', function($http){
 		var Workspace = {
-				get: function(location) {
+				get: function(action) {
 					//var promise = $http.get(location).then(function(response) {
 					var promise = $http.get('/administrator/get/monitor/'+action+'.json').then(function(response) {
 						return response.data;
