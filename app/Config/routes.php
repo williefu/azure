@@ -60,7 +60,7 @@ Router::connect('/administrator/forgotPassword', array('plugin' => 'usermgmt', '
 Router::connect('/administrator/login', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'login'));
 Router::connect('/administrator/logout', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'logout'));
 Router::connect('/administrator/myprofile', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'myprofile'));
-Router::connect('/administrator/permissions', array('plugin' => 'usermgmt', 'controller' => 'user_group_permissions', 'action' => 'index'));
+//Router::connect('/administrator/permissions', array('plugin' => 'usermgmt', 'controller' => 'user_group_permissions', 'action' => 'index'));
 Router::connect('/administrator/register', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'register'));
 Router::connect('/administrator/update_permission', array('plugin' => 'usermgmt', 'controller' => 'user_group_permissions', 'action' => 'update'));
 Router::connect('/administrator/userVerification/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'userVerification'));
@@ -69,7 +69,8 @@ Router::connect('/administrator/viewUser/*', array('plugin' => 'usermgmt', 'cont
 
 //SYSTEMS
 Router::connect('/administrator/dashboard', array('controller' => 'origin', 'action' => 'dashboard'));
-Router::connect('/administrator/dashboard/access', array('controller'=>'origin', 'action'=>'dashboardAccess'));
+//Router::connect('/administrator/dashboard/access', array('controller'=>'origin', 'action'=>'dashboardAccess'));
+Router::connect('/administrator/dashboard/access', array('plugin' => 'usermgmt', 'controller' => 'user_group_permissions', 'action' => 'index'));
 
 
 Router::connect('/administrator/dashboard/profile/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'editUser'));
@@ -99,6 +100,10 @@ Router::connect('/administrator/get/template/:template_id', array('controller'=>
 Router::connect('/administrator/get/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
 Router::connect('/administrator/get/monitor/list', array('controller' => 'monitor', 'action' => 'jsonList'));
 Router::connect('/administrator/get/monitor/visits', array('controller' => 'monitor', 'action' => 'jsonVisits'));
+
+//POST
+//Router::connect('/administrator/users/status', array('controller' => 'origin', 'action' => 'dashboardUserStatus'));
+
 
 
 

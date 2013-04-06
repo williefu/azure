@@ -21,7 +21,7 @@ function UsermgmtInIt(&$controller) {
 	/*
 		setting default time zone for your site
 	*/
-	date_default_timezone_set ("America/New_York");
+	date_default_timezone_set ("America/Los_Angeles");
 
 
 	App::import('Helper', 'Html');

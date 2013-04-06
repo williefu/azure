@@ -25,8 +25,8 @@
 				}
 			?>
 				<div class="inline login-remember-input">
-					<input type="hidden" value="0" id="remember_" name="data[remember]">
-					<input type="checkbox" id="remember" value="1" name="data[remember]"<?php echo $checked;?>>
+					<input type="hidden" value="0" id="remember_" name="data[User][remember]">
+					<input type="checkbox" id="remember" value="1" name="data[User][remember]"<?php echo $checked;?>>
 					<label for="remember">Remember me</label>
 				</div> |
 				<a class="inline login-forgot" href="/administrator/forgotPassword">Forgot Password?</a>

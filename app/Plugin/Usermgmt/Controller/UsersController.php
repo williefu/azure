@@ -45,8 +45,10 @@ class UsersController extends UserMgmtAppController {
 	 */
 	public function index() {
 		$this->User->unbindModel( array('hasMany' => array('LoginToken')));
-		$users=$this->User->find('all', array('order'=>'User.id desc'));
+		$users		= $this->User->find('all', array('order'=>'User.first_name ASC'));
+		$userGroups	= $this->UserGroup->getGroups();
 		$this->set('users', $users);
+		$this->set('userGroups', $userGroups);
 	}
 	/**
 	 * Used to display detail of user by Admin
@@ -362,7 +364,7 @@ class UsersController extends UserMgmtAppController {
 				$this->Session->setFlash(__('User is successfully deactivated'));
 			}
 		}
-		$this->redirect('/administrator/allUsers');
+		$this->redirect('/administrator/dashboard/users');
 	}
 	/**
 	 * Used to verify email of user by Admin

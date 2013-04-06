@@ -12,12 +12,12 @@
 					</li>
 				</ul>
 			</div>
-			<div id="display-wrapper">
-				<div id="display-icon" class="inline" ng:click="viewToggle('toggle')" ng:class="{true: 'display-initial', false: 'display-triggered'}[workspace.ui.view=='Initial']"></div>
+			<div id="display-wrapper" ng:click="creatorToggle('view')">
+				<div id="display-icon" class="inline" ng:class="{true: 'display-initial', false: 'display-triggered'}[workspace.ui.view=='Initial']"></div>
 				
 				<div id="display" class="inline">
 					<div class="originUI-switch">
-					    <input type="checkbox" name="displaySwitch" class="originUI-switchInput" id="displaySwitch" ng:click="viewToggle()" checked="checked">
+					    <input type="checkbox" name="displaySwitch" class="originUI-switchInput" id="displaySwitch" checked="checked">
 					    <label class="originUI-switchLabel" for="displaySwitch">
 					    	<div class="originUI-switchInner">
 					    		<div class="originUI-switchActive">
@@ -54,13 +54,48 @@
 				-->
 		</div>
 	</div>
-	<div id="creator-panel-left">
-		<ul>
+	<div id="creator-panel-left" class="originUI-bgColor originUI-borderColor">
+	
+	
+		<div id="layer-wrapper" ng:click="creatorToggle('layer')">
+			<div id="layer-icon" class="inline" ng:class="{true: 'layer-layers', false: 'layer-library'}[workspace.ui.layer=='Layers']"></div><!--
+			--><div id="layer-switch" class="inline">
+				<div class="originUI-switch">
+				    <input type="checkbox" name="layerSwitch" class="originUI-switchInput" id="layerSwitch" checked="checked">
+				    <label class="originUI-switchLabel" for="displaySwitch">
+				    	<div class="originUI-switchInner">
+				    		<div class="originUI-switchActive">
+				    			<div class="originUI-switchText">Layers</div>
+						    </div>
+						    <div class="originUI-switchInactive">
+						    	<div class="originUI-switchText">Library</div>
+							</div>
+					    </div>
+				    </label>
+			    </div> 
+			</div>
+		</div>
+	
+	
+	
+	
+	
+		<ul ng:show="workspace.ui.layer=='Layers'">
 			<li ng:repeat="content in workspace.display">{{content.id}}</li>
 		</ul>
+		<ul ng:show="workspace.ui.layer=='Library'">
+			<li>assets</li>
+		</ul>
 	</div>
-	<div id="creator-panel-workspace" ng:class="workspace-{{creator.template.content.alias}}">
-		{{workspace.display}}
+	<div id="creator-panel-workspace" class="originUI-bgColorSecondary originUI-bgTexture" ng:class="workspace-{{workspace.template.content.alias}}">
+		
+		<div class="workspace" ng:style="workspaceTemplateConfig()"></div>
+		<!--
+		
+		
+		{"dimensions":{"initial":{"desktop":{"width":"1500","height":"66"},"tablet":{},"mobile":{}},"triggered":{"desktop":{"width":"1500","height":"415"},"tablet":{},"mobile":{}}},"animation":{}}
+		
+		-->
 	</div>
 	
 	<div modal="creatorModal" close="creatorModalClose()" options="creatorModalOptions">

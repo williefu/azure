@@ -19,6 +19,7 @@ var creatorController = function($scope, $filter, Origin) {
 	$scope.workspace.template	= {};	//Ad's corresponding template model
 	$scope.workspace.ui			= {};	//UI wrapper model
 	$scope.workspace.ui.schedule= 0;	//Current schedule state
+	$scope.workspace.ui.layer	= 'Layers';
 	$scope.workspace.ui.view 	= 'Initial';
 	$scope.workspace.ui.platform= 'Desktop';
 	
@@ -31,12 +32,14 @@ var creatorController = function($scope, $filter, Origin) {
 			$scope.workspace.ad			= response;
 			//$scope.updateUI();
 			
-			$scope.$watch('workspace.ui.view', function() {
-				$scope.updateUI();
-			});
-			
 			Origin.get('template/'+template_id).then(function(response) {
-				$scope.workspace.template	= response.OriginAdTemplate;
+				$scope.workspace.template	= response.OriginTemplate;
+				
+				$scope.$watch('workspace.ui.view', function() {
+					$scope.updateUI();
+				});
+				
+				
 			});
 		});
 	});
@@ -45,18 +48,26 @@ var creatorController = function($scope, $filter, Origin) {
 	$scope.updateUI = function() {
 		$scope.workspace.ui.content	= 'OriginAd'+$scope.workspace.ui.platform+$scope.workspace.ui.view+'Content';	//Current view state
 		$scope.workspace.display	= $scope.workspace.ad.OriginAdSchedule[$scope.workspace.ui.schedule][$scope.workspace.ui.content];
+		
+		$scope.workspaceTemplateConfig = function() {
+			return {
+				height:	$scope.workspace.template.config.dimensions[$scope.workspace.ui.view][$scope.workspace.ui.platform].height+'px',
+				width: 	$scope.workspace.template.config.dimensions[$scope.workspace.ui.view][$scope.workspace.ui.platform].width+'px'
+			}
+		}
 	}
 	
-	$scope.viewToggle = function(action) {
-		switch(action) {
-			case 'toggle':
+	$scope.creatorToggle = function(type) {
+		switch(type) {
+			case 'view':
 				var toggle	= $j('#displaySwitch').prop('checked', !$j('#displaySwitch').prop('checked'));
+				$scope.workspace.ui.view 	= ($j('#displaySwitch').prop('checked'))? 'Initial': 'Triggered';
 				break;
 			default:
+				var toggle	= $j('#layerSwitch').prop('checked', !$j('#layerSwitch').prop('checked'));
+				$scope.workspace.ui.layer 	= ($j('#layerSwitch').prop('checked'))? 'Layers': 'Library';
 				break;
 		}
-		
-		$scope.workspace.ui.view 	= ($j('#displaySwitch').prop('checked'))? 'Initial': 'Triggered';
 	}
 	
 	$scope.creatorModalClose = function() {

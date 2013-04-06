@@ -50,11 +50,51 @@ var originGeneral = function($scope) {
 
 var originAllUsers = function($scope, $filter, Origin) {
 	$scope.originUsers	= {};
+	$scope.editor		= {};
+	$scope.groupName	= 'Select Group';
 	
-	Origin.get('users').then(function(response) {
-		$scope.originUsers	= response;
-		$scope.sortBy		= 'User.id';
-	});
+	$scope.loadUsers = function() {
+		Origin.get('users').then(function(response) {
+			$scope.originUsers	= response;
+			//$scope.sortBy		= 'User.id';
+		});	
+	}
+	
+	$scope.userCreate = function() {
+		$scope.editor.route			= 'dashboardUserAdd';
+		
+		Origin.post($scope.editor).then(function() {
+			$scope.loadUsers();
+		});
+	}
+	
+	$scope.userGroup = function(id, name) {
+		$scope.groupName						= name;
+		$scope.editor.user_group_id	= id;
+	}
+	
+	
+	$scope.userStatus = function(id, status) {
+		$scope.originUsers.id		= id;
+		
+		switch(status) {
+			case 'disable':
+				$scope.originUsers.status	= 0;
+				break;
+			case 'enable':
+				$scope.originUsers.status	= 1;
+				break;
+		}
+		
+		$scope.originUsers.route			= 'dashboardUserStatus';
+		
+		Origin.post($scope.originUsers).then(function() {
+			$scope.loadUsers();
+		});
+		//administrator/Origin/Post
+	}
+	
+	$scope.loadUsers();
 }
 
 var originAllGroups = function($scope, Users) {
@@ -171,11 +211,13 @@ var originTemplates	= function($scope, $filter, Origin) {
 	}
 	
 	$scope.templateSave = function() {
-		$scope.originTemplates.editor.content.alias	= $filter('createAlias')($scope.originTemplates.editor.name);
-		$scope.originTemplates.editor.route			= 'templateSave';
-		Origin.post($scope.originTemplates.editor).then(function(response) {
-			$scope.templateRefresh(response);
-		});
+		if($scope.originTemplates.editor.name) {
+			//$scope.originTemplates.editor.content.alias	= $filter('createAlias')($scope.originTemplates.editor.name);
+			$scope.originTemplates.editor.route			= 'templateSave';
+			Origin.post($scope.originTemplates.editor).then(function(response) {
+				$scope.templateRefresh(response);
+			});
+		}
 	}
 	
 	$scope.templateUnchanged = function() {

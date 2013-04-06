@@ -1,9 +1,11 @@
 <?php
 echo $this->Html->script('/usermgmt/js/umupdate');
 ?>
-
+<h2 class="originUI-header">System Configuration</h2>
 <div id="user-permissions" class="origin-usermgmt originUI-bgColor">
-	<?php echo $this->Form->input("controller",array('type'=>'select','div'=>false,'options'=>$allControllers,'selected'=>$c,'label'=>false,"onchange"=>"window.location='".SITE_URL."administrator/permissions/?c='+(this).value"))?>
+	
+	
+	<?php echo $this->Form->input("controller",array('type'=>'select','div'=>false,'options'=>$allControllers,'selected'=>$c,'label'=>false,"onchange"=>"window.location='".SITE_URL."administrator/dashboard/access/?c='+(this).value"))?>
 	
 	
 			<?php   if (!empty($controllers)) { ?>

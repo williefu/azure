@@ -24,4 +24,12 @@ angular.module('originApp.directives', [])
 				});
 			}
 		}
+	})
+	.directive('overscroll', function() {
+		return {
+			restrict: 'A',
+			link: function(scope, element, attrs) {
+				element.overscroll();
+			}
+		}
 	});

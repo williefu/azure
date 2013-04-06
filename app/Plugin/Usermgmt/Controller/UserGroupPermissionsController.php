@@ -29,6 +29,8 @@ class UserGroupPermissionsController extends UserMgmtAppController {
 	 * @return array
 	 */
 	public function index() {
+		$this->set('title_for_layout', 'System Configuration');
+		
 		$c=-2;
 		if (isset($_GET['c']) && $_GET['c'] !='') {
 			$c=$_GET['c'];

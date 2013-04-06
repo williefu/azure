@@ -15,17 +15,8 @@ body {
 	overflow: auto;
 }
 
-#creator-panel-left {
-	background-color: gray;
-}
-
 #creator-panel-workspace {
-	background-color: green;
 	right: 0;
-}
-
-#creator-panel-left {
-	width: 200px;
 }
 
 #creator-panel-workspace {
@@ -97,13 +88,13 @@ body {
 	width: 200px;
 	left: 50%;
 	margin: 0 0 0 -100px;
+	cursor: pointer;
 }
 
 #display-icon {
 	width: 26px;
 	height: 26px;
 	background: transparent url(/img/creator-view.png) no-repeat center bottom;
-	cursor: pointer;
 	margin: 8px 10px 0 0;
 }
 
@@ -224,6 +215,83 @@ body {
 
 /***** END: TOP PANEL *****/
 
+/***** START: LEFT PANEL *****/
+#creator-panel-left {
+	top: 82px;
+	width: 195px;
+	border-width: 0 5px 0 0;
+	border-style: solid;
+	overflow-x: hidden;
+}
+
+#layer-wrapper {
+	margin: 10px auto;
+	width: 160px;
+	cursor: pointer;
+}
+
+#layer-icon {
+	width: 26px;
+	height: 26px;
+	background: transparent url(/img/creator-layers.png) no-repeat center top;
+	margin: 0 5px 0 0;
+}
+
+/*
+#layer-icon:hover {
+	transform: scale(1.1, 1.1);
+}
+
+#layer-icon:active {
+	transform: scale(.9, .9);
+}
+*/
+
+#layer-icon.layer-library {
+	background-position: center bottom;
+}
+
+#layer-switch {
+	width: 125px
+}
+
+#layer-switch > .originUI-switch {
+	font-size: 15px;
+}
+
+#layer-switch .originUI-switchActive .originUI-switchText:before {
+	left: 62px;
+}
+
+#layer-switch .originUI-switchInactive .originUI-switchText:before {
+	right: 62px;
+}
+
+/*
+
+#display > .originUI-switch {
+	font-size: 13px;
+}
+
+
+*/
+
+
+
+
+
+
+/***** END: LEFT PANEL *****/
+
+
+
+/***** START: WORKSPACE *****/
+.workspace {
+	display: block;
+	
+	background-color: red;
+}
+/***** END: WORKSPACE *****/
 
 
 /***** START: CREATOR MODAL *****/

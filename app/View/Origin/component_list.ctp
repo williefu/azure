@@ -1,12 +1,12 @@
 <div id="ad-component" ng:controller="originComponents">
-	<h2 class="originUI-header">Origin Components</h2>
+	<h2 class="originUI-header">Ad Components</h2>
     <div id="adComponent-add" class="adComponent-item originUI-tiles" ng:click="componentCreate()">
     	<div class="originTile-title">New Component</div>
     </div><!--
     --><div class="adComponent-item originUI-bgColor originUI-tiles" ng:repeat="component in originComponents|filter:searchOrigin" ng:click="componentEdit(component)">
-    	<h3 class="adComponentItem-title">{{component.OriginComponent.name}}</h3>
+    	<h3 class="adTemplateItem-title">{{component.OriginComponent.name}}</h3>
     	<img class="adComponentItem-storyboard" src="http://placekitten.com/300/100" ng:src="{{component.OriginComponent.content.file_storyboard}}"/>
-    	<p class="adComponentItem-description">{{component.OriginComponent.content.description}}</p>
+    	<p class="adTemplateItem-description">{{component.OriginComponent.content.description}}</p>
     </div>
     
 	<div modal="componentModal" close="componentModalClose()" options="originComponents.modalOptions">
@@ -20,18 +20,32 @@
 			<div class="originUiModal-content">
 				<div id="templateAdd-left">
 					<ul class="originUI-list">
-						<li id="templateAdd-name">
+						<li>
 							<label>Name</label>
 							<div class="originUI-field">
 								<div class="originUI-fieldBracket"></div>
 								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originComponents.editor.name"/>
 							</div>
 						</li>
-						<li id="templateAdd-description">
+						<li>
+							<label>Alias</label>
+							<div class="originUI-field">
+								<div class="originUI-fieldBracket"></div>
+								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originComponents.editor.content.alias"/>
+							</div>
+						</li>
+						<li>
 							<label>Description</label>
 							<div class="originUI-field">
 								<div class="originUI-fieldBracket"></div>
 								<textarea class="originUI-textarea originUI-bgColorSecondary" ng:model="originComponents.editor.content.description"></textarea>
+							</div>
+						</li>
+						<li>
+							<label>Group</label>
+							<div class="originUI-field">
+								<div class="originUI-fieldBracket"></div>
+								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originComponents.editor.content.group"/>
 							</div>
 						</li>
 					</ul>

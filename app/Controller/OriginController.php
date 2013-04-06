@@ -3,7 +3,7 @@
 class OriginController extends AppController {
 	public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
 	public $components 	= array('Session', 'RequestHandler', 'Usermgmt.UserAuth');
-	public $uses		= array('OriginAd', 'OriginTemplate', 'OriginComponent', 'OriginAdSchedule');
+	public $uses		= array('OriginAd', 'OriginTemplate', 'OriginComponent', 'OriginAdSchedule', 'Usermgmt.User', 'Usermgmt.UserGroup', 'Usermgmt.LoginToken');
 
 	public function index() {
 /*
@@ -25,6 +25,10 @@ class OriginController extends AppController {
 		$this->set('title_for_layout', 'Editor');
 	}
 	
+	
+	/**
+	* Dashboard functions
+	*/
 	public function dashboard() {
 		$this->set('title_for_layout', 'Dashboard');
 	}
@@ -36,6 +40,60 @@ class OriginController extends AppController {
 	public function dashboardUser() {
 		
 	}
+	
+	public function dashboardUserAdd($data) {
+		//WHAT IS THIS FOR???
+		$userGroups		= $this->UserGroup->getGroups();
+		$this->set('userGroups', $userGroups);
+		$this->User->set($data);
+		
+		if($this->User->RegisterValidate()) {
+			
+			
+			
+			
+		} else {
+			//DOESN'T WORK
+			print_r($this->User->RegisterValidate());
+		}
+		
+/*
+		$userGroups=$this->UserGroup->getGroups();
+		$this->set('userGroups', $userGroups);
+		if ($this->request -> isPost()) {
+			$this->User->set($this->data);
+			if ($this->User->RegisterValidate()) {
+				$this->request->data['User']['email_verified']=1;
+				$this->request->data['User']['active']=1;
+				$salt=$this->UserAuth->makeSalt();
+				$this->request->data['User']['salt'] = $salt;
+				$this->request->data['User']['password'] = $this->UserAuth->makePassword($this->request->data['User']['password'], $salt);
+				$this->User->save($this->request->data,false);
+				$this->Session->setFlash(__('The user is successfully added'));
+				$this->redirect('/administrator/addUser');
+			}
+		}
+*/
+	}
+	
+	public function dashboardUserStatus($data) {
+		$userId			= $data['id'];
+		$active			= $data['status'];
+		
+		if (!empty($userId)) {
+			$user=array();
+			$user['User']['id']=$userId;
+			$user['User']['active']=($active) ? 1 : 0;
+			$this->User->save($user,false);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	/**
@@ -135,6 +193,7 @@ class OriginController extends AppController {
 	
 	private function templateSave($data) {
 		$data['content']		= json_encode($data['content']);
+		$data['config']			= json_encode($data['config']);
 		
 		if(!isset($data['id'])) {
 			$data['create_by']	= $this->UserAuth->getUserId();
