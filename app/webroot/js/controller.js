@@ -2,7 +2,9 @@
 
 var $j = jQuery.noConflict();
 
-var originGeneral = function($scope) {
+var originGeneral = function($scope, $filter, Origin, Notification) {
+	$scope.notification = {};
+	
 	$scope.back = function() {
 		window.history.back();
 	}
@@ -12,9 +14,18 @@ var originGeneral = function($scope) {
 		//$j('#UserEditUserForm').submit();
 	}
 	
-	$scope.notification = function() {
-		
+	
+	$scope.$on('notificationBroadcast', function() {
+		$scope.notification.title 		= Notification.title;
+		$scope.notification.content 	= Notification.content;
+		$j('#origin-notification').fadeIn().delay(5000).fadeOut();
+	});   
+	
+	
+	$scope.notificationClose = function() {
+		$j('#origin-notification').hide();
 	}
+	
 	
 	$scope._arrayLoop = function(array, index, direction) {
 		var i 		= (index)? index: 0;
@@ -34,23 +45,17 @@ var originGeneral = function($scope) {
 			
 		return i;
 	}
-	
-	
-	/*
-	index = (index + 1) % numTestimonials;
-	
-	
-	
-	setInterval(function() { 
-    $('div').html(test[  (i = (i + 1) % length)  ]) },
-5000);
-	
-	*/
 } 
 
-var originAllUsers = function($scope, $filter, Origin) {
+var originAllUsers = function($scope, $filter, Origin, Notification) {
+	var notification = {
+		'title': 	'',
+		'content':	''
+	};
 	$scope.originUsers	= {};
 	$scope.editor		= {};
+	$scope.editorEdit	= {};
+	$scope.status 		= {};
 	$scope.groupName	= 'Select Group';
 	
 	$scope.loadUsers = function() {
@@ -61,41 +66,120 @@ var originAllUsers = function($scope, $filter, Origin) {
 	}
 	
 	$scope.userCreate = function() {
-		$scope.editor.route			= 'dashboardUserAdd';
+		notification.title 		= 'Updated';
+		notification.content 	= 'User created';
+		$scope.editor.route		= 'dashboardUserAdd';
 		
 		Origin.post($scope.editor).then(function() {
+			$scope.editor 		= {};
+			$scope.groupName	= 'Select Group';
+			Notification.message(notification);
 			$scope.loadUsers();
+		});
+	}
+	
+	$scope.userUpdate = function() {
+		notification.title 		= 'Updated';
+		notification.content 	= 'User updated';
+		
+		$scope.editorEdit.route = 'dashboardUserUpdate';
+		
+		Origin.post($scope.editorEdit).then(function() {
+			$scope.loadUsers();
+			$scope.originModal		= false;
+			Notification.message(notification);
 		});
 	}
 	
 	$scope.userGroup = function(id, name) {
-		$scope.groupName						= name;
+		$scope.groupName			= name;
 		$scope.editor.user_group_id	= id;
 	}
 	
-	
 	$scope.userStatus = function(id, status) {
-		$scope.originUsers.id		= id;
+		notification.title 		= 'Updated';
+		$scope.status.id		= id;
 		
 		switch(status) {
 			case 'disable':
-				$scope.originUsers.status	= 0;
+				$scope.status.status	= 0;
+				notification.content 	= 'User disabled';
 				break;
 			case 'enable':
-				$scope.originUsers.status	= 1;
+				$scope.status.status	= 1;
+				notification.content 	= 'User enabled';
 				break;
 		}
 		
-		$scope.originUsers.route			= 'dashboardUserStatus';
-		
-		Origin.post($scope.originUsers).then(function() {
+		$scope.status.route			= 'dashboardUserStatus';
+		Origin.post($scope.status).then(function() {
 			$scope.loadUsers();
+			Notification.message(notification);
 		});
-		//administrator/Origin/Post
+	}
+	
+	$scope.userEdit = function(data) {
+		$scope.editorEdit		= angular.copy(data.User);
+		
+		//Remove irrelevant data
+		$scope.editorEdit.password = $scope.editorEdit.salt = $scope.editorEdit.created = $scope.editorEdit.modified = $scope.editorEdit.email_verified = $scope.editorEdit.active = $scope.editorEdit.ip_address = $scope.editorEdit.created = $scope.editorEdit.modified = '';
+
+		$scope.editorEdit.group	= angular.copy(data.UserGroup);
+		$scope.originModal		= true;
+	}
+	
+	//Find a way not to dupe this function!!
+	$scope.userEditGroup = function(id, name) {
+		$scope.editorEdit.group.name	= name;
+		$scope.editorEdit.user_group_id	= id;
+	}
+	
+	$scope.originModalClose = function() {
+		$scope.originModal	= false;
+	}
+	
+	$scope.originModalOptions = {
+		backdropClick:	false,
+		backdropFade:	true
 	}
 	
 	$scope.loadUsers();
 }
+
+var originUser = function($scope, Origin, Notification) {
+	var notification = {
+		'title': 	'',
+		'content':	''
+	};
+	$scope.password 	= {};
+	
+	$scope.groupName	= 'Select Group';
+	
+	$scope.userGroup = function(id, name) {
+		$scope.groupName			= name;
+		$scope.editor.user_group_id	= id;
+	}
+	
+	$scope.userPasswordUpdate = function() {
+		$scope.password.route			= 'dashboardUserPasswordUpdate';
+		Origin.post($scope.password).then(function(response) {
+			if(response.oldpassword) {
+				notification.title 		= 'Error';
+				notification.content 	= 'Old password incorrect';
+			} else if(response.password) {
+				notification.title 		= 'Error';
+				notification.content 	= response.password[0];
+			} else if(response === ''){
+				notification.title 		= 'Updated';
+				notification.content 	= 'Password updated';
+			}
+			
+			Notification.message(notification);
+			$scope.password = {};
+		});
+	}
+}
+/*
 
 var originAllGroups = function($scope, Users) {
 	$scope.originGroups = {};
@@ -104,9 +188,10 @@ var originAllGroups = function($scope, Users) {
 		$scope.sortBy		= 'UserGroup.id';
 	});
 }
+*/
 
 
-var originComponents	= function($scope, $filter, Origin) {
+var originComponents	= function($scope, $filter, Origin, Notification) {
 	$scope.originComponents					= {};
 	$scope.originComponents.confirmDelete	= false;
 	$scope.originComponents.editor			= {};
@@ -165,9 +250,28 @@ var originComponents	= function($scope, $filter, Origin) {
 */
 }
 
+var originSystems = function($scope, $filter, Origin, Notification) {
+	$scope.editor				= {};
+	
+	$scope.groupAlias = function() {
+		$scope.editor.alias_name	= $filter('createAlias')($scope.editor.name);
+	}
+	
+	$scope.groupCreate = function() {
+		if($scope.editor.name) {
+			$scope.editor.route					= 'dashboardGroupAdd';
+			$scope.editor.allowRegistration		= 1;
+			
+			Origin.post($scope.editor).then(function(response) {
+				$editor	= {};
+				//$scope.componentRefresh(response);
+			});
+		}
+	}
+}
 
 
-var originTemplates	= function($scope, $filter, Origin) {
+var originTemplates	= function($scope, $filter, Origin, Notification) {
 	$scope.originTemplates					= {};
 	$scope.originTemplates.confirmDelete	= false;
 	$scope.originTemplates.editor			= {};

@@ -105,6 +105,7 @@
 				{{workspace.modal.title}}
 			</h3>
 			<div class="originUiModal-content">
+				<div ng:include src="editor"></div>
 			</div>
 			<div class="originUiModal-footer">
 				<div class="originUiModalFooter-left" ng:click="creatorModalClose()">Cancel</div>
@@ -132,4 +133,4 @@
 
 <?php
 	echo $this->Minify->css(array('creator'));
-	echo $this->Minify->script(array('creatorController'));
+	echo $this->Minify->script(array('codemirror/codemirror', 'codemirror/htmlmixed', 'codemirror/javascript', 'codemirror/css', 'creatorController'));

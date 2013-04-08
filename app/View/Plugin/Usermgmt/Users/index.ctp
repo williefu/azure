@@ -10,26 +10,14 @@
 
 <?php
 	unset($userGroups[0]);
-	
-	/*
-	Array
-(
-    [0] => Select
-    [1] => System Administrator
-    [2] => Developers
-    [4] => Analytics
-)
-	*/
 ?>
 
-<h2 class="originUI-header">User List</h2>
+<h2 class="originUI-header">User Management</h2>
 
 <div id="user-list" class="origin-usermgmt" ng:controller="originAllUsers">	
 	
-	<div id="userList-add" class="originUI-bgColorSecondary">
-		<div id="userList-addImage">
-			<div class="originTile-title">Create User</div>
-		</div>
+	<div id="userList-add" class="originUI-bgColor originUI-shadow">
+		<h3 id="userListAdd-header" class="originUiModal-header originUI-borderColor originUI-textColor">Add User</h3>
 		<form id="userList-form">
 			<ul class="originUI-list">
 				<li>
@@ -63,7 +51,7 @@
 					<label>Email</label>
 					<div class="originUI-field">
 						<div class="originUI-fieldBracket"></div>
-						<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originUsers.editor.email"/>
+						<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.email"/>
 					</div>
 				</li>
 				<li>
@@ -93,7 +81,7 @@
 			<div class="originUiModalFooter-center" ng:click="userCreate()">Create User</div>
 		</div>
 	</div>
-	<div id="userList-listing" class="originUI-bgColorSecondary">
+	<div id="userList-listing" class="originUI-bgColor originUI-shadow">
 		<h3 id="userList-header" class="originUiModal-header originUI-borderColor originUI-textColor">Users</h3>
 		<table id="userList-table" cellspacing="0" cellpadding="0" width="100%" border="0">
 			<thead>
@@ -111,12 +99,93 @@
 					<td ng:show="user.User.active != '1'" class="userList-status">
 						<img src="/img/icon-cross-small.png" alt="Inactive" ng:click="userStatus(user.User.id, 'enable')"/>
 					</td>
-					<td>{{user.User.first_name}} {{user.User.last_name}}</td>
-					<td>{{user.User.username}}</td>
-					<td>{{user.User.email}}</td>
-					<td>{{user.UserGroup.name}}</td>
+					<td ng:click="userEdit(user)">{{user.User.first_name}} {{user.User.last_name}}</td>
+					<td ng:click="userEdit(user)">{{user.User.username}}</td>
+					<td ng:click="userEdit(user)">{{user.User.email}}</td>
+					<td ng:click="userEdit(user)">{{user.UserGroup.name}}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	
+	
+	
+	<div modal="originModal" close="originModalClose()" options="originModalOptions">
+		<form id="userList-edit" name="userList-edit" class="originUI-bgColorSecondary originUI-modal">
+		
+			<h3 id="userListEdit-header" class="originUiModal-header originUI-borderColor originUI-textColor">Edit User</h3>
+			<div class="originUiModal-content">
+				<div class="originUiModal-contentLeft">
+					<ul class="originUI-list">
+						<li>
+							<label>First Name</label>
+							<div class="originUI-field">
+								<div class="originUI-fieldBracket"></div>
+								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editorEdit.first_name"/>
+							</div>
+						</li>
+						<li>
+							<label>Last Name</label>
+							<div class="originUI-field">
+								<div class="originUI-fieldBracket"></div>
+								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editorEdit.last_name"/>
+							</div>
+						</li>
+						<li>
+							<label>Email</label>
+							<div class="originUI-field">
+								<div class="originUI-fieldBracket"></div>
+								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editorEdit.email"/>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="originUiModal-contentRight">
+					<ul class="originUI-list">
+						<li>
+							<label>Group</label>
+							<div class="originUI-select">
+								<input type="hidden" value="{{editorEdit.user_group_id}}"/>
+								<a href="javascript:void(0);" class="dropdown-toggle originUI-selectLabel">{{editorEdit.group.name}}</a>
+								<ul class="dropdown-menu originUI-bgColor originUI-selectOption">
+									<?php foreach($userGroups as $key=>$group) { ?>
+										<li ng:click="userEditGroup(<?php echo $key;?>, '<?php echo $group;?>')">
+											<a href="javascript:void(0)"><?php echo $group;?></a>
+										</li>
+									<?php } ?>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<label>Username</label>
+							<div class="originUI-field">
+								<div class="originUI-fieldBracket"></div>
+								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editorEdit.username"/>
+							</div>
+						</li>
+						<li>
+							<label>Password</label>
+							<div class="originUI-field">
+								<div class="originUI-fieldBracket"></div>
+								<input type="password" class="originUI-input originUI-bgColorSecondary" ng:model="editorEdit.password"/>
+							</div>
+						</li>
+						<li>
+							<label>Confirm Password</label>
+							<div class="originUI-field">
+								<div class="originUI-fieldBracket"></div>
+								<input type="password" class="originUI-input originUI-bgColorSecondary" ng:model="editorEdit.cpassword"/>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="clear"></div>		
+			</div>
+			<div class="originUiModal-footer">
+				<div class="originUiModalFooter-left" ng:click="originModalClose()">Cancel</div>
+				<div class="originUiModalFooter-right" ng:click="userUpdate()">Save</div>
+			</div>
+		</form>
+	</div>
+	
 </div>

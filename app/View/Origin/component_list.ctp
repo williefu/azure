@@ -18,7 +18,7 @@
 			<h3 id="templateAdd-header" class="originUiModal-header originUI-borderColor originUI-textColor" ng:show="originComponents.editor.id">Edit Component</h3>
 			
 			<div class="originUiModal-content">
-				<div id="templateAdd-left">
+				<div id="" class="originUiModal-contentLeft">
 					<ul class="originUI-list">
 						<li>
 							<label>Name</label>
@@ -41,6 +41,35 @@
 								<textarea class="originUI-textarea originUI-bgColorSecondary" ng:model="originComponents.editor.content.description"></textarea>
 							</div>
 						</li>
+					</ul>
+				</div>
+				<div id="" class="originUiModal-contentRight">
+					<ul class="originUI-list">
+<!--
+						<li>
+							<div id="">
+								<div class="originUI-upload originUI-icon originUiIcon-upload">
+									<span class="originUI-uploadLabel">Template File</span>
+									<input type="file" name="files[]" id="componentAdd-upload-template" class="originUI-uploadInput" ng:model="originComponents.editor.content.template_file" fileupload>
+								</div>
+								<div class="">
+									{{originComponents.editor.content.template_file}}
+								</div>
+							</div>
+						</li>
+-->
+						<li>
+							<div id="">
+								<div class="originUI-upload originUI-icon originUiIcon-upload">
+									<span class="originUI-uploadLabel">Component Icon</span>
+									<input type="file" name="files[]" id="componentAdd-upload-icon" class="originUI-uploadInput" ng:model="originComponents.editor.content.img_icon" fileupload>
+								</div>
+								<div class="">
+									{{originComponents.editor.content.img_icon}}
+								</div>
+							</div>
+						</li>
+						<!--
 						<li>
 							<label>Group</label>
 							<div class="originUI-field">
@@ -48,20 +77,7 @@
 								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originComponents.editor.content.group"/>
 							</div>
 						</li>
-					</ul>
-				</div>
-				<div id="templateAdd-right">
-					<ul class="originUI-list">
-						<li>
-							<label>Storyboard Image</label>
-							<div id="templateAdd-storyboard">
-								<img src="http://placekitten.com/300/100" ng:src="{{originComponents.editor.content.file_storyboard}}"/>
-								<div class="originUI-upload originUI-icon originUiIcon-upload">
-									<span class="originUI-uploadLabel">Upload Image</span>
-									<input type="file" name="files[]" id="componentAdd-upload-template" class="originUI-uploadInput" ng:model="originComponents.editor.content.file_storyboard" fileupload>
-								</div>
-							</div>
-						</li>
+-->
 						<li ng:show="originComponents.editor.id">
 							<div id="templateAdd-delete" class="originUI-icon originUiIcon-delete" ng:show="!originComponents.confirmDelete" ng:click="originComponents.confirmDelete=!originComponents.confirmDelete">Delete</div>
 							<div id="templateAdd-confirm" class="originUI-icon originUiIcon-delete" ng:show="originComponents.confirmDelete" ng:click="componentDelete()">Confirm</div>

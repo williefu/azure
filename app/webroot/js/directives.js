@@ -1,6 +1,20 @@
 'use strict';
 
 angular.module('originApp.directives', [])
+	.directive('codemirror', function() {
+		return {
+			restrict: 'A',
+			link: function(scope, element, attrs) {
+			
+			var editor = CodeMirror.fromTextArea(element[0]);
+			
+			
+			
+			
+			
+			}
+		}
+	})
 	.directive('fileupload', function() {
 		return {
 			restrict: 'A',

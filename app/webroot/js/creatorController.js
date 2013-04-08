@@ -85,6 +85,8 @@ var creatorController = function($scope, $filter, Origin) {
 			case 'schedule':
 				break;
 		}
+		
+		$scope.editor		= '/administrator/get/components/embed';
 	}
 	
 	$scope.creatorModalOptions = {
