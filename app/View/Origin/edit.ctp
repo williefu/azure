@@ -1,4 +1,4 @@
-<div id="ad-edit" ng:controller="creatorController">
+<div id="ad-edit" ng:controller="creatorController" ng:cloak>
 	<input id="originAd_id" type="hidden" value="<?php echo $this->params['originAd_id'];?>"/>
 	
 	<div id="creator-panel-top" class="originUI-bgColor originUI-borderColor">
@@ -7,8 +7,10 @@
 			<div id="components-wrapper">
 				<a href="javascript:void(0)" id="components" class="dropdown-toggle originUI-borderColor">Components</a>
 				<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
-					<li class="component" ng:repeat="component in workspace.components">
-						<a href="javascript:void(0)" ng:click="creatorModalOpen('component', component)">{{component.OriginComponent.name}}</a>
+					<li ng:repeat="component in workspace.components">
+						<a href="javascript:void(0)" ng:click="creatorModalOpen('component', component)" class="component" back-img='{{component.OriginComponent.config.img_icon}}'>
+							{{component.OriginComponent.name}}
+						</a>
 					</li>
 				</ul>
 			</div>
@@ -81,7 +83,7 @@
 	
 	
 		<ul ng:show="workspace.ui.layer=='Layers'">
-			<li ng:repeat="content in workspace.display">{{content.id}}</li>
+			<li ng:repeat="content in workspace.display">{{content.content.title}}-{{content.id}}</li>
 		</ul>
 		<ul ng:show="workspace.ui.layer=='Library'">
 			<li>assets</li>
@@ -100,12 +102,54 @@
 	
 	<div modal="creatorModal" close="creatorModalClose()" options="creatorModalOptions">
 		<form id="creator-modal" class="originUI-bgColorSecondary">
-			<h3 id="creatorModal-header" class="originUiModal-header originUI-borderColor">
-				<img src="http://placekitten.com/26/26"/>
+			<h3 id="creatorModal-header" class="originUiModal-header originUI-borderColor originUI-textColor" back-img='{{workspace.modal.image}}'>
 				{{workspace.modal.title}}
 			</h3>
-			<div class="originUiModal-content">
-				<div ng:include src="editor"></div>
+			<div id="creatorModal-content" class="originUiModal-content">
+				<div ng:include src="editor.template"></div>
+			</div>
+			
+			<div id="creatorModal-config">
+				<h4>Config</h4>
+				<ul class="originUI-list">
+					<li>
+						<label>X Position</label>
+						<div class="originUI-field">
+							<div class="originUI-fieldBracket"></div>
+							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.config.left" config="left"/>
+						</div>
+					</li>
+					<li>
+						<label>Y Position</label>
+						<div class="originUI-field">
+							<div class="originUI-fieldBracket"></div>
+							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.config.top" config="top"/>
+						</div>
+					</li>
+					<li>
+						<label>Height</label>
+						<div class="originUI-field">
+							<div class="originUI-fieldBracket"></div>
+							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.config.height" config="height"/>
+						</div>
+					</li>
+					<li>
+						<label>Width</label>
+						<div class="originUI-field">
+							<div class="originUI-fieldBracket"></div>
+							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.config.width" config="width"/>
+						</div>
+					</li>
+<!--
+					<li>
+						<label>Z-index</label>
+						<div class="originUI-field">
+							<div class="originUI-fieldBracket"></div>
+							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.config.zIndex"/>
+						</div>
+					</li>
+-->
+				</ul>
 			</div>
 			<div class="originUiModal-footer">
 				<div class="originUiModalFooter-left" ng:click="creatorModalClose()">Cancel</div>
@@ -132,5 +176,5 @@
 </div>
 
 <?php
-	echo $this->Minify->css(array('creator'));
-	echo $this->Minify->script(array('codemirror/codemirror', 'codemirror/htmlmixed', 'codemirror/javascript', 'codemirror/css', 'creatorController'));
+	echo $this->Minify->css(array('creator', 'codemirror/night'));
+	echo $this->Minify->script(array('codemirror/codemirror', 'codemirror/xml', 'codemirror/javascript', 'codemirror/css', 'codemirror/htmlmixed', 'creatorController'));

@@ -16,7 +16,7 @@
 
 <div id="user-list" class="origin-usermgmt" ng:controller="originAllUsers">	
 	
-	<div id="userList-add" class="originUI-bgColor originUI-shadow">
+	<div id="userList-add" class="originUI-bgColor originUI-shadow dashboard-left">
 		<h3 id="userListAdd-header" class="originUiModal-header originUI-borderColor originUI-textColor">Add User</h3>
 		<form id="userList-form">
 			<ul class="originUI-list">
@@ -24,7 +24,7 @@
 					<label>Group</label>
 					<div class="originUI-select">
 						<a href="javascript:void(0);" class="dropdown-toggle originUI-selectLabel">{{groupName}}</a>
-						<ul class="dropdown-menu originUI-bgColor originUI-selectOption">
+						<ul class="dropdown-menu originUI-bgColor originUI-selectOption originUI-borderColor">
 							<?php foreach($userGroups as $key=>$group) { ?>
 								<li ng:click="userGroup(<?php echo $key;?>, '<?php echo $group;?>')">
 									<a href="javascript:void(0)"><?php echo $group;?></a>
@@ -81,22 +81,22 @@
 			<div class="originUiModalFooter-center" ng:click="userCreate()">Create User</div>
 		</div>
 	</div>
-	<div id="userList-listing" class="originUI-bgColor originUI-shadow">
+	<div id="userList-listing" class="originUI-bgColor originUI-shadow dashboard-right">
 		<h3 id="userList-header" class="originUiModal-header originUI-borderColor originUI-textColor">Users</h3>
-		<table id="userList-table" cellspacing="0" cellpadding="0" width="100%" border="0">
-			<thead>
+		<table id="userList-table" class="originUI-table" cellspacing="0" cellpadding="0" width="100%" border="0">
+			<thead class="originUiTable-head">
 				<th class="userList-status">&nbsp;</th>
 				<th>Name</th>
 				<th>Username</th>
 				<th>Email</th>
 				<th>Group</th>
 			</thead>
-			<tbody>
-				<tr class="userListTable-row" ng:repeat="user in originUsers|filter:searchOrigin" ng:class:even="'originUI-even'" ng:class:odd="'originUI-odd'">
-					<td ng:show="user.User.active == '1'" class="userList-status">
+			<tbody class="originUiTable-body">
+				<tr class="originUiTable-row" ng:repeat="user in originUsers|filter:searchOrigin" ng:class:even="'originUI-even'" ng:class:odd="'originUI-odd'">
+					<td ng:show="user.User.active == '1'" class="originUiTable-status">
 						<img src="/img/icon-check-small.png" alt="Active" ng:click="userStatus(user.User.id, 'disable')"/>
 					</td>
-					<td ng:show="user.User.active != '1'" class="userList-status">
+					<td ng:show="user.User.active != '1'" class="originUiTable-status">
 						<img src="/img/icon-cross-small.png" alt="Inactive" ng:click="userStatus(user.User.id, 'enable')"/>
 					</td>
 					<td ng:click="userEdit(user)">{{user.User.first_name}} {{user.User.last_name}}</td>

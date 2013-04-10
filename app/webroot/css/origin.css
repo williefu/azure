@@ -236,6 +236,12 @@ input:-ms-input-placeholder {
 	position: relative;
 }
 
+.originUI-select .dropdown-menu {
+	border-width: 0 0 1px 3px;
+	border-style: solid;
+	margin: 0;
+}
+
 .originUI-selectOption {
 	margin: 0;
 }
@@ -245,6 +251,16 @@ input:-ms-input-placeholder {
 	margin-bottom: 5px;
 }
 
+.originUI-select {
+	color: #bdbdbd;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: #bdbdbd;
+	width: 100%;
+	height: 25px;
+}
+
+/*
 .originUI-selectLabel {
 	display: block;
 	border-color: #bdbdbd;
@@ -269,6 +285,7 @@ input:-ms-input-placeholder {
 }
 
 
+*/
 
 
 .originUI-switch {
@@ -601,6 +618,30 @@ input:-ms-input-placeholder {
 	background-position: left center;
 }
 
+.originUI-table {
+	margin: 0 0 10px;
+}
+
+.originUiTable-head {
+	text-align: left;
+	color: #fff;
+}
+
+.originUiTable-row {
+	height: 32px;
+	cursor: pointer;
+}
+
+.originUiTable-row:hover {
+	background-color: rgba(51, 181, 229, .25);
+}
+
+.originUiTable-status {
+	width: 50px;
+	text-align: center;
+}
+
+
 /***** END: UI *****/
 
 /***** START: NOTIFICATION *****/
@@ -812,6 +853,7 @@ input:-ms-input-placeholder {
 .dashboard-right {
 	margin: 10px;
 	float: left;
+	position: relative;
 }
 
 .dashboard-left {
@@ -819,7 +861,7 @@ input:-ms-input-placeholder {
 }
 
 .dashboard-right {
-	width: 700px;
+	width: 730px;
 }
 
 .origin-usermgmt-login {
@@ -853,112 +895,6 @@ input:-ms-input-placeholder {
 	vertical-align: top;
 }
 
-
-/*
-
-.origin-usermgmt-login ul {
-	width: 270px;
-	margin: 0px auto;
-}
-
-.origin-usermgmt-login li {
-	margin: 10px 0;
-}
-
-.origin-usermgmt-login input[type="text"],
-.origin-usermgmt-login input[type="password"] {
-	width: 100%;
-}
-
-li#login-password {
-	margin-bottom: 0px;
-}
-
-
-
-
-*/
-
-/*
-#user-edit-submit,
-#forgot-password-submit,
-#login-submit {
-	background-position: right center;
-	position: absolute;
-	text-indent: 0;
-	width: 95px;
-	height: 26px;
-	text-transform: uppercase;
-	font-size: 18px;
-	line-height: 26px;
-	right: 13px;
-	bottom: 10px;
-}
-
-#user-edit-submit input,
-#forgot-password-submit input,
-#login-submit input {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	opacity: 0;
-}
-*/
-/*
-
-#forgot-password-submit {
-	width: 135px;
-}
-
-
-.origin-usermgmt {
-	padding: 5px 10px;
-	text-align: left;
-}
-*/
-
-/*
-#user-add {
-	width: 200px;
-	height: 42px;
-}
-
-.user-list-row {
-	height: 32px;
-}
-
-.list-row-status {
-	width: 35px;
-}
-*/
-/*
-
-#userList-left {
-	width: 200px;
-	float: left;
-}
-
-#userList-right {
-	width: 800px;
-	float: left;
-}
-
-div#userList-add {
-	background: #0099cc;
-	box-shadow: 0 0 4px 1px rgba(153, 204, 0, .3);
-	height: 180px;
-}
-
-.userList-item {
-	display: block;
-	float: left;
-	width: 180px;
-	height: 50px;
-}
-*/
-
 #userList-add,
 #userList-listing {
 	margin: 10px;
@@ -978,42 +914,23 @@ div#userList-add {
 	height: 393px;
 }
 
-
-
 #userList-listing {
-	width: 730px;
 	min-height: 500px;
 }
 
+#userAccount-header,
+#userListEdit-header,
 #userList-header {
-	background: transparent url(/img/icon-user-small.png) no-repeat 10px center;
-}
-
-#userList-table {
-	text-align: left;
-}
-
-.userListTable-row {
-	height: 32px;
-	line-height: 32px;
-}
-
-.userList-status {
-	width: 45px;
-	text-align: center;
-}
-
-.userListTable-row:hover {
-	cursor: pointer;
-	background-color: #000;
-}
-
-#userListEdit-header {
 	background: transparent url(/img/icon-user-small.png) no-repeat 10px center;
 }
 
 #userList-edit .originUiModal-contentLeft>.originUI-list {
 	margin: 0 15px 0 0;
+}
+
+#systemConfig-header,
+#userAccountPassword-header {
+	background: transparent url(/img/icon-key-small.png) no-repeat 10px center;	
 }
 
 /*
@@ -1050,6 +967,8 @@ div#userList-add {
 
 
 /***** START: MODAL WINDOW *****/
+
+
 .originUiModal-contentLeft > .originUI-list {
 	margin-right: 15px;
 }
@@ -1057,6 +976,8 @@ div#userList-add {
 .originUiModal-contentRight > .originUI-list {
 	margin-left: 15px;
 }
+
+
 
 /***** END: MODAL WINDOW *****/
 
@@ -1068,6 +989,7 @@ div#userList-add {
 	background-color: #669900;
 }
 
+/*
 .adComponent-item {
 	padding: 10px;
 	position: relative;
@@ -1075,15 +997,52 @@ div#userList-add {
 	height: 150px;
 	overflow: hidden;
 }
+*/
+
+#adComponent-left > .originUiModal-header {
+	background: transparent url(/img/icon-componentsAdd-small.png) no-repeat 10px 10px;
+}
+
+#adComponent-right {
+	min-height: 400px;	
+}
+
+#component-edit .originUiModal-header,
+#adComponent-right > .originUiModal-header {
+	background: transparent url(/img/icon-components-small.png) no-repeat 10px center;
+}
+
+#component-add {
+	height: 303px;
+}
 
 
-#component-add .originUI-upload {
+#component-add .originUI-upload,
+#component-edit .originUI-upload {
 	height: 26px;
 	width: 145px;
 	display: block;
 	font-size: 16px;
 }
 
+.adComponent-status {
+	margin: 0 5px;
+}
+
+.adComponentCell-name {
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 18px 18px;
+	text-indent: 25px;
+}
+
+.adComponent-description {
+	
+}
+
+.adComponent-group {
+	
+}
 
 /***** END: AD COMPONENTS *****/
 
@@ -1237,6 +1196,7 @@ div#userList-add {
 /***** END: AD TEMPLATES *****/
 
 /***** START: SYSTEM CONFIG *****/
+/*
 
 #systemConfig-groupAdd,
 #systemConfig-access {
@@ -1247,13 +1207,23 @@ div#userList-add {
 #systemConfig-groupAdd {
 	width: 230px;
 }
+*/
 
 #groupAdd-form {
 	margin: 10px 15px;	
 }
+/*
 
 #systemConfig-access {
 	width: 730px;
+}
+*/
+
+#systemConfig-select {
+	width: 200px;
+	position: absolute;
+	top: 10px;
+	right: 5px;
 }
 
 .systemConfig-tableRow {
@@ -1266,6 +1236,10 @@ div#userList-add {
 
 .systemConfig-tableController {
 	padding: 0 15px;	
+}
+
+#groupAdd-header {
+	background: transparent url(/img/icon-groupAdd-small.png) no-repeat 10px center;
 }
 
 /***** END: SYSTEM CONFIG *****/

@@ -4,3 +4,6 @@
 		$origin_component['OriginComponent']['content']	= json_decode($origin_component['OriginComponent']['content']);
 	}
 	echo json_encode($origin_components);
+	
+	
+	//print_r($origin_components);

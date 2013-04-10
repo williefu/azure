@@ -3,7 +3,7 @@
 class OriginController extends AppController {
 	public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
 	public $components 	= array('Session', 'RequestHandler', 'Usermgmt.UserAuth');
-	public $uses		= array('OriginAd', 'OriginTemplate', 'OriginComponent', 'OriginAdSchedule', 'Usermgmt.User', 'Usermgmt.UserGroup', 'Usermgmt.LoginToken');
+	public $uses		= array('OriginAd', 'OriginTemplate', 'OriginComponent', 'OriginAdSchedule', 'OriginAdDesktopInitialContent', 'OriginAdDesktopTriggeredContent', 'Usermgmt.User', 'Usermgmt.UserGroup', 'Usermgmt.LoginToken');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
@@ -197,11 +197,26 @@ class OriginController extends AppController {
 	
 	private function componentSave($data) {
 		$data['content']		= json_encode($data['content']);
+		$data['config']			= json_encode($data['config']);
 		
 		if(!isset($data['id'])) {
 			$data['create_by']	= $this->UserAuth->getUserId();
 		}
 		
+		$data['modify_date']	= date('Y-m-d H:i:s');
+		$data['modify_by']		= $this->UserAuth->getUserId();
+		
+		if($this->OriginComponent->save($data)) {
+			$origin_components	= $this->OriginComponent->find('all',
+			array(
+				'order'=>array('OriginComponent.name ASC')
+			));
+			$this->set('origin_components', $origin_components);
+			return $this->render('/Origin/json/json_component');
+		}
+	}
+	
+	private function componentStatus($data) {
 		$data['modify_date']	= date('Y-m-d H:i:s');
 		$data['modify_by']		= $this->UserAuth->getUserId();
 		
@@ -289,8 +304,8 @@ class OriginController extends AppController {
 		$this->set('origin_template', $origin_template);
 	}
 	
-	public function jsonAdUnit() {
-		$originAd_id 	= $this->request->params['originAd_id'];
+	public function jsonAdUnit($originAd_id = '') {
+		$originAd_id 	= ($originAd_id)? $originAd_id: $this->request->params['originAd_id'];
 		$origin_ad		= $this->OriginAd->find('first', 
 			array(
 				'recursive'=>2,
@@ -321,5 +336,18 @@ class OriginController extends AppController {
 			)
 		);
 		$this->set('origin_templates', $origin_templates);
+	}
+	
+	/***** CREATOR FUNCTIONS *****/
+	public function creatorContentSave($data) {
+		$data['content']		= json_encode($data['content']);
+		$data['config']			= json_encode($data['config']);
+		
+		//echo 'OriginAd'.$data['model'].'Content';
+		
+		if($this->{'OriginAd'.$data['model'].'Content'}->save($data)) {
+			$this->jsonAdUnit($data['originAd_id']);
+			return $this->render('/Origin/json/json_ad_unit');	
+		}
 	}
 }

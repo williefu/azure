@@ -6,7 +6,7 @@
 <div id="user-account" ng:controller="originUser">
 	<h2 class="originUI-header">My Account</h2>
 	<div id="userAccount-left" class="dashboard-left originUI-bgColor originUI-shadow">
-		<h3 class="originUiModal-header originUI-borderColor originUI-textColor originUI-textColor">Update Password</h3>
+		<h3 id="userAccountPassword-header" class="originUiModal-header originUI-borderColor originUI-textColor originUI-textColor">Update Password</h3>
 		<form class="originUiModal-content">
 			<ul class="originUI-list">
 				<li class="originUI-field">
@@ -45,7 +45,7 @@
 			<input type="hidden" id="id" name="data[id]" value="<?php echo $user['User']['id'];?>">
 			<input type="hidden" value="PUT" name="_method">
 			
-			<ul>
+			<ul class="originUI-list">
 				<?php if($this->UserAuth->isAdmin()) {?>
 <!--
 				<li>
