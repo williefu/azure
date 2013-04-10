@@ -16,10 +16,15 @@ class MonitorController extends AppController {
 		$this->set('monitor', $monitor);
 	}
 	
+	public function jsonEvent() {
+		$category 	= $this->request->params['category'];
+		$event = $this->Monitor->getEvent($category);
+		$this->set('monitor', $event);
+	}
+	
 	public function jsonVisits() {
 		$visits = $this->Monitor->getVisits();
 		$this->set('visits', $visits);
 	}
 	
-
 }
