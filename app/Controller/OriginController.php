@@ -5,6 +5,11 @@ class OriginController extends AppController {
 	public $components 	= array('Session', 'RequestHandler', 'Usermgmt.UserAuth');
 	public $uses		= array('OriginAd', 'OriginTemplate', 'OriginComponent', 'OriginAdSchedule', 'Usermgmt.User', 'Usermgmt.UserGroup', 'Usermgmt.LoginToken');
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->User->userAuth=$this->UserAuth;
+	}
+
 	public function index() {
 /*
 		$ad_units	= $this->Creator->find('all');
@@ -37,43 +42,45 @@ class OriginController extends AppController {
 		$this->set('title_for_layout', 'System Settings');
 	}
 	
+	public function dashboardGroupAdd($data) {
+		$this->UserGroup->set($data);
+		if($this->UserGroup->addValidate()) {
+			$this->UserGroup->save($data, false);
+		}
+	}
+	
 	public function dashboardUser() {
 		
 	}
 	
 	public function dashboardUserAdd($data) {
-		//WHAT IS THIS FOR???
-		$userGroups		= $this->UserGroup->getGroups();
-		$this->set('userGroups', $userGroups);
+		if($this->User->RegisterValidate()) {
+			$data['email_verified']		= 1;
+			$data['active']				= 1;
+			$salt						= $this->UserAuth->makeSalt();
+			$data['salt'] 				= $salt;
+			$data['password'] 			= $this->UserAuth->makePassword($data['password'], $salt);
+			$this->User->save($data,false);
+		} else {
+			return json_encode($this->User->invalidFields());
+		}
+	}
+	
+	public function dashboardUserPasswordUpdate($data) {
+		$userId = $this->UserAuth->getUserId();		
 		$this->User->set($data);
 		
 		if($this->User->RegisterValidate()) {
-			
-			
-			
-			
+			$user	= array();
+			$user['User']['id']=$userId;
+			$salt=$this->UserAuth->makeSalt();
+			$user['User']['salt'] = $salt;
+			$user['User']['password'] = $this->UserAuth->makePassword($data['password'], $salt);
+			$this->User->save($user,false);
+			$this->LoginToken->deleteAll(array('LoginToken.user_id'=>$userId), false);
 		} else {
-			//DOESN'T WORK
-			print_r($this->User->RegisterValidate());
+			return json_encode($this->User->invalidFields());
 		}
-		
-/*
-		$userGroups=$this->UserGroup->getGroups();
-		$this->set('userGroups', $userGroups);
-		if ($this->request -> isPost()) {
-			$this->User->set($this->data);
-			if ($this->User->RegisterValidate()) {
-				$this->request->data['User']['email_verified']=1;
-				$this->request->data['User']['active']=1;
-				$salt=$this->UserAuth->makeSalt();
-				$this->request->data['User']['salt'] = $salt;
-				$this->request->data['User']['password'] = $this->UserAuth->makePassword($this->request->data['User']['password'], $salt);
-				$this->User->save($this->request->data,false);
-				$this->Session->setFlash(__('The user is successfully added'));
-				$this->redirect('/administrator/addUser');
-			}
-		}
-*/
 	}
 	
 	public function dashboardUserStatus($data) {
@@ -85,16 +92,44 @@ class OriginController extends AppController {
 			$user['User']['id']=$userId;
 			$user['User']['active']=($active) ? 1 : 0;
 			$this->User->save($user,false);
-		}
-		
+		}	
 	}
 	
-	
-	
-	
-	
-	
-	
+	public function dashboardUserUpdate($data) {
+				
+		if(isset($data['cpassword'])) {
+			$this->User->set($data);
+			
+			if($data['password'] === $data['cpassword']) {
+				$salt				= $this->UserAuth->makeSalt();
+				$data['salt'] 		= $salt;
+				$data['password'] 	= $this->UserAuth->makePassword($data['password'], $salt);
+				if($this->User->RegisterValidate()) {
+					$this->User->save($data, false);
+				} else {
+					return json_encode($this->User->invalidFields());
+				}
+			} else {
+				unset($data['password']);
+			}
+		} else {
+			unset($data['salt']);
+			unset($data['password']);
+			unset($data['cpassword']);
+			unset($data['email_verified']);
+			unset($data['active']);
+			unset($data['ip_address']);
+			unset($data['created']);
+			unset($data['modified']);
+			$this->User->set($data);
+			
+			if($this->User->RegisterValidate()) {
+				$this->User->save($data, false);
+			} else {
+				return json_encode($this->User->invalidFields());
+			}
+		}	
+	}
 	
 	/**
 	* Ad templates
@@ -112,6 +147,12 @@ class OriginController extends AppController {
 	*/
 	public function componentList() {
 		$this->set('title_for_layout', 'Ad Components');
+	}
+	
+	public function loadComponent() {
+		$this->layout 	= 'components';
+		$component 		= $this->request->params['component'];
+		$this->set('component', $component);
 	}
 	
 	/**

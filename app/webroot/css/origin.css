@@ -51,6 +51,7 @@ a:hover {
 }
 
 /***** START: BOOTSTRAP *****/
+
 label {
 	cursor: default;
 	margin: 0;
@@ -66,7 +67,10 @@ li {
 }
 
 .accordion-heading .accordion-toggle {
+	background: transparent url(/img/icon-accordion-close.png) no-repeat left center;
+	text-indent: 12px;
 	padding: 0;
+	border-bottom: 1px solid #bdbdbd;
 }
 
 .accordion-inner {
@@ -119,18 +123,6 @@ li {
 
 
 /***** START: UI *****/
-input[type="text"],
-input[type="password"],
-select,
-textarea {
-/*
-	background-color: #19191a;
-	border: 1px solid #5f5f61;
-	height: 24px;	
-	color: #bdbdbd;
-*/
-}
-
 textarea {
 	height: auto;
 }
@@ -142,16 +134,20 @@ input[type="password"]:focus {
 }
 */
 
+/*
 input::-webkit-input-placeholder {
 	color: transparent;
 }
+*/
 
+/*
 input:focus:-moz-placeholder {
 	color: transparent;
 }
 input:-ms-input-placeholder {
 	color: transparent;
 }
+*/
 
 .originUI-header {
 	margin: 10px 0;
@@ -368,6 +364,10 @@ input:-ms-input-placeholder {
 	border-color: transparent #0099CC #0099CC transparent; 
 }
 
+.originUI-shadow {
+	box-shadow: 0 0 4px 1px rgba(0, 0, 0, .5);
+}
+
 .originUI-tiles {
 	display: inline-block;
 	vertical-align: top;
@@ -404,6 +404,7 @@ input:-ms-input-placeholder {
 .originUI-upload {
 	position: relative;
 	overflow: hidden;
+	text-indent: 12px !important;
 }
 
 .originUI-uploadLabel {
@@ -431,7 +432,6 @@ input:-ms-input-placeholder {
 	width: 26px;
 	height: 26px;
 	cursor: pointer;
-	text-transform: uppercase;
 	font-size: 18px;
 }
 
@@ -510,7 +510,7 @@ input:-ms-input-placeholder {
 	/* border-bottom: 2px solid #0099cc; */
 	border-style: solid;
 	border-width: 0 0 2px;
-	text-indent: 40px;
+	text-indent: 45px;
 	font-size: 22px;
 	line-height: 22px;
 	margin: 0;
@@ -520,6 +520,12 @@ input:-ms-input-placeholder {
 
 .originUiModal-content {
 	padding: 0 15px;
+}
+
+.originUiModal-contentLeft,
+.originUiModal-contentRight {
+	float: left;
+	width: 50%;
 }
 
 .originUiModal-hr {
@@ -591,8 +597,8 @@ input:-ms-input-placeholder {
 }
 
 .originUiIcon-upload {
-	background-image: url(/img/icon-upload.png);
-	background-position: right center;
+	background-image: url(/img/icon-upload-small.png);
+	background-position: left center;
 }
 
 /***** END: UI *****/
@@ -764,9 +770,9 @@ input:-ms-input-placeholder {
 
 /***** START: DASHBOARD *****/
 #dashboard .originUI-tiles {
-	width: 230px;
-	height: 216px;
-	background-position: center 50px;
+	width: 180px;
+	height: 250px;
+	background-position: center 65px;
 	background-repeat: no-repeat;
 }
 
@@ -775,6 +781,7 @@ input:-ms-input-placeholder {
 	top: 5px;
 	right: 10px;
 	border-width: 0 0 1px 0;
+	font-size: 17px;
 }
 
 #dashboard-templates {
@@ -801,6 +808,20 @@ input:-ms-input-placeholder {
 /***** END: DASHBOARD *****/
 
 /***** START: USER MANAGEMENT *****/
+.dashboard-left,
+.dashboard-right {
+	margin: 10px;
+	float: left;
+}
+
+.dashboard-left {
+	width: 230px;
+}
+
+.dashboard-right {
+	width: 700px;
+}
+
 .origin-usermgmt-login {
 	margin-top: 30px;
 	width: 300px;
@@ -948,27 +969,24 @@ div#userList-add {
 	width: 230px;
 }
 
-#userList-addImage {
-	position: relative;
-	width: 210px;
-	height: 150px;
-	margin: 10px auto;
-	background: #9933CC url(/img/userList-add.png) no-repeat center 10px;
+#userListAdd-header {
+	background: transparent url(/img/icon-userAdd-small.png) no-repeat 10px center;
 }
 
 #userList-form {
 	margin: 10px 15px;
+	height: 393px;
 }
 
 
 
 #userList-listing {
 	width: 730px;
-	min-height: 575px;
+	min-height: 500px;
 }
 
 #userList-header {
-	background: transparent url(/img/bar-user.png) no-repeat 10px center;
+	background: transparent url(/img/icon-user-small.png) no-repeat 10px center;
 }
 
 #userList-table {
@@ -990,15 +1008,25 @@ div#userList-add {
 	background-color: #000;
 }
 
+#userListEdit-header {
+	background: transparent url(/img/icon-user-small.png) no-repeat 10px center;
+}
 
+#userList-edit .originUiModal-contentLeft>.originUI-list {
+	margin: 0 15px 0 0;
+}
 
+/*
 .dashboard-left {
 	width: 250px;
 }
+*/
 
+/*
 .dashboard-left .originTile-title {
 	border-color: #fff;
 }
+*/
 
 #userAccount-password {
 	width: 230px;
@@ -1009,14 +1037,28 @@ div#userList-add {
 #userAccount-password {
 	background: #cc0000 url(/img/tile-add.png) no-repeat center 15px;
 }
+/*
 
 .dashboard-right {
 	width: 730px;
 	margin: 10px;
 	box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.5);
 }
+*/
 
 /***** END: USER MANAGEMENT *****/
+
+
+/***** START: MODAL WINDOW *****/
+.originUiModal-contentLeft > .originUI-list {
+	margin-right: 15px;
+}
+
+.originUiModal-contentRight > .originUI-list {
+	margin-left: 15px;
+}
+
+/***** END: MODAL WINDOW *****/
 
 /***** START: AD COMPONENTS *****/
 #adComponent-add {
@@ -1033,6 +1075,15 @@ div#userList-add {
 	height: 150px;
 	overflow: hidden;
 }
+
+
+#component-add .originUI-upload {
+	height: 26px;
+	width: 145px;
+	display: block;
+	font-size: 16px;
+}
+
 
 /***** END: AD COMPONENTS *****/
 
@@ -1144,7 +1195,6 @@ div#userList-add {
 #templateAdd-storyboard .originUI-upload {
 	height: 26px;
 	width: 145px;
-	text-indent: 0;
 	display: block;
 	font-size: 16px;
 }
@@ -1184,9 +1234,43 @@ div#userList-add {
 	width: 90px;
 }
 */
-
-
 /***** END: AD TEMPLATES *****/
+
+/***** START: SYSTEM CONFIG *****/
+
+#systemConfig-groupAdd,
+#systemConfig-access {
+	margin: 10px;
+	float: left;
+}
+
+#systemConfig-groupAdd {
+	width: 230px;
+}
+
+#groupAdd-form {
+	margin: 10px 15px;	
+}
+
+#systemConfig-access {
+	width: 730px;
+}
+
+.systemConfig-tableRow {
+	border-bottom: 1px solid #bdbdbd;
+}
+
+.systemConfig-tableRow>td {
+	padding-bottom: 10px;
+}
+
+.systemConfig-tableController {
+	padding: 0 15px;	
+}
+
+/***** END: SYSTEM CONFIG *****/
+
+
 
 /***** START: AD LIST *****/
 

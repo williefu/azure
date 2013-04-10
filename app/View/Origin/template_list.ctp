@@ -176,7 +176,6 @@
 						</accordion-group>
 					</accordion>
 					<ul class="originUI-list">
-						
 						<li ng:show="originTemplates.editor.id">
 							<div id="templateAdd-delete" class="originUI-icon originUiIcon-delete" ng:show="!originTemplates.confirmDelete" ng:click="originTemplates.confirmDelete=!originTemplates.confirmDelete">Delete</div>
 							<div id="templateAdd-confirm" class="originUI-icon originUiIcon-delete" ng:show="originTemplates.confirmDelete" ng:click="templateDelete()">Confirm</div>
