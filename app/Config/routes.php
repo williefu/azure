@@ -100,6 +100,7 @@ Router::connect('/administrator/get/templates', array('controller'=>'origin', 'a
 Router::connect('/administrator/get/template/:template_id', array('controller'=>'origin', 'action'=>'jsonAdTemplate'));
 Router::connect('/administrator/get/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
 Router::connect('/administrator/get/monitor/list', array('controller' => 'monitor', 'action' => 'jsonList'));
+Router::connect('/administrator/get/monitor/event/:category', array('controller' => 'monitor', 'action' => 'jsonEvent'));
 Router::connect('/administrator/get/monitor/visits', array('controller' => 'monitor', 'action' => 'jsonVisits'));
 
 //POST

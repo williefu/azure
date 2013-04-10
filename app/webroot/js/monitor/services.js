@@ -10,7 +10,7 @@ angular.module('monitorApp.services',[])
 					});
 					return promise;
 				},
-				post: function(link, data) {
+				post: function(data) {
 					//var promise = $http.post(link, data).then(function(response) {
 					var promise = $http.post('/administrator/Monitor/Post', data).then(function(response) {
 						return response.data;

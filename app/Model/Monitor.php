@@ -29,6 +29,19 @@ class Monitor extends AppModel {
 		return $visits;
     }
 	
+	function getEvent($data) {
+		$end_date = date("Y-m-d",strtotime('-1 day'));
+		$start_date = date('Y-m-d',strtotime('-31 day')); 
+		$dimensions = 'ga:eventCategory';
+		$metrics = 'ga:totalEvents,ga:uniqueEvents';
+		$sort = '-ga:totalEvents';
+		$filters = $data['category'];
+		//$filters = new analytics_filters('ga:eventCategory','=@','Assassins Creed [Horizon - DO NOT MODIFY]');
+		$monitor = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
+		
+		return $monitor;
+	}
+	
 	function pullAnalyticsData($dimensions=false, $metrics, $sort, $start_date, $end_date, $save=false, $filters=false) {
 		//Google count
 		$login = '';

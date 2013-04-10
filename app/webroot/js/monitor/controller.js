@@ -8,12 +8,14 @@ angular.module('workspaceApp', ['monitorApp.services', 'monitorApp.directive']);
 var workspaceCtrl = function($scope, Workspace) {
 	//Global Monitor object
 	$scope.monitorObj = {};
+	$scope.monitortest = [];
 	//Load Monitor data
-	//Workspace.get('Json/monitorlist').then(function(data) {
 	Workspace.get('list').then(function(data) {
-			$scope.monitor_filter = data['filter'];
-			$scope.monitor_totals = data['total'];
-			$scope.monitor_list = data['data'];
+			$scope.monitor_filter = data.filter;
+			$scope.monitor_totals = data.total;
+			$scope.monitor_list = data.data;
+			$scope.testmonitor = data.total;
+			$scope.monitortest.push(['1', 's', 'g']);
 	});
 
 	
@@ -23,9 +25,10 @@ var workspaceCtrl = function($scope, Workspace) {
 			$scope.monitor_url = data;
 	});*/
 	
-	$scope.proceed = function() {
-		console.log($scope.monitorObj);
-		//console.log($user);
+	$scope.getData = function($monitor) {
+		Workspace.get('event/'+$monitor.category).then(function(data) {
+			//console.log(data);
+		});
 	}
 	
 	$scope.export = function() {
