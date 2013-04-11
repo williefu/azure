@@ -82,6 +82,44 @@ angular.module('originApp.directives', [])
 			}
 		}
 	})
+	.directive('panelUpload', function() {
+		return {
+			restrict: 'A',
+			link: function(scope, element, attrs) {
+				$j(document).bind('drop dragover', function (e) {
+					e.preventDefault();
+				});
+			
+				element.fileupload({
+					dataType: 	'json',
+					dropZone: 	$j('#creator-panel-left'),
+					url: 		'/administrator/Origin/upload',
+					add: function(e, data) {
+						data.submit();
+						//console.log(data);	
+					},
+					done: function(e, data) {
+						//RUNS MULTIPLE TIMES!
+						scope.updateLibrary();
+						scope.creatorToggle('library');
+					}
+					/*
+					dataType: 'json',
+		dropZone: $j('#panel, #panel-slide'),
+		url: '/libraries/evolve/classes/originFileUploader.php',
+		add: function(e, data) {
+			data.submit();
+		},
+		done: function(e, data) {
+			//$scope.uiChange('panel', 'assets');
+			$scope.originObj.assets		= Workspace.get('index.php?option=com_emc_origin&task=jsonAssets&id='+origin_id);
+			//$scope.assets = Workspace.loadAssets({id: origin_id});
+		}
+					*/
+				});
+			}
+		}
+	})
 	.directive('sortable', function() {
 		return {
 			restrict: 'A',

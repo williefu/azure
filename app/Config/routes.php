@@ -96,6 +96,7 @@ Router::connect('/administrator/get/ads', array('controller'=>'origin', 'action'
 Router::connect('/administrator/get/ad/:originAd_id', array('controller'=>'origin', 'action'=>'jsonAdUnit'));
 Router::connect('/administrator/get/components', array('controller'=>'origin', 'action'=>'jsonComponent'));
 Router::connect('/administrator/get/components/:component', array('controller'=>'origin', 'action'=>'loadComponent'));
+Router::connect('/administrator/get/library/:originAd_id', array('controller'=>'origin', 'action'=>'jsonLibrary'));
 Router::connect('/administrator/get/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));
 Router::connect('/administrator/get/template/:template_id', array('controller'=>'origin', 'action'=>'jsonAdTemplate'));
 Router::connect('/administrator/get/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));

@@ -1,6 +1,9 @@
 var originAd_id		= $j('#originAd_id').val(),
 	template_id;
 	
+	/**
+	* Prevent accidental clicks leaving the editor
+	*/
 	$j('#origin-bar').find('a').each(function() {
 		$j(this).click(function() {
 			var ask = confirm('Do you want to exit Origin\'s Ad Creator?');
@@ -37,16 +40,25 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	$scope.workspace.display	= {};	//Ad's display model
 	$scope.workspace.modal		= {};	//Modal content
 	$scope.workspace.template	= {};	//Ad's corresponding template model
-	$scope.ui				= {};	//UI wrapper model
-	$scope.ui.schedule		= 0;	//Current schedule state
-	$scope.ui.layer			= 'Layers';
-	$scope.ui.view 			= 'Initial';
-	$scope.ui.platform		= 'Desktop';
-	$scope.layers			= {};
+	$scope.ui					= {};	//UI wrapper model
+	$scope.ui.schedule			= 0;	//Current schedule state
+	$scope.ui.layer				= 'Layers';
+	$scope.ui.view 				= 'Initial';
+	$scope.ui.platform			= 'Desktop';
+	$scope.layers				= {};
+	$scope.library				= {};
+	$scope.creatorModalOptions	= {
+		backdropClick: 	false,
+		backdropFade:	true
+	}
 	
-	//Load components
+	/**
+	* Init
+	*/
 	Origin.get('components').then(function(response) {
 		$scope.workspace.components		= response;
+		
+		$scope.updateLibrary();
 		
 		Origin.get('ad/'+originAd_id).then(function(response) {
 			template_id					= response.OriginAd.config.type_id;
@@ -63,11 +75,26 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		});
 	});
 	
+	/**
+	* Refreshes the workspace and layers
+	*/
 	$scope.refreshUI = function(data) {
 		$scope.workspace.ad	= data;
 		$scope.updateUI();
 	}
 	
+	/**
+	* Refreshes the library panel
+	*/
+	$scope.updateLibrary = function() {
+		Origin.get('library/'+originAd_id).then(function(response) {
+			$scope.library				= response.files;
+		});
+	}
+	
+	/**
+	* Core functionality to update the workspace and layers w/respect to current settings
+	*/
 	$scope.updateUI = function() {
 		$scope.ui.content			= 'OriginAd'+$scope.ui.platform+$scope.ui.view+'Content';	//Current view state
 		$scope.workspace.display	= $scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content];
@@ -100,29 +127,39 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 				$scope.refreshUI(response);
 				Notification.message({'title': 'Updated', 'content': 'Layers updated'});
 			});
-			
-			
-			
 		}
 	}, true);	
 	
+	/**
+	* Switch toggles throughout the interface
+	*/
 	$scope.creatorToggle = function(type) {
 		switch(type) {
+			case 'library':
+				var toggle			= $j('#layerSwitch').prop('checked', false);
+				$scope.ui.layer 	= 'Library';
+				break;
 			case 'view':
-				var toggle	= $j('#displaySwitch').prop('checked', !$j('#displaySwitch').prop('checked'));
-				$scope.ui.view 	= ($j('#displaySwitch').prop('checked'))? 'Initial': 'Triggered';
+				var toggle			= $j('#displaySwitch').prop('checked', !$j('#displaySwitch').prop('checked'));
+				$scope.ui.view 		= ($j('#displaySwitch').prop('checked'))? 'Initial': 'Triggered';
 				break;
 			default:
-				var toggle	= $j('#layerSwitch').prop('checked', !$j('#layerSwitch').prop('checked'));
+				var toggle			= $j('#layerSwitch').prop('checked', !$j('#layerSwitch').prop('checked'));
 				$scope.ui.layer 	= ($j('#layerSwitch').prop('checked'))? 'Layers': 'Library';
 				break;
 		}
 	}
 	
+	/**
+	* Closes the modal window
+	*/
 	$scope.creatorModalClose = function() {
 		$scope.creatorModal	= false;
 	}
 	
+	/**
+	* Opens the modal and loads content (if available)
+	*/
 	$scope.creatorModalOpen = function(type, content, model) {
 		$scope.creatorModal = true;
 		var component;
@@ -180,7 +217,9 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	}
 */
 	
-	
+	/**
+	* Save/update the content
+	*/
 	$scope.creatorModalSave = function() {
 		$scope.editor.route					= 'creatorContentSave';
 		$scope.editor.model					= $scope.ui.platform + $scope.ui.view;
@@ -194,10 +233,7 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		});
 	}
 	
-	$scope.creatorModalOptions = {
-		backdropClick: 	false,
-		backdropFade:	true
-	}
+	
 	
 	
 /*

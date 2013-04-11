@@ -7,7 +7,7 @@
 			<div id="components-wrapper">
 				<a href="javascript:void(0)" id="components" class="dropdown-toggle originUI-borderColor">Components</a>
 				<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
-					<li ng:repeat="component in workspace.components">
+					<li ng:repeat="component in workspace.components|filter:{OriginComponent.status: '1'}">
 						<a href="javascript:void(0)" ng:click="creatorModalOpen('component', component)" class="component" back-img='{{component.OriginComponent.config.img_icon}}'>
 							{{component.OriginComponent.name}}
 						</a>
@@ -56,7 +56,8 @@
 				-->
 		</div>
 	</div>
-	<div id="creator-panel-left" class="originUI-bgColor originUI-borderColor">
+	<form id="creator-panel-left" class="originUI-bgColor originUI-borderColor" panel-upload>
+		<input type="hidden" name="uploadDir" value="/assets/creator/<?php echo $this->params['originAd_id'];?>/"/>
 		<div id="layer-wrapper" ng:click="creatorToggle('layer')">
 			<div id="layer-icon" class="inline" ng:class="{true: 'layer-layers', false: 'layer-library'}[ui.layer=='Layers']"></div><!--
 			--><div id="layer-switch" class="inline">
@@ -83,9 +84,15 @@
 			</li>
 		</ul>
 		<ul ng:show="ui.layer=='Library'">
-			<li>assets go here...</li>
+			<li>
+				<div id="" class="originUI-upload originUI-icon originUiIcon-upload originUI-bgColorSecondary">
+					<span class="originUI-uploadLabel">Upload Image</span>
+					<input type="file" name="files[]" id="tempalteAdd-upload-template" class="originUI-uploadInput" ng:model="originTemplates.editor.content.file_storyboard" multiple="multiple" fileupload>
+				</div>
+			</li>
+			<li ng:repeat="asset in library">{{asset.name}}</li>
 		</ul>
-	</div>
+	</form>
 	<div id="creator-panel-workspace" class="originUI-bgColorSecondary originUI-bgTexture" ng:class="workspace-{{workspace.template.content.alias}}">
 		
 		<div class="workspace" ng:style="workspaceTemplateConfig()"></div>

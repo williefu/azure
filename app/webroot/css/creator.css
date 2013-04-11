@@ -359,12 +359,12 @@ body {
 
 .CodeMirror {
 	height: 135px;
-	border: 1px solid #bdbdbd;
+	border: 1px solid #444444;
 }
 
 
 #creatorModal-config {
-	border-top: 1px solid #bdbdbd;
+	border-top: 1px solid #444444;
 	margin: 15px;
 /*
 	width: 570px;

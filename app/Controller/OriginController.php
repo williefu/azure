@@ -21,27 +21,38 @@ class OriginController extends AppController {
 */
 	}
 	
+	/**
+	* Displays a listing of all Origin ad units
+	*/
 	public function ad_list() {
 		$this->set('title_for_layout', 'Origin Ads');
 		$this->render('list');
 	}
 	
+	/**
+	* Opens Origin's ad creator
+	*/
 	public function edit() {
 		$this->set('title_for_layout', 'Editor');
 	}
 	
-	
 	/**
-	* Dashboard functions
+	* Dashboard page
 	*/
 	public function dashboard() {
 		$this->set('title_for_layout', 'Dashboard');
 	}
 	
+	/**
+	* Origin system permissions page
+	*/
 	public function dashboardAccess() {
 		$this->set('title_for_layout', 'System Settings');
 	}
 	
+	/**
+	* Adds a new user permissions group
+	*/
 	public function dashboardGroupAdd($data) {
 		$this->UserGroup->set($data);
 		if($this->UserGroup->addValidate()) {
@@ -49,10 +60,16 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* ?
+	*/
 	public function dashboardUser() {
 		
 	}
 	
+	/**
+	* Creates a new user
+	*/
 	public function dashboardUserAdd($data) {
 		if($this->User->RegisterValidate()) {
 			$data['email_verified']		= 1;
@@ -66,6 +83,9 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* Updates an user's password
+	*/
 	public function dashboardUserPasswordUpdate($data) {
 		$userId = $this->UserAuth->getUserId();		
 		$this->User->set($data);
@@ -83,6 +103,9 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* Toggles an user's status
+	*/
 	public function dashboardUserStatus($data) {
 		$userId			= $data['id'];
 		$active			= $data['status'];
@@ -95,8 +118,10 @@ class OriginController extends AppController {
 		}	
 	}
 	
-	public function dashboardUserUpdate($data) {
-				
+	/**
+	* Updates an user's account
+	*/
+	public function dashboardUserUpdate($data) {		
 		if(isset($data['cpassword'])) {
 			$this->User->set($data);
 			
@@ -132,23 +157,29 @@ class OriginController extends AppController {
 	}
 	
 	/**
-	* Ad templates
+	* Origin ad template manager
 	*/
 	public function templateList() {
 		$this->set('title_for_layout', 'Ad Templates');
 	}
 	
+	/**
+	* ?
+	*/
 	public function templateEdit($id) {
 		
 	}
 	
 	/**
-	* Components
+	* Origin ad component manager
 	*/
 	public function componentList() {
 		$this->set('title_for_layout', 'Ad Components');
 	}
 	
+	/**
+	* Loads a specified ad component. (why??)
+	*/
 	public function loadComponent() {
 		$this->layout 	= 'components';
 		$component 		= $this->request->params['component'];
@@ -156,7 +187,7 @@ class OriginController extends AppController {
 	}
 	
 	/**
-	* POST
+	* POST data router
 	*/
 	public function post() {
 		if($this->request->data['route']) {
@@ -167,6 +198,9 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* Creates a new Origin ad unit
+	*/
 	private function adCreate($data) {
 		$data['config']			= json_encode($data);
 		$data['create_by']		= $this->UserAuth->getUserId();
@@ -182,6 +216,9 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* Removes an Origin ad component
+	*/
 	private function componentDelete($data) {
 		$id		= $data['id'];
 		
@@ -195,6 +232,9 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* Save/updates an Origin ad component
+	*/
 	private function componentSave($data) {
 		$data['content']		= json_encode($data['content']);
 		$data['config']			= json_encode($data['config']);
@@ -216,6 +256,9 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* Toggles an Origin ad component's status
+	*/
 	private function componentStatus($data) {
 		$data['modify_date']	= date('Y-m-d H:i:s');
 		$data['modify_by']		= $this->UserAuth->getUserId();
@@ -230,10 +273,16 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* ?
+	*/
 	private function templateDisable() {
 		
 	}
 	
+	/**
+	* Removes an Origin ad template
+	*/
 	private function templateDelete($data) {
 		$id		= $data['id'];
 		
@@ -247,6 +296,9 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* Save/update an Origin ad template
+	*/
 	private function templateSave($data) {
 		$data['content']		= json_encode($data['content']);
 		$data['config']			= json_encode($data['config']);
@@ -268,6 +320,9 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* System-wide AJAX file uploader
+	*/
 	public function upload() {
 		App::import('Vendor', 'UploadHandler', array('file'=>'UploadHandler/uploadHandler.class.php'));
 		
@@ -291,8 +346,9 @@ class OriginController extends AppController {
 		exit;
 	}
 	
+
 	/**
-	* JSON Feeds
+	* JSON feed of the specified Origin ad template
 	*/
 	public function jsonAdTemplate() {
 		$template_id		= $this->request->params['template_id'];
@@ -304,6 +360,9 @@ class OriginController extends AppController {
 		$this->set('origin_template', $origin_template);
 	}
 	
+	/**
+	* JSON feed of a specified Origin ad unit
+	*/
 	public function jsonAdUnit($originAd_id = '') {
 		$originAd_id 	= ($originAd_id)? $originAd_id: $this->request->params['originAd_id'];
 		$origin_ad		= $this->OriginAd->find('first', 
@@ -317,11 +376,24 @@ class OriginController extends AppController {
 		$this->set('origin_ad', $origin_ad);
 	}
 	
+	/**
+	* JSON feed of a specific Origin ad unit's library
+	*/
+	public function jsonLibrary() {
+		$this->set('originAd_id', $this->request->params['originAd_id']);	
+	}
+	
+	/**
+	* JSON feed of all Origin ad units
+	*/
 	public function jsonList() {
 		$origin_ads		= $this->OriginAd->find('all', array('recursive'=>-1));
 		$this->set('origin_ads', $origin_ads);
 	}
 	
+	/**
+	* JSON feed of all Origin ad components
+	*/
 	public function jsonComponent() {
 		$origin_components	= $this->OriginComponent->find('all',
 			array(
@@ -331,6 +403,9 @@ class OriginController extends AppController {
 		$this->set('origin_components', $origin_components);
 	}
 	
+	/**
+	* JSON feed of all Origin ad templates
+	*/
 	public function jsonTemplate() {
 		$origin_templates	= $this->OriginTemplate->find('all',
 			array(
@@ -341,6 +416,9 @@ class OriginController extends AppController {
 	}
 	
 	/***** CREATOR FUNCTIONS *****/
+	/**
+	* Creates an Origin ad unit's content record
+	*/
 	public function creatorContentSave($data) {
 		$data['content']		= json_encode($data['content']);
 		$data['config']			= json_encode($data['config']);
@@ -351,6 +429,9 @@ class OriginController extends AppController {
 		}
 	}
 	
+	/**
+	* Updates the order of all content layers
+	*/
 	private function creatorLayerUpdate($data) {
 		if($this->{'OriginAd'.$data['model'].'Content'}->saveAll($data['data'])) {
 			$this->jsonAdUnit($data['originAd_id']);
