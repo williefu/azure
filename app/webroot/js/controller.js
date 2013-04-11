@@ -22,7 +22,7 @@ var originGeneral = function($scope, $filter, Origin, Notification) {
 	$scope.$on('notificationBroadcast', function() {
 		$scope.notification.title 		= Notification.title;
 		$scope.notification.content 	= Notification.content;
-		$j('#origin-notification').fadeIn().delay(5000).fadeOut();
+		$j('#origin-notification').fadeIn().delay(2200).fadeOut();
 	});   
 	
 	
@@ -281,7 +281,15 @@ var originComponents	= function($scope, $filter, Origin, Notification) {
 		$scope.originComponents.confirmDelete	= false;
 	}
 	
-	$scope.componentSave = function() {
+	$scope.componentSave = function(type) {
+		switch(type) {
+			case 'create':
+				break;
+			case 'update':
+				$scope.editor		= angular.copy($scope.modalEditor);
+				break;
+		}
+		
 		$scope.editor.route			= 'componentSave';
 		Origin.post($scope.editor).then(function(response) {
 			$scope.editor = {};

@@ -1,4 +1,4 @@
-<div id="editor-link" ng:controller="componentCtrl">
+<div id="editor-dfp-link" ng:controller="componentCtrl">
 	<ul class="originUI-list">
 		<li>
 			<label>URL</label>
@@ -54,7 +54,7 @@
 						url = 'http://' + url;
 					}
 					
-					_scope.editor.render	= '<a href="'+url+'" class="link" data-trigger="'+toggleEvent+'" <%=style%>></a>';
+					_scope.editor.render	= '<a href="'+url+'" class="dfp-link" data-trigger="'+toggleEvent+'" <%=style%>></a>';
 				}, true);
 		}
 	</script>

@@ -309,7 +309,9 @@ class OriginController extends AppController {
 		$origin_ad		= $this->OriginAd->find('first', 
 			array(
 				'recursive'=>2,
-				'conditions'=>array('OriginAd.id'=>$originAd_id)
+				'conditions'=>array(
+					'OriginAd.id'=>$originAd_id
+				)
 			)
 		);
 		$this->set('origin_ad', $origin_ad);
@@ -343,9 +345,14 @@ class OriginController extends AppController {
 		$data['content']		= json_encode($data['content']);
 		$data['config']			= json_encode($data['config']);
 		
-		//echo 'OriginAd'.$data['model'].'Content';
-		
 		if($this->{'OriginAd'.$data['model'].'Content'}->save($data)) {
+			$this->jsonAdUnit($data['originAd_id']);
+			return $this->render('/Origin/json/json_ad_unit');	
+		}
+	}
+	
+	private function creatorLayerUpdate($data) {
+		if($this->{'OriginAd'.$data['model'].'Content'}->saveAll($data['data'])) {
 			$this->jsonAdUnit($data['originAd_id']);
 			return $this->render('/Origin/json/json_ad_unit');	
 		}

@@ -71,7 +71,7 @@
 			</ul>
 		</form>
 		<div class="originUiModal-footer">
-			<div class="originUiModalFooter-center" ng:click="componentSave()">Save</div>
+			<div class="originUiModalFooter-center" ng:click="componentSave('create')">Save</div>
 		</div>
     </div><!--
     --><div id="adComponent-right" class="dashboard-right originUI-bgColor originUI-shadow">
@@ -103,7 +103,7 @@
     <div modal="componentModal" close="componentModalClose()" options="originComponents.modalOptions">
 		<form id="component-edit" name="component-edit" class="originUI-bgColorSecondary originUI-modal">
 			<input type="hidden" name="uploadDir" value="/assets/components/"/>
-			<input type="hidden" ng:model="modalEditor.id"/>
+			<input type="hidden" name="id" ng:model="modalEditor.group" value="{{modalEditor.id}}"/>
 	
 			<h3 class="originUiModal-header originUI-borderColor originUI-textColor">Edit Component</h3>
 			
@@ -163,7 +163,7 @@
 			</div>
 			<div class="originUiModal-footer">
 				<div class="originUiModalFooter-left" ng:click="componentModalClose()">Cancel</div>
-				<div class="originUiModalFooter-right" ng:click="componentSave()">Save</div>
+				<div class="originUiModalFooter-right" ng:click="componentSave('update')">Save</div>
 			</div>
 		</form>
 	</div>

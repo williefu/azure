@@ -15,7 +15,7 @@
 				</ul>
 			</div>
 			<div id="display-wrapper" ng:click="creatorToggle('view')">
-				<div id="display-icon" class="inline" ng:class="{true: 'display-initial', false: 'display-triggered'}[workspace.ui.view=='Initial']"></div>
+				<div id="display-icon" class="inline" ng:class="{true: 'display-initial', false: 'display-triggered'}[ui.view=='Initial']"></div>
 				
 				<div id="display" class="inline">
 					<div class="originUI-switch">
@@ -57,10 +57,8 @@
 		</div>
 	</div>
 	<div id="creator-panel-left" class="originUI-bgColor originUI-borderColor">
-	
-	
 		<div id="layer-wrapper" ng:click="creatorToggle('layer')">
-			<div id="layer-icon" class="inline" ng:class="{true: 'layer-layers', false: 'layer-library'}[workspace.ui.layer=='Layers']"></div><!--
+			<div id="layer-icon" class="inline" ng:class="{true: 'layer-layers', false: 'layer-library'}[ui.layer=='Layers']"></div><!--
 			--><div id="layer-switch" class="inline">
 				<div class="originUI-switch">
 				    <input type="checkbox" name="layerSwitch" class="originUI-switchInput" id="layerSwitch" checked="checked">
@@ -77,16 +75,15 @@
 			    </div> 
 			</div>
 		</div>
-	
-	
-	
-	
-	
-		<ul ng:show="workspace.ui.layer=='Layers'">
-			<li ng:repeat="content in workspace.display">{{content.content.title}}-{{content.id}}</li>
+		<ul ng:show="ui.layer=='Layers'" class="content-list originUI-list" ng:model="workspace.display" ui:sortable="{axis: 'y'}">
+			<li class="content-item" ng:repeat="content in workspace.display|orderBy:'-order'">
+				<span class="content-handle inline">handle</span>
+				<span class="content-label inline">{{content.content.title}}-{{content.id}}</span>
+				<span class="content-edit inline" ng:click="creatorModalOpen('content', '', content)">edit</span>
+			</li>
 		</ul>
-		<ul ng:show="workspace.ui.layer=='Library'">
-			<li>assets</li>
+		<ul ng:show="ui.layer=='Library'">
+			<li>assets go here...</li>
 		</ul>
 	</div>
 	<div id="creator-panel-workspace" class="originUI-bgColorSecondary originUI-bgTexture" ng:class="workspace-{{workspace.template.content.alias}}">
@@ -176,5 +173,5 @@
 </div>
 
 <?php
-	echo $this->Minify->css(array('creator', 'codemirror/night'));
-	echo $this->Minify->script(array('codemirror/codemirror', 'codemirror/xml', 'codemirror/javascript', 'codemirror/css', 'codemirror/htmlmixed', 'creatorController'));
+	echo $this->Minify->css(array('creator', 'codemirror/night', 'jquery-ui.min'));
+	echo $this->Minify->script(array('codemirror/codemirror', 'codemirror/xml', 'codemirror/javascript', 'codemirror/css', 'codemirror/htmlmixed', 'jquery-ui.min', 'jquery-touch', 'creatorController'));

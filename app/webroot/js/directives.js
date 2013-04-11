@@ -81,4 +81,20 @@ angular.module('originApp.directives', [])
 				element.overscroll();
 			}
 		}
+	})
+	.directive('sortable', function() {
+		return {
+			restrict: 'A',
+			link: function(scope, element, attrs) {
+				element.sortable({
+					'axis':		'y',
+					'handle':	'.content-handle',
+					'update': function(event, ui) {
+						//console.log(ui);
+						console.log(scope.workspace.display);
+					}
+				});
+				element.disableSelection();
+			}
+		}
 	});

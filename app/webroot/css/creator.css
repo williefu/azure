@@ -23,8 +23,6 @@ body {
 	left: 200px;
 }
 
-
-
 #creator-panel-left,
 #creator-panel-workspace {
 	top: 85px;
@@ -277,6 +275,49 @@ body {
 #layer-switch .originUI-switchInactive .originUI-switchText:before {
 	right: 62px;
 }
+
+.content-list {
+}
+
+.content-list > .content-item + .content-item {
+	border-top: 1px solid #303030;
+}
+
+.content-item {
+	margin: 0 10px;
+	position: relative;
+}
+
+.content-edit,
+.content-handle {
+	background: transparent url(/img/creator-sortHandle.png) no-repeat center center;
+	text-indent: -5000em;
+	width: 26px;
+	height: 32px;
+	opacity: .1;
+	cursor: move;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+}
+
+.content-edit:hover,
+.content-handle:hover {
+	opacity: .7;
+}
+
+.content-edit {
+	background-image: url(/img/icon-edit.png);
+	position: absolute;
+	right: 0;
+	cursor: pointer;
+}
+
+
+
+.content-label {
+	line-height: 32px;
+}
+
 
 /*
 
