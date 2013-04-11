@@ -43,4 +43,15 @@ angular.module('originApp.services', [])
 			}
 		}
 		return Users;
+	})
+	.factory('Monitor', function($http){
+		var Monitor = {
+				get: function(action) {
+					var promise = $http.get('/administrator/get/monitor/'+action+'.json').then(function(response) {
+						return response.data;
+					});
+					return promise;
+				}
+			}
+		return Monitor;
 	});

@@ -1,38 +1,37 @@
 'use strict';
 /**
-* Workspace Controller
+* Monitor Controller
 **/
 
-angular.module('workspaceApp', ['monitorApp.services', 'monitorApp.directive']);
+//angular.module('monitorApp', ['monitorApp.services', 'monitorApp.directive']);
+//angular.bootstrap(document, ['monitorApp']);
 
-var workspaceCtrl = function($scope, Workspace) {
+var monitorCtrl = function($scope, Monitor) {
 	//Global Monitor object
 	$scope.monitorObj = {};
 	$scope.monitortest = [];
 	//Load Monitor data
-	Workspace.get('list').then(function(data) {
+	Monitor.get('list').then(function(data) {
 			$scope.monitor_filter = data.filter;
 			$scope.monitor_totals = data.total;
 			$scope.monitor_list = data.data;
-			$scope.testmonitor = data.total;
-			$scope.monitortest.push(['1', 's', 'g']);
 	});
 
 	
 	//Load Monitor data
-	/*Workspace.get('Json/charts').then(function(data) {
+	/*Monitor.get('Json/charts').then(function(data) {
 			//console.log(data);
 			$scope.monitor_url = data;
 	});*/
 	
 	$scope.getData = function($monitor) {
-		Workspace.get('event/'+$monitor.category).then(function(data) {
+		Monitor.get('event/'+$monitor.category).then(function(data) {
 			//console.log(data);
 		});
 	}
 	
 	$scope.export = function() {
-		Workspace.post('Json/export',$scope.monitor_list).then(function(response) {
+		Monitor.post('Json/export',$scope.monitor_list).then(function(response) {
 			console.log(response);
 			//$scope.templateRefresh(response);
 		});
@@ -55,4 +54,3 @@ var workspaceCtrl = function($scope, Workspace) {
 		}
 	}*/
 }
-
