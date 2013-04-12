@@ -291,6 +291,27 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	* Saves all changes (resizes, moving) done in workspace
 	*/
 	$scope.workspaceUpdate = function() {
-		console.log($scope.workspace.display);
+		$scope.editor.data					= $scope.workspace.ad.OriginAdSchedule;
+		$scope.editor.route					= 'creatorWorkspaceUpdate';
+		
+		Origin.post($scope.editor).then(function(response) {
+			if(response) {
+				Notification.message({'title': 'Saved', 'content': 'Workspace saved'});
+				$j('#save-wrapper').fadeOut(200);
+			}
+		});
+		
+/*
+	{workspace.ad.OriginAdSchedule[ui.schedule][ui.content]
+
+		
+		
+		Origin.post($scope.editor).then(function(response) {
+			$scope.creatorModal	= false;
+			$scope.refreshUI(response);
+			//Notification.message(notification);
+		});
+*/
+		
 	}
 };

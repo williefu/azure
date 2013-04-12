@@ -3,7 +3,19 @@
 class OriginController extends AppController {
 	public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
 	public $components 	= array('Session', 'RequestHandler', 'Usermgmt.UserAuth');
-	public $uses		= array('OriginAd', 'OriginTemplate', 'OriginComponent', 'OriginAdSchedule', 'OriginAdDesktopInitialContent', 'OriginAdDesktopTriggeredContent', 'Usermgmt.User', 'Usermgmt.UserGroup', 'Usermgmt.LoginToken');
+	public $uses		= array('OriginAd', 
+								'OriginTemplate', 
+								'OriginComponent', 
+								'OriginAdSchedule', 
+								'OriginAdDesktopInitialContent', 
+								'OriginAdDesktopTriggeredContent',
+								'OriginAdTabetInitialContent', 
+								'OriginAdTabletTriggeredContent',
+								'OriginAdMobileInitialContent', 
+								'OriginAdMobileTriggeredContent',
+								'Usermgmt.User', 
+								'Usermgmt.UserGroup', 
+								'Usermgmt.LoginToken');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
@@ -434,6 +446,41 @@ class OriginController extends AppController {
 		if($this->{'OriginAd'.$data['model'].'Content'}->save($data)) {
 			$this->jsonAdUnit($data['originAd_id']);
 			return $this->render('/Origin/json/json_ad_unit');	
+		}
+	}
+	
+	/**
+	* User action to save a workspace's content items (size and position)
+	*/
+	private function creatorWorkspaceUpdate($data) {
+		//Array of relevant models
+		$modelArray		= array('OriginAdDesktopInitialContent', 
+								'OriginAdDesktopTriggeredContent',
+								'OriginAdTabletInitialContent', 
+								'OriginAdTabletTriggeredContent',
+								'OriginAdMobileInitialContent', 
+								'OriginAdMobileTriggeredContent');
+	
+		//print_r($data);
+		foreach($data['data'] as $schedule) {
+			foreach($modelArray as $modelName) {
+				$dataSave	= $schedule[$modelName];
+				
+				foreach($dataSave as $key=>$content) {
+					unset($dataSave[$key]['origin_ad_schedule_id']);
+					unset($dataSave[$key]['content']);
+					unset($dataSave[$key]['render']);
+					unset($dataSave[$key]['order']);
+				
+					$dataSave[$key]['config'] = json_encode($content['config']);
+				}
+				
+				if($dataSave) {
+					if($this->$modelName->saveAll($dataSave)) {
+						return true;
+					}
+				}
+			}
 		}
 	}
 	

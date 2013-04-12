@@ -147,6 +147,11 @@ body {
 
 #save-wrapper {
 	right: 50px;
+	opacity: .5;
+}
+
+#save-wrapper:hover {
+	opacity: 1;
 }
 
 #save-icon {
@@ -154,6 +159,17 @@ body {
 	height: 42px;
 	background: transparent url(/img/creator-save.png) no-repeat center center;
 }
+
+/*
+#save {
+	font-size: 10px;
+	line-height: 10px;
+	vertical-align: middle;
+	text-align: right;
+	width: 50px;
+	height: 100%;
+}
+*/
 
 
 #options-wrapper {

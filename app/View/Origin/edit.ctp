@@ -116,10 +116,11 @@
 	<div id="creator-panel-workspace" class="originUI-bgColorSecondary originUI-bgTexture" ng:class="workspace-{{workspace.template.content.alias}}">
 		
 		<div class="workspace" ng:style="workspaceTemplateConfig()">
-			<content class="workspace-content" ng:repeat="content in workspace.display" ng:model="content"></content>	
-			
+			<content class="workspace-content" ng:repeat="content in workspace.ad.OriginAdSchedule[ui.schedule][ui.content]" ng:model="content"></content>	
 		</div>
 		<!--
+			{workspace.ad.OriginAdSchedule[ui.schedule][ui.content]
+		
 		 	[
 		 		{"id":"15","origin_ad_schedule_id":"1",
 		 			"content":{"type":"toggle","title":"Toggle","event":true},
