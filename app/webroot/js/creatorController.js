@@ -4,7 +4,7 @@ var originAd_id		= $j('#originAd_id').val(),
 	/**
 	* Prevent accidental clicks leaving the editor
 	*/
-	$j('#origin-bar').find('a').each(function() {
+	$j('#origin-bar').find('a').not('#originBar-help, #originNotification-close').each(function() {
 		$j(this).click(function() {
 			var ask = confirm('Do you want to exit Origin\'s Ad Creator?');
 			if(ask){
@@ -51,6 +51,14 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		backdropClick: 	false,
 		backdropFade:	true
 	}
+	
+	$scope.embedOptions = {
+		'auto':		0,
+		/* 'bg':		'#000000', WHY IS THIS EVEN AN OPTION? */
+		'close':	0,
+		'hover':	0
+	};
+	
 	
 	/**
 	* Init
@@ -112,21 +120,23 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	/**
 	* Update layers upon sort
 	*/
-	$scope.$watch('workspace.display', function() {
+	$scope.$watch('layers', function() {
 		if(!angular.equals($scope.layers, $scope.workspace.display) && $scope.layers.length) {
 			var data	= [];
-			for(var index in $scope.workspace.display) {
-				data[index]		= {'id': $scope.workspace.display[index].id, 'order': index};
+			for(var index in $scope.layers) {
+				data[index]		= {'id': $scope.layers[index].id, 'order': index};
 			}
 			$scope.editor.route			= 'creatorLayerUpdate';
 			$scope.editor.model			= $scope.ui.platform + $scope.ui.view;
 			$scope.editor.data			= data;
 			$scope.editor.originAd_id	= originAd_id;
-						
+			
 			Origin.post($scope.editor).then(function(response) {
 				$scope.refreshUI(response);
 				Notification.message({'title': 'Updated', 'content': 'Layers updated'});
 			});
+			
+			
 		}
 	}, true);	
 	
@@ -182,6 +192,8 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 				break;
 			case 'schedule':
 				break;
+			case 'settings':
+				break;
 		}
 		
 		if(model) {
@@ -233,39 +245,52 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		});
 	}
 	
-	
-	
-	
-/*
-	
-	$scope.scheduleModalClose = function() {
-		$scope.scheduleModal	= false;
-	}
-	
-	$scope.scheduleModalOpen = function() {
-		$scope.scheduleModal	= true;
-	}
-	
-	$scope.scheduleModalOptions = {
-		backdropClick:	false,
-		backdropFade:	true
-	}
-*/
-	
-	/*
-	$scope.adCreateModalClose = function() {
-		$scope.adCreateModal 	= false;
-	}
-	
-	$scope.adCreateModalOpen = function() {
-		$scope.adCreateModal	= true;
-	}
-	
-	$scope.adCreateModalOptions = {
-		backdropClick:	false,
-		backdropFade:	true
-	}
-	
+	/**
+	* Embed code modal window
 	*/
+	$scope.embedModalOpen = function() {
+		$scope.embedModal = true;
+	}
 	
+	/**
+	* Email embed code to user
+	*/
+	$scope.embedModalEmail = function() {
+		
+	}
+	
+	/**
+	* Close Embed modal window
+	*/
+	$scope.embedModalClose = function() {
+		$scope.embedModal = false;
+	}
+	
+	/**
+	* Settings modal
+	*/
+	$scope.settingsModalOpen = function() {
+		$scope.settingsModal = true;
+	}
+	
+	/**
+	* Email embed code to user
+	*/
+	$scope.settingsModalSave = function() {
+		
+	}
+	
+	/**
+	* Close Embed modal window
+	*/
+	$scope.settingsModalClose = function() {
+		$scope.settingsModal = false;
+	}
+	
+	/**
+	* Saves all changes (resizes, moving) done in workspace
+	*/
+	$scope.workspaceUpdate = function() {
+		console.log($scope.workspace.display);
+	}
 };

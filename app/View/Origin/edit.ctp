@@ -4,7 +4,7 @@
 	<div id="creator-panel-top" class="originUI-bgColor originUI-borderColor">
 		
 		<div class="wrapper">
-			<div id="components-wrapper">
+			<div id="components-wrapper" data-intro="Add components (images, video, etc) to unit" data-position="bottom">
 				<a href="javascript:void(0)" id="components" class="dropdown-toggle originUI-borderColor">Components</a>
 				<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
 					<li ng:repeat="component in workspace.components|filter:{OriginComponent.status: '1'}">
@@ -14,9 +14,8 @@
 					</li>
 				</ul>
 			</div>
-			<div id="display-wrapper" ng:click="creatorToggle('view')">
+			<div id="display-wrapper" ng:click="creatorToggle('view')" data-intro="Toggle between the initial and triggered states of the unit" data-position="bottom">
 				<div id="display-icon" class="inline" ng:class="{true: 'display-initial', false: 'display-triggered'}[ui.view=='Initial']"></div>
-				
 				<div id="display" class="inline">
 					<div class="originUI-switch">
 					    <input type="checkbox" name="displaySwitch" class="originUI-switchInput" id="displaySwitch" checked="checked">
@@ -33,14 +32,29 @@
 				    </div> 
 				</div>
 			</div>
-				<!--
-				<div id="components" class="creatorPanelTop-icons inline">
-					<a href="javascript:void(0)" class="originUI-icon dropdown-toggle">Components</a>
-					<ul class="dropdown-menu originUI-bgColorSecondary">
-						<li>TEST</li>
-					</ul>
-				</div>
-				-->
+			
+			<div id="save-wrapper" class="none" ng:click="workspaceUpdate()">
+				<a href="javascript:void(0)" id="save" class="inline">Save</a>
+				<div id="save-icon" class="inline"></div>
+			</div>
+			
+			<div id="options-wrapper" data-intro="Ad creator options" data-position="bottom">
+				<a href="javascript:void(0)" id="options" class="dropdown-toggle originUI-borderColor">Options</a>
+				<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
+					<li>
+						<a href="javascript:void(0)" id="option-embed" class="option" ng:click="embedModalOpen()">Create Embed</a>
+					</li>
+					<li>
+						<a href="/demo/Origin/<?php echo $this->params['originAd_id'];?>" id="option-demo" class="option" target="_blank">View Demo</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)" id="option-settings" class="option" ng:click="settingsModalOpen()">Settings</a>
+					</li>
+					<li>
+						<a href="/administrator/list" id="option-exit" class="option">Save &amp; Exit</a>
+					</li>
+				</ul>
+			</div>
 				<!--
 				<div id="schedules" class="">
 					<a href="javascript:void(0)" class="dropdown-toggle originUI-select">Test</a>
@@ -76,27 +90,47 @@
 			    </div> 
 			</div>
 		</div>
-		<ul ng:show="ui.layer=='Layers'" class="content-list originUI-list" ng:model="workspace.display" ui:sortable="{axis: 'y'}">
-			<li class="content-item" ng:repeat="content in workspace.display|orderBy:'-order'">
+		<ul id="layers" ng:show="ui.layer=='Layers'" class="content-list originUI-list" ng:model="layers" ui:sortable="{axis: 'y'}">
+			<li class="content-item" ng:repeat="content in layers|orderBy:'-order'">
 				<span class="content-handle inline">handle</span>
 				<span class="content-label inline">{{content.content.title}}-{{content.id}}</span>
 				<span class="content-edit inline" ng:click="creatorModalOpen('content', '', content)">edit</span>
 			</li>
 		</ul>
-		<ul ng:show="ui.layer=='Library'">
+		<ul id="library" class="content-list originUI-list" ng:show="ui.layer=='Library'">
+			<li class="content-item" ng:repeat="asset in library">
+				<span class="content-handle inline">handle</span>
+				<span class="content-label inline">{{asset.name}}</span>
+			</li>
+			<li id="library-instructions" ng:show="!library.length">
+				Drag and drop assets here to upload or click the button below.
+			</li>
 			<li>
-				<div id="" class="originUI-upload originUI-icon originUiIcon-upload originUI-bgColorSecondary">
-					<span class="originUI-uploadLabel">Upload Image</span>
-					<input type="file" name="files[]" id="tempalteAdd-upload-template" class="originUI-uploadInput" ng:model="originTemplates.editor.content.file_storyboard" multiple="multiple" fileupload>
+				<div id="library-upload" class="originUI-upload originUI-icon originUiIcon-upload originUI-bgColorSecondary">
+					<span class="originUI-uploadLabel">Upload Assets</span>
+					<input type="file" name="files[]" id="tempalteAdd-upload-template" class="originUI-uploadInput" ng:model="originTemplates.editor.content.file_storyboard" multiple="multiple" panelUpload>
 				</div>
 			</li>
-			<li ng:repeat="asset in library">{{asset.name}}</li>
 		</ul>
 	</form>
 	<div id="creator-panel-workspace" class="originUI-bgColorSecondary originUI-bgTexture" ng:class="workspace-{{workspace.template.content.alias}}">
 		
-		<div class="workspace" ng:style="workspaceTemplateConfig()"></div>
+		<div class="workspace" ng:style="workspaceTemplateConfig()">
+			<content class="workspace-content" ng:repeat="content in workspace.display" ng:model="content"></content>	
+			
+		</div>
 		<!--
+		 	[
+		 		{"id":"15","origin_ad_schedule_id":"1",
+		 			"content":{"type":"toggle","title":"Toggle","event":true},
+		 			"config":{"height":"32px","left":"0px","top":"0px","width":"32px"},
+		 			"render":"<a class=\"cta toggle\" data-trigger=\"click\" <%=style%>></a>","order":"0"},
+		 		{"id":"17","origin_ad_schedule_id":"1",
+		 			"content":{"type":"link","title":"Link","event":true,"link":"http://www.google.com"},
+		 			"config":{"height":"32px","left":"0px","top":"0px","width":"32px"},
+		 			"render":"<a href=\"http://www.google.com\" class=\"cta toggle\" data-trigger=\"click\" <%=style%>></a>","order":"1"}
+		 ] 			 			 		
+		
 		
 		
 		{"dimensions":{"initial":{"desktop":{"width":"1500","height":"66"},"tablet":{},"mobile":{}},"triggered":{"desktop":{"width":"1500","height":"415"},"tablet":{},"mobile":{}}},"animation":{}}
@@ -161,6 +195,74 @@
 			</div>
 		</form>
 	</div>
+
+
+	<div modal="settingsModal" close="settingsModalClose()" options="creatorModalOptions">
+		<form id="settings-modal" class="originUI-bgColorSecondary">
+			<h3 id="settingsModal-header" class="originUiModal-header originUI-borderColor originUI-textColor">Settings</h3>
+			
+			<div class="originUiModal-content">
+			</div>
+			<div class="originUiModal-footer">
+				<div class="originUiModalFooter-left" ng:click="settingsModalClose()">Cancel</div>
+				<div class="originUiModalFooter-right" ng:click="settingsModalSave()">Save</div>
+			</div>
+		</form>
+	</div>
+	
+	
+	
+	<div modal="embedModal" close="embedModalClose()" options="creatorModalOptions">
+		<form id="embed-modal" class="originUI-bgColorSecondary">
+			<h3 id="embedModal-header" class="originUiModal-header originUI-borderColor originUI-textColor">Ad Embed Code</h3>
+			
+			<div class="originUiModal-content">
+				<div class="originUI-field">
+					<div class="originUI-fieldBracket"></div>
+					<textarea id="embedModal-content" class="originUI-textarea originUI-bgColorSecondary"><script type="text/javascript" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/emcOrigin/originRender.js" data-auto="{{embedOptions.auto}}" data-close="{{embedOptions.close}}" data-hover="{{embedOptions.hover}}" data-dcopt="true" data-id="<?php echo $this->params['originAd_id'];?>" data-type="{{workspace.ad.OriginAd.config.type_alias}}" data-xd="local.origin_test_prod" data-init="true"></script></textarea>
+				</div>
+			</div>
+			<div id="embedModal-config">
+				<h4>Config</h4>
+				<ul class="originUI-list">
+					<li>
+						<label>Frequency Cap (per 24hrs)</label>
+						<div class="originUI-field">
+							<div class="originUI-fieldBracket"></div>
+							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="embedOptions.auto"/>
+						</div>
+					</li>
+					<li>
+						<label>Close Timer (seconds)</label>
+						<div class="originUI-field">
+							<div class="originUI-fieldBracket"></div>
+							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="embedOptions.close"/>
+						</div>
+					</li>
+					<li>
+						<label>Hover Delay (seconds)</label>
+						<div class="originUI-field">
+							<div class="originUI-fieldBracket"></div>
+							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="embedOptions.hover"/>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="originUiModal-footer">
+				<div class="originUiModalFooter-left" ng:click="embedModalClose()">Close</div>
+				<div class="originUiModalFooter-right" ng:click="embedModalEmail()">Email Code</div>
+			</div>
+		</form>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	<!--

@@ -178,6 +178,14 @@ class OriginController extends AppController {
 	}
 	
 	/**
+	* Origin demo manager
+	*/
+	public function demoList() {
+		$this->set('title_for_layout', 'Demo Templates');
+	}
+	
+	
+	/**
 	* Loads a specified ad component. (why??)
 	*/
 	public function loadComponent() {

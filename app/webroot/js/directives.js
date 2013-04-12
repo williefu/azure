@@ -49,6 +49,79 @@ angular.module('originApp.directives', [])
 			}
 		}
 	})
+	.directive('content', function() {
+		return {
+			restrict: 'E',
+			scope: {
+				ngModel: '='
+			},
+			link: function(scope, element, attrs) {
+				//Prep CSS
+				var css = {
+					'height':	scope.ngModel.config.height,
+					'width':	scope.ngModel.config.width,
+					'left':		scope.ngModel.config.left,
+					'top':		scope.ngModel.config.top,
+					'zIndex':	scope.ngModel.order
+				};
+				
+				//Prep render
+				var render = scope.ngModel.render.replace('<%=style%>', '');
+				
+				//Compile config into inline styles
+				element.css(css).html(render);
+				
+				//Make it draggable
+				element.draggable({
+					containment: $j('#creator-panel-workspace'),
+					iframeFix: true,
+					snap: true,
+					snapTolerance: 5,
+					stop: function(event, ui) {
+						$j('#save-wrapper').fadeIn(300);
+						
+						
+						//console.log(scope.ngModel);
+						
+						
+						//construct config dataset
+						scope.ngModel.config = {
+							top: 	Math.round(ui.position.top)+'px',
+							left: 	Math.round(ui.position.left)+'px',
+							width: 	Math.round(ui.helper.width())+'px',
+							height: Math.round(ui.helper.height())+'px'
+						}
+						
+					
+						/*
+						
+						//scope.originEditor.content_config	= config;
+						scope.originServices('content_config', {id: scope.content.id, oid: origin_id, config: config});
+						*/
+					}
+				});
+				
+				//Make it resizable
+				element.resizable({
+					containment: $j('#creator-panel-workspace'),
+					handles: 'all',
+					stop: function(event, ui) {
+						$j('#save-wrapper').fadeIn(300);
+						/*
+						var config = {
+							top: 	Math.round(ui.position.top)+'px',
+							left: 	Math.round(ui.position.left)+'px',
+							width: 	Math.round(ui.helper.width())+'px',
+							height: Math.round(ui.helper.height())+'px',
+							zIndex: ui.helper.css('z-index')
+						}
+						scope.originServices('content_config', {id: scope.content.id, oid: origin_id, config: config});
+						*/
+					}
+				});
+			}
+		}
+	})
 	.directive('fileupload', function() {
 		return {
 			restrict: 'A',
@@ -98,24 +171,10 @@ angular.module('originApp.directives', [])
 						data.submit();
 						//console.log(data);	
 					},
-					done: function(e, data) {
-						//RUNS MULTIPLE TIMES!
+					stop: function(e, data) {
 						scope.updateLibrary();
 						scope.creatorToggle('library');
 					}
-					/*
-					dataType: 'json',
-		dropZone: $j('#panel, #panel-slide'),
-		url: '/libraries/evolve/classes/originFileUploader.php',
-		add: function(e, data) {
-			data.submit();
-		},
-		done: function(e, data) {
-			//$scope.uiChange('panel', 'assets');
-			$scope.originObj.assets		= Workspace.get('index.php?option=com_emc_origin&task=jsonAssets&id='+origin_id);
-			//$scope.assets = Workspace.loadAssets({id: origin_id});
-		}
-					*/
 				});
 			}
 		}
@@ -129,7 +188,7 @@ angular.module('originApp.directives', [])
 					'handle':	'.content-handle',
 					'update': function(event, ui) {
 						//console.log(ui);
-						console.log(scope.workspace.display);
+						//console.log(scope.workspace.display);
 					}
 				});
 				element.disableSelection();

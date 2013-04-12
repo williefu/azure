@@ -42,6 +42,7 @@
 * Origin
 */
 
+//USER MANAGEMENT - TEMP
 Router::connect('/administrator/accessDenied', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'accessDenied'));
 Router::connect('/administrator/activatePassword/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'activatePassword'));
 Router::connect('/administrator/addGroup', array('plugin' => 'usermgmt', 'controller' => 'user_groups', 'action' => 'addGroup'));
@@ -69,26 +70,22 @@ Router::connect('/administrator/viewUser/*', array('plugin' => 'usermgmt', 'cont
 
 //SYSTEMS
 Router::connect('/administrator/dashboard', array('controller' => 'origin', 'action' => 'dashboard'));
-//Router::connect('/administrator/dashboard/access', array('controller'=>'origin', 'action'=>'dashboardAccess'));
 Router::connect('/administrator/dashboard/access', array('plugin' => 'usermgmt', 'controller' => 'user_group_permissions', 'action' => 'index'));
-
-
 Router::connect('/administrator/dashboard/profile/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'editUser'));
 Router::connect('/administrator/dashboard/password', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'changePassword'));
 Router::connect('/administrator/dashboard/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
-
 Router::connect('/administrator/dashboard/templates', array('controller'=>'origin', 'action'=>'templateList'));
 Router::connect('/administrator/dashboard/components', array('controller'=>'origin', 'action'=>'componentList'));
-
-//AD CREATOR
-Router::connect('/administrator', array('controller'=>'origin', 'action'=>'index'));
-Router::connect('/administrator/list', array('controller'=>'origin', 'action'=>'ad_list'));
-Router::connect('/administrator/Origin/ad/edit/:originAd_id', array('controller'=>'origin', 'action'=>'edit'));
-
+Router::connect('/administrator/dashboard/demo', array('controller'=>'origin', 'action'=>'demoList'));
 
 //Router::connect('/administrator/Origin/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));
 //Router::connect('/administrator/Origin/template/:template_id', array('controller'=>'origin', 'action'=>'jsonAdTemplate'));
 
+
+//REST APIs
+//Router::connect('/administrator/users/status', array('controller' => 'origin', 'action' => 'dashboardUserStatus'));
+Router::connect('/administrator/Origin/Post', array('controller'=>'origin', 'action'=>'post'));
+Router::connect('/administrator/Origin/upload', array('controller'=>'origin', 'action'=>'upload'));
 
 
 //JSON Feeds
@@ -104,17 +101,16 @@ Router::connect('/administrator/get/monitor/list', array('controller' => 'monito
 Router::connect('/administrator/get/monitor/event/:category', array('controller' => 'monitor', 'action' => 'jsonEvent'));
 Router::connect('/administrator/get/monitor/visits', array('controller' => 'monitor', 'action' => 'jsonVisits'));
 
-//POST
-//Router::connect('/administrator/users/status', array('controller' => 'origin', 'action' => 'dashboardUserStatus'));
+//DEMO
+///demo/Origin/
+Router::connect('/demo/:site/', array('controller'=>'origin', 'action'=>'demo'));
 
+//AD CREATOR
+Router::connect('/administrator', array('controller'=>'origin', 'action'=>'index'));
+Router::connect('/administrator/list', array('controller'=>'origin', 'action'=>'ad_list'));
+Router::connect('/administrator/Origin/ad/edit/:originAd_id', array('controller'=>'origin', 'action'=>'edit'));
 
-
-
-Router::connect('/administrator/Origin/Post', array('controller'=>'origin', 'action'=>'post'));
-Router::connect('/administrator/Origin/upload', array('controller'=>'origin', 'action'=>'upload'));
-
-
-
+//Analytics
 Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor'));
 
 

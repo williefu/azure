@@ -18,18 +18,21 @@
 			<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
 				<?php if($this->UserAuth->isAdmin()) { ?>
 				<li>
-					<a href="/administrator/dashboard">Dashboard</a>
+					<a href="/administrator/dashboard" id="originBar-dashboard" class="originBar-settings">Dashboard</a>
 				</li>
 				<li>
-					<a href="/administrator/dashboard/profile/<?php echo $userId;?>">My Account</a>
+					<a href="/administrator/dashboard/profile/<?php echo $userId;?>" id="originBar-account" class="originBar-settings">My Account</a>
 				</li>
 				<?php } else { ?>
 				<li>
-					<a href="/administrator/dashboard/password">Update Password</a>
+					<a href="/administrator/dashboard/password" id="originBar-account" class="originBar-settings">Update Password</a>
 				</li>
 				<?php } ?>
 				<li>
-					<a href="/administrator/logout">Logout</a>
+					<a href="javascript:void(0)" id="originBar-help" class="originBar-settings">Help</a>
+				</li>	
+				<li>
+					<a href="/administrator/logout" id="originBar-logout" class="originBar-settings">Logout</a>
 				</li>		
 			</ul>
 		</div>

@@ -2,6 +2,12 @@
 
 var $j = jQuery.noConflict();
 
+$j(function() {
+	$j('#originBar-help').click(function() {
+		$j('body').chardinJs('start');
+	});
+});
+
 var notification = {
 		'title': 	'',
 		'content':	''
@@ -29,7 +35,6 @@ var originGeneral = function($scope, $filter, Origin, Notification) {
 	$scope.notificationClose = function() {
 		$j('#origin-notification').hide();
 	}
-	
 	
 	$scope._arrayLoop = function(array, index, direction) {
 		var i 		= (index)? index: 0;

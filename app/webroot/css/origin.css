@@ -782,6 +782,28 @@ input:-ms-input-placeholder {
 }
 */
 
+#originBar-settings a.originBar-settings {
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	text-indent: 10px;
+}
+
+#originBar-dashboard {
+	background-image: url(/img/dropdown-dashboard.png);
+}
+
+#originBar-account {
+	background-image: url(/img/dropdown-account.png);
+}
+
+#originBar-help {
+	background-image: url(/img/dropdown-help.png);
+}
+
+#originBar-logout {
+	background-image: url(/img/dropdown-exit.png);
+}
+
 /***** END: ORIGIN BAR *****/
 
 /***** START: HOME *****/
@@ -833,6 +855,11 @@ input:-ms-input-placeholder {
 #dashboard-components {
 	background-color: #669900;
 	background-image: url(/img/dashboard-components.png);
+}
+
+#dashboard-demo {
+	background-color: #ff8800;
+	background-image: url(/img/dashboard-demo.png);
 }
 
 #dashboard-users {
