@@ -9,7 +9,7 @@
 var monitorCtrl = function($scope, Monitor) {
 	//Global Monitor object
 	$scope.monitorObj = {};
-	$scope.monitortest = [];
+					
 	//Load Monitor data
 	Monitor.get('list').then(function(data) {
 			$scope.monitor_filter = data.filter;
