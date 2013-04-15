@@ -52,7 +52,7 @@
 				<td><?php echo __('Total Events');?></td>
 				<td><?php echo __('Unique Events');?></td>
 			</tr>
-			<tr ng:repeat="item in monitor_list|filter:monitorObj.category">
+			<tr ng:repeat="item in monitor_list|filter:category">
 				<td>{{item.category}}</td>
 				<td>{{item.totalEvents}}</td>
 				<td>{{item.uniqueEvents}}</td>
@@ -64,12 +64,16 @@
 <script src="https://www.google.com/jsapi"></script>
 <?php
 	echo $this->Minify->css(array('monitor/pickadate/pickadate.01.default'));
-	//echo $this->Minify->script(array('monitor/controller','monitor/services','monitor/directives','monitor/pickadate/pickadate'));
 	echo $this->Minify->script(array('monitor/controller','monitor/pickadate/pickadate'));
 ?>
 
 <script type="text/javascript">
-		/*jQuery( '#datepicker_from' ).pickadate({
+		google.setOnLoadCallback(function() {
+			//angular.bootstrap(document.body, ['monitorApp']);
+		});
+		google.load('visualization', '1', {packages: ['corechart']});
+
+		jQuery( '#datepicker_from' ).pickadate({
 			format: 'mmm dd, yyyy',
 			formatSubmit: 'yyyy-m-d',
 			hiddenSuffix: '_submit',
@@ -94,5 +98,5 @@
 		function createDateArray( date ) {
 			return date.split( '-' ).map(function( value ) { return +value })
 		}
-*/
+
 </script>

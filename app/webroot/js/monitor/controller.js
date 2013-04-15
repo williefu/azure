@@ -9,7 +9,7 @@
 var monitorCtrl = function($scope, Monitor) {
 	//Global Monitor object
 	$scope.monitorObj = {};
-	$scope.monitortest = [];
+					
 	//Load Monitor data
 	Monitor.get('list').then(function(data) {
 			$scope.monitor_filter = data.filter;
@@ -24,33 +24,22 @@ var monitorCtrl = function($scope, Monitor) {
 			$scope.monitor_url = data;
 	});*/
 	
-	$scope.getData = function($monitor) {
-		Monitor.get('event/'+$monitor.category).then(function(data) {
-			//console.log(data);
+	$scope.getData = function() { //console.log($scope.monitorObj.category);
+		Monitor.get('event/'+$scope.monitorObj.category).then(function(data) {
+			$scope.refreshMonitor(data);
 		});
 	}
 	
 	$scope.export = function() {
 		Monitor.post('Json/export',$scope.monitor_list).then(function(response) {
-			console.log(response);
-			//$scope.templateRefresh(response);
 		});
 	}
+	
+	$scope.refreshMonitor = function(data) {
+		$scope.monitor_filter = data.filter;
+		$scope.monitor_totals = data.total;
+		$scope.monitor_list = data.data;
+		console.log($scope.monitor_list);
+	}
 
-/*
-	function refreshOrigin(data) {
-
-		if(!$scope.$$phase) {
-			$scope.$apply(function() {
-				$scope.originObj.content	= data.content;
-				$scope.originObj.config		= data.config;
-				$scope.originObj.current 	= $scope.originObj.content[$scope.originWorkspace.schedule][$scope.originWorkspace.state+'_'+$scope.originWorkspace.view];
-	        });	
-		} else {
-			//NOT SURE.... FIND A BETTER WAY!
-			$scope.originObj.content	= data.content;
-			$scope.originObj.config		= data.config;
-			$scope.originObj.current 	= $scope.originObj.content[$scope.originWorkspace.schedule][$scope.originWorkspace.state+'_'+$scope.originWorkspace.view];
-		}
-	}*/
 }

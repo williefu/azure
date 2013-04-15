@@ -29,13 +29,13 @@ class Monitor extends AppModel {
 		return $visits;
     }
 	
-	function getEvent($data) {
+	function getEvent($data) { //print_r($data);
 		$end_date = date("Y-m-d",strtotime('-1 day'));
 		$start_date = date('Y-m-d',strtotime('-31 day')); 
 		$dimensions = 'ga:eventCategory';
 		$metrics = 'ga:totalEvents,ga:uniqueEvents';
 		$sort = '-ga:totalEvents';
-		$filters = $data['category'];
+		$filters = $data;
 		//$filters = new analytics_filters('ga:eventCategory','=@','Assassins Creed [Horizon - DO NOT MODIFY]');
 		$monitor = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
 		
@@ -59,8 +59,9 @@ class Monitor extends AppModel {
 			if(true) {
 					if($filters) {
 						$filters = new analytics_filters('ga:eventCategory','=@',$filters);
+						//$filters = new analytics_filters('ga:eventCategory','=@', 'Champs Adicolor');
 					}
-					
+					//print_r($filters);
 					$data = $api->data($id, $dimensions, $metrics, $sort, $start_date, $end_date, 500, 1, $filters);
 					
 					if($metrics!="visits") {
