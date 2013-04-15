@@ -33,7 +33,12 @@
 				</div>
 			</div>
 			
-			<div id="save-wrapper" class="none" ng:click="workspaceUpdate()">
+			<div id="undo-wrapper" class="none" ng:click="workspaceUndo()">
+				<a href="javascript:void(0)" id="undo" class="inline">Undo</a>
+				<div id="undo-icon" class="inline"></div>
+			</div>
+			
+			<div id="save-wrapper" class="!none" ng:click="workspaceUpdate()">
 				<a href="javascript:void(0)" id="save" class="inline">Save</a>
 				<div id="save-icon" class="inline"></div>
 			</div>
@@ -90,17 +95,20 @@
 			    </div> 
 			</div>
 		</div>
-		<ul id="layers" ng:show="ui.layer=='Layers'" class="content-list originUI-list" ng:model="layers" ui:sortable="{axis: 'y'}">
-			<li class="content-item" ng:repeat="content in layers|orderBy:'-order'">
+		<!-- <ul id="layers" ng:show="ui.layer=='Layers'" class="content-list originUI-list" ng:model="layers" ui:sortable="{axis: 'y', update: updateLayers}"> -->
+		<ul id="layers" ng:show="ui.layer=='Layers'" class="content-list originUI-list" ng:model="layers" layer-sortable>
+			<!--
+<li class="content-item" ng:repeat="content in layers|orderBy:'-order'">
 				<span class="content-handle inline">handle</span>
 				<span class="content-label inline">{{content.content.title}}-{{content.id}}</span>
 				<span class="content-edit inline" ng:click="creatorModalOpen('content', '', content)">edit</span>
 			</li>
+-->
 		</ul>
 		<ul id="library" class="content-list originUI-list" ng:show="ui.layer=='Library'">
-			<li class="content-item" ng:repeat="asset in library">
-				<span class="content-handle inline">handle</span>
+			<li class="content-item asset" data-asset="{{$index}}" ng:repeat="asset in library" asset>
 				<span class="content-label inline">{{asset.name}}</span>
+				<span class="content-edit inline">handle</span>
 			</li>
 			<li id="library-instructions" ng:show="!library.length">
 				Drag and drop assets here to upload or click the button below.
@@ -115,8 +123,8 @@
 	</form>
 	<div id="creator-panel-workspace" class="originUI-bgColorSecondary originUI-bgTexture" ng:class="workspace-{{workspace.template.content.alias}}">
 		
-		<div class="workspace" ng:style="workspaceTemplateConfig()">
-			<content class="workspace-content" ng:repeat="content in workspace.ad.OriginAdSchedule[ui.schedule][ui.content]" ng:model="content"></content>	
+		<div class="workspace" ng:style="workspaceTemplateConfig()" workspace>
+			<workspace-content ng:repeat="content in workspace.ad.OriginAdSchedule[ui.schedule][ui.content]" ng:model="content" double-click="creatorModalOpen('content', '', content)" click="creatorCompanionSelect(content)"></workspace-content>
 		</div>
 		<!--
 			{workspace.ad.OriginAdSchedule[ui.schedule][ui.content]
@@ -134,7 +142,7 @@
 		
 		
 		
-		{"dimensions":{"initial":{"desktop":{"width":"1500","height":"66"},"tablet":{},"mobile":{}},"triggered":{"desktop":{"width":"1500","height":"415"},"tablet":{},"mobile":{}}},"animation":{}}
+		{"dimensions":{"initial":{"desktop"{"width":"1500","height":"66"},"tablet":{},"mobile":{}},"triggered":{"desktop":{"width":"1500","height":"415"},"tablet":{},"mobile":{}}},"animation":{}}
 		
 		-->
 	</div>

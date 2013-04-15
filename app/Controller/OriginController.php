@@ -470,15 +470,13 @@ class OriginController extends AppController {
 					unset($dataSave[$key]['origin_ad_schedule_id']);
 					unset($dataSave[$key]['content']);
 					unset($dataSave[$key]['render']);
-					unset($dataSave[$key]['order']);
-				
+					//unset($dataSave[$key]['order']);
+					
 					$dataSave[$key]['config'] = json_encode($content['config']);
 				}
 				
 				if($dataSave) {
-					if($this->$modelName->saveAll($dataSave)) {
-						return true;
-					}
+					$this->$modelName->saveAll($dataSave);
 				}
 			}
 		}

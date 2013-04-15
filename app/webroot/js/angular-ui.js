@@ -1088,7 +1088,7 @@ angular.module('ui.directives').directive('uiSortable', [
     return {
       require: '?ngModel',
       link: function(scope, element, attrs, ngModel) {
-        var onReceive, onRemove, onStart, onUpdate, opts, _receive, _remove, _start, _update;
+        var onReceive, onRemove, onStart, onUpdate, opts;
 
         opts = angular.extend({}, uiConfig.sortable, scope.$eval(attrs.uiSortable));
 
@@ -1102,7 +1102,7 @@ angular.module('ui.directives').directive('uiSortable', [
             // Save position of dragged item
             ui.item.sortable = { index: ui.item.index() };
           };
-
+          
           onUpdate = function(e, ui) {
             // For some reason the reference to ngModel in stop() is wrong
             ui.item.sortable.resort = ngModel;
@@ -1131,10 +1131,6 @@ angular.module('ui.directives').directive('uiSortable', [
               var end, start;
               start = ui.item.sortable.index;
               end = ui.item.index();
-/*
-              if (start < end)
-                end--;
-*/
 
               // Reorder array and apply change to scope
               ui.item.sortable.resort.$modelValue.splice(end, 0, ui.item.sortable.resort.$modelValue.splice(start, 1)[0]);
@@ -1146,44 +1142,49 @@ angular.module('ui.directives').directive('uiSortable', [
           };
 
           // If user provided 'start' callback compose it with onStart function
-          _start = opts.start;
-          opts.start = function(e, ui) {
-            onStart(e, ui);
-            if (typeof _start === "function")
-              _start(e, ui);
-          };
+          opts.start = (function(_start){
+            return function(e, ui) {
+              onStart(e, ui);
+              if (typeof _start === "function")
+                _start(e, ui);
+            }
+          })(opts.start);
 
           // If user provided 'start' callback compose it with onStart function
-          _stop = opts.stop;
-          opts.stop = function(e, ui) {
-            onStop(e, ui);
-            if (typeof _stop === "function")
-              _stop(e, ui);
-          };
+          opts.stop = (function(_stop){
+            return function(e, ui) {
+              onStop(e, ui);
+              if (typeof _stop === "function")
+                _stop(e, ui);
+            }
+          })(opts.stop);
 
           // If user provided 'update' callback compose it with onUpdate function
-          _update = opts.update;
-          opts.update = function(e, ui) {
-            onUpdate(e, ui);
-            if (typeof _update === "function")
-              _update(e, ui);
-          };
+          opts.update = (function(_update){
+            return function(e, ui) {
+              onUpdate(e, ui);
+              if (typeof _update === "function")
+                _update(e, ui);
+            }
+          })(opts.update);
 
           // If user provided 'receive' callback compose it with onReceive function
-          _receive = opts.receive;
-          opts.receive = function(e, ui) {
-            onReceive(e, ui);
-            if (typeof _receive === "function")
-              _receive(e, ui);
-          };
+          opts.receive = (function(_receive){
+            return function(e, ui) {
+              onReceive(e, ui);
+              if (typeof _receive === "function")
+                _receive(e, ui);
+            }
+          })(opts.receive);
 
           // If user provided 'remove' callback compose it with onRemove function
-          _remove = opts.remove;
-          opts.remove = function(e, ui) {
-            onRemove(e, ui);
-            if (typeof _remove === "function")
-              _remove(e, ui);
-          };
+          opts.remove = (function(_remove){
+            return function(e, ui) {
+              onRemove(e, ui);
+              if (typeof _remove === "function")
+                _remove(e, ui);
+            };
+          })(opts.remove);
         }
 
         // Create sortable
@@ -1192,6 +1193,7 @@ angular.module('ui.directives').directive('uiSortable', [
     };
   }
 ]);
+
 
 /**
  * Binds a TinyMCE widget to <textarea> elements.

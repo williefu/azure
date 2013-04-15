@@ -37,7 +37,7 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	$scope.workspace			= {};	//Workspace wrapper model
 	$scope.workspace.ad 		= {};	//Complete ad unit model
 	$scope.workspace.components = {};	//List of all components
-	$scope.workspace.display	= {};	//Ad's display model
+	//$scope.workspace.display	= {};	//Ad's display model
 	$scope.workspace.modal		= {};	//Modal content
 	$scope.workspace.template	= {};	//Ad's corresponding template model
 	$scope.ui					= {};	//UI wrapper model
@@ -105,8 +105,11 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	*/
 	$scope.updateUI = function() {
 		$scope.ui.content			= 'OriginAd'+$scope.ui.platform+$scope.ui.view+'Content';	//Current view state
-		$scope.workspace.display	= $scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content];
-		$scope.layers				= angular.copy($scope.workspace.display);
+		//$scope.workspace.display	= $scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content];
+		//$scope.layers				= angular.copy($scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content]);
+		
+		$scope.layers				= angular.copy($filter('orderBy')($scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content], '-order'));
+		//console.log($scope.layers);
 		
 		$scope.ui.origin_ad_schedule_id = $scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule].id;
 		$scope.workspaceTemplateConfig = function() {
@@ -119,9 +122,40 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	
 	/**
 	* Update layers upon sort
-	*/
+	*/	
+/*
+	$scope.updateLayers = function() {
+		var order = ($scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content].length - 1);
+		for(var layerIndex in $scope.layers) {
+			for(var contentIndex in $scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content]) {
+				if($scope.layers[layerIndex].id === $scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content][contentIndex].id) {
+					$scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content][contentIndex].order = order;
+					order--;
+				}
+			}
+			
+		}
+		
+		//HOW TO TRIGGER REFRESH???
+		$scope.refreshUI($scope.workspace.ad);
+		
+		//console.log($scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content]);
+		$j('#save-wrapper, #undo-wrapper').fadeIn(300);
+	}
+*/
+	
+/*
 	$scope.$watch('layers', function() {
 		if(!angular.equals($scope.layers, $scope.workspace.display) && $scope.layers.length) {
+			//SORTING SHOULDN'T AUTO UPDATE!
+			//PROBLEM: WATCH IS LOOKING IN WRONG SPOT.
+			//SOLUTION: SOME SORT OF EVENT HANDLER INSTEAD OF WATCHING
+			for(var index in $scope.workspace.display) {
+				//$scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content][index].order = index;
+				//data[index]		= {'id': $scope.layers[index].id, 'order': index};
+			}
+			
+			$j('#save-wrapper, #undo-wrapper').fadeIn(300);
 			var data	= [];
 			for(var index in $scope.layers) {
 				data[index]		= {'id': $scope.layers[index].id, 'order': index};
@@ -131,6 +165,7 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 			$scope.editor.data			= data;
 			$scope.editor.originAd_id	= originAd_id;
 			
+			
 			Origin.post($scope.editor).then(function(response) {
 				$scope.refreshUI(response);
 				Notification.message({'title': 'Updated', 'content': 'Layers updated'});
@@ -139,6 +174,7 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 			
 		}
 	}, true);	
+*/
 	
 	/**
 	* Switch toggles throughout the interface
@@ -246,6 +282,23 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	}
 	
 	/**
+	* Adds content through drag-and-drop directive
+	*/
+	$scope.creatorLibrarySave = function(data) {
+		$scope.editor						= data;
+		$scope.editor.route					= 'creatorContentSave';
+		$scope.editor.model					= $scope.ui.platform + $scope.ui.view;
+		$scope.editor.origin_ad_schedule_id	= $scope.ui.origin_ad_schedule_id;
+		$scope.editor.originAd_id			= originAd_id;
+		
+		Origin.post($scope.editor).then(function(response) {
+			$scope.editor = {};
+			$scope.refreshUI(response);
+			Notification.message({'title': 'Added', 'content': 'Asset added to workspace'});
+		});
+	}
+	
+	/**
 	* Embed code modal window
 	*/
 	$scope.embedModalOpen = function() {
@@ -288,30 +341,24 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	}
 	
 	/**
+	* Undo workspace changes
+	*/
+	$scope.workspaceUndo = function() {
+		Origin.get('ad/'+originAd_id).then(function(response) {
+			$scope.refreshUI(response);
+		});
+	}
+	
+	/**
 	* Saves all changes (resizes, moving) done in workspace
 	*/
 	$scope.workspaceUpdate = function() {
 		$scope.editor.data					= $scope.workspace.ad.OriginAdSchedule;
 		$scope.editor.route					= 'creatorWorkspaceUpdate';
 		
-		Origin.post($scope.editor).then(function(response) {
-			if(response) {
-				Notification.message({'title': 'Saved', 'content': 'Workspace saved'});
-				$j('#save-wrapper').fadeOut(200);
-			}
+		Origin.post($scope.editor).then(function() {
+			Notification.message({'title': 'Saved', 'content': 'Workspace saved'});
+			$j('#save-wrapper').fadeOut(200);
 		});
-		
-/*
-	{workspace.ad.OriginAdSchedule[ui.schedule][ui.content]
-
-		
-		
-		Origin.post($scope.editor).then(function(response) {
-			$scope.creatorModal	= false;
-			$scope.refreshUI(response);
-			//Notification.message(notification);
-		});
-*/
-		
 	}
 };

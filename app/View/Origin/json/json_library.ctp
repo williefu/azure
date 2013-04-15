@@ -10,7 +10,25 @@
 			//array_push($json['files'], $fileObj->getFilename());
 			list($width, $height)		= getimagesize($fileObj);
 			$json['files'][$i]['name']	= $fileObj->getFilename();
-			$json['files'][$i]['type']	= pathinfo($filepath, PATHINFO_EXTENSION);
+			
+			switch(strtolower(pathinfo($filepath, PATHINFO_EXTENSION))) {
+				default:
+					$json['files'][$i]['type']	= 'other';
+					break;
+				case 'gif':
+				case 'jpeg':
+				case 'jpg':
+				case 'png':
+					$json['files'][$i]['type']	= 'image';
+					break;
+				case 'swf':
+					$json['files'][$i]['type']	= 'flash';
+					break;
+			}
+			$json['files'][$i]['ext']	= pathinfo($filepath, PATHINFO_EXTENSION);
+			
+			
+			
 			$json['files'][$i]['width']	= $width;
 			$json['files'][$i]['height']= $height;
 			$directorySize += $fileObj->getSize();
