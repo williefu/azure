@@ -22,10 +22,10 @@
 					    <label class="originUI-switchLabel" for="displaySwitch">
 					    	<div class="originUI-switchInner">
 					    		<div class="originUI-switchActive">
-					    			<div class="originUI-switchText">Initial</div>
+					    			<div class="originUI-switchText">Initial<br/>State</div>
 							    </div>
 							    <div class="originUI-switchInactive">
-							    	<div class="originUI-switchText">Triggered</div>
+							    	<div class="originUI-switchText">Triggered<br/>State</div>
 								</div>
 						    </div>
 					    </label>
@@ -50,7 +50,7 @@
 						<a href="javascript:void(0)" id="option-embed" class="option" ng:click="embedModalOpen()">Create Embed</a>
 					</li>
 					<li>
-						<a href="/demo/Origin/<?php echo $this->params['originAd_id'];?>" id="option-demo" class="option" target="_blank">View Demo</a>
+						<a href="/administrator/demo/<?php echo $this->params['originAd_id'];?>" id="option-demo" class="option" target="_blank">View Demo</a>
 					</li>
 					<li>
 						<a href="javascript:void(0)" id="option-settings" class="option" ng:click="settingsModalOpen()">Settings</a>
@@ -122,36 +122,16 @@
 		</ul>
 	</form>
 	<div id="creator-panel-workspace" class="originUI-bgColorSecondary originUI-bgTexture" ng:class="workspace-{{workspace.template.content.alias}}">
-		
 		<div class="workspace" ng:style="workspaceTemplateConfig()" workspace>
-			<workspace-content ng:repeat="content in workspace.ad.OriginAdSchedule[ui.schedule][ui.content]" ng:model="content" double-click="creatorModalOpen('content', '', content)" click="creatorCompanionSelect(content)"></workspace-content>
+			<workspace-content ng:repeat="content in workspace.ad.OriginAdSchedule[ui.schedule][ui.content]" ng:model="content" double-click="creatorModalOpen('content', '', content)"></workspace-content>
 		</div>
-		<!--
-			{workspace.ad.OriginAdSchedule[ui.schedule][ui.content]
-		
-		 	[
-		 		{"id":"15","origin_ad_schedule_id":"1",
-		 			"content":{"type":"toggle","title":"Toggle","event":true},
-		 			"config":{"height":"32px","left":"0px","top":"0px","width":"32px"},
-		 			"render":"<a class=\"cta toggle\" data-trigger=\"click\" <%=style%>></a>","order":"0"},
-		 		{"id":"17","origin_ad_schedule_id":"1",
-		 			"content":{"type":"link","title":"Link","event":true,"link":"http://www.google.com"},
-		 			"config":{"height":"32px","left":"0px","top":"0px","width":"32px"},
-		 			"render":"<a href=\"http://www.google.com\" class=\"cta toggle\" data-trigger=\"click\" <%=style%>></a>","order":"1"}
-		 ] 			 			 		
-		
-		
-		
-		{"dimensions":{"initial":{"desktop"{"width":"1500","height":"66"},"tablet":{},"mobile":{}},"triggered":{"desktop":{"width":"1500","height":"415"},"tablet":{},"mobile":{}}},"animation":{}}
-		
-		-->
 	</div>
 	
 	<div modal="creatorModal" close="creatorModalClose()" options="creatorModalOptions">
 		<form id="creator-modal" class="originUI-bgColorSecondary">
-			<h3 id="creatorModal-header" class="originUiModal-header originUI-borderColor originUI-textColor" back-img='{{workspace.modal.image}}'>
-				{{workspace.modal.title}}
-			</h3>
+			<h3 id="creatorModal-header" class="originUiModal-header originUI-borderColor originUI-textColor" back-img='{{workspace.modal.image}}'>{{workspace.modal.title}}</h3>
+			
+			<a href="javascript:void(0)" id="creatorModal-remove" ng:click="creatorModalRemove(editor)">remove</a>
 			<div id="creatorModal-content" class="originUiModal-content">
 				<div ng:include src="editor.template"></div>
 			</div>

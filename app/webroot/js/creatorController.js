@@ -121,62 +121,6 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	}
 	
 	/**
-	* Update layers upon sort
-	*/	
-/*
-	$scope.updateLayers = function() {
-		var order = ($scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content].length - 1);
-		for(var layerIndex in $scope.layers) {
-			for(var contentIndex in $scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content]) {
-				if($scope.layers[layerIndex].id === $scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content][contentIndex].id) {
-					$scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content][contentIndex].order = order;
-					order--;
-				}
-			}
-			
-		}
-		
-		//HOW TO TRIGGER REFRESH???
-		$scope.refreshUI($scope.workspace.ad);
-		
-		//console.log($scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content]);
-		$j('#save-wrapper, #undo-wrapper').fadeIn(300);
-	}
-*/
-	
-/*
-	$scope.$watch('layers', function() {
-		if(!angular.equals($scope.layers, $scope.workspace.display) && $scope.layers.length) {
-			//SORTING SHOULDN'T AUTO UPDATE!
-			//PROBLEM: WATCH IS LOOKING IN WRONG SPOT.
-			//SOLUTION: SOME SORT OF EVENT HANDLER INSTEAD OF WATCHING
-			for(var index in $scope.workspace.display) {
-				//$scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content][index].order = index;
-				//data[index]		= {'id': $scope.layers[index].id, 'order': index};
-			}
-			
-			$j('#save-wrapper, #undo-wrapper').fadeIn(300);
-			var data	= [];
-			for(var index in $scope.layers) {
-				data[index]		= {'id': $scope.layers[index].id, 'order': index};
-			}
-			$scope.editor.route			= 'creatorLayerUpdate';
-			$scope.editor.model			= $scope.ui.platform + $scope.ui.view;
-			$scope.editor.data			= data;
-			$scope.editor.originAd_id	= originAd_id;
-			
-			
-			Origin.post($scope.editor).then(function(response) {
-				$scope.refreshUI(response);
-				Notification.message({'title': 'Updated', 'content': 'Layers updated'});
-			});
-			
-			
-		}
-	}, true);	
-*/
-	
-	/**
 	* Switch toggles throughout the interface
 	*/
 	$scope.creatorToggle = function(type) {
@@ -279,6 +223,26 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 			$scope.refreshUI(response);
 			//Notification.message(notification);
 		});
+	}
+	
+	/**
+	* Removes the content from the ad
+	*/
+	$scope.creatorModalRemove = function(data) {
+		var ask = confirm('Do you want to remove this item?');
+		if(ask){
+			$scope.editor.route			= 'creatorContentRemove';
+			$scope.editor.model			= $scope.ui.platform + $scope.ui.view;
+			$scope.editor.originAd_id	= originAd_id;
+			
+			Origin.post($scope.editor).then(function(response) {
+				$scope.creatorModal	= false;
+				$scope.refreshUI(response);
+				Notification.message({'title': 'Removed', 'content': 'Content deleted'});
+			});	
+		} else {
+			return false;
+		}
 	}
 	
 	/**

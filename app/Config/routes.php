@@ -76,7 +76,6 @@ Router::connect('/administrator/dashboard/password', array('plugin' => 'usermgmt
 Router::connect('/administrator/dashboard/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
 Router::connect('/administrator/dashboard/templates', array('controller'=>'origin', 'action'=>'templateList'));
 Router::connect('/administrator/dashboard/components', array('controller'=>'origin', 'action'=>'componentList'));
-Router::connect('/administrator/dashboard/demo', array('controller'=>'origin', 'action'=>'demoList'));
 
 //Router::connect('/administrator/Origin/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));
 //Router::connect('/administrator/Origin/template/:template_id', array('controller'=>'origin', 'action'=>'jsonAdTemplate'));
@@ -100,9 +99,14 @@ Router::connect('/administrator/get/users', array('plugin' => 'usermgmt', 'contr
 Router::connect('/administrator/get/monitor/list', array('controller' => 'monitor', 'action' => 'jsonList'));
 Router::connect('/administrator/get/monitor/event/:category', array('controller' => 'monitor', 'action' => 'jsonEvent'));
 Router::connect('/administrator/get/monitor/visits', array('controller' => 'monitor', 'action' => 'jsonVisits'));
+Router::connect('/administrator/get/sites', array('controller'=>'origin', 'action'=>'jsonSite'));
 
 //DEMO
 ///demo/Origin/
+Router::connect('/administrator/get/templates/:template', array('controller'=>'origin', 'action'=>'demoLoadTemplate'));
+Router::connect('/administrator/demoes', array('controller'=>'origin', 'action'=>'demoList'));
+Router::connect('/administrator/demo/:originAd_id', array('controller'=>'origin', 'action'=>'demoEdit'));
+Router::connect('/administrator/dashboard/sites', array('controller'=>'origin', 'action'=>'siteManager'));
 Router::connect('/demo/:site/', array('controller'=>'origin', 'action'=>'demo'));
 
 //AD CREATOR

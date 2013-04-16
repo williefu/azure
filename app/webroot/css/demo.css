@@ -1,0 +1,34 @@
+#demo-reskin {
+	background-position: center top;
+	background-repeat: no-repeat;
+}
+
+#demo-panel {
+	width: 200px;
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 50%;
+	margin: -150px 0 0 0;
+	
+	border-width: 1px 3px 1px 0;
+	border-style: solid;
+}
+
+#demoPanel-header {
+	background: transparent url(/img/demo-26x26.png) no-repeat 10px center;
+}
+
+#demoPanelContent-auto {
+	
+}
+
+#demoPanelContent-auto .originUI-switch {
+	width: 75px;
+	margin: 0 0 0 10px;
+}
+
+#demoPanel-form .originUI-upload {
+	width: 100%;
+	font-size: 16px;
+}

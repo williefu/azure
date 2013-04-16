@@ -182,6 +182,11 @@ input:-ms-input-placeholder {
 	border-color: #0099cc;
 }
 
+.originUI-outlineColor {
+	outline-color: #0099cc;
+	outline-style: solid;
+}
+
 .originUI-textColor {
 	color: #0099cc;
 }

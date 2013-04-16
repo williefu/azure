@@ -1,0 +1,36 @@
+#originDemo-wrapper {
+	width: 970px;
+	margin: 0 auto;
+}
+
+
+#originDemo-leaderboard {
+	width: 970px;
+	min-height: 66px;
+	margin: 10px auto;
+	display: block;
+}
+
+#originDemoContent-wrapper {
+	padding: 10px 0;
+}
+
+#originDemoContent-center {
+	border-width: 3px 0 1px;
+	border-style: solid;
+}
+
+#originDemoContent-left,
+#originDemoContent-right {
+	height: 100%;
+}
+
+#originDemoContent-left {
+	width: 645px;
+	margin: 0 15px 0 5px;
+}
+
+#originDemoContent-right {
+	width: 300px;
+	margin: 0 5px 0 0;
+}

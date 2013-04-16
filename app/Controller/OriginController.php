@@ -4,8 +4,10 @@ class OriginController extends AppController {
 	public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
 	public $components 	= array('Session', 'RequestHandler', 'Usermgmt.UserAuth');
 	public $uses		= array('OriginAd', 
-								'OriginTemplate', 
-								'OriginComponent', 
+								'OriginComponent',
+								'OriginDemo',
+								'OriginSite',
+								'OriginTemplate',
 								'OriginAdSchedule', 
 								'OriginAdDesktopInitialContent', 
 								'OriginAdDesktopTriggeredContent',
@@ -21,6 +23,52 @@ class OriginController extends AppController {
 		parent::beforeFilter();
 		$this->User->userAuth=$this->UserAuth;
 	}
+	
+/* =======================================================================
+	General
+========================================================================== */
+	/**
+	* POST data router
+	*/
+	public function post() {
+		if($this->request->data['route']) {
+			$route		= $this->request->data['route'];
+			unset($this->request->data['route']);
+			$response	= $this->$route($this->request->data);
+			$this->set('post', $response);
+		}
+	}
+	
+	/**
+	* System-wide AJAX file uploader
+	*/
+	public function upload() {
+		App::import('Vendor', 'UploadHandler', array('file'=>'UploadHandler/uploadHandler.class.php'));
+		
+		$upload_handler = new UploadHandler();
+		header('Pragma: no-cache');
+		header('Cache-Control: private, no-cache');
+		header('Content-Disposition: inline; filename="files.json"');
+		header('X-Content-Type-Options: nosniff');
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Methods: OPTIONS, HEAD, GET, POST, PUT, DELETE');
+		header('Access-Control-Allow-Headers: X-File-Name, X-File-Type, X-File-Size');
+		
+		switch ($_SERVER['REQUEST_METHOD']) {
+			case 'POST':
+				$upload_handler->post();
+		        break;
+		    default:
+		        header('HTTP/1.1 405 Method Not Allowed');
+		}
+		
+		exit;
+	}
+	
+	
+	
+	
+	
 
 	public function index() {
 /*
@@ -33,20 +81,7 @@ class OriginController extends AppController {
 */
 	}
 	
-	/**
-	* Displays a listing of all Origin ad units
-	*/
-	public function ad_list() {
-		$this->set('title_for_layout', 'Origin Ads');
-		$this->render('list');
-	}
-	
-	/**
-	* Opens Origin's ad creator
-	*/
-	public function edit() {
-		$this->set('title_for_layout', 'Editor');
-	}
+
 	
 	/**
 	* Dashboard page
@@ -190,15 +225,37 @@ class OriginController extends AppController {
 	}
 	
 	/**
-	* Origin demo manager
+	* Listing of all saved demo pages
 	*/
 	public function demoList() {
-		$this->set('title_for_layout', 'Demo Templates');
+		$this->set('title_for_layout', 'Demo Listing');
+	}
+	
+	/**
+	* Loads a specified demo page template
+	*/
+	public function demoLoadTemplate() {
+		$this->layout 	= 'templates';
+		$template 		= $this->request->params['template'];
+		$this->set('template', $template);
+	}
+	
+	/**
+	* Edit a demo page
+	*/
+	public function demoEdit() {
+		$this->layout 	= 'demo';
+		$this->set('title_for_layout', 'Ad Demo');
+		
+		$this->set('originAd_id', $this->request->params['originAd_id']);
+		//$this->jsonAdUnit($this->request->params['originAd_id']);
+		
+		//$this->render('/Origin/json/json_ad_unit');	
 	}
 	
 	
 	/**
-	* Loads a specified ad component. (why??)
+	* Loads a specified ad component
 	*/
 	public function loadComponent() {
 		$this->layout 	= 'components';
@@ -206,17 +263,12 @@ class OriginController extends AppController {
 		$this->set('component', $component);
 	}
 	
-	/**
-	* POST data router
-	*/
-	public function post() {
-		if($this->request->data['route']) {
-			$route		= $this->request->data['route'];
-			unset($this->request->data['route']);
-			$response	= $this->$route($this->request->data);
-			$this->set('post', $response);
-		}
-	}
+	
+	
+	
+	
+	
+	
 	
 	/**
 	* Creates a new Origin ad unit
@@ -235,7 +287,22 @@ class OriginController extends AppController {
 			return '/administrator/Origin/ad/edit/'.$this->OriginAd->id;
 		}
 	}
-	
+
+/* =======================================================================
+	Ad components
+========================================================================== */
+	/**
+	* Loads the ad components model
+	*/
+	private function _loadComponents() {
+		$origin_components	= $this->OriginComponent->find('all',
+		array(
+			'order'=>array('OriginComponent.name ASC')
+		));
+		$this->set('origin_components', $origin_components);
+		return $this->render('/Origin/json/json_component');
+	}
+
 	/**
 	* Removes an Origin ad component
 	*/
@@ -243,12 +310,7 @@ class OriginController extends AppController {
 		$id		= $data['id'];
 		
 		if($this->OriginComponent->delete($id)) {
-			$origin_components	= $this->OriginComponent->find('all',
-			array(
-				'order'=>array('OriginComponent.name ASC')
-			));
-			$this->set('origin_components', $origin_components);
-			return $this->render('/Origin/json/json_component');
+			return $this->_loadComponents();
 		}
 	}
 	
@@ -267,12 +329,7 @@ class OriginController extends AppController {
 		$data['modify_by']		= $this->UserAuth->getUserId();
 		
 		if($this->OriginComponent->save($data)) {
-			$origin_components	= $this->OriginComponent->find('all',
-			array(
-				'order'=>array('OriginComponent.name ASC')
-			));
-			$this->set('origin_components', $origin_components);
-			return $this->render('/Origin/json/json_component');
+			return $this->_loadComponents();
 		}
 	}
 	
@@ -284,20 +341,143 @@ class OriginController extends AppController {
 		$data['modify_by']		= $this->UserAuth->getUserId();
 		
 		if($this->OriginComponent->save($data)) {
-			$origin_components	= $this->OriginComponent->find('all',
-			array(
-				'order'=>array('OriginComponent.name ASC')
-			));
-			$this->set('origin_components', $origin_components);
-			return $this->render('/Origin/json/json_component');
+			return $this->_loadComponents();
+		}
+	}
+		
+/* =======================================================================
+	Demo page of Origin units
+========================================================================== */
+	/**
+	* Loads the model data
+	*/
+	private function _loadDemos() {
+		$origin_demos	= $this->OriginDemo->find('all',
+		array(
+			'order'=>array('OriginDemo.name ASC')
+		));
+		$this->set('origin_demos', $origin_demos);
+		return $this->render('/Origin/json/json_demo');
+	}
+	
+	
+	/**
+	* Origin demo manager
+	*/
+	public function demoManager() {
+		$this->set('title_for_layout', 'Demo Manager');
+	}
+	
+	/**
+	* Save/update an Origin site demo page
+	*/
+	private function demoSave($data) {
+		$data['config']			= json_encode($data);
+		
+		if(!isset($data['id'])) {
+			$data['create_by']	= $this->UserAuth->getUserId();
+		}
+		
+		$data['modify_date']	= date('Y-m-d H:i:s');
+		$data['modify_by']		= $this->UserAuth->getUserId();
+		
+		if($this->OriginDemo->save($data)) {
+			if(empty($data['alias'])) {
+				App::import('Vendor', 'pseudocrypt');
+				$aliasData['id']	= $this->OriginDemo->id;
+				$aliasData['alias'] = $data['alias'] = PseudoCrypt::hash($aliasData['id'], 6);	
+				$this->OriginDemo->save($aliasData);
+
+			}
+			return $data['alias'];
 		}
 	}
 	
+	/**
+	* Toggle an Origin site demo status
+	*/
+	private function demoStatus($data) {
+		$data['modify_date']	= date('Y-m-d H:i:s');
+		$data['modify_by']		= $this->UserAuth->getUserId();
+		
+		if($this->OriginDemo->save($data)) {
+			return $this->_loadDemos();
+		}
+	}
+	
+/* =======================================================================
+	Site Demo Template
+========================================================================== */
+	/**
+	* Origin site manager
+	*/
+	public function siteManager() {
+		$this->set('title_for_layout', 'Demo Manager');
+	}
+	
+	/**
+	* Loads the model data
+	*/
+	private function _loadSites() {
+		$origin_sites	= $this->OriginSite->find('all',
+		array(
+			'order'=>array('OriginSite.name ASC')
+		));
+		$this->set('origin_sites', $origin_sites);
+		return $this->render('/Origin/json/json_site');
+	}
+	
+	/**
+	* Save/update an Origin site demo page
+	*/
+	private function siteSave($data) {
+		$data['content']		= json_encode($data['content']);
+		$data['config']			= json_encode($data['config']);
+		
+		if(!isset($data['id'])) {
+			$data['create_by']	= $this->UserAuth->getUserId();
+		}
+		
+		$data['modify_date']	= date('Y-m-d H:i:s');
+		$data['modify_by']		= $this->UserAuth->getUserId();
+		
+		if($this->OriginSite->save($data)) {
+			return $this->_loadSites();
+		}
+	}
+	
+	/**
+	* Toggle an Origin site demo status
+	*/
+	private function siteStatus($data) {
+		$data['modify_date']	= date('Y-m-d H:i:s');
+		$data['modify_by']		= $this->UserAuth->getUserId();
+		
+		if($this->OriginSite->save($data)) {
+			return $this->_loadSites();
+		}
+	}
+
+/* =======================================================================
+	Ad Templates
+========================================================================== */
 	/**
 	* ?
 	*/
 	private function templateDisable() {
 		
+	}
+	
+	/**
+	* Loads the template model
+	*/
+	private function _loadTemplates() {
+		$origin_templates	= $this->OriginTemplate->find('all',
+		array(
+			'order'=>array('OriginTemplate.name ASC')
+		));
+		$this->set('origin_templates', $origin_templates);
+		return $this->render('/Origin/json/json_template');
 	}
 	
 	/**
@@ -307,12 +487,7 @@ class OriginController extends AppController {
 		$id		= $data['id'];
 		
 		if($this->OriginTemplate->delete($id)) {
-			$origin_templates	= $this->OriginTemplate->find('all',
-			array(
-				'order'=>array('OriginTemplate.name ASC')
-			));
-			$this->set('origin_templates', $origin_templates);
-			return $this->render('/Origin/json/json_template');
+			return $this->_loadTemplates();
 		}
 	}
 	
@@ -331,41 +506,15 @@ class OriginController extends AppController {
 		$data['modify_by']		= $this->UserAuth->getUserId();
 		
 		if($this->OriginTemplate->save($data)) {
-			$origin_templates	= $this->OriginTemplate->find('all',
-			array(
-				'order'=>array('OriginTemplate.name ASC')
-			));
-			$this->set('origin_templates', $origin_templates);
-			return $this->render('/Origin/json/json_template');
+			return $this->_loadTemplates();
 		}
 	}
 	
-	/**
-	* System-wide AJAX file uploader
-	*/
-	public function upload() {
-		App::import('Vendor', 'UploadHandler', array('file'=>'UploadHandler/uploadHandler.class.php'));
-		
-		$upload_handler = new UploadHandler();
-		header('Pragma: no-cache');
-		header('Cache-Control: private, no-cache');
-		header('Content-Disposition: inline; filename="files.json"');
-		header('X-Content-Type-Options: nosniff');
-		header('Access-Control-Allow-Origin: *');
-		header('Access-Control-Allow-Methods: OPTIONS, HEAD, GET, POST, PUT, DELETE');
-		header('Access-Control-Allow-Headers: X-File-Name, X-File-Type, X-File-Size');
-		
-		switch ($_SERVER['REQUEST_METHOD']) {
-			case 'POST':
-				$upload_handler->post();
-		        break;
-		    default:
-		        header('HTTP/1.1 405 Method Not Allowed');
-		}
-		
-		exit;
-	}
 	
+
+/* =======================================================================
+	JSON feeds
+========================================================================== */	
 
 	/**
 	* JSON feed of the specified Origin ad template
@@ -424,6 +573,18 @@ class OriginController extends AppController {
 	}
 	
 	/**
+	* JSON feed of all Origin demo sites
+	*/
+	public function jsonSite() {
+		$origin_sites	= $this->OriginSite->find('all', 
+			array(
+				'order'=>array('OriginSite.name ASC')
+			)
+		);
+		$this->set('origin_sites', $origin_sites);
+	}
+	
+	/**
 	* JSON feed of all Origin ad templates
 	*/
 	public function jsonTemplate() {
@@ -435,7 +596,32 @@ class OriginController extends AppController {
 		$this->set('origin_templates', $origin_templates);
 	}
 	
-	/***** CREATOR FUNCTIONS *****/
+/* =======================================================================
+	Origin Ad Creator
+========================================================================== */
+	/**
+	* Displays a listing of all Origin ad units
+	*/
+	public function ad_list() {
+		$this->set('title_for_layout', 'Origin Ads');
+		$this->render('list');
+	}
+	
+	/**
+	* Opens Origin's ad creator
+	*/
+	public function edit() {
+		$this->set('title_for_layout', 'Editor');
+	}
+	
+	/**
+	* Loads the current ad unit in JSON format
+	*/
+	private function _creatorAdLoad($data) {
+		$this->jsonAdUnit($data['originAd_id']);
+		return $this->render('/Origin/json/json_ad_unit');	
+	}
+
 	/**
 	* Creates an Origin ad unit's content record
 	*/
@@ -444,8 +630,16 @@ class OriginController extends AppController {
 		$data['config']			= json_encode($data['config']);
 		
 		if($this->{'OriginAd'.$data['model'].'Content'}->save($data)) {
-			$this->jsonAdUnit($data['originAd_id']);
-			return $this->render('/Origin/json/json_ad_unit');	
+			return $this->_creatorAdLoad($data);
+		}
+	}
+	
+	/**
+	* Removes the content from the ad unit
+	*/
+	private function creatorContentRemove($data) {
+		if($this->{'OriginAd'.$data['model'].'Content'}->delete($data['id'])) {
+			return $this->_creatorAdLoad($data);	
 		}
 	}
 	
@@ -487,8 +681,7 @@ class OriginController extends AppController {
 	*/
 	private function creatorLayerUpdate($data) {
 		if($this->{'OriginAd'.$data['model'].'Content'}->saveAll($data['data'])) {
-			$this->jsonAdUnit($data['originAd_id']);
-			return $this->render('/Origin/json/json_ad_unit');	
+			return $this->_creatorAdLoad($data);	
 		}
 	}
 }

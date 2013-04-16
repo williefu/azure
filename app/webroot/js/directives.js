@@ -1,6 +1,46 @@
 'use strict';
 
 angular.module('originApp.directives', [])
+	.directive('alias', function(){
+		return {
+			require: 'ngModel',
+			restrict: 'A',
+			link: function(scope, element, attrs, modelCtrl) {
+			
+				modelCtrl.$parsers.push(function (inputValue) {
+				
+					var transformedInput = inputValue.toLowerCase().replace(/ /g, '-'); 
+					
+					if (transformedInput!=inputValue) {
+						modelCtrl.$setViewValue(transformedInput);
+						modelCtrl.$render();
+					}         
+					
+					return transformedInput;         
+				});
+			}
+		}
+	})
+	.directive('hex', function(){
+		return {
+			require: 'ngModel',
+			restrict: 'A',
+			link: function(scope, element, attrs, modelCtrl) {
+			
+				modelCtrl.$parsers.push(function (inputValue) {
+					
+					var transformedInput = '#'+inputValue.replace(/#/g, ''); 
+				
+					if (transformedInput!=inputValue) {
+						modelCtrl.$setViewValue(transformedInput);
+						modelCtrl.$render();
+					}         
+					
+					return transformedInput; 
+				});
+			}
+		}
+	})
 	.directive('asset', function() {
 		return {
 			restrict: 'A',
@@ -75,9 +115,11 @@ angular.module('originApp.directives', [])
 		return {
 			restrict: 'E',
 			replace: true,
-			template: '<div class="workspace-content" ng:click="creatorCompanionSelect()" ng:dblclick="creatorModalOpen()"></div>',
+			template: '<div class="workspace-content" ng:dblclick="creatorModalOpen()" ng:click="creatorCompanionSelect()"></div>',
 			scope: {
-				ngModel: '='
+				/* creatorCompanionSelect: '&click', */
+				creatorModalOpen: 		'&doubleClick',
+				ngModel: 				'='
 			},
 			link: function(scope, element, attrs) {
 			
@@ -140,6 +182,11 @@ angular.module('originApp.directives', [])
 					}
 				});	
 				
+				//Selecting a content item will highlight the companion content throughout the UI
+				element.click(function() {
+					$j('.content-item').removeClass('active');
+					$j('#contentItem-'+scope.ngModel.id).addClass('active');
+				});
 				
 			}
 		}
@@ -173,9 +220,9 @@ angular.module('originApp.directives', [])
 			restrict: 'A',
 			replace: false,
 			scope: true,
-			template: '<li class="content-item" ng:repeat="content in layers|orderBy:\'-order\'" data-id="{{content.id}}"> <span class="content-handle inline">handle</span> <span class="content-label inline">{{content.content.title}}-{{content.id}}</span> <span class="content-edit inline" ng:click="creatorModalOpen(\'content\', \'\', content)">edit</span></li>',
+			template: '<li id="contentItem-{{content.id}}" class="content-item" ng:repeat="content in layers|orderBy:\'-order\'" data-layer-id="{{content.id}}"><span class="content-item-wrapper"><span class="content-handle inline">handle</span> <span class="content-label inline">{{content.content.title}}-{{content.id}}</span> <span class="content-edit inline" ng:click="creatorModalOpen(\'content\', \'\', content)">edit</span></span></li>',
 			link: function(scope, element, attr) {
-			
+				
 				element.sortable({
 					'axis':		'y',
 					'handle':	'.content-handle',
@@ -187,7 +234,7 @@ angular.module('originApp.directives', [])
 							
 							for(var i in scope.workspace.ad.OriginAdSchedule[scope.ui.schedule][scope.ui.content]) {
 								
-								if($j(this).data('id').toString() === scope.workspace.ad.OriginAdSchedule[scope.ui.schedule][scope.ui.content][i].id) {
+								if($j(this).data('layer-id').toString() === scope.workspace.ad.OriginAdSchedule[scope.ui.schedule][scope.ui.content][i].id.toString()) {
 									scope.$apply(function() {
 										scope.workspace.ad.OriginAdSchedule[scope.ui.schedule][scope.ui.content][i].order = newOrder;
 									});
@@ -199,7 +246,7 @@ angular.module('originApp.directives', [])
 						});
 					}
 				});
-			},
+			}
 		}
 	})
 	.directive('overscroll', function() {
