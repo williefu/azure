@@ -23,12 +23,13 @@
 			<!--a href="#" class="" ng-click="export()"><?php echo __('EXPORT');?></a>
 		</form-->
 		<form name="test" ng-submit="">
-			<input value="" id="datepicker_from" name="start_date" class="datepicker" type="text" style="width:180px;"  ng-model="monitorObj.start_date"></input>		
-			<input name="start_date_submit" id="start_date_submit" class="datepicker" type="hidden" style="width:180px;" ng-model="monitorObj.start_date_submit" value=""></input>		
-			<input value="{{monitor_filter.endDate}}" id="datepicker_to" name="end_date"  class="datepicker" type="text" style="width:180px;" ng-model="monitorObj.end_date"></input>
+			<input value="{{monitor_filter.startDate}}" id="datepicker_from" name="datepicker_from" class="datepicker" type="text" style="width:180px;"  ng-model="monitorObj.datepicker_from"></input>		
+			<!--input name="start_date_submit" id="start_date_submit" class="datepicker" type="hidden" style="width:180px;" ng-model="monitorObj.start_date_submit" value=""></input-->		
+			<input value="{{monitor_filter.endDate}}" id="datepicker_to" name="datepicker_to"  class="datepicker" type="text" style="width:180px;" ng-model="monitorObj.datepicker_to"></input>
 			<input type="text" name="category" ng-model="monitorObj.category" id="category" placeholder="<?php echo __('Event Category Title');?>" style=""/><br/>
 			<input type="text" name="testing" ng-model="monitorObj.testing" id="testing" placeholder="<?php echo __('Test Title');?>" style=""/><br/>
-			<button ng-click="getData($monitorObj)">Search</button>
+			<button ng-click="getData()">Search</button>
+			<button ng-click="exportData()">Export</button>
 		</form>
 	</div>
 	<div id="totals">
@@ -42,7 +43,6 @@
 				<td>{{monitor_totals.uniqueEvents}}</td>
 			</tr>
 		</table>
-		
 	</div>
 
 	<div id="list">
@@ -52,8 +52,8 @@
 				<td><?php echo __('Total Events');?></td>
 				<td><?php echo __('Unique Events');?></td>
 			</tr>
-			<tr ng:repeat="item in monitor_list|filter:category">
-				<td>{{item.category}}</td>
+			<tr ng:repeat="item in monitor_list | orderBy:'totalEvents' | filter:category">
+				<td ng:click="categoryData(item.category)" style="cursor:pointer">{{item.category}}</td>
 				<td>{{item.totalEvents}}</td>
 				<td>{{item.uniqueEvents}}</td>
 			</tr>
@@ -80,10 +80,11 @@
 			onSelect: function() {
 				//jQuery( '#start_date' ).val(this.getDate( 'yyyy-mm-dd' ));
 				//console.log( 'Selected: ' + this.getDate() )
-				jQuery( '#start_date_submit' ).val(this.getDate());
+				//jQuery( '#start_date_submit' ).val(this.getDate());
 			},
 			onStart: function() {
 				var calendar = this;
+				console.log('start1');
 			}
 		})
 		
@@ -92,6 +93,9 @@
 			formatSubmit: 'yyyy-m-d',
 			onSelect: function() {
 				jQuery( '#end_date' ).val(this.getDate( 'yyyy-mm-dd' ));
+			},
+			onStart: function() {
+				console.log('start2');
 			}
 		})
 		

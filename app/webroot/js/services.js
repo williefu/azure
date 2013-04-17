@@ -51,6 +51,12 @@ angular.module('originApp.services', [])
 						return response.data;
 					});
 					return promise;
+				},
+				post: function(data) {
+					var promise = $http.post('/administrator/Monitor/Post', data).then(function(response) {
+						return response.data;
+					});
+					return promise;
 				}
 			}
 		return Monitor;

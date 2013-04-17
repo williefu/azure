@@ -116,7 +116,7 @@ Router::connect('/administrator/Origin/ad/edit/:originAd_id', array('controller'
 
 //Analytics
 Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor'));
-
+Router::connect('/administrator/Monitor/Post', array('controller'=>'monitor', 'action'=>'post'));
 
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 
