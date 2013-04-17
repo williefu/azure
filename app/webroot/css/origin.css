@@ -3,7 +3,8 @@ body {
 	margin: 0;
 	padding: 0;
 	position: relative;
-	color: #BDBDBD;
+	/* color: #BDBDBD; */
+	color: #ffffff;
 	background-color: #0a3960;
 }
 
@@ -214,7 +215,7 @@ input:-ms-input-placeholder {
 	border-width: 0 0 1px;
 	margin: 0 1px;
 	/* padding: 0 4px; */
-	color: #bdbdbd;
+	color: inherit;
 	text-indent: 5px;
 }
 
@@ -257,7 +258,7 @@ input:-ms-input-placeholder {
 }
 
 .originUI-select {
-	color: #bdbdbd;
+	/* color: #bdbdbd; */
 	border-width: 0 0 1px 0;
 	border-style: solid;
 	border-color: #bdbdbd;
@@ -299,7 +300,8 @@ input:-ms-input-placeholder {
 	-webkit-user-select:none; 
 	-moz-user-select:none; 
 	-ms-user-select: none;
-	font-size: 18px;
+	/* font-size: 18px; */
+	font-size: 16px;
 }
 
 .originUI-switchInput {
@@ -327,8 +329,12 @@ input:-ms-input-placeholder {
 	float: left; 
 	position: relative; 
 	width: 50%; 
-	height: 26px; 
+	height: 23px; 
+	line-height: 23px;
+	/*
+height: 26px; 
 	line-height: 26px;
+*/
 	text-transform: uppercase;
 	-moz-box-sizing: border-box; 
 	-webkit-box-sizing: border-box; 
@@ -821,7 +827,7 @@ input:-ms-input-placeholder {
 }
 
 #home>#home-activity {
-	width: 730px;
+	width: 560px;
 	height: 400px;
 }
 
@@ -831,7 +837,16 @@ input:-ms-input-placeholder {
 }
 
 #home-right {
-	width: 250px;
+	width: 420px;
+}
+
+#home-right #home-creator,
+#home-right #home-demo {
+	width: 190px;
+}
+
+#home-right #home-analytics {
+	width: 400px;
 }
 
 /***** END: HOME *****/

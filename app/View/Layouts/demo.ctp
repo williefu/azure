@@ -5,19 +5,11 @@
 	<title><?php echo $title_for_layout;?> | Origin</title>
 	<link rel="shortcut icon" href="/favicon.ico"/>
 	<?php
-		//echo $this->Html->meta('icon');
-		//echo $this->Html->css('cake.generic');
-		//echo $this->Html->css('origin');
-		//echo $this->Html->css('/usermgmt/css/umstyle');
-		
 		echo $this->Minify->css(array('normalize', 'bootstrap', 'chardinjs', 'origin', 'demo'));
-		echo $this->Minify->script(array('jquery', 'jquery.ui.widget', 'jquery.fileupload', 'chardinjs.min', 'angularjs', 'angular-ui', 'angularui-bootstrap', 'origin', 'controller', 'controllers/demoController', 'services', 'directives', 'filters'));
-		//echo $this->fetch('meta');
-		//echo $this->fetch('css');
-		//echo $this->fetch('script');
+		echo $this->Minify->script(array('jquery/jquery', 'jquery/jquery.ui.widget', 'jquery/jquery.fileupload', 'jquery/chardinjs.min', 'angularjs', 'angular-ui', 'angularui-bootstrap', 'origin', 'controller', 'controllers/demoController', 'services', 'directives', 'filters'));
 	?>
 </head>
-<body class="" ng:app="originApp" ng:controller="originGeneral">
+<body class="originUI-bgTexture" ng:app="originApp" ng:controller="originGeneral">
 	<?php echo $this->fetch('content'); ?>
 </body>
 </html>

@@ -75,7 +75,7 @@
 				-->
 		</div>
 	</div>
-	<form id="creator-panel-left" class="originUI-bgColor originUI-borderColor" panel-upload>
+	<form id="creator-panel-left" class="originUI-bgColor" panel-upload>
 		<input type="hidden" name="uploadDir" value="/assets/creator/<?php echo $this->params['originAd_id'];?>/"/>
 		<div id="layer-wrapper" ng:click="creatorToggle('layer')">
 			<div id="layer-icon" class="inline" ng:class="{true: 'layer-layers', false: 'layer-library'}[ui.layer=='Layers']"></div><!--
@@ -121,7 +121,7 @@
 			</li>
 		</ul>
 	</form>
-	<div id="creator-panel-workspace" class="originUI-bgColorSecondary originUI-bgTexture" ng:class="workspace-{{workspace.template.content.alias}}">
+	<div id="creator-panel-workspace" class="originUI-bgColorSecondary originUI-bgTexture originUI-borderColor" ng:class="workspace-{{workspace.template.content.alias}}">
 		<div class="workspace" ng:style="workspaceTemplateConfig()" workspace>
 			<workspace-content ng:repeat="content in workspace.ad.OriginAdSchedule[ui.schedule][ui.content]" ng:model="content" double-click="creatorModalOpen('content', '', content)"></workspace-content>
 		</div>
@@ -189,8 +189,39 @@
 	<div modal="settingsModal" close="settingsModalClose()" options="creatorModalOptions">
 		<form id="settings-modal" class="originUI-bgColorSecondary">
 			<h3 id="settingsModal-header" class="originUiModal-header originUI-borderColor originUI-textColor">Settings</h3>
-			
 			<div class="originUiModal-content">
+				<ul class="originUI-list">
+					<li>
+						<label class="inline">Name</label>
+						<div class="originUI-field inline">
+							<div class="originUI-fieldBracket"></div>
+							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.name"/>
+						</div>
+					</li>
+					<li id="settingsModal-status">
+						<label class="inline">Status</label>
+						<div class="originUI-switch inline">
+					    <input type="checkbox" name="statusSwitch" class="originUI-switchInput" id="statusSwitch" ng:model="editor.status" ng:checked="editor.statusSwitch">
+					    <label class="originUI-switchLabel" for="statusSwitch">
+					    	<div class="originUI-switchInner">
+					    		<div class="originUI-switchActive">
+					    			<div class="originUI-switchText">Active</div>
+							    </div>
+							    <div class="originUI-switchInactive">
+							    	<div class="originUI-switchText">Inactive</div>
+								</div>
+						    </div>
+					    </label>
+				    </div> 
+					</li>
+					<li>
+						<label class="inline">Google Analytics Tracking</label>
+						<div class="originUI-field inline">
+							<div class="originUI-fieldBracket"></div>
+							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.config.ga_id"/>
+						</div>
+					</li>
+				</ul>
 			</div>
 			<div class="originUiModal-footer">
 				<div class="originUiModalFooter-left" ng:click="settingsModalClose()">Cancel</div>
@@ -272,4 +303,4 @@
 
 <?php
 	echo $this->Minify->css(array('creator', 'codemirror/night', 'jquery-ui.min'));
-	echo $this->Minify->script(array('codemirror/codemirror', 'codemirror/xml', 'codemirror/javascript', 'codemirror/css', 'codemirror/htmlmixed', 'jquery-ui.min', 'jquery-touch', 'creatorController'));
+	echo $this->Minify->script(array('codemirror/codemirror', 'codemirror/xml', 'codemirror/javascript', 'codemirror/css', 'codemirror/htmlmixed', 'jquery/jquery-ui.min', 'jquery/jquery-touch', 'controllers/creatorController'));

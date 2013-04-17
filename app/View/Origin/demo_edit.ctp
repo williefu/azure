@@ -54,6 +54,9 @@
 							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="demo.reskin_color" placeholder="Reskin Hex Code"  maxlength="7" hex>
 						</div>
 					</li>
+					<li ng:show="link">
+						<a href="{{link}}" target="_blank">Demo Link</a>
+					</li>
 <!--
 					<li>
 						<label>URL Tag (optional)</label>

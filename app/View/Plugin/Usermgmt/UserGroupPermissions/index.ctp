@@ -3,7 +3,7 @@ echo $this->Html->script('/usermgmt/js/umupdate');
 ?>
 <div id="system-config" class="" ng:controller="originSystems">
 	<h2 class="originUI-header">System Configuration</h2>
-	<div id="systemConfig-groupAdd" class="dashboard-left originUI-bgColor originUI-shadow">
+	<div id="systemConfig-groupAdd" class="dashboard-left originUI-bgColor originUI-shadow" data-intro="Create new user groups" data-position="bottom">
 		<h3 id="groupAdd-header" class="originUiModal-header originUI-borderColor originUI-textColor">Add Group</h3>
 		<form id="groupAdd-form">
 			<ul class="originUI-list">
@@ -27,7 +27,7 @@ echo $this->Html->script('/usermgmt/js/umupdate');
 			<div class="originUiModalFooter-center" ng:click="groupCreate()">Create Group</div>
 		</div>
 	</div>
-	<div id="systemConfig-access" class="dashboard-right originUI-bgColor originUI-shadow">
+	<div id="systemConfig-access" class="dashboard-right originUI-bgColor originUI-shadow" data-intro="Manage system access" data-position="top">
 		<h3 id="systemConfig-header" class="originUiModal-header originUI-borderColor originUI-textColor">System Access</h3>
 		<?php 
 			echo $this->Form->input('controller', array('type'=>'select','div'=>array('id'=>'systemConfig-select', 'class'=>'originUI-field'), 'options'=>$allControllers, 'selected'=>$c, 'label'=>false, 'onchange'=>"window.location='".SITE_URL."administrator/dashboard/access/?c='+(this).value", 'class'=>'originUI-select originUI-bgColorSecondary'));

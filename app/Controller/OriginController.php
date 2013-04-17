@@ -224,36 +224,7 @@ class OriginController extends AppController {
 		$this->set('title_for_layout', 'Ad Components');
 	}
 	
-	/**
-	* Listing of all saved demo pages
-	*/
-	public function demoList() {
-		$this->set('title_for_layout', 'Demo Listing');
-	}
-	
-	/**
-	* Loads a specified demo page template
-	*/
-	public function demoLoadTemplate() {
-		$this->layout 	= 'templates';
-		$template 		= $this->request->params['template'];
-		$this->set('template', $template);
-	}
-	
-	/**
-	* Edit a demo page
-	*/
-	public function demoEdit() {
-		$this->layout 	= 'demo';
-		$this->set('title_for_layout', 'Ad Demo');
 		
-		$this->set('originAd_id', $this->request->params['originAd_id']);
-		//$this->jsonAdUnit($this->request->params['originAd_id']);
-		
-		//$this->render('/Origin/json/json_ad_unit');	
-	}
-	
-	
 	/**
 	* Loads a specified ad component
 	*/
@@ -270,23 +241,7 @@ class OriginController extends AppController {
 	
 	
 	
-	/**
-	* Creates a new Origin ad unit
-	*/
-	private function adCreate($data) {
-		$data['config']			= json_encode($data);
-		$data['create_by']		= $this->UserAuth->getUserId();
-		$data['modify_by']		= $this->UserAuth->getUserId();
-		$data['modify_date']	= date('Y-m-d H:i:s');
-		
-		if($this->OriginAd->save($data)) {
-			
-			$schedule['origin_ad_id']	= $this->OriginAd->id;
-			$this->OriginAdSchedule->save($schedule);
-			
-			return '/administrator/Origin/ad/edit/'.$this->OriginAd->id;
-		}
-	}
+
 
 /* =======================================================================
 	Ad components
@@ -346,7 +301,7 @@ class OriginController extends AppController {
 	}
 		
 /* =======================================================================
-	Demo page of Origin units
+	Demo page of Origin units (both administrator and public)
 ========================================================================== */
 	/**
 	* Loads the model data
@@ -360,6 +315,53 @@ class OriginController extends AppController {
 		return $this->render('/Origin/json/json_demo');
 	}
 	
+	/**
+	* Public demo page viewer
+	*/
+	public function demo() {
+		$this->set('title_for_layout', 'Demo');//NEEDS TO BE DYNAMIC!
+		$this->layout 	= 'demo_public';
+		
+		
+		$demo = $this->OriginDemo->find('first', 
+			array(
+				'conditions'=>array(
+					'OriginDemo.alias'=>$this->request->params['alias']
+				)
+			)
+		);
+		$this->set('demo', $demo);
+		
+	}
+	
+	/**
+	* Listing of all saved demo pages
+	*/
+	public function demoList() {
+		$this->set('title_for_layout', 'Demo Listing');
+	}
+	
+	/**
+	* Edit a demo page
+	*/
+	public function demoEdit() {
+		$this->layout 	= 'demo';
+		$this->set('title_for_layout', 'Ad Demo');
+		
+		$this->set('originAd_id', $this->request->params['originAd_id']);
+		//$this->jsonAdUnit($this->request->params['originAd_id']);
+		
+		//$this->render('/Origin/json/json_ad_unit');	
+	}
+
+	/**
+	* Loads a specified demo page template
+	*/
+	public function demoLoadTemplate() {
+		$this->layout 	= 'templates';
+		$template 		= $this->request->params['template'];
+		$this->set('template', $template);
+	}
 	
 	/**
 	* Origin demo manager
@@ -620,6 +622,42 @@ class OriginController extends AppController {
 	private function _creatorAdLoad($data) {
 		$this->jsonAdUnit($data['originAd_id']);
 		return $this->render('/Origin/json/json_ad_unit');	
+	}
+	
+	/**
+	* Creates a new Origin ad unit
+	*/
+	private function adCreate($data) {
+		$data['config']			= json_encode($data);
+		$data['create_by']		= $this->UserAuth->getUserId();
+		$data['modify_by']		= $this->UserAuth->getUserId();
+		$data['modify_date']	= date('Y-m-d H:i:s');
+		
+		if($this->OriginAd->save($data)) {
+			
+			$schedule['origin_ad_id']	= $this->OriginAd->id;
+			$this->OriginAdSchedule->save($schedule);
+			
+			return '/administrator/Origin/ad/edit/'.$this->OriginAd->id;
+		}
+	}
+
+	/**
+	* 
+	*/
+	private function creatorSettingsUpdate($data) {
+		unset($data['content']);
+		unset($data['statusSwitch']);
+		
+		$data['config']			= json_encode($data['config']);
+		$data['modify_date']	= date('Y-m-d H:i:s');
+		$data['modify_by']		= $this->UserAuth->getUserId();
+		$data['status']			= empty($data['status'])? 0: 1;
+		$data['originAd_id']	= $data['id'];
+		
+		if($this->OriginAd->save($data)) {
+			return $this->_creatorAdLoad($data);
+		}
 	}
 
 	/**

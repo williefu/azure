@@ -287,18 +287,25 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	* Settings modal
 	*/
 	$scope.settingsModalOpen = function() {
-		$scope.settingsModal = true;
+		$scope.editor				= $scope.workspace.ad.OriginAd;
+		$scope.editor.statusSwitch	= ($scope.editor.status === '1')? true: false;
+		$scope.settingsModal 		= true;
 	}
 	
 	/**
-	* Email embed code to user
+	* Update Origin ad settings
 	*/
 	$scope.settingsModalSave = function() {
+		$scope.editor.route			= 'creatorSettingsUpdate';
 		
+		Origin.post($scope.editor).then(function() {
+			$scope.settingsModalClose();
+			Notification.message({'title': 'Updated', 'content': 'Settings updated'});
+		});
 	}
 	
 	/**
-	* Close Embed modal window
+	* Close settings modal window
 	*/
 	$scope.settingsModalClose = function() {
 		$scope.settingsModal = false;

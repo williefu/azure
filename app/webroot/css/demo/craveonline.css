@@ -2,8 +2,10 @@ body {
 	margin: 0;
 }
 
-#origin-bar {
-	display: none;
+#demo-reskin {
+	background-color: #fff;
+	background-position: center 123px;
+	background-repeat: no-repeat;
 }
 
 #header {

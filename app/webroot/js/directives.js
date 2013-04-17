@@ -184,10 +184,47 @@ angular.module('originApp.directives', [])
 				
 				//Selecting a content item will highlight the companion content throughout the UI
 				element.click(function() {
-					$j('.content-item').removeClass('active');
-					$j('#contentItem-'+scope.ngModel.id).addClass('active');
-				});
+					element.attr('tabindex', -1).focus().keydown(function(event) {
+						if(event.keyCode >= 37 && event.keyCode <= 40) {
+							var position  = element.position();
+							switch(event.keyCode) {
+								case 37:
+									var value 	= position.left - 1;
+	                    				element.css({left: value+'px'});
+									break;
+								case 38:
+									var value 	= position.top - 1;
+	                    				element.css({top: value+'px'});
+									break;
+								case 39:
+									var value 	= position.left + 1;
+	                    				element.css({left: value+'px'});
+									break;
+								case 40:
+									var value 	= position.top + 1;
+	                    				element.css({top: value+'px'});
+									break;
+							}
+							
+							var newPosition  = element.position();
+							//construct config dataset
+							scope.ngModel.config = {
+								top: 	newPosition.top+'px',
+								left: 	newPosition.left+'px',
+								width: 	element.width()+'px',
+								height: element.height()+'px'
+							}
+							event.preventDefault();
+						}
+						
+					}).blur(function() {
+						//console.log('here');
+						$j('.content-item').removeClass('active');
+					});
 				
+					$j('.content-item').removeClass('active');
+					$j('#contentItem-'+scope.ngModel.id).addClass('active');	
+				});	
 			}
 		}
 	})

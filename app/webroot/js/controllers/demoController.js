@@ -63,7 +63,8 @@ var demoController = function($scope, $filter, Origin, Notification) {
 		$scope.demo.route		= 'demoSave';
 		
 		Origin.post($scope.demo).then(function(response) {
-			//Do something here...
+			$scope.link 	= 'http://'+document.domain+'/demo/'+response;
+			//window.open('http://'+document.domain+'/demo/'+response,'_blank');
 		});
 	}
 	

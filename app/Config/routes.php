@@ -104,10 +104,10 @@ Router::connect('/administrator/get/sites', array('controller'=>'origin', 'actio
 //DEMO
 ///demo/Origin/
 Router::connect('/administrator/get/templates/:template', array('controller'=>'origin', 'action'=>'demoLoadTemplate'));
-Router::connect('/administrator/demoes', array('controller'=>'origin', 'action'=>'demoList'));
+Router::connect('/administrator/demos', array('controller'=>'origin', 'action'=>'demoList'));
 Router::connect('/administrator/demo/:originAd_id', array('controller'=>'origin', 'action'=>'demoEdit'));
 Router::connect('/administrator/dashboard/sites', array('controller'=>'origin', 'action'=>'siteManager'));
-Router::connect('/demo/:site/', array('controller'=>'origin', 'action'=>'demo'));
+Router::connect('/demo/:alias', array('controller'=>'origin', 'action'=>'demo'));
 
 //AD CREATOR
 Router::connect('/administrator', array('controller'=>'origin', 'action'=>'index'));

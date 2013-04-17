@@ -22,7 +22,7 @@ body {
 
 #creator-panel-left,
 #creator-panel-workspace {
-	top: 85px;
+	top: 82px;
 }
 
 #creator-panel-left {
@@ -31,6 +31,15 @@ body {
 
 #creator-panel-workspace {
 	z-index: 0;
+	border-width: 3px;
+	border-style: solid;
+}
+
+#display .originUI-switchInner > .originUI-switchActive,
+#display .originUI-switchInner > .originUI-switchInactive,
+#layer-switch .originUI-switchInner > .originUI-switchActive,
+#layer-switch .originUI-switchInner > .originUI-switchInactive {
+	height: 26px;
 }
 
 /***** START: TOP PANEL *****/
@@ -39,7 +48,7 @@ body {
 	height: 42px;
 	width: 100%;
 	min-width: 1000px;
-	border-width: 0 0 5px;
+	border-width: 0 0 2px;
 	border-style: solid;
 }
 
@@ -325,9 +334,7 @@ font-size: 13px;
 /***** START: LEFT PANEL *****/
 #creator-panel-left {
 	top: 82px;
-	width: 195px;
-	border-width: 0 5px 0 0;
-	border-style: solid;
+	width: 200px;
 	overflow-x: hidden;
 }
 
@@ -437,7 +444,7 @@ font-size: 13px;
 
 .content-label {
 	line-height: 32px;
-	width: 115px;
+	width: 110px;
 	overflow: hidden;
 	cursor: default;
 }
@@ -445,12 +452,12 @@ font-size: 13px;
 .content-label:after {
 	background-image: -moz-linear-gradient(left center, rgba(33, 33, 35, 0) 0px, #212123 80%);
 	background-size: auto 100%;
-	right: 15%;
+	right: 10%;
 	bottom: 0;
 	content: "";
 	display: block;
 	position: absolute;
-	width: 30%;
+	width: 50%;
 	height: 100%;
 }
 
@@ -528,19 +535,39 @@ font-size: 13px;
 }
 
 .workspace-content.ui-resizable:not(.content-image) {
-	outline: 2px dashed rgba(0, 153, 204, .5);
-	outline-offset: -7px;
+	outline: 2px dashed rgba(0, 153, 204, .2);
+	outline-offset: -5px;
 }
 
 .workspace-content .ui-resizable-ne,
 .workspace-content .ui-resizable-se,
 .workspace-content .ui-resizable-sw,
 .workspace-content .ui-resizable-nw {
+	background-color: rgba(0, 153, 204, .3);
 	border-radius: 50%;
-	width: 12px;
-	height: 12px; 
-	border: 1px solid #0099cc;
+	width: 10px;
+	height: 10px;
+	/* border: 1px solid #0099cc; */
 }
+
+.workspace-content:hover,
+.workspace-content:focus {
+	outline: 2px dashed rgba(0, 153, 204, .7) !important;
+}
+
+.workspace-content:hover .ui-resizable-ne,
+.workspace-content:hover .ui-resizable-se,
+.workspace-content:hover .ui-resizable-sw,
+.workspace-content:hover .ui-resizable-nw,
+.workspace-content:focus .ui-resizable-ne,
+.workspace-content:focus .ui-resizable-se,
+.workspace-content:focus .ui-resizable-sw,
+.workspace-content:focus .ui-resizable-nw  {
+	background-color: rgba(0, 153, 204, .7);
+}
+
+
+
 
 .workspace-content.content-image .ui-resizable-handle,
 .workspace-content.content-image .workspace-content-label {
@@ -680,5 +707,15 @@ font-size: 13px;
 #settingsModal-header {
 	background: transparent url(/img/header-settings.png) no-repeat 10px center;
 }
+
+#settings-modal label.inline {
+	width: 70%;
+}
+
+#settingsModal-status .originUI-switch {
+	width: 150px;
+	margin: 0 0 0 10px;
+}
+
 
 /***** END: SETTINGS MODAL *****/
