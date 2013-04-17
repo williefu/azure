@@ -62,10 +62,12 @@ var monitorCtrl = function($scope, Monitor) {
 		/*$scope.monitor.category = category;
 		$scope.monitor.startDate = $scope.monitor_filter.startDate;
 		$scope.monitor.endDate = $scope.monitor_filter.endDate;*/
-		Monitor.get('event/'+category).then(function(data) {
-			$scope.refreshMonitor(data);
-			$scope.monitor_title = 'Event Action';
-		});
+		if($scope.monitor_title!='Event Action') {
+			Monitor.get('event/'+category).then(function(data) {
+				$scope.refreshMonitor(data);
+				$scope.monitor_title = 'Event Action';
+			});
+		}
 	}
 
 }

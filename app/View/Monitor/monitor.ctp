@@ -64,7 +64,7 @@
 <script src="https://www.google.com/jsapi"></script>
 <?php
 	echo $this->Minify->css(array('monitor/pickadate/pickadate.01.default'));
-	echo $this->Minify->script(array('monitor/controller','monitor/pickadate/pickadate'));
+	echo $this->Minify->script(array('controllers/monitorController','monitor/pickadate/pickadate'));
 ?>
 
 <script type="text/javascript">
