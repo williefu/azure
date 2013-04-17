@@ -29,7 +29,19 @@ class Monitor extends AppModel {
 		return $visits;
     }
 	
-	function getEvent($data) { //print_r($data);
+	function searchData($data) {
+		$end_date = date("Y-m-d",strtotime('-1 day'));
+		$start_date = date('Y-m-d',strtotime('-31 day')); 
+		$dimensions = 'ga:eventCategory';
+		$metrics = 'ga:totalEvents,ga:uniqueEvents';
+		$sort = '-ga:totalEvents';
+		$filters = $data;
+		$monitor = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
+		
+		return $monitor;
+	}
+	
+	function getEvent($data) {
 		$end_date = date("Y-m-d",strtotime('-1 day'));
 		$start_date = date('Y-m-d',strtotime('-31 day')); 
 		$dimensions = 'ga:eventAction';

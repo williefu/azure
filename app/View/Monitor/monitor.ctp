@@ -48,12 +48,12 @@
 	<div id="list">
 		<table>
 			<tr>
-				<td><?php echo __('Event Category');?></td>
+				<td>{{monitor_title}}</td>
 				<td><?php echo __('Total Events');?></td>
 				<td><?php echo __('Unique Events');?></td>
 			</tr>
-			<tr ng:repeat="item in monitor_list | orderBy:'totalEvents' | filter:category">
-				<td ng:click="categoryData(item.category)" style="cursor:pointer">{{item.category}}</td>
+			<tr ng:repeat="item in monitor_list | orderBy:'totalEvents' | filter:monitorObj.category">
+				<td ng:click="categoryData(item.category)" style="{{monitor_title=='Event Category' && 'cursor:pointer'}}">{{item.category}}</td>
 				<td>{{item.totalEvents}}</td>
 				<td>{{item.uniqueEvents}}</td>
 			</tr>

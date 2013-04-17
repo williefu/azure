@@ -19,6 +19,7 @@ var monitorCtrl = function($scope, Monitor) {
 			$scope.monitor_filter = data.filter;
 			$scope.monitor_totals = data.total;
 			$scope.monitor_list = data.data;
+			$scope.monitor_title = 'Event Category';
 	});
 
 	
@@ -29,8 +30,14 @@ var monitorCtrl = function($scope, Monitor) {
 	});*/
 	
 	$scope.getData = function() { //console.log($scope.monitorObj);
-		Monitor.get('event/'+$scope.monitorObj.category).then(function(data) {
+		/*Monitor.get('search/'+$scope.monitorObj.category).then(function(data) {
 			$scope.refreshMonitor(data);
+		});*/
+		Monitor.get('list/'+$scope.monitorObj.category).then(function(data) {
+			$scope.monitor_filter = data.filter;
+			$scope.monitor_totals = data.total;
+			$scope.monitor_list = data.data;
+			$scope.monitor_title = 'Event Category';
 		});
 	}
 	
@@ -57,6 +64,7 @@ var monitorCtrl = function($scope, Monitor) {
 		$scope.monitor.endDate = $scope.monitor_filter.endDate;*/
 		Monitor.get('event/'+category).then(function(data) {
 			$scope.refreshMonitor(data);
+			$scope.monitor_title = 'Event Action';
 		});
 	}
 
