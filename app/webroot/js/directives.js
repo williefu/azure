@@ -152,7 +152,7 @@ angular.module('originApp.directives', [])
 					snap: true,
 					snapTolerance: 7,
 					stop: function(event, ui) {
-						$j('#save-wrapper, #undo-wrapper').fadeIn(300);
+						$j('#actions-wrapper').fadeIn(300);
 						
 						//construct config dataset
 						scope.ngModel.config = {
@@ -170,7 +170,7 @@ angular.module('originApp.directives', [])
 					containment: $j('#creator-panel-workspace'),
 					handles: 'all',
 					stop: function(event, ui) {
-						$j('#save-wrapper, #undo-wrapper').fadeIn(300);
+						$j('#actions-wrapper').fadeIn(300);
 						
 						//construct config dataset
 						scope.ngModel.config = {
@@ -185,7 +185,8 @@ angular.module('originApp.directives', [])
 				//Selecting a content item will highlight the companion content throughout the UI
 				element.click(function() {
 					element.attr('tabindex', -1).focus().keydown(function(event) {
-						if(event.keyCode >= 37 && event.keyCode <= 40) {
+						if((event.keyCode >= 37 && event.keyCode <= 40) || event.keyCode === 8) {
+							event.preventDefault();
 							var position  = element.position();
 							switch(event.keyCode) {
 								case 37:
@@ -204,17 +205,22 @@ angular.module('originApp.directives', [])
 									var value 	= position.top + 1;
 	                    				element.css({top: value+'px'});
 									break;
+								case 8:
+									scope.$parent.creatorModalRemove(scope.ngModel);
+									break;
 							}
 							
-							var newPosition  = element.position();
-							//construct config dataset
-							scope.ngModel.config = {
-								top: 	newPosition.top+'px',
-								left: 	newPosition.left+'px',
-								width: 	element.width()+'px',
-								height: element.height()+'px'
+							if(event.keyCode !== 8) {							
+								$j('#actions-wrapper').fadeIn(300);
+								var newPosition  = element.position();
+								//construct config dataset
+								scope.ngModel.config = {
+									top: 	newPosition.top+'px',
+									left: 	newPosition.left+'px',
+									width: 	element.width()+'px',
+									height: element.height()+'px'
+								}
 							}
-							event.preventDefault();
 						}
 						
 					}).blur(function() {

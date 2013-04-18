@@ -37,6 +37,7 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	$scope.workspace			= {};	//Workspace wrapper model
 	$scope.workspace.ad 		= {};	//Complete ad unit model
 	$scope.workspace.components = {};	//List of all components
+	$scope.workspace.componentsRaw	= {};
 	//$scope.workspace.display	= {};	//Ad's display model
 	$scope.workspace.modal		= {};	//Modal content
 	$scope.workspace.template	= {};	//Ad's corresponding template model
@@ -65,6 +66,8 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	*/
 	Origin.get('components').then(function(response) {
 		$scope.workspace.components		= response;
+		$scope.workspace.componentsRaw	= $scope.workspace.components['raw'];
+		delete $scope.workspace.components['raw'];
 		
 		$scope.updateLibrary();
 		
@@ -153,26 +156,23 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	$scope.creatorModalOpen = function(type, content, model) {
 		$scope.creatorModal = true;
 		var component;
-		
 		switch(type) {
 			case 'component':
-				$scope.workspace.modal.title		= content.OriginComponent.name + ' Editor';
-				$scope.workspace.modal.image		= content.OriginComponent.config.img_icon;
-				component							= content.OriginComponent.alias;
+				$scope.workspace.modal.title		= content.name + ' Editor';
+				$scope.workspace.modal.image		= content.config.img_icon;
+				component							= content.alias;
 				//$scope.workspace.modal.title		= content.OriginComponent.name;
 				break;
 			case 'content':
-				for(var i in $scope.workspace.components) {
-					if($scope.workspace.components[i].OriginComponent.alias	=== model.content.type) {
-						$scope.workspace.modal.title		= $scope.workspace.components[i].OriginComponent.name + ' Editor';
-						$scope.workspace.modal.image		= $scope.workspace.components[i].OriginComponent.config.img_icon;
+				for(var i in $scope.workspace.componentsRaw) {
+					if($scope.workspace.componentsRaw[i].OriginComponent.alias	=== model.content.type) {
+						$scope.workspace.modal.title		= $scope.workspace.componentsRaw[i].OriginComponent.name + ' Editor';
+						$scope.workspace.modal.image		= $scope.workspace.componentsRaw[i].OriginComponent.config.img_icon;
 					}
 				}
-				component							= model.content.type;
+				component = model.content.type;
 				break;
 			case 'schedule':
-				break;
-			case 'settings':
 				break;
 		}
 		
@@ -181,8 +181,8 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		} else {
 			$scope.editor = {
 				content: {
-					'title': 	content.OriginComponent.name,
-					'type': 	content.OriginComponent.alias
+					'title': 	content.name,
+					'type': 	content.alias
 				},
 				config: {
 					'height': '32px',
@@ -195,20 +195,7 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		
 		$scope.editor.template		= '/administrator/get/components/'+component;
 	}
-	
-/*
-	$scope.contentModalOpen = function(model) {
-		$scope.creatorModal = true;
 		
-		$scope.workspace.modal.title	= content.OriginComponent.name + ' Editor';
-		$scope.workspace.modal.image	= content.OriginComponent.config.img_icon;
-		
-		$scope.editor					= angular.copy(model);
-		//$scope.editor.content.title = content.OriginComponent.name;
-		$scope.editor.template			= '/administrator/get/components/'+model.content.type;
-	}
-*/
-	
 	/**
 	* Save/update the content
 	*/
@@ -221,7 +208,7 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		Origin.post($scope.editor).then(function(response) {
 			$scope.creatorModal	= false;
 			$scope.refreshUI(response);
-			//Notification.message(notification);
+			Notification.message({'content': 'Content saved'});
 		});
 	}
 	
@@ -231,14 +218,16 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	$scope.creatorModalRemove = function(data) {
 		var ask = confirm('Do you want to remove this item?');
 		if(ask){
+			$scope.editor				= data;
 			$scope.editor.route			= 'creatorContentRemove';
 			$scope.editor.model			= $scope.ui.platform + $scope.ui.view;
 			$scope.editor.originAd_id	= originAd_id;
-			
+
 			Origin.post($scope.editor).then(function(response) {
 				$scope.creatorModal	= false;
 				$scope.refreshUI(response);
-				Notification.message({'title': 'Removed', 'content': 'Content deleted'});
+				Notification.message({'content': 'Content deleted', 'type': 'alert'});
+				//Notification.message({'title': 'Removed', 'content': 'Content deleted'});
 			});	
 		} else {
 			return false;
@@ -258,7 +247,8 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		Origin.post($scope.editor).then(function(response) {
 			$scope.editor = {};
 			$scope.refreshUI(response);
-			Notification.message({'title': 'Added', 'content': 'Asset added to workspace'});
+			Notification.message({'content': 'Asset added to workspace'});
+			//Notification.message({'title': 'Added', 'content': 'Asset added to workspace'});
 		});
 	}
 	
@@ -300,7 +290,7 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		
 		Origin.post($scope.editor).then(function() {
 			$scope.settingsModalClose();
-			Notification.message({'title': 'Updated', 'content': 'Settings updated'});
+			Notification.message({'content': 'Settings updated'});
 		});
 	}
 	
@@ -317,6 +307,8 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	$scope.workspaceUndo = function() {
 		Origin.get('ad/'+originAd_id).then(function(response) {
 			$scope.refreshUI(response);
+			Notification.message({'content': 'Previous workspace loaded'});
+			$j('#actions-wrapper').fadeOut(200);
 		});
 	}
 	
@@ -328,8 +320,8 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		$scope.editor.route					= 'creatorWorkspaceUpdate';
 		
 		Origin.post($scope.editor).then(function() {
-			Notification.message({'title': 'Saved', 'content': 'Workspace saved'});
-			$j('#save-wrapper').fadeOut(200);
+			Notification.message({'content': 'Workspace saved'});
+			$j('#actions-wrapper').fadeOut(200);
 		});
 	}
 };

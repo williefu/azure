@@ -5,14 +5,14 @@
 		
 		<div class="wrapper">
 			<div id="components-wrapper" data-intro="Add components (images, video, etc) to unit" data-position="bottom">
-				<a href="javascript:void(0)" id="components" class="dropdown-toggle originUI-borderColor">Components</a>
-				<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
-					<li ng:repeat="component in workspace.components|filter:{OriginComponent.status: '1'}">
-						<a href="javascript:void(0)" ng:click="creatorModalOpen('component', component)" class="component" back-img='{{component.OriginComponent.config.img_icon}}'>
-							{{component.OriginComponent.name}}
-						</a>
-					</li>
-				</ul>
+				<div ng:repeat="(groupName, group) in workspace.components" class="inline component-menu originUI-borderColor">
+					<a href="javascript:void(0)" id="" class="dropdown-toggle">{{groupName}}</a>
+					<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
+						<li ng:repeat="component in group" class="dropdown-item">
+							<a href="javascript:void(0)" ng:click="creatorModalOpen('component', component)" class="component" back-img='{{component.config.img_icon}}'>{{component.name}}</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div id="display-wrapper" ng:click="creatorToggle('view')" data-intro="Toggle between the initial and triggered states of the unit" data-position="bottom">
 				<div id="display-icon" class="inline" ng:class="{true: 'display-initial', false: 'display-triggered'}[ui.view=='Initial']"></div>
@@ -33,16 +33,6 @@
 				</div>
 			</div>
 			
-			<div id="undo-wrapper" class="none" ng:click="workspaceUndo()">
-				<a href="javascript:void(0)" id="undo" class="inline">Undo</a>
-				<div id="undo-icon" class="inline"></div>
-			</div>
-			
-			<div id="save-wrapper" class="!none" ng:click="workspaceUpdate()">
-				<a href="javascript:void(0)" id="save" class="inline">Save</a>
-				<div id="save-icon" class="inline"></div>
-			</div>
-			
 			<div id="options-wrapper" data-intro="Ad creator options" data-position="bottom">
 				<a href="javascript:void(0)" id="options" class="dropdown-toggle originUI-borderColor">Options</a>
 				<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
@@ -60,6 +50,12 @@
 					</li>
 				</ul>
 			</div>
+			
+			<div id="actions-wrapper" class="originUI-bgColor originUI-borderColor originUI-shadow none">
+				<a href="javascript:void(0)" id="workspace-undo" class="inline" ng:click="workspaceUndo()">Undo</a><!--
+				--><a href="javascript:void(0)" id="workspace-save" class="inline" ng:click="workspaceUpdate()">Save</a>
+			</div>
+			
 				<!--
 				<div id="schedules" class="">
 					<a href="javascript:void(0)" class="dropdown-toggle originUI-select">Test</a>

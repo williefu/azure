@@ -54,8 +54,7 @@ body {
 
 #components-wrapper,
 #display-wrapper,
-#save-wrapper,
-#undo-wrapper,
+#actions-wrapper,
 #options-wrapper {
 	position: absolute;
 	height: 100%;
@@ -66,17 +65,43 @@ body {
 }
 
 #components-wrapper {
+	background: transparent url(/img/creator-components.png) no-repeat left 12px;
 	left: 10px;
+	padding-left: 20px;
 }
 
+.component-menu {
+	padding: 0 10px;
+	position: relative;
+}
+
+.component-menu:hover,
+.component-menu.open {
+	border-width: 0 0 3px 0;
+	border-style: solid;
+	height: 39px;
+}
+
+.component-menu + .component-menu {
+	border-left: 1px solid #303030;
+}
+
+.component-menu > a {
+	font-size: 17px;
+	font-variant: small-caps;
+}
+
+/*
 #components {
-	background: transparent url(/img/creator-components.png) no-repeat left center;
+	
 	width: 26px;
 	height: 100%;
 	display: block;
 	text-indent: -5000em;;
 }
+*/
 
+/*
 #components:hover,
 #components-wrapper.open #components {
 	border-width: 0 0 3px 0;
@@ -84,17 +109,19 @@ body {
 	height: 39px;
 	background-position: left 8px;
 }
+*/
 
-#components-wrapper > .dropdown-menu {
+#components-wrapper .dropdown-menu {
 	border-width: 0 0 1px 3px;
 	border-style: solid;
-	margin-left: 0;
+	margin: 3px 0 0 0;
 	min-width: 200px;
 }
 
 #components-wrapper .component {
 	margin: 0 -25px;
 	padding: 0 10px;
+	display: block;
 }
 
 #components-wrapper .component,
@@ -114,8 +141,7 @@ body {
 
 #display-wrapper {
 	width: 165px;
-	left: 50%;
-	margin: 0 0 0 -82px;
+	right: 40px;
 }
 
 #display-icon {
@@ -172,6 +198,7 @@ font-size: 13px;
 	right: 75px;
 }
 
+/*
 #undo-wrapper {
 	right: 120px;
 }
@@ -184,11 +211,43 @@ font-size: 13px;
 #save-wrapper:hover {
 	opacity: 1;
 }
+*/
 
-#save-icon {
-	width: 26px;
-	height: 42px;
-	background: transparent url(/img/creator-save.png) no-repeat center center;
+#actions-wrapper {
+	top: 47px;
+	right: 40px;
+	z-index: 1000;
+	width: 176px;
+	height: 36px;
+	line-height: 36px;
+	border-width: 0 1px 3px 1px;
+	border-style: solid;
+}
+
+#workspace-save,
+#workspace-undo {
+	position: absolute;
+	height: 100%;
+	text-indent: 40px;
+	padding: 0 5px;
+}
+
+#workspace-save:hover,
+#workspace-undo:hover {
+	background-color: rgba(255, 255, 255, .1);	
+}
+
+#workspace-save {
+	background: transparent url(/img/save-26x26.png) no-repeat 10px center;
+	width: 75px;
+	right: 0px;
+	border-left: 1px solid #444444;
+}
+
+#workspace-undo {
+	background: transparent url(/img/undo-26x26.png) no-repeat 10px center;
+	width: 80px;
+	left: 0px;
 }
 
 /*

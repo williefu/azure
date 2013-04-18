@@ -1,0 +1,28 @@
+#container {
+	width: auto !important;
+}
+
+#homepage-showcase {
+	width: 100%;
+	height: 150px;
+
+	display: block;
+	overflow: hidden;
+
+	background-color: gray;
+}
+
+#homepage-showcase img {
+	display: inline-block;
+}
+
+
+#homepage-featured {
+	width: 100%;
+	height: 200px;
+	margin: 10px auto;
+}
+
+#homepage-content {
+	
+}

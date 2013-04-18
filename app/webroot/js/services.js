@@ -22,8 +22,10 @@ angular.module('originApp.services', [])
 		var notification = {};
 		
 		notification.message = function(data) {
-			notification.title		= data.title;
+			notification.type 		= (data.type)? 'originNotification-'+data.type: 'originNotification-default';
+			notification.icon		= (data.icon)? '/img/'+data.icon: '/img/notification-26x26.png';
 			notification.content	= data.content;
+			
 			notification.broadcastItem();
 		};
 		

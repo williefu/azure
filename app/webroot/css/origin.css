@@ -1,5 +1,15 @@
+/*
+@font-face {
+	font-family: 'Roboto';
+	font-size: normal;
+	font-weight: 400;
+	src: url('/fonts/roboto/Roboto-Regular.ttf');
+}
+*/
+
 body {
 	font-family: 'Segoe UI', Arial, sans-serif;
+/* 	font-family: roboto; */
 	margin: 0;
 	padding: 0;
 	position: relative;
@@ -91,6 +101,10 @@ li {
 .modal-backdrop,
 .modal-backdrop.fade.in {
 	opacity: .6;
+}
+
+.dropdown-menu {
+	z-index: 1000010;
 }
 
 .dropdown-menu>li {
@@ -258,7 +272,7 @@ input:-ms-input-placeholder {
 }
 
 .originUI-select {
-	/* color: #bdbdbd; */
+	color: inherit;
 	border-width: 0 0 1px 0;
 	border-style: solid;
 	border-color: #bdbdbd;
@@ -657,33 +671,30 @@ height: 26px;
 
 /***** START: NOTIFICATION *****/
 #origin-notification {
-	z-index: 10000;
+	z-index: 1000020;
 	position: absolute;
-	top: 50px;
-	right: 10px;
+	top: 40px;
+	right: 5px;
 	width: 250px;
 	height: 50px;
-	box-shadow: 0 0 2px 1px rgba(255, 255, 255, .1);
+	border-width: 0 0 1px 3px;
+	border-style: solid;
 }
 
-#originNotification-icon {
-	width: 50px;
-	height: 100%;
-	margin-right: 10px;
-	/* background-color: #1D3741; */
-	background: #0099cc url(/img/notification-default.png) no-repeat center center;
+.originNotification-default {
+	border-color: #669900;
 }
 
 .originNotification-alert {
-	background-color: #cc0000;
+	border-color: #cc0000;
 }
 
-.originNotification-update {
-	background-color: #669900;
+#originNotification-icon {
+	margin: 12px 10px;
 }
 
 #originNotification-message {
-	width: 190px;
+	width: 200px;
 	height: 100%;
 	position: relative;
 }
@@ -703,6 +714,7 @@ height: 26px;
 	opacity: 1;
 }
 
+/*
 #originNotification-header {
 	color: #fff;
 	text-transform:  uppercase;
@@ -710,9 +722,12 @@ height: 26px;
 	line-height: 14px;
 	margin: 5px 0;
 }
+*/
 
 #originNotification-content {
 	font-size: 14px;
+	width: 180px;
+	margin: 5px 0;
 }
 
 /***** END: NOTIFICATION *****/

@@ -26,9 +26,10 @@ var originGeneral = function($scope, $filter, Origin, Notification) {
 	}
 	
 	$scope.$on('notificationBroadcast', function() {
-		$scope.notification.title 		= Notification.title;
+		$scope.notification.type 		= Notification.type;
+		$scope.notification.icon 		= Notification.icon;
 		$scope.notification.content 	= Notification.content;
-		$j('#origin-notification').fadeIn().delay(2200).fadeOut();
+		$j('#origin-notification').fadeIn().delay(2700).fadeOut();
 	});   
 	
 	
