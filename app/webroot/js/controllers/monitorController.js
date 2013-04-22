@@ -30,15 +30,15 @@ var monitorCtrl = function($scope, Monitor) {
 	});*/
 	
 	$scope.getData = function() { //console.log($scope.monitorObj);
-		/*Monitor.get('search/'+$scope.monitorObj.category).then(function(data) {
-			$scope.refreshMonitor(data);
-		});*/
 		Monitor.get('list/'+$scope.monitorObj.category).then(function(data) {
+			$scope.refreshMonitor(data);
+		});
+		/*Monitor.get('list/'+$scope.monitorObj.category).then(function(data) {
 			$scope.monitor_filter = data.filter;
 			$scope.monitor_totals = data.total;
 			$scope.monitor_list = data.data;
 			$scope.monitor_title = 'Event Category';
-		});
+		});*/
 	}
 	
 	$scope.exportData = function() {
@@ -50,6 +50,12 @@ var monitorCtrl = function($scope, Monitor) {
 		Monitor.post($scope.monitor).then(function(response) {
 			//console.log(response);
 		});
+		/*Monitor.file('export/'+$scope.monitor).then(function(data) {
+			$scope.monitor_filter = data.filter;
+			$scope.monitor_totals = data.total;
+			$scope.monitor_list = data.data;
+			$scope.monitor_title = 'Event Category';
+		});*/
 	}
 	
 	$scope.refreshMonitor = function(data) {
