@@ -8,7 +8,7 @@
 				<div ng:repeat="(groupName, group) in workspace.components" class="inline component-menu originUI-borderColor">
 					<a href="javascript:void(0)" id="" class="dropdown-toggle">{{groupName}}</a>
 					<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
-						<li ng:repeat="component in group" class="dropdown-item">
+						<li ng:repeat="component in group|filter:{status: '1'}" class="dropdown-item">
 							<a href="javascript:void(0)" ng:click="creatorModalOpen('component', component)" class="component" back-img='{{component.config.img_icon}}'>{{component.name}}</a>
 						</li>
 					</ul>
@@ -71,7 +71,7 @@
 				-->
 		</div>
 	</div>
-	<form id="creator-panel-left" class="originUI-bgColor" panel-upload>
+	<form id="creator-panel-left" class="originUI-bgColor">
 		<input type="hidden" name="uploadDir" value="/assets/creator/<?php echo $this->params['originAd_id'];?>/"/>
 		<div id="layer-wrapper" ng:click="creatorToggle('layer')">
 			<div id="layer-icon" class="inline" ng:class="{true: 'layer-layers', false: 'layer-library'}[ui.layer=='Layers']"></div><!--
@@ -91,20 +91,17 @@
 			    </div> 
 			</div>
 		</div>
-		<!-- <ul id="layers" ng:show="ui.layer=='Layers'" class="content-list originUI-list" ng:model="layers" ui:sortable="{axis: 'y', update: updateLayers}"> -->
-		<ul id="layers" ng:show="ui.layer=='Layers'" class="content-list originUI-list" ng:model="layers" layer-sortable>
-			<!--
-<li class="content-item" ng:repeat="content in layers|orderBy:'-order'">
-				<span class="content-handle inline">handle</span>
-				<span class="content-label inline">{{content.content.title}}-{{content.id}}</span>
-				<span class="content-edit inline" ng:click="creatorModalOpen('content', '', content)">edit</span>
-			</li>
+<!--
+		<div id="background-wrapper" class="" workspace-background>
+			<span class="originUI-uploadLabel">Set Background</span>
+			<input type="file" name="files[]" id="editorBackground-upload" class="originUI-uploadInput" ng:model="ad.content.image" fileupload>
+		</div>
 -->
-		</ul>
+		<ul id="layers" ng:show="ui.layer=='Layers'" class="content-list originUI-list" ng:model="layers" layer-sortable></ul>
 		<ul id="library" class="content-list originUI-list" ng:show="ui.layer=='Library'">
-			<li class="content-item asset" data-asset="{{$index}}" ng:repeat="asset in library" asset>
-				<span class="content-label inline">{{asset.name}}</span>
-				<span class="content-edit inline">handle</span>
+			<li class="content-item asset originUIList-item" data-asset="{{$index}}" ng:repeat="asset in library" asset>
+				<a href="javascript:void(0);" class="content-label inline">{{asset.name}}</a>
+				<!-- <span class="content-edit inline">handle</span> -->
 			</li>
 			<li id="library-instructions" ng:show="!library.length">
 				Drag and drop assets here to upload or click the button below.
@@ -112,22 +109,22 @@
 			<li>
 				<div id="library-upload" class="originUI-upload originUI-icon originUiIcon-upload originUI-bgColorSecondary">
 					<span class="originUI-uploadLabel">Upload Assets</span>
-					<input type="file" name="files[]" id="tempalteAdd-upload-template" class="originUI-uploadInput" ng:model="originTemplates.editor.content.file_storyboard" multiple="multiple" panelUpload>
+					<input type="file" name="files[]" id="tempalteAdd-upload-template" class="originUI-uploadInput" ng:model="originTemplates.editor.content.file_storyboard" multiple="multiple" panel-upload>
 				</div>
 			</li>
 		</ul>
 	</form>
 	<div id="creator-panel-workspace" class="originUI-bgColorSecondary originUI-bgTexture originUI-borderColor" ng:class="workspace-{{workspace.template.content.alias}}">
-		<div class="workspace" ng:style="workspaceTemplateConfig()" workspace>
+		<div id="workspace" ng:style="workspaceTemplateConfig()" workspace>
 			<workspace-content ng:repeat="content in workspace.ad.OriginAdSchedule[ui.schedule][ui.content]" ng:model="content" double-click="creatorModalOpen('content', '', content)"></workspace-content>
 		</div>
 	</div>
 	
 	<div modal="creatorModal" close="creatorModalClose()" options="creatorModalOptions">
-		<form id="creator-modal" class="originUI-bgColorSecondary">
+		<form id="creator-modal" class="originUI-bgColorSecondary" ng:class="workspace.modal.alias">
 			<h3 id="creatorModal-header" class="originUiModal-header originUI-borderColor originUI-textColor" back-img='{{workspace.modal.image}}'>{{workspace.modal.title}}</h3>
 			
-			<a href="javascript:void(0)" id="creatorModal-remove" ng:click="creatorModalRemove(editor)">remove</a>
+			<a href="javascript:void(0)" id="creatorModal-remove" ng:click="creatorModalRemove(editor)" ng:show="editor.remove">remove</a>
 			<div id="creatorModal-content" class="originUiModal-content">
 				<div ng:include src="editor.template"></div>
 			</div>

@@ -147,6 +147,7 @@ angular.module('originApp.directives', [])
 				
 				//Make it draggable
 				element.draggable({
+					cancel: '.content-background',
 					containment: $j('#creator-panel-workspace'),
 					iframeFix: true,
 					snap: true,
@@ -166,7 +167,7 @@ angular.module('originApp.directives', [])
 				
 				//Make it resizable
 				element.resizable({
-					cancel: '.content-image',
+					cancel: '.content-image, .content-background',
 					containment: $j('#creator-panel-workspace'),
 					handles: 'all',
 					stop: function(event, ui) {
@@ -249,7 +250,7 @@ angular.module('originApp.directives', [])
 						//console.log(data);
 						data.submit();
 					},
-					done: function(e, data) {					
+					done: function(e, data) {
 						scope.$apply(function() {
 							scope.ngModel	= data.result[0].path;
 						});
@@ -265,7 +266,6 @@ angular.module('originApp.directives', [])
 			scope: true,
 			template: '<li id="contentItem-{{content.id}}" class="content-item" ng:repeat="content in layers|orderBy:\'-order\'" data-layer-id="{{content.id}}"><span class="content-item-wrapper"><span class="content-handle inline">handle</span> <span class="content-label inline">{{content.content.title}}-{{content.id}}</span> <span class="content-edit inline" ng:click="creatorModalOpen(\'content\', \'\', content)">edit</span></span></li>',
 			link: function(scope, element, attr) {
-				
 				element.sortable({
 					'axis':		'y',
 					'handle':	'.content-handle',
@@ -287,6 +287,7 @@ angular.module('originApp.directives', [])
 							}
 							
 						});
+						$j('#actions-wrapper').fadeIn(300);
 					}
 				});
 			}

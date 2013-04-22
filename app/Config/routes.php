@@ -103,17 +103,19 @@ Router::connect('/administrator/get/monitor/visits', array('controller' => 'moni
 Router::connect('/administrator/get/sites', array('controller'=>'origin', 'action'=>'jsonSite'));
 
 //DEMO
-///demo/Origin/
 Router::connect('/administrator/get/templates/:template', array('controller'=>'origin', 'action'=>'demoLoadTemplate'));
 Router::connect('/administrator/demos', array('controller'=>'origin', 'action'=>'demoList'));
 Router::connect('/administrator/demo/:originAd_id', array('controller'=>'origin', 'action'=>'demoEdit'));
-Router::connect('/administrator/dashboard/sites', array('controller'=>'origin', 'action'=>'siteManager'));
+Router::connect('/administrator/dashboard/sites', array('controller'=>'origin', 'action'=>'siteList'));
 Router::connect('/demo/:alias', array('controller'=>'origin', 'action'=>'demo'));
 
 //AD CREATOR
 Router::connect('/administrator', array('controller'=>'origin', 'action'=>'index'));
 Router::connect('/administrator/list', array('controller'=>'origin', 'action'=>'ad_list'));
 Router::connect('/administrator/Origin/ad/edit/:originAd_id', array('controller'=>'origin', 'action'=>'edit'));
+
+//AD
+Router::connect('/ad/:originAd_id/:originAd_platform', array('controller'=>'origin', 'action'=>'ad'));
 
 //Analytics
 Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor'));

@@ -32,11 +32,6 @@ var originGeneral = function($scope, $filter, Origin, Notification) {
 		$j('#origin-notification').fadeIn().delay(2700).fadeOut();
 	});   
 	
-	
-	$scope.notificationClose = function() {
-		$j('#origin-notification').hide();
-	}
-	
 	$scope._arrayLoop = function(array, index, direction) {
 		var i 		= (index)? index: 0;
 		var size	= array.length;
@@ -55,6 +50,75 @@ var originGeneral = function($scope, $filter, Origin, Notification) {
 			
 		return i;
 	}
+	
+	
+	
+	
+	$scope.notificationOpen = function(content, type, icon) {
+		$scope.notification.type 		= (type)? 'originNotification-'+type: 'originNotification-default';
+		$scope.notification.icon 		= (icon)? '/img/'+icon: '/img/notification-26x26.png';
+		$scope.notification.content 	= content;
+
+		$j('#origin-notification').fadeIn().delay(2700).fadeOut();
+	}
+	
+	$scope.notificationClose = function() {
+		$j('#origin-notification').hide();
+	}
+	
+	$scope.createAlias = function(model) {
+		return $filter('createAlias')(model);
+	}
+	
+	$scope.toggleStatus = function(model, id, status) {
+		$scope.status = {
+			id:		id,
+			model:	model,
+			route:	'toggleStatus'
+		};
+		
+		switch(status) {
+			case 'disable':
+				$scope.status.status	= 0;
+				//notification.content 	= 'Template disabled';
+				break;
+			case 'enable':
+				$scope.status.status	= 1;
+				//notification.content 	= 'Template enabled';
+				break;
+		}
+		return $scope.status;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$scope.listRefresh = function(data) {
+		$scope.originModal = false;
+		return data;
+	}
+	
+	$scope.originModalClose = function() {
+		$scope.originModal = false;
+	}
+	
+	$scope.originModalOpen = function() {
+		$scope.originModal = true;
+	}
+	
+	$scope.originModalOptions = {
+		backdropClick:	false,
+		backdropFade: 	true
+	}
+	
 } 
 
 var originAllUsers = function($scope, $filter, Origin, Notification) {
@@ -201,131 +265,6 @@ var originAllGroups = function($scope, Users) {
 */
 
 
-var originComponents	= function($scope, $filter, Origin, Notification) {
-	$scope.editor							= {};
-	$scope.editor.content 					= {};
-	$scope.editor.config					= {};
-	$scope.modalEditor						= {};
-	$scope.status							= {};
-	$scope.originComponents					= {};
-	$scope.originComponents.confirmDelete	= false;
-	
-	$scope.groups = [
-		{
-			name:	'Embed',
-			alias:	'embed'
-		},
-		{
-			name:	'CTA',
-			alias:	'cta'
-		},
-		{
-			name:	'Media',
-			alias:	'media'
-		},
-		{
-			name:	'Link',
-			alias:	'link'
-		},
-		{
-			name:	'Video',
-			alias:	'video'
-		},
-	];
-	//$scope.editor.config.group				= $scope.groups[0].alias;
-	
-	
-	$scope.originComponents.modalOptions = {
-		backdropClick:	false,
-		backdropFade: 	true
-	}
-	
-	$scope.componentGroup = function(data, model) {
-		console.log(data);
-		console.log($scope['editor'].config.group);
-	}
-	
-	$scope.componentLoad = function() {		
-		Origin.get('components').then(function(response) {
-			$scope.componentRefresh(response);
-		});
-	}
-	
-	$scope.componentRefresh = function(data) {
-		$scope.originComponents	= data;
-		$scope.componentModal 	= false;
-	}
-	
-	$scope.componentAlias = function() {
-		$scope.editor.alias	= $filter('createAlias')($scope.editor.name);
-	}
-	
-	/*
-	$scope.componentCreate = function() {
-		$scope.componentModal 	= true;
-	}
-	*/
-	
-/*
-	$scope.componentDelete = function() {
-		$scope.editor.route	= 'componentDelete';
-		
-		List.post($scope.editor).then(function(response) {
-			$scope.componentRefresh(response);
-		});
-	}
-*/
-	
-	$scope.componentEdit = function(data) {
-		$scope.modalEditor		= data.OriginComponent;
-		$scope.componentModal	= true;
-	}
-	
-	$scope.componentModalClose = function() {
-		$scope.componentModal					= false;
-		$scope.modalEditor						= {};
-		$scope.originComponents.confirmDelete	= false;
-	}
-	
-	$scope.componentSave = function(type) {
-		switch(type) {
-			case 'create':
-				break;
-			case 'update':
-				$scope.editor		= angular.copy($scope.modalEditor);
-				break;
-		}
-		
-		$scope.editor.route			= 'componentSave';
-		Origin.post($scope.editor).then(function(response) {
-			$scope.editor = {};
-			$scope.componentRefresh(response);
-		});
-	}
-	
-	$scope.componentStatus = function(id, status) {
-		notification.title 		= 'Updated';
-		$scope.status.id		= id;
-		switch(status) {
-			case 'disable':
-				$scope.status.status	= 0;
-				notification.content 	= 'Component disabled';
-				break;
-			case 'enable':
-				$scope.status.status	= 1;
-				notification.content 	= 'Component enabled';
-				break;
-		}
-		
-		$scope.status.route			= 'componentStatus';
-		Origin.post($scope.status).then(function(response) {
-			$scope.componentRefresh(response);
-			Notification.message(notification);
-		});
-	}
-	
-	$scope.componentLoad();
-}
 
 var originSystems = function($scope, $filter, Origin, Notification) {
 	$scope.editor				= {};
@@ -347,65 +286,6 @@ var originSystems = function($scope, $filter, Origin, Notification) {
 	}
 }
 
-
-var originTemplates	= function($scope, $filter, Origin, Notification) {
-	$scope.originTemplates					= {};
-	$scope.originTemplates.confirmDelete	= false;
-	$scope.originTemplates.editor			= {};
-	$scope.originTemplates.editor.content 	= {};
-	$scope.originTemplates.editor.config	= {};
-	$scope.originTemplates.modalOptions 	= {
-		backdropClick:	false,
-		backdropFade: 	true
-	}
-	
-	Origin.get('templates').then(function(response) {
-		$scope.templateRefresh(response);
-	});
-	
-	
-	$scope.templateRefresh = function(data) {
-		$scope.originTemplates	= data;
-		$scope.templateModal 	= false;
-	}
-	
-	$scope.templateCreate = function() {
-		$scope.templateModal 	= true;
-	}
-	
-	$scope.templateDelete = function() {
-		$scope.originTemplates.editor.route	= 'templateDelete';
-		
-		Origin.post($scope.originTemplates.editor).then(function(response) {
-			$scope.templateRefresh(response);
-		});
-	}
-	
-	$scope.templateEdit = function(data) {
-		$scope.originTemplates.editor	= data.OriginTemplate;
-		$scope.templateModal			= true;
-	}
-	
-	$scope.templateModalClose = function() {
-		$scope.templateModal					= false;
-		$scope.originTemplates.editor			= {};
-		$scope.originTemplates.confirmDelete	= false;
-	}
-	
-	$scope.templateSave = function() {
-		if($scope.originTemplates.editor.name) {
-			//$scope.originTemplates.editor.content.alias	= $filter('createAlias')($scope.originTemplates.editor.name);
-			$scope.originTemplates.editor.route			= 'templateSave';
-			Origin.post($scope.originTemplates.editor).then(function(response) {
-				$scope.templateRefresh(response);
-			});
-		}
-	}
-	
-	$scope.templateUnchanged = function() {
-		return angular.equals(undefined, $scope.originTemplates.editor);
-	}
-}
 
 /**
 * List Controller
@@ -432,12 +312,19 @@ var originAds = function($scope, $filter, Origin) {
 	});
 	
 	$scope.adCreate = function() {
-		$scope.originCreator.editor.route		= 'adCreate';
+		$scope.originCreator.editor.route			= 'adCreate';
+		$scope.originCreator.editor.config			= $scope.originCreator.form.OriginTemplate.config;
+		$scope.originCreator.editor.config.template	= $scope.originCreator.form.OriginTemplate.content.alias;
+		Origin.post($scope.originCreator.editor).then(function(response) {
+			window.location		= response;
+		});
+/*
 		$scope.originCreator.editor.type_alias 	= $scope.originCreator.form.OriginTemplate.content.alias;
 		$scope.originCreator.editor.type_id		= $scope.originCreator.form.OriginTemplate.id;
 		Origin.post($scope.originCreator.editor).then(function(response) {
 			window.location		= response;
 		});
+*/
 	}
 	
 	$scope.adCreateModalClose = function() {

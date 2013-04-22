@@ -34,6 +34,9 @@ originApp.value('ui.config', {
 
 var creatorController = function($scope, $filter, Origin, Notification) {
 	$scope.editor				= {};	//Editor model
+	$scope.ad 					= {};
+	$scope.ad.content 			= {};
+	$scope.ad.content.image		= {};
 	$scope.workspace			= {};	//Workspace wrapper model
 	$scope.workspace.ad 		= {};	//Complete ad unit model
 	$scope.workspace.components = {};	//List of all components
@@ -73,16 +76,17 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		
 		Origin.get('ad/'+originAd_id).then(function(response) {
 			template_id					= response.OriginAd.config.type_id;
+			//$scope.ad.content			= response.OriginAd.content;
 			$scope.workspace.ad			= response;
 			//$scope.updateUI();
 			
-			Origin.get('template/'+template_id).then(function(response) {
-				$scope.workspace.template	= response.OriginTemplate;
+			//Origin.get('template/'+template_id).then(function(response) {
+			//	$scope.workspace.template	= response.OriginTemplate;
 				
 				$scope.$watch('ui.view', function() {
 					$scope.updateUI();
 				});	
-			});
+			//});
 		});
 	});
 	
@@ -112,13 +116,16 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 		//$scope.layers				= angular.copy($scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content]);
 		
 		$scope.layers				= angular.copy($filter('orderBy')($scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule][$scope.ui.content], '-order'));
-		//console.log($scope.layers);
 		
 		$scope.ui.origin_ad_schedule_id = $scope.workspace.ad.OriginAdSchedule[$scope.ui.schedule].id;
 		$scope.workspaceTemplateConfig = function() {
 			return {
-				height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.platform].height+'px',
+				height:	$scope.workspace.ad.OriginAd.config.dimensions[$scope.ui.view][$scope.ui.platform].height+'px',
+				width: 	$scope.workspace.ad.OriginAd.config.dimensions[$scope.ui.view][$scope.ui.platform].width+'px'
+				/*
+height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.platform].height+'px',
 				width: 	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.platform].width+'px'
+*/
 			}
 		}
 	}
@@ -155,12 +162,11 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	*/
 	$scope.creatorModalOpen = function(type, content, model) {
 		$scope.creatorModal = true;
-		var component;
 		switch(type) {
 			case 'component':
 				$scope.workspace.modal.title		= content.name + ' Editor';
 				$scope.workspace.modal.image		= content.config.img_icon;
-				component							= content.alias;
+				$scope.workspace.modal.alias		= content.alias;
 				//$scope.workspace.modal.title		= content.OriginComponent.name;
 				break;
 			case 'content':
@@ -170,14 +176,15 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 						$scope.workspace.modal.image		= $scope.workspace.componentsRaw[i].OriginComponent.config.img_icon;
 					}
 				}
-				component = model.content.type;
+				$scope.workspace.modal.alias		= model.content.type;
 				break;
 			case 'schedule':
 				break;
 		}
 		
 		if(model) {
-			$scope.editor = angular.copy(model);
+			$scope.editor 			= angular.copy(model);
+			$scope.editor.remove 	= true;
 		} else {
 			$scope.editor = {
 				content: {
@@ -189,11 +196,12 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 					'left': '0px',
 					'top':	'0px',
 					'width': '32px'
-				}
+				},
+				remove: false
 			}
 		}
 		
-		$scope.editor.template		= '/administrator/get/components/'+component;
+		$scope.editor.template		= '/administrator/get/components/'+$scope.workspace.modal.alias;
 	}
 		
 	/**

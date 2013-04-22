@@ -1,3 +1,79 @@
+var demoManagerController = function($scope, $filter, Origin) {
+	$scope.demoManagers = {};
+	$scope.editor		= {};
+	$scope.editorModal	= {};
+	$scope.status		= {};
+
+	
+	Origin.get('demos').then(function(response) {
+		$scope.demoManagers = $scope.$parent.listRefresh(response);
+	});
+	
+	$scope.createAlias = function(model) {
+		$scope[model].alias		= $scope.$parent.createAlias($scope[model].name);
+	}
+	
+	$scope.demoManagerCreate = function() {
+		$scope.editor.route	= 'systemSave';
+		$scope.editor.model	= 'OriginDemo';
+		Origin.post($scope.editor).then(function(response) {
+			$scope.demoManagers = response;
+			$scope.$parent.notificationOpen('Demo created');
+		});
+	}
+	
+	$scope.demoManagerEdit = function(model) {
+		$scope.$parent.originModalOpen();
+		$scope.editorModal = angular.copy(model.OriginDemo);
+	}
+	
+	$scope.demoManagerRemove = function() {
+		$scope.editorModal.route	= 'systemRemove';
+		$scope.editorModal.model	= 'OriginDemo';
+		
+		var ask = confirm('Do you want to remove this demo?');
+		if(ask){
+			Origin.post($scope.editorModal).then(function(response) {
+				$scope.$parent.notificationOpen('Demo removed', 'alert');
+				$scope.demoManagers = response;
+				$scope.$parent.originModalClose();
+			});
+		}
+	}
+	
+	$scope.demoManagerSave = function() {
+		$scope.editorModal.route	= 'systemSave';
+		$scope.editorModal.model	= 'OriginDemo';
+		Origin.post($scope.editorModal).then(function(response) {
+			$scope.$parent.notificationOpen('Demo updated');
+			$scope.demoManagers = response;
+			$scope.$parent.originModalClose();
+		});
+	}
+	
+	$scope.toggleStatus = function(model, id, status) {
+		Origin.post($scope.$parent.toggleStatus(model, id, status)).then(function(response) {
+			$scope.demoManagers = response;
+			switch(status) {
+				case 'disable':
+					var notification = {
+						message: 	'Demo disabled',
+						type:		'alert'
+					}
+					break;
+				case 'enable':
+					var notification = {
+						message: 	'Demo enabled',
+						type:		'default'
+					}
+					break;
+			}
+			$scope.$parent.notificationOpen(notification.message, notification.type);
+		});
+	}
+}
+
+/*
 var originDemoManager	= function($scope, $filter, Origin, Notification) {
 	$scope.editor							= {};
 	$scope.editor.content 					= {};
@@ -10,28 +86,28 @@ var originDemoManager	= function($scope, $filter, Origin, Notification) {
 		backdropFade: 	true
 	}
 	
-	$scope.siteLoad = function() {		
+	$scope.demoManagerLoad = function() {		
 		Origin.get('sites').then(function(response) {
-			$scope.siteRefresh(response);
+			$scope.demoManagerRefresh(response);
 		});
 	}
 	
-	$scope.siteRefresh = function(data) {
+	$scope.demoManagerRefresh = function(data) {
 		$scope.originDemoManager	= data;
 		$scope.demoManagerModal 	= false;
 	}
 	
-	$scope.siteAlias = function() {
+	$scope.demoManagerAlias = function() {
 		$scope.editor.alias	= $filter('createAlias')($scope.editor.name);
 	}
 	
-	$scope.siteEdit = function(data) {
-		$scope.modalEditor		= data.OriginSite;
+	$scope.demoManagerEdit = function(data) {
+		$scope.modalEditor		= data.OriginDemo;
 		$scope.demoManagerModal		= true;
 	}
 	
 	
-	$scope.siteSave = function(type) {
+	$scope.demoManagerSave = function(type) {
 		switch(type) {
 			case 'create':
 				break;
@@ -43,11 +119,11 @@ var originDemoManager	= function($scope, $filter, Origin, Notification) {
 		$scope.editor.route			= 'siteSave';
 		Origin.post($scope.editor).then(function(response) {
 			$scope.editor = {};
-			$scope.siteRefresh(response);
+			$scope.demoManagerRefresh(response);
 		});
 	}
 	
-	$scope.siteStatus = function(id, status) {
+	$scope.demoManagerStatus = function(id, status) {
 		notification.title 		= 'Updated';
 		$scope.status.id		= id;
 		switch(status) {
@@ -63,10 +139,11 @@ var originDemoManager	= function($scope, $filter, Origin, Notification) {
 		
 		$scope.status.route			= 'siteStatus';
 		Origin.post($scope.status).then(function(response) {
-			$scope.siteRefresh(response);
+			$scope.demoManagerRefresh(response);
 			Notification.message(notification);
 		});
 	}
 
-	$scope.siteLoad();	
+	$scope.demoManagerLoad();	
 }
+*/

@@ -1,78 +1,74 @@
-var originSites	= function($scope, $filter, Origin, Notification) {
-	$scope.editor							= {};
-	$scope.editor.content 					= {};
-	$scope.editor.config					= {};
-	$scope.modalEditor						= {};
-	$scope.status							= {};
-	$scope.originSites						= {};
-	$scope.originSites.confirmDelete		= false;
-	$scope.originSites.modalOptions = {
-		backdropClick:	false,
-		backdropFade: 	true
-	}
-	
-	$scope.siteLoad = function() {		
-		Origin.get('sites').then(function(response) {
-			$scope.siteRefresh(response);
-		});
-	}
-	
-	$scope.siteRefresh = function(data) {
-		$scope.originSites	= data;
-		$scope.siteModal 	= false;
-	}
-	
-	$scope.siteAlias = function() {
-		$scope.editor.alias	= $filter('createAlias')($scope.editor.name);
-	}
-	
-	$scope.siteEdit = function(data) {
-		$scope.modalEditor		= data.OriginSite;
-		$scope.siteModal		= true;
-	}
-	
-	$scope.siteModalClose = function() {
-		$scope.siteModal					= false;
-		$scope.modalEditor					= {};
-		$scope.originSites.confirmDelete	= false;
-	}
-	
-	$scope.siteSave = function(type) {
-		switch(type) {
-			case 'create':
-				break;
-			case 'update':
-				$scope.editor		= angular.copy($scope.modalEditor);
-				break;
-		}
-		
-		$scope.editor.route			= 'siteSave';
-		Origin.post($scope.editor).then(function(response) {
-			$scope.editor = {};
-			$scope.siteRefresh(response);
-		});
-	}
-	
-	$scope.siteStatus = function(id, status) {
-		notification.title 		= 'Updated';
-		$scope.status.id		= id;
-		switch(status) {
-			case 'disable':
-				$scope.status.status	= 0;
-				notification.content 	= 'Site disabled';
-				break;
-			case 'enable':
-				$scope.status.status	= 1;
-				notification.content 	= 'Site enabled';
-				break;
-		}
-		
-		$scope.status.route			= 'siteStatus';
-		Origin.post($scope.status).then(function(response) {
-			$scope.siteRefresh(response);
-			Notification.message(notification);
-		});
-	}
+var siteController	= function($scope, $filter, Origin) {
+	$scope.sites 		= {};
+	$scope.editor		= {};
+	$scope.editorModal	= {};
+	$scope.status		= {};
 
-	$scope.siteLoad();	
+	
+	Origin.get('sites').then(function(response) {
+		$scope.sites = $scope.$parent.listRefresh(response);
+	});
+	
+	$scope.createAlias = function(model) {
+		$scope[model].alias		= $scope.$parent.createAlias($scope[model].name);
+	}
+	
+	$scope.siteCreate = function() {
+		$scope.editor.route	= 'systemSave';
+		$scope.editor.model	= 'OriginSite';
+		Origin.post($scope.editor).then(function(response) {
+			$scope.sites = response;
+			$scope.$parent.notificationOpen('Site created');
+		});
+	}
+	
+	$scope.siteEdit = function(model) {
+		$scope.$parent.originModalOpen();
+		$scope.editorModal = angular.copy(model.OriginSite);
+	}
+	
+	$scope.siteRemove = function() {
+		$scope.editorModal.route	= 'systemRemove';
+		$scope.editorModal.model	= 'OriginSite';
+		
+		var ask = confirm('Do you want to remove this site?');
+		if(ask){
+			Origin.post($scope.editorModal).then(function(response) {
+				$scope.$parent.notificationOpen('Site removed', 'alert');
+				$scope.sites = response;
+				$scope.$parent.originModalClose();
+			});
+		}
+	}
+	
+	$scope.siteSave = function() {
+		$scope.editorModal.route	= 'systemSave';
+		$scope.editorModal.model	= 'OriginSite';
+		Origin.post($scope.editorModal).then(function(response) {
+			$scope.$parent.notificationOpen('Site updated');
+			$scope.sites = response;
+			$scope.$parent.originModalClose();
+		});
+	}
+	
+	$scope.toggleStatus = function(model, id, status) {
+		Origin.post($scope.$parent.toggleStatus(model, id, status)).then(function(response) {
+			$scope.sites = response;
+			switch(status) {
+				case 'disable':
+					var notification = {
+						message: 	'Site disabled',
+						type:		'alert'
+					}
+					break;
+				case 'enable':
+					var notification = {
+						message: 	'Site enabled',
+						type:		'default'
+					}
+					break;
+			}
+			$scope.$parent.notificationOpen(notification.message, notification.type);
+		});
+	}
 }

@@ -1,0 +1,305 @@
+.originUI-textColor {
+	color: #0099cc;
+}
+
+.originUI-borderColor {
+	border-color: #0099cc;
+}
+
+.originUI-list {
+	margin: 0;
+	padding: 0;
+}
+
+.originUI-noSelect {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* =======================================================================
+	Dashboard
+========================================================================== */
+
+#dashboard .originUI-tiles {
+	width: 180px;
+	height: 250px;
+	background-position: center 65px;
+	background-repeat: no-repeat;
+}
+
+#dashboard .originTile-title {
+	bottom: auto;
+	top: 5px;
+	right: 10px;
+	border-width: 0 0 1px 0;
+	font-size: 17px;
+}
+
+#dashboard-templates {
+	background-color: #0099cc;
+	background-image: url(/img/ad-template-150x150.png);
+}
+
+#dashboard-components {
+	background-color: #669900;
+	background-image: url(/img/dashboard-components.png);
+}
+
+#dashboard-demo {
+	background-color: #ff8800;
+	background-image: url(/img/dashboard-demo.png);
+}
+
+#dashboard-users {
+	background-image: url(/img/dashboard-users.png);
+	background-color: #9933cc;
+}
+
+#dashboard-config {
+	background-color: #cc0000;
+	background-image: url(/img/dashboard-config.png);
+}
+
+
+/* =======================================================================
+	Modals
+========================================================================== */
+.originUI-modal {
+	position: relative;
+}
+
+.originUI-modalRemove {
+	position: absolute;
+	top: 8px;
+	right: 10px;
+	background: transparent url(/img/delete-26x26.png) no-repeat 0 0;
+	width: 26px;
+	height: 26px;
+	text-indent: -5000em;
+	opacity: .3;
+}
+
+.originUI-modalRemove:hover {
+	opacity: 1;
+}
+
+.originUI-modalContent {
+	padding: 0 15px;
+}
+
+.originUI-modalLeft,
+.originUI-modalRight {
+	width: 48%;
+}
+
+.originUI-modalLeft {
+	float: left;
+}
+
+.originUI-modalRight {
+	float: right;
+}
+
+/* =======================================================================
+	Tables
+========================================================================== */
+.originUI-tableHead {
+	text-align: left;
+}
+
+.originUI-tableRow {
+	height: 32px;
+	cursor: pointer;
+}
+
+.originUI-tableRow + .originUI-tableRow {
+	border-color: #303030;
+	border-width: 1px 0 0 0;
+	border-style: solid;
+}
+
+.originUI-tableRow:hover {
+	background-color: rgba(51, 181, 229, .25);
+}
+
+.originUI-tableCell {
+	padding: 5px 0;
+}
+
+.originUI-tableStatus {
+	padding-top: 10px;
+	width: 50px;
+	text-align: center;
+}
+
+.originUI-tableGroup {
+	padding: 0 5px;	
+}
+
+.originUI-tableHeadName {
+	width: 200px;
+}
+
+/* =======================================================================
+	Tiles
+========================================================================== */
+.originUI-tileLeft,
+.originUI-tileRight {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+}
+
+.originUI-tileLeft {
+	width: 290px;
+	margin-right: 20px;
+}
+
+.originUI-tileRight {
+	width: 690px;
+}
+
+.originUI-tileHeader {
+	border-style: solid;
+	border-width: 0 0 2px;
+	text-indent: 45px;
+	font-size: 22px;
+	line-height: 22px;
+	margin: 0;
+	padding: 10px 0;
+	font-weight: normal;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+}
+
+.originUI-tileContent {
+	padding: 0 15px;
+}
+
+.originUI-tileFooter {
+	border-top: 1px solid #444444;
+	height: 42px;
+	position: relative;
+}
+
+.originUI-tileFooterCenter,
+.originUI-tileFooterLeft,
+.originUI-tileFooterRight {
+	border: 0 none;
+	background-color: transparent;
+	color: inherit;
+	position: absolute;
+	width: 50%;
+	height: 100%;
+	overflow: hidden;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 14px;
+	line-height: 42px;
+	cursor: pointer;
+}
+
+.originUI-tileFooterCenter:hover:not(:disabled),
+.originUI-tileFooterLeft:hover:not(:disabled),
+.originUI-tileFooterRight:hover:not(:disabled) {
+	background-color: rgba(255, 255, 255, .1);
+}
+
+.originUI-tileFooterCenter:disabled,
+.originUI-tileFooterLeft:disabled,
+.originUI-tileFooterRight:disabled {
+	opacity: .5;	
+}
+
+.originUI-tileFooterCenter:active,
+.originUI-tileFooterLeft:active,
+.originUI-tileFooterRight:active {
+	padding: 0;
+}
+
+.originUI-tileFooterCenter {
+	width: 100%;
+}
+
+.originUI-tileFooterRight {
+	right: 0;
+}
+
+.originUI-tileFooterLeft {
+	border-right: 1px solid #444444;
+}
+
+/* =======================================================================
+	Ad Template Manager
+========================================================================== */
+#adTemplate-createHeader {
+	background-image: url(/img/ad-template-add-26x26.png);
+}
+
+.adTemplate-config {
+	width: 45%;
+	margin: 5px;
+	text-align: center;
+	font-size: 14px;
+}
+
+#adTemplate-list {
+	min-height: 596px;
+}
+
+#adTemplate-storyboardUpload {
+	width: 100%;
+}
+
+#adTemplate-listHeader,
+#adTemplate-editHeader {
+	background-image: url(/img/ad-template-26x26.png);
+}
+
+/* =======================================================================
+	Ad Components Manager
+========================================================================== */
+#adComponent-createHeader {
+	background-image: url(/img/ad-component-add-26x26.png);
+}
+
+
+#adComponent-listHeader,
+#adComponent-editHeader {
+	background-image: url(/img/ad-component-26x26.png);
+}
+
+#adComponent-iconUpload {
+	width: 100%;
+}
+
+#adComponent-list {
+	min-height: 382px;
+}
+
+#adComponent-table .originUI-tableName {
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 18px 18px;
+	text-indent: 25px;
+	white-space: nowrap;
+}
+
+/* =======================================================================
+	Demo Manager
+========================================================================== */
+
+#siteManager-createHeader {
+	background-image: url(/img/demo-26x26.png);
+}
+
+
+#siteManager-listHeader,
+#siteManager-editHeader {
+	background-image: url(/img/demo-26x26.png);
+}

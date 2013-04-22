@@ -107,19 +107,23 @@ li {
 	z-index: 1000010;
 }
 
-.dropdown-menu>li {
+.dropdown-menu>li,
+.originUIList-item {
 	padding: 0 8px;
 	margin: 0 16px;
 }
 
-.dropdown-menu>li>a {
+.dropdown-menu>li>a,
+.originUIList-item > a {
 	margin: 0 -24px;
 	padding: 0 24px;
 	height: 32px;
 	line-height: 32px;
+	white-space: nowrap;
 }
 
-.dropdown-menu>li+li {
+.dropdown-menu>li+li,
+.originUIList-item + .originUIList-item {
 	border-color: #303030;
 	border-width: 1px 0 0 0;
 	border-style: solid;
@@ -128,7 +132,11 @@ li {
 .dropdown-menu>li>a:hover,
 .dropdown-menu>li.active>a,
 .dropdown-menu>li.active>a:hover,
-.dropdown-menu>li.active>a:active {
+.dropdown-menu>li.active>a:active,
+.originUIList-item > a:hover,
+.originUIList-item.active > a,
+.originUIList-item.active > a:hover,
+.originUIList-item.active > a:active {
 	background-image: none;
 	/* background-color: #bdbdbd; */
 	background-color: rgba(51, 181, 229, .25);
@@ -231,6 +239,7 @@ input:-ms-input-placeholder {
 	/* padding: 0 4px; */
 	color: inherit;
 	text-indent: 5px;
+	font-size: 14px;
 }
 
 .originUI-textarea {
@@ -474,7 +483,6 @@ height: 26px;
 	width: 26px;
 	height: 26px;
 	cursor: pointer;
-	font-size: 18px;
 }
 
 /*
@@ -867,45 +875,7 @@ height: 26px;
 /***** END: HOME *****/
 
 /***** START: DASHBOARD *****/
-#dashboard .originUI-tiles {
-	width: 180px;
-	height: 250px;
-	background-position: center 65px;
-	background-repeat: no-repeat;
-}
 
-#dashboard .originTile-title {
-	bottom: auto;
-	top: 5px;
-	right: 10px;
-	border-width: 0 0 1px 0;
-	font-size: 17px;
-}
-
-#dashboard-templates {
-	background-color: #0099cc;
-	background-image: url(/img/dashboard-templates.png);
-}
-
-#dashboard-components {
-	background-color: #669900;
-	background-image: url(/img/dashboard-components.png);
-}
-
-#dashboard-demo {
-	background-color: #ff8800;
-	background-image: url(/img/dashboard-demo.png);
-}
-
-#dashboard-users {
-	background-image: url(/img/dashboard-users.png);
-	background-color: #9933cc;
-}
-
-#dashboard-config {
-	background-color: #cc0000;
-	background-image: url(/img/dashboard-config.png);
-}
 
 
 /***** END: DASHBOARD *****/
@@ -1087,8 +1057,8 @@ height: 26px;
 	font-size: 16px;
 }
 
-.adComponent-status {
-	margin: 0 5px;
+.adComponentHead-group {
+	width: 60px;
 }
 
 .adComponentCell-name {

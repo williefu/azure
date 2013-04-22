@@ -65,13 +65,14 @@ body {
 }
 
 #components-wrapper {
-	background: transparent url(/img/creator-components.png) no-repeat left 12px;
+	background: transparent url(/img/ad-component-add-26x26.png) no-repeat left 12px;
 	left: 10px;
 	padding-left: 20px;
+	cursor: default;
 }
 
 .component-menu {
-	padding: 0 10px;
+	cursor: pointer;
 	position: relative;
 }
 
@@ -87,29 +88,13 @@ body {
 }
 
 .component-menu > a {
+	padding: 0 10px;
 	font-size: 17px;
 	font-variant: small-caps;
-}
-
-/*
-#components {
-	
-	width: 26px;
+	width: 100%;
 	height: 100%;
 	display: block;
-	text-indent: -5000em;;
 }
-*/
-
-/*
-#components:hover,
-#components-wrapper.open #components {
-	border-width: 0 0 3px 0;
-	border-style: solid;
-	height: 39px;
-	background-position: left 8px;
-}
-*/
 
 #components-wrapper .dropdown-menu {
 	border-width: 0 0 1px 3px;
@@ -132,16 +117,9 @@ body {
 	background-size: 18px 18px;
 }
 
-/*
-#display,
-#display-icon {
-	position: absolute;
-}
-*/
-
 #display-wrapper {
 	width: 165px;
-	right: 40px;
+	right: 50px;
 }
 
 #display-icon {
@@ -160,35 +138,16 @@ body {
 	width: 125px;
 }
 
-#display > .originUI-switch {
-	/*
-font-size: 13px;
-	line-height: 13px;
-*/
-}
-
 #display .originUI-switchText {
 	font-size: 11px;
 	line-height: 12px;
 }
-
-/*
-#display-icon:hover {
-	transform: scale(1.1, 1.1);
-}
-*/
 
 #display-icon:active,
 #layer-icon:active,
 #save-icon:active {
 	transform: scale(.9, .9);
 }
-
-/*
-#display-icon:hover {
-	transform: scale(1.1, 1.1);
-}
-*/
 
 .originUI-switchActive .originUI-switchText:before {
 	left: 75px;
@@ -198,20 +157,6 @@ font-size: 13px;
 	right: 75px;
 }
 
-/*
-#undo-wrapper {
-	right: 120px;
-}
-
-#save-wrapper {
-	right: 50px;
-	opacity: .5;
-}
-
-#save-wrapper:hover {
-	opacity: 1;
-}
-*/
 
 #actions-wrapper {
 	top: 47px;
@@ -249,18 +194,6 @@ font-size: 13px;
 	width: 80px;
 	left: 0px;
 }
-
-/*
-#save {
-	font-size: 10px;
-	line-height: 10px;
-	vertical-align: middle;
-	text-align: right;
-	width: 50px;
-	height: 100%;
-}
-*/
-
 
 #options-wrapper {
 	right: 0;
@@ -312,15 +245,12 @@ font-size: 13px;
 	background-image: url(/img/dropdown-exit.png);
 }
 
-
-
 #schedules {
 	position: absolute;
 	width: 200px;
 	top: 10px;
 	left: 50%;
 	margin: 0 0 0 -100px;
-	/* background: transparent url(/img/icon-calendar.png) no-repeat left center; */
 }
 
 #schedules:after {
@@ -341,52 +271,6 @@ font-size: 13px;
 	border-bottom: 1px solid #0099cc;
 }
 
-
-/*
-#creator-panel-top {
-	height: 42px;
-	width: 100%;
-	border-bottom: 2px solid #0099CC;
-}
-
-.creatorPanelTop-icons {
-	position: relative;
-	margin: 0 10px;
-}
-
-
-.creatorPanelTop-icons .originUI-icon {
-	width: 42px;
-	height: 42px;
-}
-
-.creatorPanelTop-icons .originUI-icon:hover,
-.creatorPanelTop-icons.open .originUI-icon {
-	border-bottom: 5px solid #0099cc;
-	height: 37px;
-	background-position: center 0px;
-}
-
-#components .originUI-icon {
-	background-image: url(/img/icon-components.png);
-}
-
-#schedules .originUI-icon {
-	background-image: url(/img/icon-calendar.png);
-}
-
-.creatorPanelTop-icons .dropdown-menu {
-	left: -25px;
-	top: 42px;
-	border-left: 3px solid #0099cc;
-	border-bottom: 1px solid #0099cc;
-}
-
-#schedules .dropdown-menu > .active > a {
-	border-left: 5px solid #0099cc;
-	cursor: default;
-}
-*/
 
 /***** END: TOP PANEL *****/
 
@@ -410,16 +294,6 @@ font-size: 13px;
 	margin: 0 10px 0 0;
 }
 
-/*
-#layer-icon:hover {
-	transform: scale(1.1, 1.1);
-}
-
-#layer-icon:active {
-	transform: scale(.9, .9);
-}
-*/
-
 #layer-icon.layer-library {
 	background-position: center bottom;
 }
@@ -440,9 +314,6 @@ font-size: 13px;
 	right: 62px;
 }
 
-.content-list {
-}
-
 .content-list > .content-item + .content-item {
 	border-top: 1px solid #303030;
 }
@@ -452,7 +323,6 @@ font-size: 13px;
 	padding: 0 8px;
 	position: relative;
 	height: 32px;
-	
 	-webkit-user-select: none;  
 	-moz-user-select: none;    
 	-ms-user-select: none;      
@@ -464,7 +334,6 @@ font-size: 13px;
 	padding: 0 10px;
 	height: 100%;
 }
-
 
 .content-item.active:after {
 	content: "";
@@ -536,6 +405,15 @@ font-size: 13px;
 	margin: 0 auto;
 }
 
+#library .content-label {
+	width: 100%;
+	cursor: pointer;
+}
+
+#library .content-label:after {
+	right: 0;
+}
+
 #library .content-edit {
 	background: transparent url(/img/icon-library-small.png) no-repeat center center;
 }
@@ -545,36 +423,19 @@ font-size: 13px;
 }
 
 .content-item.ui-draggable-dragging {
-	text-indent: -5000em;
-	width: 32px;
-	height: 32px;
-	background: transparent url(/img/icon-library-medium.png) no-repeat center center;
+	z-index: 1000000;
 }
-
-/*
-
-#display > .originUI-switch {
-	font-size: 13px;
-}
-
-
-*/
-
-
-
-
-
 
 /***** END: LEFT PANEL *****/
 
-
-
 /***** START: WORKSPACE *****/
-.workspace {
+#workspace {
 	display: block;
 	position: relative;
 	
 	background-color: rgba(255, 255, 255, .2);
+	background-repeat: no-repeat;
+	background-position: center top;
 }
 
 .workspace-content {
@@ -593,7 +454,7 @@ font-size: 13px;
 	cursor: default;
 }
 
-.workspace-content.ui-resizable:not(.content-image) {
+.workspace-content.ui-resizable:not(.content-image):not(.content-background) {
 	outline: 2px dashed rgba(0, 153, 204, .2);
 	outline-offset: -5px;
 }
@@ -606,11 +467,10 @@ font-size: 13px;
 	border-radius: 50%;
 	width: 10px;
 	height: 10px;
-	/* border: 1px solid #0099cc; */
 }
 
-.workspace-content:hover,
-.workspace-content:focus {
+.workspace-content:hover:not(.content-background),
+.workspace-content:focus:not(.content-background) {
 	outline: 2px dashed rgba(0, 153, 204, .7) !important;
 }
 
@@ -625,11 +485,13 @@ font-size: 13px;
 	background-color: rgba(0, 153, 204, .7);
 }
 
-
-
+.workspace-content.content-background {
+	outline: none;
+}
 
 .workspace-content.content-image .ui-resizable-handle,
-.workspace-content.content-image .workspace-content-label {
+.workspace-content.content-image .workspace-content-label,
+.workspace-content.content-background .workspace-content-label {
 	display: none !important;
 }
 
@@ -657,14 +519,9 @@ font-size: 13px;
 	border: 1px solid #444444;
 }
 
-
 #creatorModal-config {
 	border-top: 1px solid #444444;
 	margin: 15px;
-/*
-	width: 570px;
-	margin: 5px auto;
-*/
 }
 
 #creatorModal-config .originUI-list,
@@ -692,20 +549,16 @@ font-size: 13px;
 	width: 26px;
 	height: 26px;
 	text-indent: -5000em;
+	opacity: .5;
 }
 
-
-/*
-#scheduleAdd-header {
-	background: transparent url(/img/modal-schedule.png) no-repeat 10px center;
+#creatorModal-remove:hover {
+	opacity: 1;
 }
 
-#schedule-add .originUiModalFooter-right {
-	background-image: none;
+#creator-modal.background #creatorModal-config {
+	display: none;
 }
-*/
-
-
 
 /***** END: CREATOR MODAL *****/
 
@@ -722,8 +575,24 @@ font-size: 13px;
 
 #editorLink-type,
 #editorToggle-type {
-	width: 150px;
+	width: 120px;
 	margin: 0 5px;
+}
+
+#background-upload {
+	width: 165px;
+	height: 26px;
+}
+
+#editorBackground-list {
+	width: 250px;
+	height: 200px;
+	margin: 0;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+#editorBackground-list .originUIList-item {
 }
 /***** END: EDITOR *****/
 

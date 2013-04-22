@@ -1,194 +1,63 @@
-<div id="ad-template" ng:controller="originTemplates">
+<div id="ad-template" ng:controller="templatesController" ng:cloak>
 	<h2 class="originUI-header">Ad Templates</h2>
-    <div id="adTemplate-add" class="adTemplate-item originUI-tiles" ng:click="templateCreate()">
-    	<div class="originTile-title">New Template</div>
-    </div><!--
-    --><div class="adTemplate-item originUI-bgColor originUI-tiles" ng:repeat="template in originTemplates|filter:searchOrigin" ng:click="templateEdit(template)">
-    	<h3 class="adTemplateItem-title">{{template.OriginTemplate.name}}</h3>
-    	<img class="adTemplateItem-storyboard" src="http://placekitten.com/300/100" ng:src="{{template.OriginTemplate.content.file_storyboard}}"/>
-    	<p class="adTemplateItem-description">{{template.OriginTemplate.content.description}}</p>
-    </div>
-    
-	<div modal="templateModal" close="templateModalClose()" options="originTemplates.modalOptions">
-		<form id="template-add" name="template-add" class="originUI-bgColorSecondary originUI-modal">
+	<form id="adTemplate-create" name="adTemplateCreateForm" class="originUI-tileLeft originUI-bgColor originUI-shadow" novalidate>
+		<input type="hidden" name="uploadDir" value="/assets/templates/"/>
+		<h3 id="adTemplate-createHeader" class="originUI-tileHeader originUI-borderColor originUI-textColor">Create</h3>
+		<div class="originUI-tileContent">
+			<?php echo $this->element('form_template', array('view'=>'left', 'editor' => 'editor'));?>
+			<?php echo $this->element('form_template', array('view'=>'right', 'editor' => 'editor'));?>
+		</div>
+		<div class="originUI-tileFooter">
+			<button class="originUI-tileFooterCenter" ng:click="templateCreate()" ng-disabled="adTemplateCreateForm.$invalid">Create</button>
+		</div>
+	</form><!--
+	--><div id="adTemplate-list" class="originUI-tileRight originUI-bgColor originUI-shadow">
+		<h3 id="adTemplate-listHeader" class="originUI-tileHeader originUI-borderColor originUI-textColor">Ad Templates</h3>
+		<table id="adTemplate-table" class="originUI-table" cellspacing="0" cellpadding="0" width="100%" border="0">
+			<thead class="originUI-tableHead originUI-noSelect">
+				<th class="originUI-tableHeadStatus">&nbsp;</th>
+				<th class="originUI-tableHeadName" ng:click="templateFilter='OriginTemplate.name';reverse=!reverse">Name</th>
+				<th class="originUI-tableHeadDescription">Description</th>
+			</thead>
+			<tbody class="originUI-tableBody">
+				<tr class="originUI-tableRow" ng:repeat="template in templates|orderBy:templateFilter:reverse|filter:searchOrigin">
+					<td class="originUI-tableStatus originUI-tableCell" ng:show="template.OriginTemplate.status == '1'" class="userList-status">
+						<img src="/img/icon-check-small.png" alt="Active" ng:click="toggleStatus('OriginTemplate', template.OriginTemplate.id, 'disable')"/>
+					</td>
+					<td class="originUI-tableStatus originUI-tableCell" ng:show="template.OriginTemplate.status != '1'" class="userList-status">
+						<img src="/img/icon-cross-small.png" alt="Inactive" ng:click="toggleStatus('OriginTemplate', template.OriginTemplate.id, 'enable')"/>
+					</td>
+					<td class="originUI-tableName originUI-tableCell" ng:click="templateEdit(template)">{{template.OriginTemplate.name}} ({{template.OriginTemplate.alias}})</td>
+					<td class="originUI-tableDescription originUI-tableCell" ng:click="templateEdit(template)">{{template.OriginTemplate.content.description}}</td>
+				</tr>
+			</tbody>
+		</table> 
+	</div>
+	
+	<div modal="originModal" close="$parent.originModalClose()" options="$parent.originModalOptions">
+		<form id="adTemplate-edit" name="adTemplate-edit" class="originUI-bgColorSecondary originUI-modal">
 			<input type="hidden" name="uploadDir" value="/assets/templates/"/>
-			<input type="hidden" ng:model="originTemplates.editor.id"/>
+			<input type="hidden" ng:model="editorModal.id"/>
+			<h3 id="adTemplate-editHeader" class="originUI-tileHeader originUI-borderColor originUI-textColor">Edit Template</h3>
 			
-			<h3 id="templateAdd-header" class="originUiModal-header originUI-borderColor originUI-textColor" ng:show="!originTemplates.editor.id">New Template</h3>
-			<h3 id="templateAdd-header" class="originUiModal-header originUI-borderColor originUI-textColor" ng:show="originTemplates.editor.id">Edit Template</h3>
+			<a href="javascript:void(0)" class="originUI-modalRemove" ng:click="templateRemove()">remove</a>
 			
-			<div class="originUiModal-content">
-				<div id="templateAdd-left">
-					<ul class="originUI-list">
-						<li id="templateAdd-name">
-							<label>Name</label>
-							<div class="originUI-field">
-								<div class="originUI-fieldBracket"></div>
-								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.name"/>
-							</div>
-						</li>
-						<li id="templateAdd-alias">
-							<label>Alias</label>
-							<div class="originUI-field">
-								<div class="originUI-fieldBracket"></div>
-								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.alias"/>
-							</div>
-						</li>
-						<li id="templateAdd-description">
-							<label>Description</label>
-							<div class="originUI-field">
-								<div class="originUI-fieldBracket"></div>
-								<textarea class="originUI-textarea originUI-bgColorSecondary" ng:model="originTemplates.editor.content.description"></textarea>
-							</div>
-						</li>
-						<li id="templateAdd-storyboard">
-							<label>Storyboard Image</label>
-							<!-- <img id="templateAdd-storyboardImage" src="http://placekitten.com/300/100" ng:src="{{originTemplates.editor.content.file_storyboard}}"/> -->
-							<div id="templateAdd-storyboardUpload" class="originUI-upload originUI-icon originUiIcon-upload originUI-bgColorSecondary">
-								<span class="originUI-uploadLabel">Upload Image</span>
-								<input type="file" name="files[]" id="tempalteAdd-upload-template" class="originUI-uploadInput" ng:model="originTemplates.editor.content.file_storyboard" fileupload>
-							</div>
-						</li>
-					</ul>
+			<div class="originUI-modalContent">
+				<div class="originUI-modalLeft">
+					<?php echo $this->element('form_template', array('view'=>'left', 'editor' => 'editorModal'));?>
+				</div><!--
+				--><div class="originUI-modalRight">
+				<?php echo $this->element('form_template', array('view'=>'right', 'editor' => 'editorModal'));?>
 				</div>
-				<div id="templateAdd-right">
-					<accordion close-others="true" class="originUI-list originUI-accordion">
-						<accordion-group heading="Desktop Dimensions" is-open="true" class="">
-							<ul class="">
-								<li>
-									<label class="originUI-label inline">Initial Height</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Initial.Desktop.height"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Initial Width</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Initial.Desktop.width"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Triggered Height</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Triggered.Desktop.height"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Triggered Width</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Triggered.Desktop.width"/>
-									</div>
-								</li>
-							</ul>
-						</accordion-group>
-						<accordion-group heading="Tablet Dimensions">
-							<ul class="">
-								<li>
-									<label class="originUI-label inline">Initial Height</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Initial.Tablet.height"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Initial Width</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Initial.Tablet.width"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Triggered Height</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Triggered.Tablet.height"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Triggered Width</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Triggered.Tablet.width"/>
-									</div>
-								</li>
-							</ul>
-						</accordion-group>
-						<accordion-group heading="Mobile Dimensions">
-							<ul class="">
-								<li>
-									<label class="originUI-label inline">Initial Height</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Initial.Mobile.height"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Initial Width</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Initial.Mobile.width"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Triggered Height</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Triggered.Mobile.height"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Triggered Width</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.dimensions.Triggered.Mobile.width"/>
-									</div>
-								</li>
-							</ul>
-						</accordion-group>
-						<accordion-group heading="Animation">
-							<ul>
-								<li>
-									<label class="originUI-label inline">Animation Start</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.animations.start"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Animation End</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.animations.end"/>
-									</div>
-								</li>
-								<li>
-									<label class="originUI-label inline">Animation Duration</label>
-									<div class="originUI-field inline">
-										<div class="originUI-fieldBracket"></div>
-										<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="originTemplates.editor.config.animations.duration"/>
-									</div>
-								</li>
-							</ul>
-						</accordion-group>
-					</accordion>
-					<ul class="originUI-list">
-						<li ng:show="originTemplates.editor.id">
-							<div id="templateAdd-delete" class="originUI-icon originUiIcon-delete" ng:show="!originTemplates.confirmDelete" ng:click="originTemplates.confirmDelete=!originTemplates.confirmDelete">Delete</div>
-							<div id="templateAdd-confirm" class="originUI-icon originUiIcon-delete" ng:show="originTemplates.confirmDelete" ng:click="templateDelete()">Confirm</div>
-						</li>
-					</ul>
-				</div>
-				<div class="clear"></div>
+				<div class="clear"></div>		
 			</div>
 			<div class="originUiModal-footer">
-				<div class="originUiModalFooter-left" ng:click="templateModalClose()">Cancel</div>
+				<div class="originUiModalFooter-left" ng:click="$parent.originModalClose()">Cancel</div>
 				<div class="originUiModalFooter-right" ng:click="templateSave()">Save</div>
 			</div>
 		</form>
 	</div>
-	
 </div>
+<?php
+	echo $this->Minify->script(array('controllers/templatesController'));
+?>

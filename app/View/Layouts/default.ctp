@@ -13,7 +13,7 @@ $cakeDescription = __d('cake_dev', 'Origin');
 		//echo $this->Html->css('origin');
 		//echo $this->Html->css('/usermgmt/css/umstyle');
 		
-		echo $this->Minify->css(array(/* 'cake.generic',  '/usermgmt/css/umstyle', */'normalize', 'bootstrap', 'codemirror', 'chardinjs', 'origin'));
+		echo $this->Minify->css(array(/* 'cake.generic',  '/usermgmt/css/umstyle', */'normalize', 'bootstrap', 'codemirror', 'chardinjs', 'origin', 'origin-new'));
 		echo $this->Minify->script(array('jquery/jquery', 'jquery/jquery.ui.widget', 'jquery/jquery.fileupload', 'jquery/chardinjs.min', 'angularjs', 'angular-ui', 'angularui-bootstrap', 'origin', 'controller', 'services', 'directives', 'filters'));
 		//echo $this->fetch('meta');
 		//echo $this->fetch('css');
