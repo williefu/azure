@@ -30,12 +30,12 @@ class Monitor extends AppModel {
     }
 	
 	function searchData($data) {
-		$end_date = date("Y-m-d",strtotime('-1 day'));
-		$start_date = date('Y-m-d',strtotime('-31 day')); 
+		$end_date = $data['end_date'];
+		$start_date = $data['start_date']; 
 		$dimensions = 'ga:eventCategory';
 		$metrics = 'ga:totalEvents,ga:uniqueEvents';
 		$sort = '-ga:totalEvents';
-		$filters = $data;
+		$filters = $data['category'];
 		$monitor = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
 		
 		return $monitor;

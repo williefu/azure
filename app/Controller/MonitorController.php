@@ -11,10 +11,12 @@ class MonitorController extends AppController {
 		$this->render('monitor');
 	}
 	
-	public function jsonList() {
-		if(isset($this->request->params['category'])) {
-			$category 	= $this->request->params['category'];
-			$monitor = $this->Monitor->searchData($category);
+	public function jsonList() { 
+		if(isset($this->request->params['start_date'])) {
+			$data['start_date'] 	= $this->request->params['start_date']!='undefined' ? $this->request->params['start_date']:date('Y-m-d',strtotime('-31 day'));
+			$data['end_date'] 	= $this->request->params['end_date']!='undefined' ? $this->request->params['end_date']:date("Y-m-d",strtotime('-1 day'));
+			$data['category'] 	= $this->request->params['category']!='undefined' ? $this->request->params['category']:'';
+			$monitor = $this->Monitor->searchData($data);
 		}
 		else {
 			$monitor = $this->Monitor->getMonitor();

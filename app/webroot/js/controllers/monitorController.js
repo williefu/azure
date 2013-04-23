@@ -14,6 +14,14 @@ var monitorCtrl = function($scope, Monitor) {
 	$scope.monitor_list = {};
 	$scope.monitor = {};
 	
+	/*$scope.dateOptions = {
+        changeYear: false,
+        changeMonth: false,
+        nextText: '<i class=icon-arrow-right></i>',
+        prevText: '<i class=icon-arrow-left></i>',
+        dateFormat: 'mmm dd, yyyy'
+    };*/
+	
 	//Load Monitor data
 	Monitor.get('list').then(function(data) {
 			$scope.monitor_filter = data.filter;
@@ -29,16 +37,24 @@ var monitorCtrl = function($scope, Monitor) {
 			$scope.monitor_url = data;
 	});*/
 	
-	$scope.getData = function() { //console.log($scope.monitorObj);
-		Monitor.get('list/'+$scope.monitorObj.category).then(function(data) {
+	$scope.getData = function() {
+		//$scope.monitorObj.start_date = $scope.parseDate($scope.monitorObj.start_date);
+		//$scope.monitorObj.end_date = $scope.parseDate($scope.monitorObj.end_date);
+		$scope.monitorObj.category = ($scope.monitorObj.category == '' ? 'undefined' : $scope.monitorObj.category);
+		Monitor.get('list/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+$scope.monitorObj.category).then(function(data) {
+			$scope.monitorObj.category = ($scope.monitorObj.category == 'undefined' ? '' : $scope.monitorObj.category);
 			$scope.refreshMonitor(data);
 		});
-		/*Monitor.get('list/'+$scope.monitorObj.category).then(function(data) {
-			$scope.monitor_filter = data.filter;
-			$scope.monitor_totals = data.total;
-			$scope.monitor_list = data.data;
-			$scope.monitor_title = 'Event Category';
-		});*/
+	}
+	
+	$scope.parseDate = function(date) {
+	  var d = new Date(date);
+	  var month = d.getMonth() + 1;
+	  var day = d.getDate();
+	  var year = d.getFullYear();
+	  if(month < 10) month = '0' + month;
+	  if(day < 10) day = '0' + day;
+	  return year + '-' + month + '-' + day;	// 2013-03-22
 	}
 	
 	$scope.exportData = function() {
@@ -59,9 +75,9 @@ var monitorCtrl = function($scope, Monitor) {
 	}
 	
 	$scope.refreshMonitor = function(data) {
+		$scope.monitor_list = data.data;
 		$scope.monitor_filter = data.filter;
 		$scope.monitor_totals = data.total;
-		$scope.monitor_list = data.data;
 	}
 	
 	$scope.categoryData = function(category) {
