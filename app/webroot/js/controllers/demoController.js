@@ -1,4 +1,3 @@
-var originAd_id		= $j('#originAd_id').val();
 	
 	/**
 	* Prevent accidental clicks leaving the editor
@@ -15,11 +14,14 @@ var originAd_id		= $j('#originAd_id').val();
 		});
 	});
 */
-
 var demoController = function($scope, $filter, Origin, Notification) {
+	var originAd_id				= $j('#originAd_id').val();
+	
 	$scope.demo 				= {};
 	$scope.demo.templateAlias	= 'origin';
 	$scope.reskin 				= {};
+	$scope.embed = '<script type="text/javascript" src="http://'+document.domain+'/min-js?f=/js/ad/origin.js" data-auto="0" data-close="0" data-hover="0" data-dcopt="true" data-id="'+originAd_id+'" data-type="horizon" data-xd="'+document.domain+'" data-init="true"></script>';
+	
 	
 	/**
 	* Loads the site demo templates

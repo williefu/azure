@@ -51,6 +51,7 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	$scope.ui.platform			= 'Desktop';
 	$scope.layers				= {};
 	$scope.library				= {};
+	$scope.dimensions			= ['Desktop', 'Tablet', 'Mobile'];
 	$scope.creatorModalOptions	= {
 		backdropClick: 	false,
 		backdropFade:	true

@@ -29,13 +29,13 @@
 				_scope.$watch('editor.content', function() {
 					switch($scope.editor.content.event) {
 						case false:
-							toggleEvent 	= 'hover';
+							toggleEvent 	= 'ng:mouseover="toggle()"';
 							break;
 						case true:
-							toggleEvent 	= 'click';
+							toggleEvent 	= 'ng:click="toggle()"';
 							break;
 					}
-					_scope.editor.render			= '<a class="cta toggle" data-trigger="'+toggleEvent+'" <%=style%>></a>';
+					_scope.editor.render			= '<a href="javascript:void(0)" class="cta toggle" '+toggleEvent+'></a>';
 				}, true);
 		}
 	</script>

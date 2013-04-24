@@ -636,9 +636,11 @@ body {
 	background: transparent url(/img/header-settings.png) no-repeat 10px center;
 }
 
+/*
 #settings-modal label.inline {
 	width: 70%;
 }
+*/
 
 #settingsModal-status .originUI-switch {
 	width: 150px;

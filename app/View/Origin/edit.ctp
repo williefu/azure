@@ -181,40 +181,47 @@
 
 	<div modal="settingsModal" close="settingsModalClose()" options="creatorModalOptions">
 		<form id="settings-modal" class="originUI-bgColorSecondary">
+			<input type="hidden" ng:model="editor.config.template"/>
 			<h3 id="settingsModal-header" class="originUiModal-header originUI-borderColor originUI-textColor">Settings</h3>
-			<div class="originUiModal-content">
-				<ul class="originUI-list">
-					<li>
-						<label class="inline">Name</label>
-						<div class="originUI-field inline">
-							<div class="originUI-fieldBracket"></div>
-							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.name"/>
-						</div>
-					</li>
-					<li id="settingsModal-status">
-						<label class="inline">Status</label>
-						<div class="originUI-switch inline">
-					    <input type="checkbox" name="statusSwitch" class="originUI-switchInput" id="statusSwitch" ng:model="editor.status" ng:checked="editor.statusSwitch">
-					    <label class="originUI-switchLabel" for="statusSwitch">
-					    	<div class="originUI-switchInner">
-					    		<div class="originUI-switchActive">
-					    			<div class="originUI-switchText">Active</div>
+			<div class="originUI-modalContent">
+				<div class="originUI-modalLeft">
+					<ul class="originUI-list">
+						<li>
+							<label class="inline">Name</label>
+							<div class="originUI-field inline">
+								<div class="originUI-fieldBracket"></div>
+								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.name"/>
+							</div>
+						</li>
+						<li id="settingsModal-status">
+							<label class="inline">Status</label>
+							<div class="originUI-switch inline">
+						    <input type="checkbox" name="statusSwitch" class="originUI-switchInput" id="statusSwitch" ng:model="editor.status" ng:checked="editor.statusSwitch">
+						    <label class="originUI-switchLabel" for="statusSwitch">
+						    	<div class="originUI-switchInner">
+						    		<div class="originUI-switchActive">
+						    			<div class="originUI-switchText">Active</div>
+								    </div>
+								    <div class="originUI-switchInactive">
+								    	<div class="originUI-switchText">Inactive</div>
+									</div>
 							    </div>
-							    <div class="originUI-switchInactive">
-							    	<div class="originUI-switchText">Inactive</div>
-								</div>
-						    </div>
-					    </label>
-				    </div> 
-					</li>
-					<li>
-						<label class="inline">Google Analytics Tracking</label>
-						<div class="originUI-field inline">
-							<div class="originUI-fieldBracket"></div>
-							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.config.ga_id"/>
-						</div>
-					</li>
-				</ul>
+						    </label>
+					    </div> 
+						</li>
+						<li>
+							<label class="inline">Google Analytics Tracking</label>
+							<div class="originUI-field inline">
+								<div class="originUI-fieldBracket"></div>
+								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.config.ga_id"/>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="originUI-modalRight">
+					<?php echo $this->element('form_template', array('view'=>'right', 'editor' => 'editor'));?>
+				</div>
+				<div class="clear"></div>
 			</div>
 			<div class="originUiModal-footer">
 				<div class="originUiModalFooter-left" ng:click="settingsModalClose()">Cancel</div>
@@ -232,7 +239,7 @@
 			<div class="originUiModal-content">
 				<div class="originUI-field">
 					<div class="originUI-fieldBracket"></div>
-					<textarea id="embedModal-content" class="originUI-textarea originUI-bgColorSecondary"><script type="text/javascript" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/emcOrigin/originRender.js" data-auto="{{embedOptions.auto}}" data-close="{{embedOptions.close}}" data-hover="{{embedOptions.hover}}" data-dcopt="true" data-id="<?php echo $this->params['originAd_id'];?>" data-type="{{workspace.ad.OriginAd.config.type_alias}}" data-xd="local.origin_test_prod" data-init="true"></script></textarea>
+					<textarea id="embedModal-content" class="originUI-textarea originUI-bgColorSecondary"><script type="text/javascript" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/min-js?f=/js/ad/origin.js" data-auto="{{embedOptions.auto}}" data-close="{{embedOptions.close}}" data-hover="{{embedOptions.hover}}" data-dcopt="true" data-id="<?php echo $this->params['originAd_id'];?>" data-type="{{workspace.ad.OriginAd.config.template}}" data-xd="local.origin_test_prod" data-init="true"></script></textarea>
 				</div>
 			</div>
 			<div id="embedModal-config">

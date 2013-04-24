@@ -28,7 +28,7 @@
 					if($scope.editor.content.iframe !== true) {
 						_scope.editor.render = $scope.editor.content.embed;	
 					} else {
-						_scope.editor.render = '<iframe class="data-embed" src="%cid%" <%=style%> id="embed-%id%" frameborder="0" scrolling="no"></iframe>';
+						_scope.editor.render = '<iframe class="data-embed" src="%cid%" id="embed-%id%" frameborder="0" scrolling="no"></iframe>';
 					}
 				}, true);
 		}

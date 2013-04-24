@@ -312,6 +312,7 @@ class OriginController extends AppController {
 				)
 			)
 		);
+		$this->set('originAd_platform', $originAd_platform);
 		$this->set('origin_ad', $origin_ad);
 		
 		

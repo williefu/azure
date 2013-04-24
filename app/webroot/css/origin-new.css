@@ -248,12 +248,12 @@
 	font-size: 14px;
 }
 
-#adTemplate-list {
-	min-height: 596px;
-}
-
 #adTemplate-storyboardUpload {
 	width: 100%;
+}
+
+#adTemplate-list  {
+	min-height: 656px;
 }
 
 #adTemplate-listHeader,
@@ -261,6 +261,13 @@
 	background-image: url(/img/ad-template-26x26.png);
 }
 
+#adTemplate-templateConfig .accordion-inner {
+	min-height: 151px;
+}
+
+#adTemplate-configSelector {
+	width: 100%;
+}
 /* =======================================================================
 	Ad Components Manager
 ========================================================================== */
@@ -293,7 +300,6 @@
 /* =======================================================================
 	Demo Manager
 ========================================================================== */
-
 #siteManager-createHeader {
 	background-image: url(/img/demo-26x26.png);
 }

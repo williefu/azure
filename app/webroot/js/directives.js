@@ -140,7 +140,7 @@ angular.module('originApp.directives', [])
 				};
 				
 				//Prep render
-				var render = scope.ngModel.render.replace('<%=style%>', '');
+				var render = scope.ngModel.render;
 				
 				//Compile config into inline styles
 				element.css(css).html(render).append('<span class="workspace-content-label">'+scope.ngModel.content.title+'</span>').addClass('content-'+scope.ngModel.content.type);

@@ -43,10 +43,11 @@
 				
 					switch($scope.editor.content.event) {
 						case false:
-							toggleEvent 	= 'hover';
+							toggleEvent 	= 'ng:mouseover="link()"';
 							break;
 						case true:
-							toggleEvent 	= 'click';
+							//toggleEvent 	= 'ng:click="toggle()"';
+							toggleEvent		= '';
 							break;
 					}
 					
@@ -54,7 +55,7 @@
 						url = 'http://' + url;
 					}
 					
-					_scope.editor.render	= '<a href="'+url+'" class="dfp-link" data-trigger="'+toggleEvent+'" <%=style%>></a>';
+					_scope.editor.render	= '<a href="'+url+'" target="_blank" class="dfp-link" '+toggleEvent+'></a>';
 				}, true);
 		}
 	</script>

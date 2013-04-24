@@ -3,7 +3,7 @@
 	<div id="originDemo-wrapper">
 	
 	
-		<div id="originDemo-leaderboard" class="adPlacement">
+		<div id="originDemo-leaderboard" class="adPlacement" ng-bind-html-unsafe="embed">
 			<img src="http://placehold.it/970x66"/>
 		</div>
 	

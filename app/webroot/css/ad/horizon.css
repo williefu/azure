@@ -1,0 +1,13 @@
+#horizon {
+	position: absolute;
+	left: 50%;
+	margin-left: -750px;
+}
+
+#initial {
+	z-index: 20;
+}
+
+#triggered {
+	z-index: 10;
+}
