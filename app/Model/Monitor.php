@@ -29,6 +29,17 @@ class Monitor extends AppModel {
 		return $visits;
     }
 	
+	function getVisitsData($data) {
+		$end_date = $data['end_date'];
+		$start_date = $data['start_date']; 
+		$dimensions = 'ga:date';
+		$metrics = 'ga:visits';
+		$sort = 'ga:date';
+		$filters = $data['category'];
+		$visits = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
+		return $visits;
+    }
+	
 	function searchData($data) {
 		$end_date = $data['end_date'];
 		$start_date = $data['start_date']; 
@@ -60,8 +71,10 @@ class Monitor extends AppModel {
 		//si-tech@gorillanation.com
 		$password = '';
 
-		//Table Id of  webservices
-		$id = 'ga:26782196';
+		//SI Event Tracking Table Id
+		//$id = 'ga:26782196';
+		//Evolve Origin Table Id
+		$id = 'ga:50292723';
 		
 		App::import('Vendor', 'ga_api');
 		

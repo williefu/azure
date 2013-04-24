@@ -29,14 +29,12 @@ var monitorCtrl = function($scope, Monitor) {
 			$scope.monitor_list = data.data;
 			$scope.monitor_title = 'Event Category';
 	});
+	
+	//Load Visits data
+	Monitor.get('visits').then(function(data) {
+			$scope.monitor_visits = data.visits;
+	});
 
-	
-	//Load Monitor data
-	/*Monitor.get('Json/charts').then(function(data) {
-			//console.log(data);
-			$scope.monitor_url = data;
-	});*/
-	
 	$scope.getData = function() {
 		//$scope.monitorObj.start_date = $scope.parseDate($scope.monitorObj.start_date);
 		//$scope.monitorObj.end_date = $scope.parseDate($scope.monitorObj.end_date);
@@ -78,14 +76,16 @@ var monitorCtrl = function($scope, Monitor) {
 		$scope.monitor_list = data.data;
 		$scope.monitor_filter = data.filter;
 		$scope.monitor_totals = data.total;
+		//Load Visits data
+		Monitor.get('visits/'+$scope.monitor_filter.start_date+'/'+$scope.monitor_filter.end_date+'/'+$scope.monitorObj.category).then(function(data) {
+				$scope.monitor_visits = data.visits;
+		});
 	}
 	
 	$scope.categoryData = function(category) {
-		/*$scope.monitor.category = category;
-		$scope.monitor.startDate = $scope.monitor_filter.startDate;
-		$scope.monitor.endDate = $scope.monitor_filter.endDate;*/
 		if($scope.monitor_title!='Event Action') {
 			Monitor.get('event/'+category).then(function(data) {
+				$scope.monitorObj.category = category;
 				$scope.refreshMonitor(data);
 				$scope.monitor_title = 'Event Action';
 			});

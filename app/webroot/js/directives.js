@@ -368,17 +368,14 @@ angular.module('originApp.directives', [])
 	.directive('chart', function(Monitor) {
         return {
           restrict: 'A',
-          link: function($scope, $element, $attr) {
-			//Load Monitor data
-			Monitor.get('visits').then(function(data) {
-				
-				$scope.monitor_visits = data['visits'];
+          link: function(scope, element, attr) {
+			scope.$watch('monitor_visits', function() {
 				var data = new google.visualization.DataTable();
 				data.addColumn('date', 'Dates');
 				data.addColumn('number', 'Visits');
 
 				var rowArray = [];
-				angular.forEach($scope.monitor_visits, function(item) {
+				angular.forEach(scope.monitor_visits, function(item) {
 					var from_date = item.date.toString();
 					var YYYY = from_date.substring(0, 4);
 					var MM = from_date.substring(4, 6);
@@ -390,15 +387,18 @@ angular.module('originApp.directives', [])
 				data.addRows( rowArray );
 				// Set chart options
 			    var options = {'title':'Audience Overview',
-							   'width':1923,
+							   'width':1323,
 							   'height':160};
 				
 
 				// Instantiate and draw our chart, passing in some options.
 				//var chart = new google.visualization.PieChart($element[0]);
-				var chart = new google.visualization.ComboChart($element[0]);
+				var chart = new google.visualization.ComboChart(element[0]);
 				chart.draw(data, options);
+			//});			
+			
 			});
+			
 			
 		}
       }			
