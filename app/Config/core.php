@@ -278,3 +278,13 @@ Cache::config('_cake_model_', array(
 ));
 
 Configure::write('MinifyAsset', true);
+
+/**
+ * Info used in Monitor
+ */
+Configure::write('Monitor', array(
+		'login' => 'evolveorigin@gmail.com',
+		'password' => 'evolve-origin',
+		'origin_table_id' => 'ga:50292723'//Evolve Origin Table Id
+		//'si_event_table_id' => 'ga:26782196'//SI Event Tracking Table Id
+	));

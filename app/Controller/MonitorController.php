@@ -23,13 +23,7 @@ class MonitorController extends AppController {
 		}
 		$this->set('monitor', $monitor);
 	}
-	
-	/*public function jsonSearch() {
-		$category 	= $this->request->params['category'];
-		$event = $this->Monitor->searchData($category);
-		$this->set('monitor', $event);
-	}*/
-	
+
 	public function jsonEvent() {
 		$category 	= $this->request->params['category'];
 		$event = $this->Monitor->getEvent($category);
@@ -37,7 +31,15 @@ class MonitorController extends AppController {
 	}
 
 	public function jsonVisits() {
-		$visits = $this->Monitor->getVisits();
+		if(isset($this->request->params['start_date'])) {
+			$data['start_date'] 	= $this->request->params['start_date']!='undefined' ? $this->request->params['start_date']:date('Y-m-d',strtotime('-31 day'));
+			$data['end_date'] 	= $this->request->params['end_date']!='undefined' ? $this->request->params['end_date']:date("Y-m-d",strtotime('-1 day'));
+			$data['category'] 	= $this->request->params['category']!='undefined' ? $this->request->params['category']:'';
+			$visits = $this->Monitor->getVisitsData($data);
+		}
+		else {
+			$visits = $this->Monitor->getVisits();
+		}
 		$this->set('visits', $visits);
 	}
 	

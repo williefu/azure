@@ -100,6 +100,7 @@ Router::connect('/administrator/get/monitor/list', array('controller' => 'monito
 Router::connect('/administrator/get/monitor/list/:start_date/:end_date/:category', array('controller' => 'monitor', 'action' => 'jsonList'));
 Router::connect('/administrator/get/monitor/event/:category', array('controller' => 'monitor', 'action' => 'jsonEvent'));
 Router::connect('/administrator/get/monitor/visits', array('controller' => 'monitor', 'action' => 'jsonVisits'));
+Router::connect('/administrator/get/monitor/visits/:start_date/:end_date/:category', array('controller' => 'monitor', 'action' => 'jsonVisits'));
 Router::connect('/administrator/get/sites', array('controller'=>'origin', 'action'=>'jsonSite'));
 //Router::connect('/administrator/get/monitor/export/:data', array('controller'=>'monitor', 'action'=>'monitorExport'));
 
