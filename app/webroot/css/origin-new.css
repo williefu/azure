@@ -265,8 +265,12 @@
 	min-height: 151px;
 }
 
+#adTemplate-templateConfig .originUI-input {
+	text-align: center;
+}
+
 #adTemplate-configSelector {
-	width: 100%;
+	width: 96%;
 }
 /* =======================================================================
 	Ad Components Manager
@@ -289,6 +293,14 @@
 	min-height: 382px;
 }
 
+#adComponent-table .originUI-tableHeadName {
+	width: auto;
+}
+
+#adComponent-table .originUI-tableHeadDescription {
+	width: 250px;
+}
+
 #adComponent-table .originUI-tableName {
 	background-repeat: no-repeat;
 	background-position: left center;
@@ -308,4 +320,125 @@
 #siteManager-listHeader,
 #siteManager-editHeader {
 	background-image: url(/img/demo-26x26.png);
+}
+
+/* =======================================================================
+	Demo Manager
+========================================================================== */
+#user-createHeader {
+	background-image: url(/img/user-add-26x26.png);
+}
+
+#user-listHeader,
+#user-editHeader {
+	background-image: url(/img/user-26x26.png);
+}
+
+#user-list {
+	min-height: 475px;
+}
+
+#user-table .originUI-tableHeadName {
+	width: 100px;
+}
+
+/* =======================================================================
+	Ad List Manager
+========================================================================== */
+#adList-left {
+	width: 680px;
+	margin: 0 20px 0 0;
+}
+
+.adList-item {
+	display: block;
+	width: 100%;
+	height: 100px;
+	margin: 0 0 20px 0;
+	cursor: pointer;
+	border-width: 0 0 1px 3px;
+	border-style: solid;
+	position: relative;
+	background-position: right center;
+	background-repeat: no-repeat;
+	background-size: 500px 100px;
+}
+
+.adList-itemMeta,
+/*
+.adList-itemId,
+.adList-itemName,
+.adList-itemDescription,
+*/
+.adList-itemLookUp {
+	position: absolute;
+}
+
+.adList-itemMeta {
+	width: 300px;
+	height: 100%;
+	padding: 0 7px;
+}
+
+.adList-itemId {
+	opacity: .3;
+}
+
+.adList-itemName {
+	font-size: 20px;
+	text-indent: 5px;
+}
+
+.adList-itemMeta:after {
+	background-image: -moz-linear-gradient(right center, rgba(33, 33, 35, 0) 0px, #212123 75%);
+	background-size: auto 100%;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	content: "";
+	display: block;
+	position: absolute;
+	width: 135px;
+	height: 100px;
+}
+
+
+.adList-itemLookUp {
+	background: transparent url(/img/find-26x26.png) no-repeat center center;
+	width: 75px;
+	height: 100%;
+	right: 0;
+	background-color: rgba(51, 181, 229, .5);
+}
+
+#adList-right {
+	width: 300px;
+}
+
+#adList-create,
+#adList-module {
+	width: 100%;
+	position: relative;
+}
+
+#adList-create {
+	height: 160px;
+	display: block;
+}
+
+#adList-create:active {
+	transform: scale(.98, .98);
+}
+
+#adList-createHeader {
+	border-width: 2px 0 0 0;
+	position: absolute;
+	bottom: 0;
+	right: 10px;
+	text-align: right;
+}
+
+#adList-module {
+	margin: 20px 0 0 0;
+	height: 300px;
 }

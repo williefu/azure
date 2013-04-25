@@ -1279,12 +1279,14 @@ height: 26px;
 
 
 /***** START: AD LIST *****/
+/*
 
 #adList-add {
 	background: #0099cc url(/img/tile-add.png) no-repeat center 30%;
 	box-shadow: 0 0 4px 1px rgba(153, 204, 0, .3);
 	position: relative;
 }
+*/
 
 /*
 #adList-add .originTile-title {
@@ -1301,6 +1303,7 @@ height: 26px;
 	border-color: #33b5e5;
 }
 */
+/*
 
 .adList-item {
 	width: 230px;
@@ -1362,6 +1365,7 @@ height: 26px;
 #addCreate-templateDescription {
 	font-size: 14px;
 }
+*/
 
 /*
 #list {

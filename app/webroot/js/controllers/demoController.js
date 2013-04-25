@@ -14,7 +14,7 @@
 		});
 	});
 */
-var demoController = function($scope, $filter, Origin, Notification) {
+var demoController = function($scope, $filter, Origin) {
 	var originAd_id				= $j('#originAd_id').val();
 	
 	$scope.demo 				= {};

@@ -3,7 +3,6 @@ var templatesController	= function($scope, $filter, Origin) {
 	$scope.editorModal	= {};
 	$scope.status		= {};
 	$scope.templates 	= {};
-	//$scope.dimensions	= ['Desktop', 'Tablet', 'Mobile'];
 	
 	Origin.get('templates').then(function(response) {
 		$scope.templates = $scope.$parent.listRefresh(response);

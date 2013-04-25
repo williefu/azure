@@ -345,7 +345,8 @@ angular.module('originApp.directives', [])
 									left:	Math.floor(event.pageX - $j(this).offset().left - 16)+'px',
 									width: 	scope.library[id].width,
 									height: scope.library[id].height
-								}
+								},
+								type: scope.library[id].type
 							};
 						
 						switch(scope.library[id].type) {

@@ -455,7 +455,7 @@ body {
 }
 
 .workspace-content.ui-resizable:not(.content-image):not(.content-background) {
-	outline: 2px dashed rgba(0, 153, 204, .2);
+	outline: 2px dashed rgba(0, 153, 204, .7);
 	outline-offset: -5px;
 }
 
@@ -463,7 +463,7 @@ body {
 .workspace-content .ui-resizable-se,
 .workspace-content .ui-resizable-sw,
 .workspace-content .ui-resizable-nw {
-	background-color: rgba(0, 153, 204, .3);
+	background-color: rgba(0, 153, 204, .6);
 	border-radius: 50%;
 	width: 10px;
 	height: 10px;
@@ -471,7 +471,7 @@ body {
 
 .workspace-content:hover:not(.content-background),
 .workspace-content:focus:not(.content-background) {
-	outline: 2px dashed rgba(0, 153, 204, .7) !important;
+	outline: 2px dashed rgba(0, 153, 204, 1) !important;
 }
 
 .workspace-content:hover .ui-resizable-ne,
@@ -482,7 +482,7 @@ body {
 .workspace-content:focus .ui-resizable-se,
 .workspace-content:focus .ui-resizable-sw,
 .workspace-content:focus .ui-resizable-nw  {
-	background-color: rgba(0, 153, 204, .7);
+	background-color: rgba(0, 153, 204, 1);
 }
 
 .workspace-content.content-background {

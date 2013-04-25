@@ -19,7 +19,7 @@
 			
 			$scope.$watch('editor.content.upload', function(newValue, oldValue) {
 				if(newValue) {
-					$scope.$parent.editor.content.image = newValue;
+					_scope.editor.content.image = newValue;
 					generateRender();
 				}
 			}, true);

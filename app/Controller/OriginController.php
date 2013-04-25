@@ -100,7 +100,7 @@ class OriginController extends AppController {
 	/**
 	* Adds a new user permissions group
 	*/
-	public function dashboardGroupAdd($data) {
+	private function dashboardGroupAdd($data) {
 		$this->UserGroup->set($data);
 		if($this->UserGroup->addValidate()) {
 			$this->UserGroup->save($data, false);
@@ -110,14 +110,16 @@ class OriginController extends AppController {
 	/**
 	* ?
 	*/
+/*
 	public function dashboardUser() {
 		
 	}
+*/
 	
 	/**
 	* Creates a new user
 	*/
-	public function dashboardUserAdd($data) {
+	private function dashboardUserAdd($data) {
 		if($this->User->RegisterValidate()) {
 			$data['email_verified']		= 1;
 			$data['active']				= 1;
@@ -133,7 +135,7 @@ class OriginController extends AppController {
 	/**
 	* Updates an user's password
 	*/
-	public function dashboardUserPasswordUpdate($data) {
+	private function dashboardUserPasswordUpdate($data) {
 		$userId = $this->UserAuth->getUserId();		
 		$this->User->set($data);
 		
@@ -153,7 +155,7 @@ class OriginController extends AppController {
 	/**
 	* Toggles an user's status
 	*/
-	public function dashboardUserStatus($data) {
+	private function dashboardUserStatus($data) {
 		$userId			= $data['id'];
 		$active			= $data['status'];
 		
@@ -168,7 +170,7 @@ class OriginController extends AppController {
 	/**
 	* Updates an user's account
 	*/
-	public function dashboardUserUpdate($data) {		
+	private function dashboardUserUpdate($data) {		
 		if(isset($data['cpassword'])) {
 			$this->User->set($data);
 			
@@ -342,79 +344,7 @@ class OriginController extends AppController {
 /* =======================================================================
 	Ad components
 ========================================================================== */
-	/**
-	* Loads the ad components model
-	*/
-	private function _loadOriginComponent() {
-		$origin_components	= $this->OriginComponent->find('all',
-		array(
-			'order'=>array('OriginComponent.name ASC')
-		));
-		$this->set('origin_components', $origin_components);
-		return $this->render('/Origin/json/json_component');
-	}
-	
-	/**
-	* Loads the ad components model
-	*/
-/*
-	private function _loadComponents() {
-		$origin_components	= $this->OriginComponent->find('all',
-		array(
-			'order'=>array('OriginComponent.name ASC')
-		));
-		$this->set('origin_components', $origin_components);
-		return $this->render('/Origin/json/json_component');
-	}
-*/
 
-	/**
-	* Removes an Origin ad component
-	*/
-/*
-	private function componentDelete($data) {
-		$id		= $data['id'];
-		
-		if($this->OriginComponent->delete($id)) {
-			return $this->_loadComponents();
-		}
-	}
-	
-*/
-	/**
-	* Save/updates an Origin ad component
-	*/
-/*
-	private function componentSave($data) {
-		$data['content']		= json_encode($data['content']);
-		$data['config']			= json_encode($data['config']);
-		
-		if(!isset($data['id'])) {
-			$data['create_by']	= $this->UserAuth->getUserId();
-		}
-		
-		$data['modify_date']	= date('Y-m-d H:i:s');
-		$data['modify_by']		= $this->UserAuth->getUserId();
-		
-		if($this->OriginComponent->save($data)) {
-			return $this->_loadComponents();
-		}
-	}
-*/
-	
-	/**
-	* Toggles an Origin ad component's status
-	*/
-/*
-	private function componentStatus($data) {
-		$data['modify_date']	= date('Y-m-d H:i:s');
-		$data['modify_by']		= $this->UserAuth->getUserId();
-		
-		if($this->OriginComponent->save($data)) {
-			return $this->_loadComponents();
-		}
-	}
-*/
 		
 /* =======================================================================
 	Demo page of Origin units (both administrator and public)
@@ -533,125 +463,11 @@ class OriginController extends AppController {
 		$this->set('title_for_layout', 'Demo Manager');
 	}
 	
-	/**
-	* Loads the model data
-	*/
-	private function _loadOriginSite() {
-		$origin_sites	= $this->OriginSite->find('all',
-		array(
-			'order'=>array('OriginSite.name ASC')
-		));
-		$this->set('origin_sites', $origin_sites);
-		return $this->render('/Origin/json/json_site');
-	}
-	
-	/**
-	* Save/update an Origin site demo page
-	*/
-/*
-	private function siteSave($data) {
-		$data['content']		= json_encode($data['content']);
-		$data['config']			= json_encode($data['config']);
-		
-		if(!isset($data['id'])) {
-			$data['create_by']	= $this->UserAuth->getUserId();
-		}
-		
-		$data['modify_date']	= date('Y-m-d H:i:s');
-		$data['modify_by']		= $this->UserAuth->getUserId();
-		
-		if($this->OriginSite->save($data)) {
-			return $this->_loadSites();
-		}
-	}
-*/
-	
-	/**
-	* Toggle an Origin site demo status
-	*/
-/*
-	private function siteStatus($data) {
-		$data['modify_date']	= date('Y-m-d H:i:s');
-		$data['modify_by']		= $this->UserAuth->getUserId();
-		
-		if($this->OriginSite->save($data)) {
-			return $this->_loadSites();
-		}
-	}
-*/
 
 /* =======================================================================
 	Ad Templates
 ========================================================================== */
-	/**
-	* ?
-	*/
-	private function templateDisable() {
-		
-	}
-	
-	
-	/**
-	* Loads the template model
-	*/
-	private function _loadOriginTemplate() {
-		$origin_templates	= $this->OriginTemplate->find('all',
-		array(
-			'order'=>array('OriginTemplate.name ASC')
-		));
-		$this->set('origin_templates', $origin_templates);
-		return $this->render('/Origin/json/json_template');
-	}
-	
-	/**
-	* Loads the template model
-	*/
-/*
-	private function _loadTemplates() {
-		$origin_templates	= $this->OriginTemplate->find('all',
-		array(
-			'order'=>array('OriginTemplate.name ASC')
-		));
-		$this->set('origin_templates', $origin_templates);
-		return $this->render('/Origin/json/json_template');
-	}
-*/
-	
-	/**
-	* Removes an Origin ad template
-	*/
-/*
-	private function templateDelete($data) {
-		$id		= $data['id'];
-		
-		if($this->OriginTemplate->delete($id)) {
-			return $this->_loadTemplates();
-		}
-	}
-*/
-	
-	/**
-	* Save/update an Origin ad template
-	*/
-/*
-	private function templateSave($data) {
-		$data['content']		= json_encode($data['content']);
-		$data['config']			= json_encode($data['config']);
-		
-		if(!isset($data['id'])) {
-			$data['create_by']	= $this->UserAuth->getUserId();
-		}
-		
-		$data['modify_date']	= date('Y-m-d H:i:s');
-		$data['modify_by']		= $this->UserAuth->getUserId();
-		
-		if($this->OriginTemplate->save($data)) {
-			return $this->_loadTemplates();
-		}
-	}
-	
-*/
-	
+
 
 /* =======================================================================
 	JSON feeds
@@ -791,10 +607,10 @@ class OriginController extends AppController {
 	* 
 	*/
 	private function creatorSettingsUpdate($data) {
-		unset($data['content']);
 		unset($data['statusSwitch']);
 		
 		$data['config']			= json_encode($data['config']);
+		$data['content']		= json_encode($data['content']);
 		$data['modify_date']	= date('Y-m-d H:i:s');
 		$data['modify_by']		= $this->UserAuth->getUserId();
 		$data['status']			= empty($data['status'])? 0: 1;
@@ -808,7 +624,7 @@ class OriginController extends AppController {
 	/**
 	* Creates an Origin ad unit's content record
 	*/
-	public function creatorContentSave($data) {
+	private function creatorContentSave($data) {
 		$data['content']		= json_encode($data['content']);
 		$data['config']			= json_encode($data['config']);
 		

@@ -109,7 +109,7 @@
 			<li>
 				<div id="library-upload" class="originUI-upload originUI-icon originUiIcon-upload originUI-bgColorSecondary">
 					<span class="originUI-uploadLabel">Upload Assets</span>
-					<input type="file" name="files[]" id="tempalteAdd-upload-template" class="originUI-uploadInput" ng:model="originTemplates.editor.content.file_storyboard" multiple="multiple" panel-upload>
+					<input type="file" name="files[]" id="templateAdd-upload-template" class="originUI-uploadInput" multiple="multiple" panel-upload>
 				</div>
 			</li>
 		</ul>
@@ -181,6 +181,7 @@
 
 	<div modal="settingsModal" close="settingsModalClose()" options="creatorModalOptions">
 		<form id="settings-modal" class="originUI-bgColorSecondary">
+			<input type="hidden" name="uploadDir" value="/assets/creator/<?php echo $this->params['originAd_id'];?>/"/>
 			<input type="hidden" ng:model="editor.config.template"/>
 			<h3 id="settingsModal-header" class="originUiModal-header originUI-borderColor originUI-textColor">Settings</h3>
 			<div class="originUI-modalContent">
@@ -215,6 +216,15 @@
 								<div class="originUI-fieldBracket"></div>
 								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.config.ga_id"/>
 							</div>
+						</li>
+						<li>
+							<div id="" class="originUI-upload originUI-icon originUiIcon-upload">
+								<span class="originUI-uploadLabel">Upload Assets</span>
+								<input type="file" name="files[]" id="settings-upload-image" class="originUI-uploadInput" ng:model="editor.content.img_thumbnail" fileupload>
+							</div>
+						</li>
+						<li>
+							<img ng:src="editor.content.img_thumbnail"/>
 						</li>
 					</ul>
 				</div>

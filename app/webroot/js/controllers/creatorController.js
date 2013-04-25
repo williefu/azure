@@ -32,7 +32,7 @@ originApp.value('ui.config', {
     }
 });
 
-var creatorController = function($scope, $filter, Origin, Notification) {
+var creatorController = function($scope, $filter, Origin) {
 	$scope.editor				= {};	//Editor model
 	$scope.ad 					= {};
 	$scope.ad.content 			= {};
@@ -51,7 +51,6 @@ var creatorController = function($scope, $filter, Origin, Notification) {
 	$scope.ui.platform			= 'Desktop';
 	$scope.layers				= {};
 	$scope.library				= {};
-	$scope.dimensions			= ['Desktop', 'Tablet', 'Mobile'];
 	$scope.creatorModalOptions	= {
 		backdropClick: 	false,
 		backdropFade:	true
@@ -198,6 +197,7 @@ height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.pl
 					'top':	'0px',
 					'width': '32px'
 				},
+				type: content.alias,
 				remove: false
 			}
 		}
@@ -217,7 +217,7 @@ height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.pl
 		Origin.post($scope.editor).then(function(response) {
 			$scope.creatorModal	= false;
 			$scope.refreshUI(response);
-			Notification.message({'content': 'Content saved'});
+			$scope.$parent.notificationOpen('Content saved');
 		});
 	}
 	
@@ -235,8 +235,7 @@ height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.pl
 			Origin.post($scope.editor).then(function(response) {
 				$scope.creatorModal	= false;
 				$scope.refreshUI(response);
-				Notification.message({'content': 'Content deleted', 'type': 'alert'});
-				//Notification.message({'title': 'Removed', 'content': 'Content deleted'});
+				$scope.$parent.notificationOpen('Content deleted', 'alert');
 			});	
 		} else {
 			return false;
@@ -256,8 +255,7 @@ height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.pl
 		Origin.post($scope.editor).then(function(response) {
 			$scope.editor = {};
 			$scope.refreshUI(response);
-			Notification.message({'content': 'Asset added to workspace'});
-			//Notification.message({'title': 'Added', 'content': 'Asset added to workspace'});
+			$scope.$parent.notificationOpen('Asset added to workspace');
 		});
 	}
 	
@@ -299,7 +297,7 @@ height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.pl
 		
 		Origin.post($scope.editor).then(function() {
 			$scope.settingsModalClose();
-			Notification.message({'content': 'Settings updated'});
+			$scope.$parent.notificationOpen('Settings updated', 'alert');
 		});
 	}
 	
@@ -316,7 +314,7 @@ height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.pl
 	$scope.workspaceUndo = function() {
 		Origin.get('ad/'+originAd_id).then(function(response) {
 			$scope.refreshUI(response);
-			Notification.message({'content': 'Previous workspace loaded'});
+			$scope.$parent.notificationOpen('Previous workspace loaded', 'alert');
 			$j('#actions-wrapper').fadeOut(200);
 		});
 	}
@@ -329,7 +327,7 @@ height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.pl
 		$scope.editor.route					= 'creatorWorkspaceUpdate';
 		
 		Origin.post($scope.editor).then(function() {
-			Notification.message({'content': 'Workspace saved'});
+			$scope.$parent.notificationOpen('Workspace saved');
 			$j('#actions-wrapper').fadeOut(200);
 		});
 	}

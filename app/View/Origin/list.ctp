@@ -1,4 +1,25 @@
-<div id="ad-list" ng:controller="originAds" class="">
+<div id="ad-list" ng:controller="listController" class="">
+	<h2 class="originUI-header">Ad Manager</h2>
+	<div id="adList-left" class="inline">
+		<a href="/administrator/Origin/ad/edit/{{ad.OriginAd.id}}" class="adList-item originUI-bgColor originUI-shadow originUI-borderColor" ng:repeat="ad in ads" ng:click="loadModule(ad)" back-img="{{ad.OriginAd.content.img_thumbnail}}">
+			<div class="adList-itemMeta">
+				<div class="adList-itemId">{{ad.OriginAd.id}}</div>
+				<div class="adList-itemName">{{ad.OriginAd.name}}</div>
+				<div class="adList-itemDescription">{{ad.OriginAd.content.description}}</div>
+			</div>
+			<div class="adList-itemLookUp"></div>
+		</a>
+	</div><!--
+	--><div id="adList-right" class="inline">
+	
+		<a href="javascript:void(0)" id="adList-create" class="originUI-bgColor originUI-shadow">
+			<h3 id="adList-createHeader" class="originUI-tileHeader originUI-borderColor originUI-textColor">Create New Ad</h3>
+		</a>
+		
+		<div id="adList-module" class="originUI-bgColor originUI-shadow"></div>
+	</div>
+
+<?php /*
 	<h2 class="originUI-header">Ad Listing</h2>
 	<div id="adList-add" class="adList-item originUI-tiles" ng:click="adCreateModalOpen()">
     	<div class="originTile-title">Create New Ad</div>
@@ -35,25 +56,9 @@
 			</div>
 	    </form>
     </div>
+    
+    */?>
 </div>
-
 <?php
-	
-	/*
-	select as label for value in array
-	array = [{ "value": 1, "text": "1st" }, { "value": 2, "text": "2nd" }];
-
-<select ng-options="obj.value as obj.text for obj in array"></select>
-	
-	
-	<a href="index.php?option=com_emc_origin&task=edit&id={{item.id}}" id="list-item-{{item.id}}" class="list-items" ng:repeat="item in listShown" ng:class="{{item.status}} {{item.type}}" list-item>
-				<div class="item-preview" style="background-image: url(/assets/components/com_emc_origin/{{item.id}}/{{item.config.triggered_desktop}})"></div>
-				<span class="item-id">{{item.id}}</span>
-				<div class="item-caption">
-					<span class="item-title">{{item.name}}</span>
-					<span class="item-modified">Last modified by {{item.modified_by}} on {{item.modify_date}}</span>
-				</div>
-			</a>
-			
-			
-	*/
+	echo $this->Minify->script(array('controllers/listController'));
+?>

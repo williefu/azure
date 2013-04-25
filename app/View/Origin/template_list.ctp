@@ -18,7 +18,7 @@
 				<th class="originUI-tableHeadStatus">&nbsp;</th>
 				<th class="originUI-tableHeadName" ng:click="templateFilter='OriginTemplate.name';reverse=!reverse">Name</th>
 				<th class="originUI-tableHeadDescription">Description</th>
-				<th class="originUI-tableHeadGroup" ng:click="componentFilter='OriginTemplate.config.type';reverse=!reverse">Type</th>
+				<th class="originUI-tableHeadGroup" ng:click="templateFilter='OriginTemplate.config.type';reverse=!reverse">Type</th>
 			</thead>
 			<tbody class="originUI-tableBody">
 				<tr class="originUI-tableRow" ng:repeat="template in templates|orderBy:templateFilter:reverse|filter:searchOrigin">
