@@ -67,14 +67,11 @@ class Monitor extends AppModel {
 	
 	function pullAnalyticsData($dimensions=false, $metrics, $sort, $start_date, $end_date, $save=false, $filters=false) {
 		//Google count
-		$login = '';
-		//si-tech@gorillanation.com
-		$password = '';
+		$login = Configure::read ( "Monitor.login" );
+		
+		$password = Configure::read ( "Monitor.password" );
 
-		//SI Event Tracking Table Id
-		//$id = 'ga:26782196';
-		//Evolve Origin Table Id
-		$id = 'ga:50292723';
+		$id = Configure::read ( "Monitor.origin_table_id" );
 		
 		App::import('Vendor', 'ga_api');
 		
