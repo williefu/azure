@@ -31,10 +31,7 @@ var origin = (function() {
 					//originScript.parentNode.insertBefore(ad, originScript);
 					document.body.insertBefore(ad, document.body.firstChild)
 					
-					/*
-					document.body.insertBefore(ad, document.body.firstChild);
-			document.body.appendChild(originCSS);
-					*/
+					//document.body.appendChild(originCSS);
 					break;
 				default:
 					originScript.parentNode.insertBefore(ad, originScript);

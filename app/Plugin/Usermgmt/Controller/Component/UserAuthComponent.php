@@ -91,6 +91,7 @@ class UserAuthComponent extends Component {
 			}
 		}
 	}
+	
 	/**
 	 * Used to check whether user is logged in or not
 	 *

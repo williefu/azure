@@ -26,7 +26,6 @@ var originXd = (function() {
 
 	var response = {
 		containerInit: function(data) {
-			//console.log(data);
 			var originAd		= document.getElementById(data.id);
 				originAd.width	= data.width;
 				originAd.height	= data.height;

@@ -14,7 +14,7 @@
 		
 		<?php if($userId) {?>
 		<div id="originBar-settings" class="">
-			<div class="originUI-icon originUiIcon-settings originUI-borderColor dropdown-toggle">Settings</div>
+			<div id="originBar-settingsIcon" class="originUI-borderColor dropdown-toggle">Settings</div>
 			<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
 				<?php if($this->UserAuth->isAdmin()) { ?>
 				<li>

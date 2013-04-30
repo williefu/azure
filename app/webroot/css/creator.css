@@ -597,38 +597,7 @@ body {
 /***** END: EDITOR *****/
 
 /***** START: EMBED MODAL *****/
-#embedModal-header {
-	background: transparent url(/img/header-embed.png) no-repeat 10px center;
-}
 
-#embedModal-content {
-	margin: 10px auto 0;
-	width: 100%;
-	height: 135px;
-	border: 1px solid #444444;
-}
-
-#embedModal-config {
-	border-top: 1px solid #444444;
-	margin: 15px;
-}
-
-#embedModal-config .originUI-list,
-#embedModal-config .originUI-input {
-	text-align: center;
-	text-indent: 0;
-}
-
-#embedModal-config .originUI-list > li {
-	display: inline-block;
-	width: 135px;
-	margin: 0 5px
-}
-
-#embedModal-config .originUI-field {
-	width: 60%;
-	margin: 0 auto;
-}
 /***** END: EMBED MODAL *****/
 
 /***** START: SETTINGS MODAL *****/

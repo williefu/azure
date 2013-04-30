@@ -8,11 +8,14 @@
 		</div>
 	
 		<div id="originDemoContent-center" class="originUI-borderColor">
-			<img src="http://placehold.it/970x300"/>
+			<img src="http://placehold.it/970x250"/>
 		</div>
 		<div id="originDemoContent-wrapper" class="originUI-bgColor">		
 			<div id="originDemoContent-left" class="inline">
-				left
+				<img src="http://placehold.it/645x100"/>
+				<img src="http://placehold.it/205x100"/><!--
+				--><img src="http://placehold.it/205x100"/><!--
+				--><img src="http://placehold.it/205x100"/>
 			</div><!--
 			--><div id="originDemoContent-right" class="inline">
 					<div class="adPlacement">
@@ -27,4 +30,4 @@
 
 </div>
 <?
-	echo $this->Minify->css(array('demo/originDemo'));
+	echo $this->Minify->css(array('origin', 'demo/originDemo'));

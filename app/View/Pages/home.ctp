@@ -1,12 +1,10 @@
 <div ng:controller="homeController">
 	<div id="homepage-showcase">
 		<div style="width: 200%;">
-			<img src="http://placehold.it/300x150"/>
-			<img src="http://placehold.it/300x150"/>
-			<img src="http://placehold.it/300x150"/>
-			<img src="http://placehold.it/300x150"/>
-			<img src="http://placehold.it/300x150"/>
-			<img src="http://placehold.it/300x150"/>
+			<a href="/demo/Origin/{{ad.OriginAd.id}}" class="showcase-ad originUI-borderColor" target="_blank" ng:repeat="ad in ads|limitTo:10|filter:{OriginAd.showcase:1}">
+				<img class="showcase-adImage" ng:src="{{ad.OriginAd.content.img_thumbnail}}"/>
+				<span class="showcase-adTitle originUI-bgColor">{{ad.OriginAd.name}}</span>
+			</a>
 		</div>
 	</div>
 	

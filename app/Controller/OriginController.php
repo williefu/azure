@@ -15,13 +15,13 @@ class OriginController extends AppController {
 								'OriginAdTabletTriggeredContent',
 								'OriginAdMobileInitialContent', 
 								'OriginAdMobileTriggeredContent',
-								'Usermgmt.User', 
+								'Usermgmt.User',
 								'Usermgmt.UserGroup', 
 								'Usermgmt.LoginToken');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->User->userAuth=$this->UserAuth;
+		$this->User->userAuth = $this->UserAuth;
 	}
 	
 /* =======================================================================
@@ -205,12 +205,7 @@ class OriginController extends AppController {
 		}	
 	}
 	
-	/**
-	* Origin ad template manager
-	*/
-	public function templateList() {
-		$this->set('title_for_layout', 'Ad Templates');
-	}
+
 	
 	/**
 	* ?
@@ -219,23 +214,10 @@ class OriginController extends AppController {
 		
 	}
 	
-	/**
-	* Origin ad component manager
-	*/
-	public function componentList() {
-		$this->set('title_for_layout', 'Ad Components');
-	}
+
 	
 		
-	/**
-	* Loads a specified ad component
-	*/
-	public function loadComponent() {
-		$this->layout 	= 'components';
-		$component 		= $this->request->params['component'];
-		$this->set('component', $component);
-	}
-	
+
 	
 	
 	
@@ -316,36 +298,38 @@ class OriginController extends AppController {
 		);
 		$this->set('originAd_platform', $originAd_platform);
 		$this->set('origin_ad', $origin_ad);
-		
-		
-		
-		/*
-		$article = $this->News->find('first',array(
-		'contain' =>  array(
-		    'Newslayout', 
-		    'Newspicture'=> array(
-		        'NewspicturesProduct' => array(
-		            'conditions'=>array('NewspicturesProduct.newspicture_id'=>'3')
-		            'Product' => array(
-		                'Brand',
-		                'Category'
-		            )
-		    )))
-		));
-		
-		*/
-		
-/*
-		$this->set('originAd_platform', $this->request->params['originAd_platform']);
-		$this->jsonAdUnit($this->request->params['originAd_id']);	
-*/
 	}
 
 /* =======================================================================
 	Ad components
 ========================================================================== */
+	/**
+	* Loads the component model
+	*/
+	private function _loadOriginComponent() {
+		$origin_components	= $this->OriginComponent->find('all', 
+			array('order'=>array('OriginComponent.name ASC'))
+		);
+		$this->set('origin_components', $origin_components);
+		return $this->render('/Origin/json/json_component');
+	}
 
-		
+	/**
+	* Origin ad component manager
+	*/
+	public function componentList() {
+		$this->set('title_for_layout', 'Ad Components');
+	}
+	
+	/**
+	* Loads a specified ad component
+	*/
+	public function loadComponent() {
+		$this->layout 	= 'components';
+		$component 		= $this->request->params['component'];
+		$this->set('component', $component);
+	}
+	
 /* =======================================================================
 	Demo page of Origin units (both administrator and public)
 ========================================================================== */
@@ -377,7 +361,6 @@ class OriginController extends AppController {
 			)
 		);
 		$this->set('demo', $demo);
-		
 	}
 	
 	/**
@@ -398,6 +381,15 @@ class OriginController extends AppController {
 		//$this->jsonAdUnit($this->request->params['originAd_id']);
 		
 		//$this->render('/Origin/json/json_ad_unit');	
+	}
+	
+	/**
+	* Default Origin Demo page
+	*/
+	public function demoOrigin() {
+		$this->layout 	= 'demo_public';
+		$this->set('title_for_layout', 'Origin Demo');
+		$this->set('origin_ad', $this->request->params['originAd_id']);
 	}
 
 	/**
@@ -467,8 +459,24 @@ class OriginController extends AppController {
 /* =======================================================================
 	Ad Templates
 ========================================================================== */
-
-
+	/**
+	* Loads the template model
+	*/
+	private function _loadOriginTemplate() {
+		$origin_templates	= $this->OriginTemplate->find('all', 
+			array('order'=>array('OriginTemplate.name ASC'))
+		);
+		$this->set('origin_templates', $origin_templates);
+		return $this->render('/Origin/json/json_template');
+	}
+	
+	/**
+	* Origin ad template manager
+	*/
+	public function templateList() {
+		$this->set('title_for_layout', 'Ad Templates');
+	}
+	
 /* =======================================================================
 	JSON feeds
 ========================================================================== */	
@@ -503,6 +511,21 @@ class OriginController extends AppController {
 	}
 	
 	/**
+	* JSON feed of a demos for a specific ad unit
+	*/
+	public function jsonDemo() {
+		$originAd_id	= $this->request->params['originAd_id'];
+		$origin_demo 	= $this->OriginDemo->find('all', 
+			array(
+				'conditions'=>array(
+					'OriginDemo.origin_ad_id'=>$originAd_id
+				)
+			)
+		);
+		$this->set('origin_demo', $origin_demo);
+	}
+	
+	/**
 	* JSON feed of a specific Origin ad unit's library
 	*/
 	public function jsonLibrary() {
@@ -513,8 +536,15 @@ class OriginController extends AppController {
 	* JSON feed of all Origin ad units
 	*/
 	public function jsonList() {
-		$origin_ads		= $this->OriginAd->find('all', array('recursive'=>-1));
+		$origin_ads		= $this->OriginAd->find('all', 
+			array(
+				'order'=>array('OriginAd.id DESC'),
+				'recursive'=>-1
+			));
+		$users			= $this->User->find('all');
+		
 		$this->set('origin_ads', $origin_ads);
+		$this->set('users', $users);
 	}
 	
 	/**
@@ -583,22 +613,34 @@ class OriginController extends AppController {
 	* Creates a new Origin ad unit
 	*/
 	private function adCreate($data) {
+		$tempContent			= $data['content'];
+		$data['content']		= json_encode($data['content']);
 		$data['config']			= json_encode($data['config']);
 		$data['create_by']		= $this->UserAuth->getUserId();
 		$data['modify_by']		= $this->UserAuth->getUserId();
 		$data['modify_date']	= date('Y-m-d H:i:s');
 		
 		if($this->OriginAd->save($data)) {
-			
 			$schedule['origin_ad_id']	= $this->OriginAd->id;
 			$this->OriginAdSchedule->save($schedule);
-			
 			$assets		= '../webroot/assets/creator/'.$this->OriginAd->id;
-			
 			if(!is_dir($assets)) {
 				mkdir($assets, 0777, true);
 			}
 			
+			//Move optional temporary image into new location			
+			if(isset($tempContent['img_thumbnail'])) {
+				$newLocation 	= '/assets/creator/'.$this->OriginAd->id.'/'.basename($tempContent['img_thumbnail']);
+			
+				rename('../webroot'.$tempContent['img_thumbnail'], '../webroot'.$newLocation);
+				
+				$updateData['id']						= $this->OriginAd->id;
+				$updateData['content']['img_thumbnail']	= $newLocation;
+				$updateData['content']['ga_id']			= $tempContent['ga_id'];
+				$updateData['content']					= json_encode($updateData['content']);
+				
+				$this->OriginAd->save($updateData);
+			}
 			return '/administrator/Origin/ad/edit/'.$this->OriginAd->id;
 		}
 	}

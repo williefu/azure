@@ -5,7 +5,7 @@
 	<title><?php echo $title_for_layout;?> | Origin</title>
 	<link rel="shortcut icon" href="/favicon.ico"/>
 	<?php
-		echo $this->Minify->css(array('normalize', 'bootstrap', 'chardinjs', 'origin', 'demo'));
+		echo $this->Minify->css(array('normalize', 'bootstrap', 'chardinjs', 'origin', 'origin-new', 'demo'));
 		echo $this->Minify->script(array('jquery/jquery', 'jquery/jquery.ui.widget', 'jquery/jquery.fileupload', 'jquery/chardinjs.min', 'angularjs', 'angular-ui', 'angularui-bootstrap', 'origin', 'controller', 'controllers/demoController', 'services', 'directives', 'filters'));
 	?>
 </head>

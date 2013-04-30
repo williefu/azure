@@ -121,11 +121,11 @@
 	</div>
 	
 	<div modal="creatorModal" close="creatorModalClose()" options="creatorModalOptions">
-		<form id="creator-modal" class="originUI-bgColorSecondary" ng:class="workspace.modal.alias">
-			<h3 id="creatorModal-header" class="originUiModal-header originUI-borderColor originUI-textColor" back-img='{{workspace.modal.image}}'>{{workspace.modal.title}}</h3>
+		<form id="creator-modal" class="originUI-bgColorSecondary originUI-modal" ng:class="workspace.modal.alias">
+			<h3 id="creatorModal-header" class="originUI-tileHeader originUI-borderColor originUI-textColor" back-img='{{workspace.modal.image}}'>{{workspace.modal.title}}</h3>
 			
 			<a href="javascript:void(0)" id="creatorModal-remove" ng:click="creatorModalRemove(editor)" ng:show="editor.remove">remove</a>
-			<div id="creatorModal-content" class="originUiModal-content">
+			<div id="creatorModal-content" class="originUI-modalContent">
 				<div ng:include src="editor.template"></div>
 			</div>
 			
@@ -171,71 +171,25 @@
 -->
 				</ul>
 			</div>
-			<div class="originUiModal-footer">
-				<div class="originUiModalFooter-left" ng:click="creatorModalClose()">Cancel</div>
-				<div class="originUiModalFooter-right" ng:click="creatorModalSave()">Save</div>
+			<div class="originUI-tileFooter">
+				<div class="originUI-tileFooterLeft" ng:click="creatorModalClose()">Cancel</div>
+				<div class="originUI-tileFooterRight" ng:click="creatorModalSave()">Save</div>
 			</div>
 		</form>
 	</div>
 
 
 	<div modal="settingsModal" close="settingsModalClose()" options="creatorModalOptions">
-		<form id="settings-modal" class="originUI-bgColorSecondary">
+		<form id="settings-modal" class="originUI-bgColorSecondary originUI-modal">
 			<input type="hidden" name="uploadDir" value="/assets/creator/<?php echo $this->params['originAd_id'];?>/"/>
 			<input type="hidden" ng:model="editor.config.template"/>
-			<h3 id="settingsModal-header" class="originUiModal-header originUI-borderColor originUI-textColor">Settings</h3>
+			<h3 id="settingsModal-header" class="originUI-tileHeader originUI-borderColor originUI-textColor">Settings</h3>
 			<div class="originUI-modalContent">
-				<div class="originUI-modalLeft">
-					<ul class="originUI-list">
-						<li>
-							<label class="inline">Name</label>
-							<div class="originUI-field inline">
-								<div class="originUI-fieldBracket"></div>
-								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.name"/>
-							</div>
-						</li>
-						<li id="settingsModal-status">
-							<label class="inline">Status</label>
-							<div class="originUI-switch inline">
-						    <input type="checkbox" name="statusSwitch" class="originUI-switchInput" id="statusSwitch" ng:model="editor.status" ng:checked="editor.statusSwitch">
-						    <label class="originUI-switchLabel" for="statusSwitch">
-						    	<div class="originUI-switchInner">
-						    		<div class="originUI-switchActive">
-						    			<div class="originUI-switchText">Active</div>
-								    </div>
-								    <div class="originUI-switchInactive">
-								    	<div class="originUI-switchText">Inactive</div>
-									</div>
-							    </div>
-						    </label>
-					    </div> 
-						</li>
-						<li>
-							<label class="inline">Google Analytics Tracking</label>
-							<div class="originUI-field inline">
-								<div class="originUI-fieldBracket"></div>
-								<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="editor.config.ga_id"/>
-							</div>
-						</li>
-						<li>
-							<div id="" class="originUI-upload originUI-icon originUiIcon-upload">
-								<span class="originUI-uploadLabel">Upload Assets</span>
-								<input type="file" name="files[]" id="settings-upload-image" class="originUI-uploadInput" ng:model="editor.content.img_thumbnail" fileupload>
-							</div>
-						</li>
-						<li>
-							<img ng:src="editor.content.img_thumbnail"/>
-						</li>
-					</ul>
-				</div>
-				<div class="originUI-modalRight">
-					<?php echo $this->element('form_template', array('view'=>'right', 'editor' => 'editor'));?>
-				</div>
-				<div class="clear"></div>
+				<?php echo $this->element('form_create');?>
 			</div>
-			<div class="originUiModal-footer">
-				<div class="originUiModalFooter-left" ng:click="settingsModalClose()">Cancel</div>
-				<div class="originUiModalFooter-right" ng:click="settingsModalSave()">Save</div>
+			<div class="originUI-tileFooter">
+				<div class="originUI-tileFooterLeft" ng:click="settingsModalClose()">Cancel</div>
+				<div class="originUI-tileFooterRight" ng:click="settingsModalSave()">Save</div>
 			</div>
 		</form>
 	</div>
@@ -243,44 +197,15 @@
 	
 	
 	<div modal="embedModal" close="embedModalClose()" options="creatorModalOptions">
-		<form id="embed-modal" class="originUI-bgColorSecondary">
-			<h3 id="embedModal-header" class="originUiModal-header originUI-borderColor originUI-textColor">Ad Embed Code</h3>
+		<form id="embed-modal" class="originUI-bgColorSecondary originUI-modal">
+			<h3 id="embedModal-header" class="originUI-tileHeader originUI-borderColor originUI-textColor">Ad Embed Code</h3>
 			
-			<div class="originUiModal-content">
-				<div class="originUI-field">
-					<div class="originUI-fieldBracket"></div>
-					<textarea id="embedModal-content" class="originUI-textarea originUI-bgColorSecondary"><script type="text/javascript" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/min-js?f=/js/ad/origin.js" data-auto="{{embedOptions.auto}}" data-close="{{embedOptions.close}}" data-hover="{{embedOptions.hover}}" data-dcopt="true" data-id="<?php echo $this->params['originAd_id'];?>" data-type="{{workspace.ad.OriginAd.config.template}}" data-xd="local.origin_test_prod" data-init="true"></script></textarea>
-				</div>
+			<div class="originUI-modalContent">
+				<?php echo $this->element('form_embed');?>
 			</div>
-			<div id="embedModal-config">
-				<h4>Config</h4>
-				<ul class="originUI-list">
-					<li>
-						<label>Frequency Cap (per 24hrs)</label>
-						<div class="originUI-field">
-							<div class="originUI-fieldBracket"></div>
-							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="embedOptions.auto"/>
-						</div>
-					</li>
-					<li>
-						<label>Close Timer (seconds)</label>
-						<div class="originUI-field">
-							<div class="originUI-fieldBracket"></div>
-							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="embedOptions.close"/>
-						</div>
-					</li>
-					<li>
-						<label>Hover Delay (seconds)</label>
-						<div class="originUI-field">
-							<div class="originUI-fieldBracket"></div>
-							<input type="text" class="originUI-input originUI-bgColorSecondary" ng:model="embedOptions.hover"/>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<div class="originUiModal-footer">
-				<div class="originUiModalFooter-left" ng:click="embedModalClose()">Close</div>
-				<div class="originUiModalFooter-right" ng:click="embedModalEmail()">Email Code</div>
+			<div class="originUI-tileFooter">
+				<div class="originUI-tileFooterLeft" ng:click="embedModalClose()">Close</div>
+				<div class="originUI-tileFooterRight" ng:click="embedModalEmail()">Email Code</div>
 			</div>
 		</form>
 	</div>

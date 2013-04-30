@@ -53,9 +53,9 @@
 				</div>
 				<div class="clear"></div>		
 			</div>
-			<div class="originUiModal-footer">
-				<div class="originUiModalFooter-left" ng:click="$parent.originModalClose()">Cancel</div>
-				<div class="originUiModalFooter-right" ng:click="templateSave()">Save</div>
+			<div class="originUI-tileFooter">
+				<div class="originUI-tileFooterLeft" ng:click="$parent.originModalClose()">Cancel</div>
+				<div class="originUI-tileFooterRight" ng:click="templateSave()">Save</div>
 			</div>
 		</form>
 	</div>

@@ -6,6 +6,23 @@ $j(function() {
 	$j('#originBar-help').click(function() {
 		$j('body').chardinJs('start');
 	});
+	
+	
+	var fixed = $j('#origin-bar');
+	
+    $j(window).scroll(function () {
+        if($j(this).scrollTop() > 0) {
+            fixed.addClass('originUI-fixed');
+        } else {
+            fixed.removeClass('originUI-fixed');
+        }
+    });
+	
+	
+	
+	
+	
+	
 });
 
 var notification = {

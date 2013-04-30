@@ -289,6 +289,10 @@ input:-ms-input-placeholder {
 	height: 25px;
 }
 
+.originUI-select:focus {
+    outline: none;
+}
+
 /*
 .originUI-selectLabel {
 	display: block;
@@ -452,31 +456,12 @@ height: 26px;
 }
 
 
-.originUI-upload {
-	position: relative;
-	overflow: hidden;
-	text-indent: 12px !important;
-}
-
-.originUI-uploadLabel {
-	position: absolute;
-}
-
-.originUI-uploadInput {
-	cursor: pointer;
-	font-size: 500px;
-	height: 100%;
-	opacity: .3;
-	position: absolute;
-	right: 0;
-	opacity: 0;
-}
+/***** REMOVE 
 
 .originUI-icon {
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: center center;
-	/* border: 0 none; */
 	display: inline-block;
 	vertical-align: top;
 	text-indent: -5000em;
@@ -485,12 +470,7 @@ height: 26px;
 	cursor: pointer;
 }
 
-/*
-.originUI-iconWrapper:hover,
-.originUI-icon:hover {
-	transform: scale(1.02, 1.02);
-}
-*/
+
 
 .originUiIcon-forward {
 	background-image: url(/img/icon-forward.png);
@@ -510,8 +490,6 @@ height: 26px;
 	border-width: 0 0 5px;
 	height: 32px;
 	background-position: center 6px;
-	/* background-color: #282828; */
-	/* background-color: rgba(255, 255, 255, .1); */	
 }
 
 .originUiButton-bottom-left,
@@ -556,8 +534,6 @@ height: 26px;
 }
 
 .originUiModal-header {
-	/* color: #0099cc; */
-	/* border-bottom: 2px solid #0099cc; */
 	border-style: solid;
 	border-width: 0 0 2px;
 	text-indent: 45px;
@@ -626,14 +602,6 @@ height: 26px;
 	border-right: 1px solid #444444;
 }
 
-/*
-.originUiModalFooter-center,
-.originUiModalFooter-right {
-	background: transparent url(/img/icon-next.png) no-repeat 175px 13px;
-	right: 0;
-}
-*/
-
 .originUiIcon-cancel {
 	background-image: url(/img/icon-cancel.png);
 }
@@ -645,11 +613,7 @@ height: 26px;
 .originUiIcon-save {
 	background-image: url(/img/icon-check.png);
 }
-
-.originUiIcon-upload {
-	background-image: url(/img/icon-upload-small.png);
-	background-position: left center;
-}
+******/
 
 .originUI-table {
 	margin: 0 0 10px;
@@ -742,101 +706,6 @@ height: 26px;
 
 
 /***** START: ORIGIN BAR *****/
-#origin-bar {
-	width: 100%;
-	height: 37px;
-	border-width: 0 0 1px;
-	border-style: solid;
-	/* border-bottom: 1px solid rgba(0, 153, 204, 1); */
-	background-color: #000;	
-	/* border-bottom: 1px solid rgba(255, 255, 255, .25); */
-}
-
-#originBar-logo {
-	background: transparent url(/img/logo-small.png) no-repeat center center;
-	width: 110px;
-	height: inherit;
-	text-indent: -5000em;
-	display: block;
-}
-
-#originBar-logo:hover {
-	height: 32px;
-	background-position: center 9px;
-	border-width: 0 0 5px;
-	border-style: solid;
-	/* background-color: #282828; */
-	/* border-bottom: 5px solid #0099CC; */
-	/* background-color: rgba(255, 255, 255, .1); */
-}
-
-#originBar-login,
-#originBar-settings {
-	height: inherit;
-	position: absolute;
-	right: 0;
-	top: 0;
-}
-
-#originBar-search {
-	width: 300px;
-	left: 50%;
-	top: 50%;
-	margin: -13px 0 0 -150px;
-	position: absolute;
-/*
-	background-image: url('/img/icon-search.png');
-	background-position: right center;
-	background-repeat: no-repeat;
-*/
-}
-
-#originBar-search .originUI-input {
-	background-image: url('/img/icon-search.png');
-	background-position: 2px center;
-	background-repeat: no-repeat;
-	text-indent: 25px;
-}
-
-
-#originBar-settings .dropdown-menu {
-	right: 0;
-	left: auto;
-	border-width: 0 3px 1px 0;
-	border-style: solid;
-}
-/*
-#originBar-settings .dropdown-menu a:hover {
-}
-
-#originBar-settings .dropdown-menu a:hover {
-	color: #000;
-	background-image: none;
-	background-color: #bdbdbd;
-}
-*/
-
-#originBar-settings a.originBar-settings {
-	background-repeat: no-repeat;
-	background-position: 10px center;
-	text-indent: 10px;
-}
-
-#originBar-dashboard {
-	background-image: url(/img/dropdown-dashboard.png);
-}
-
-#originBar-account {
-	background-image: url(/img/dropdown-account.png);
-}
-
-#originBar-help {
-	background-image: url(/img/dropdown-help.png);
-}
-
-#originBar-logout {
-	background-image: url(/img/dropdown-exit.png);
-}
 
 /***** END: ORIGIN BAR *****/
 

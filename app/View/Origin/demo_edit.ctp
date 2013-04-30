@@ -38,7 +38,7 @@
 				    </div>
 					</li>
 					<li>
-						<div class="originUI-upload originUI-icon originUiIcon-upload">
+						<div class="originUI-upload">
 							<span class="originUI-uploadLabel">Reskin Image</span>
 							<input type="file" name="files[]" id="demoPanel-upload-icon" class="originUI-uploadInput" ng:model="demo.reskin_img" fileupload>
 						</div>

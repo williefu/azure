@@ -87,6 +87,19 @@ var creatorController = function($scope, $filter, Origin) {
 					$scope.updateUI();
 				});	
 			//});
+			
+			
+			
+			
+			
+			Origin.get('templates').then(function(response) {
+				$scope.templates		= response;
+			});
+			
+			
+			
+			
+			
 		});
 	});
 	
@@ -284,10 +297,40 @@ height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.pl
 	* Settings modal
 	*/
 	$scope.settingsModalOpen = function() {
-		$scope.editor				= $scope.workspace.ad.OriginAd;
+		$scope.editor				= angular.copy($scope.workspace.ad.OriginAd);
+		$scope.editor.advance		= false;
 		$scope.editor.statusSwitch	= ($scope.editor.status === '1')? true: false;
+		$scope.editor.template 		= angular.copy($scope.editor.config.template);
 		$scope.settingsModal 		= true;
+		
+		
+		
+		//console.log($scope.editor.template);
+		//editor.template
 	}
+	
+	/**
+	* Settings modal's template toggle
+	*/	
+	$scope.templateToggle = function() {
+		switch($scope.editor.advance) {
+			case false:
+				$scope.editor.advance = true;
+				break;
+			case true:
+				$scope.editor.advance = false;
+				break;
+		}
+	}
+	
+	/**
+	* Settings modal's template toggle - Part deux (advanced)
+	*/
+	$scope.templateLoad = function() {
+		console.log($scope.editor.template);
+		//$scope.editor.config	= angular.copy($scope.editor.template.OriginTemplate.config);
+	}
+	
 	
 	/**
 	* Update Origin ad settings
