@@ -1,4 +1,4 @@
-<div class="originUI-modalLeft">
+<?php if($view === 'left') { ?>
 	<ul class="originUI-list">
 		<li>
 			<label class="inline adSettings-label">Name</label>
@@ -40,22 +40,20 @@
 			<img id="formCreate-preview" ng:src="{{editor.content.img_thumbnail}}"/>
 		</li>
 	</ul>
-</div><!--
---><div class="originUI-modalRight">
-		<a href="javascript:void(0)" id="formCreate-toggle" ng:click="templateToggle()"></a>
-		<select id="formCreate-template" class="originUI-select originUI-bgColorSecondary" ng:model="editor.template" ng:options="template.OriginTemplate.alias as template.OriginTemplate.name for template in templates" ng:change="templateLoad()">
-			<!-- <option style="display:none" value="">Select Template</option> -->
-		</select>
-		<div ng:show="editor.advance == false">
-			<div ng:show="editor.template == null">
-			</div>
-			<div ng:show="editor.template != ''">
-				<img ng:src="{{editor.template.OriginTemplate.content.file_storyboard}}"/>
-				{{editor.template.OriginTemplate.content.description}}
-			</div>
+<?php } else if($view === 'right') { ?>
+	<a href="javascript:void(0)" id="formCreate-toggle" ng:click="templateToggle()"></a>
+	<select id="formCreate-template" class="originUI-select originUI-bgColorSecondary" ng:model="editor.template" ng:options="template.OriginTemplate.name for template in templates" ng:change="templateLoad()">
+		<option style="display:none" value="">Select Template</option>
+	</select>
+	<div ng:show="editor.advance == false">
+		<div ng:show="editor.template == null">
 		</div>
-		<div ng:show="editor.advance == true">
-			<?php echo $this->element('form_template', array('view'=>'right', 'editor' => 'editor'));?>
+		<div ng:show="editor.template != ''">
+			<img ng:src="{{editor.template.OriginTemplate.content.file_storyboard}}"/>
+			{{editor.template.OriginTemplate.content.description}}
 		</div>
-</div>
-<div class="clear"></div>
+	</div>
+	<div ng:show="editor.advance == true">
+		<?php echo $this->element('form_template', array('view'=>'right', 'editor' => 'editor'));?>
+	</div>
+<?php } ?>

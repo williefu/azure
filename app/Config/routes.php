@@ -119,7 +119,7 @@ Router::connect('/administrator/list', array('controller'=>'origin', 'action'=>'
 Router::connect('/administrator/Origin/ad/edit/:originAd_id', array('controller'=>'origin', 'action'=>'edit'));
 
 //AD
-Router::connect('/ad/:originAd_id/:originAd_platform', array('controller'=>'origin', 'action'=>'ad'));
+Router::connect('/ad/:originAd_id/:originAd_platform/*', array('controller'=>'origin', 'action'=>'ad'));
 
 //Analytics
 Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor'));

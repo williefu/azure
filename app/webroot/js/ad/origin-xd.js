@@ -10,7 +10,6 @@ null):e.currentStyle)[f]);a.u=(/\d(\D+)$/.exec(a.to)||/\d(\D+)$/.exec(a.fr)||[0,
 f:e.filter=1<=f?"":"alpha("+g+"="+Math.round(100*f)+")"},color:function(a,e,f,b,g,d,c,j){a.ok||(f=a.to=h.toRGBA(f),b=a.fr=h.toRGBA(b),0==f[3]&&(f=[].concat(b),f[3]=0),0==b[3]&&(b=[].concat(f),b[3]=0),a.ok=1);j=[0,0,0,a.p*(f[3]-b[3])+1*b[3]];for(c=2;0<=c;c--)j[c]=Math.round(a.p*(f[c]-b[c])+1*b[c]);(1<=j[3]||h.rgbaIE)&&j.pop();try{a.s[g]=(3<j.length?"rgba(":"rgb(")+j.join(",")+")"}catch(k){h.rgbaIE=1}}};h.fx.height=h.fx.width;h.RGBA=/#(.)(.)(.)\b|#(..)(..)(..)\b|(\d+)%,(\d+)%,(\d+)%(?:,([\d\.]+))?|(\d+),(\d+),(\d+)(?:,([\d\.]+))?\b/;
 h.toRGBA=function(a,e){e=[0,0,0,0];a.replace(/\s/g,"").replace(h.RGBA,function(a,b,g,d,c,h,k,l,m,n,p,q,r,s,t){k=[b+b||c,g+g||h,d+d||k];b=[l,m,n];for(a=0;3>a;a++)k[a]=parseInt(k[a],16),b[a]=Math.round(2.55*b[a]);e=[k[0]||b[0]||q||0,k[1]||b[1]||r||0,k[2]||b[2]||s||0,p||t||1]});return e};return h}();
 
-
 var originXd = (function() {
 	XD.receiveMessage(function(message) {
 		try {
@@ -22,7 +21,7 @@ var originXd = (function() {
 		if(message.callback) response[message.callback](message);
 		
 		//if(message.template) response(message);
-	}, 'http://local.evolveorigin');
+	}, 'http://'+document.getElementById('origin-xd').getAttribute('data-domain'));
 
 	var response = {
 		containerInit: function(data) {
@@ -30,8 +29,26 @@ var originXd = (function() {
 				originAd.width	= data.width;
 				originAd.height	= data.height;
 		},
-		toggle: function(data) {
+		toggleExpand: function(data) {
 			anim(document.getElementById(data.id), {height:data.resizeTo}, data.duration, 'ease-out');
+		},
+		toggleOverlay: function(data) {
+			var originAdOverlay	= document.getElementById(data.idTriggered);
+			
+			/**
+			* Overlay toggle functionality works by setting a pre-made triggered iframe view
+			* to display and vice-versa to hide.
+			*/
+			switch(data.action) {
+				case 'close':
+					originAdOverlay.width	= '0';
+					originAdOverlay.height	= '0';
+					originAdOverlay.removeAttribute('src');
+					break;
+				case 'open':
+						originAdOverlay.src		= originAdOverlay.getAttribute('data-src');
+					break;
+			}
 		}
 	}
 	

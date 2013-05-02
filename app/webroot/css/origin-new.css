@@ -66,7 +66,7 @@
 }
 
 #origin-bar {
-	z-index: 9000;	
+	z-index: 900;	
 }
 
 
@@ -156,7 +156,7 @@
 	width: 300px;
 	left: 50%;
 	top: 50%;
-	margin: -13px 0 0 -150px;
+	margin: -10px 0 0 -150px;
 	position: absolute;
 }
 
@@ -436,7 +436,7 @@
 }
 
 .adTemplate-config {
-	width: 45%;
+	width: 20%;
 	margin: 5px;
 	text-align: center;
 	font-size: 14px;
@@ -456,7 +456,6 @@
 }
 
 #adTemplate-templateConfig .accordion-inner {
-	min-height: 151px;
 }
 
 #adTemplate-templateConfig .originUI-input {
@@ -516,9 +515,6 @@
 	background-image: url(/img/demo-26x26.png);
 }
 
-/* =======================================================================
-	Demo Manager
-========================================================================== */
 #user-createHeader {
 	background-image: url(/img/user-add-26x26.png);
 }
@@ -536,6 +532,36 @@
 	width: 100px;
 }
 
+#demo-panel {
+	width: 250px;
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 50%;
+	margin: -150px 0 0 0;
+	
+	border-width: 1px 3px 1px 0;
+	border-style: solid;
+}
+
+#demoPanel-header {
+	background: transparent url(/img/demo-26x26.png) no-repeat 10px center;
+}
+
+#demoPanelContent-auto {
+	
+}
+
+#demoPanelContent-auto .originUI-switch {
+	width: 75px;
+	margin: 0 0 0 10px;
+}
+
+#demoPanel-form .originUI-upload {
+	width: 100%;
+	font-size: 16px;
+}
+
 /* =======================================================================
 	Ad List Manager
 ========================================================================== */
@@ -550,7 +576,7 @@
 	height: 100px;
 	margin: 0 0 20px 0;
 	cursor: pointer;
-	border-width: 0 0 1px 3px;
+	border-width: 0 0 1px 2px;
 	border-style: solid;
 	position: relative;
 	background-position: right center;
@@ -734,12 +760,14 @@
 }
 
 #adSettings-modal.originUI-modalContent {
-	height: 265px;
+	height: 275px;
 }
 
+/*
 #adSettings-modal.originUI-modalContent.adList-moduleAdvance {
-	height: 310px;
+	height: 275px;
 }
+*/
 
 .adSettings-label {
 	width: 120px;	

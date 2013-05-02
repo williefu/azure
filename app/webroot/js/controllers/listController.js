@@ -46,7 +46,7 @@ var listController = function($scope, $filter, Origin) {
 		$scope.editor.content.img_thumbnail='';
 		$scope.editor.header		= 'Create New Ad';
 		$scope.editor.statusSwitch	= true;
-		$scope.editor.template 		= $scope.templates[0];
+		//$scope.editor.template 		= $scope.templates[0];
 		$scope.editor.type			= 'create';
 		$scope.$parent.originModalOpen();
 		//$scope.editorModal = angular.copy(model.OriginTemplate);
@@ -67,12 +67,10 @@ var listController = function($scope, $filter, Origin) {
 		delete $scope.editor.statusSwitch;
 		delete $scope.editor.template;
 		delete $scope.editor.type;
-		
+				
 		Origin.post($scope.editor).then(function(response) {
 			window.location		= response;
 		});
-		
-		//console.log($scope.editor);
 	}
 	
 	$scope.embedCreate = function() {
@@ -83,15 +81,6 @@ var listController = function($scope, $filter, Origin) {
 		
 		$scope.embedOptions.id	= $scope.module.id;
 		$scope.embedOptions.type= $scope.module.config.template;
-		
-		
-/*
-		$scope.embedOptions = {
-			'auto':		0,
-			'close':	0,
-			'hover':	0
-		};
-*/
 		$scope.$parent.originModalOpen();
 	}
 	
@@ -109,8 +98,7 @@ var listController = function($scope, $filter, Origin) {
 	}
 	
 	$scope.templateLoad = function() {
-		//console.log($scope.editor.template);
-		$scope.editor.config	= $scope.editor.template.OriginTemplate.config;
+		$scope.editor.config= $scope.editor.template.OriginTemplate.config;
 	}
 	
 	$scope.templateToggle = function() {

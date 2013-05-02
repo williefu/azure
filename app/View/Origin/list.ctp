@@ -20,48 +20,6 @@
 			<img class="adList-itemImage" ng:src="{{ad.OriginAd.content.img_thumbnail}}"/>
 			<div class="adList-itemLookUp" ng:click="loadModule(ad)"></div>
 		</div>
-		<div class="adList-item originUI-bgColor originUI-shadow originUI-borderColor" ng:repeat="ad in ads|filter:searchOrigin" ng:class="{'adList-itemActive':ad.OriginAd.id == module.id}">
-			<div class="adList-itemMeta">
-				<div class="adList-itemId">{{ad.OriginAd.id}}</div>
-				<div class="adList-itemName originUI-borderColor">{{ad.OriginAd.name}}</div>
-				<div class="adList-itemDetails">
-					<div class="adList-itemModify">Last Modified {{ad.OriginAd.modify_date}} by {{ad.OriginAd.modify_by}}</div>
-					<div class="adList-itemCreate">Created {{ad.OriginAd.create_date}} by {{ad.OriginAd.create_by}}</div>
-				</div>
-				<div class="adList-itemType">{{ad.OriginAd.config.template}}</div>
-			</div>
-			<a href="/administrator/Origin/ad/edit/{{ad.OriginAd.id}}" class="adList-itemLink"></a>
-			<img class="adList-itemImage" ng:src="{{ad.OriginAd.content.img_thumbnail}}"/>
-			<div class="adList-itemLookUp" ng:click="loadModule(ad)"></div>
-		</div>
-		<div class="adList-item originUI-bgColor originUI-shadow originUI-borderColor" ng:repeat="ad in ads|filter:searchOrigin" ng:class="{'adList-itemActive':ad.OriginAd.id == module.id}">
-			<div class="adList-itemMeta">
-				<div class="adList-itemId">{{ad.OriginAd.id}}</div>
-				<div class="adList-itemName originUI-borderColor">{{ad.OriginAd.name}}</div>
-				<div class="adList-itemDetails">
-					<div class="adList-itemModify">Last Modified {{ad.OriginAd.modify_date}} by {{ad.OriginAd.modify_by}}</div>
-					<div class="adList-itemCreate">Created {{ad.OriginAd.create_date}} by {{ad.OriginAd.create_by}}</div>
-				</div>
-				<div class="adList-itemType">{{ad.OriginAd.config.template}}</div>
-			</div>
-			<a href="/administrator/Origin/ad/edit/{{ad.OriginAd.id}}" class="adList-itemLink"></a>
-			<img class="adList-itemImage" ng:src="{{ad.OriginAd.content.img_thumbnail}}"/>
-			<div class="adList-itemLookUp" ng:click="loadModule(ad)"></div>
-		</div>
-		<div class="adList-item originUI-bgColor originUI-shadow originUI-borderColor" ng:repeat="ad in ads|filter:searchOrigin" ng:class="{'adList-itemActive':ad.OriginAd.id == module.id}">
-			<div class="adList-itemMeta">
-				<div class="adList-itemId">{{ad.OriginAd.id}}</div>
-				<div class="adList-itemName originUI-borderColor">{{ad.OriginAd.name}}</div>
-				<div class="adList-itemDetails">
-					<div class="adList-itemModify">Last Modified {{ad.OriginAd.modify_date}} by {{ad.OriginAd.modify_by}}</div>
-					<div class="adList-itemCreate">Created {{ad.OriginAd.create_date}} by {{ad.OriginAd.create_by}}</div>
-				</div>
-				<div class="adList-itemType">{{ad.OriginAd.config.template}}</div>
-			</div>
-			<a href="/administrator/Origin/ad/edit/{{ad.OriginAd.id}}" class="adList-itemLink"></a>
-			<img class="adList-itemImage" ng:src="{{ad.OriginAd.content.img_thumbnail}}"/>
-			<div class="adList-itemLookUp" ng:click="loadModule(ad)"></div>
-		</div>
 	</div><!--
 	--><div id="adList-right" class="inline">
 	
@@ -99,7 +57,11 @@
 			<input type="hidden" name="uploadDir" value="/assets/creator/tmp/"/>
 			<h3 id="adList-modalHeader" class="originUI-tileHeader originUI-borderColor originUI-textColor">{{editor.header}}</h3>
 			<div id="adSettings-modal" class="originUI-modalContent" ng:class="{'adList-moduleAdvance': editor.advance==true}">
-				<div ng:show="editor.type=='create'"><?php echo $this->element('form_create');?></div>
+				<div ng:show="editor.type=='create'">
+					<div class="originUI-modalLeft"><?php echo $this->element('form_setting', array('view'=>'left'));?></div>
+					<div class="originUI-modalRight"><?php echo $this->element('form_setting', array('view'=>'right'));?></div>
+					<div class="clear"></div>
+				</div>
 				<div ng:show="editor.type=='embed'"><?php echo $this->element('form_embed');?></div>	
 			</div>
 			<div class="originUI-tileFooter">

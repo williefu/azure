@@ -1,0 +1,7 @@
+#initial {
+	z-index: 10;
+}
+
+#triggered {
+	z-index: 20;
+}

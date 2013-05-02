@@ -432,7 +432,6 @@ body {
 #workspace {
 	display: block;
 	position: relative;
-	
 	background-color: rgba(255, 255, 255, .2);
 	background-repeat: no-repeat;
 	background-position: center top;
@@ -457,6 +456,10 @@ body {
 .workspace-content.ui-resizable:not(.content-image):not(.content-background) {
 	outline: 2px dashed rgba(0, 153, 204, .7);
 	outline-offset: -5px;
+}
+
+.workspace-content.content-background .ui-resizable-handle {
+	display: none !important;
 }
 
 .workspace-content .ui-resizable-ne,

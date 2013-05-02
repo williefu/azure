@@ -185,7 +185,14 @@
 			<input type="hidden" ng:model="editor.config.template"/>
 			<h3 id="settingsModal-header" class="originUI-tileHeader originUI-borderColor originUI-textColor">Settings</h3>
 			<div class="originUI-modalContent">
-				<?php echo $this->element('form_create');?>
+				<div class="originUI-modalLeft"><?php echo $this->element('form_setting', array('view'=>'left'));?></div>
+				<div class="originUI-modalRight">
+					<select id="settingsModal-template" class="originUI-select originUI-bgColorSecondary" ng:model="editor.template" ng:options="template.OriginTemplate.name for template in templates" ng:change="templateLoad()">
+						<option style="display:none" value="">Load Template</option>
+					</select>
+					<?php echo $this->element('form_template', array('view'=>'right', 'editor' => 'editor'));?>
+				</div>
+				<div class="clear"></div>
 			</div>
 			<div class="originUI-tileFooter">
 				<div class="originUI-tileFooterLeft" ng:click="settingsModalClose()">Cancel</div>

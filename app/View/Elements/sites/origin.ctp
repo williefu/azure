@@ -1,9 +1,7 @@
 <div id="demo-reskin" back-img='{{demo.reskin_img}}' ng:style="reskin">
 	<?php echo $this->element('bar');?>
 	<div id="originDemo-wrapper">
-	
-	
-		<div id="originDemo-leaderboard" class="adPlacement" ng-bind-html-unsafe="embed">
+		<div id="originDemo-leaderboard" class="adPlacement" ng:bind-html-unsafe="embed">
 			<img src="http://placehold.it/970x66"/>
 		</div>
 	
@@ -23,11 +21,8 @@
 					</div>
 			</div>
 		</div>
-		
 	</div>
 	<?php echo $this->element('footer');?>
-
-
 </div>
 <?
 	echo $this->Minify->css(array('origin', 'demo/originDemo'));

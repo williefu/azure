@@ -4,21 +4,46 @@ var originAdController = function($scope, $filter) {
 	$scope.originAd_content	= {};
 	$scope.originParams		= (window.name)? angular.fromJson(decodeURIComponent(window.name)): {}; //Retrieve embed code params
 	
-	//console.log($scope.originParams);
-	
+	/**
+	* Cross-domain function wrapper
+	*/
+	$scope._xd = function(data) {
+		XD.postMessage(JSON.stringify(data), $scope.originParams.xdSource);
+	}
 	
 	/**
 	* Send dimensional data to container unit
 	*/
-	$scope.xdData = {
-		callback:	'containerInit',
-		id:			'originAd-'+$scope.origin_ad.OriginAd.id,
-		width: 		($scope.originAd_config.template === 'horizon')? '100%': $scope.originAd_config.dimensions.Initial[origin_platform].width+'px',
-		height:		$scope.originAd_config.dimensions.Initial[origin_platform].height+'px'
+	$scope.init = function() {
+		$scope.xdData = {
+			callback:	'containerInit',
+			id:			'originAd-'+$scope.origin_ad.OriginAd.id,
+			width: 		$scope.originAd_config.dimensions.Initial[origin_platform].width+'px',
+			height:		$scope.originAd_config.dimensions.Initial[origin_platform].height+'px'
+		}
+		
+		switch($scope.originAd_config.template) {
+			case 'horizon':
+				/**
+				* Horizon units are always 100% page width
+				*/
+				$scope.xdData.width	= '100%';
+				break;
+			case 'nova':
+				/**
+				* An 'close' case means it's being called from Nova's triggered view. Set it to 100% width/height
+				*/
+				if(originAd_action === 'close') {
+					$scope.xdData.id = 'originAd-'+$scope.origin_ad.OriginAd.id+'-overlay'
+					$scope.xdData.width	= '100%';
+					$scope.xdData.height= '100%';
+				}
+				break;
+			default:
+				break;
+		}
+		$scope._xd($scope.xdData);
 	}
-	
-	XD.postMessage(JSON.stringify($scope.xdData), $scope.originParams.xdSource);
-	
 	
 	
 	/**
@@ -55,7 +80,7 @@ var originAdController = function($scope, $filter) {
 					duration;
 					
 					$scope.xdData = {
-						callback: 	'toggle',
+						callback: 	'toggleExpand',
 						id:			'originAd-'+$scope.origin_ad.OriginAd.id
 					}
 				
@@ -74,12 +99,28 @@ var originAdController = function($scope, $filter) {
 					$scope.xdData.resizeTo	= $scope.originAd_config.dimensions.Triggered[origin_platform].height+'px';
 					$scope.xdData.duration	= animateObj.openDuration/1000;
 				}
-				XD.postMessage(JSON.stringify($scope.xdData), $scope.originParams.xdSource);
+				$scope._xd($scope.xdData);
 				
 				anim(document.getElementById(animateObj.selector), {top:animateTo}, duration, 'ease-out');
 				break;
 			case 'overlay':
+				/**
+				* 'action' param determines if an overlay unit should open or close.
+				*/
+				$scope.xdData = {
+					callback:	'toggleOverlay',
+					action:		originAd_action,
+					idInitial:	'originAd-'+$scope.origin_ad.OriginAd.id,
+					idTriggered:'originAd-'+$scope.origin_ad.OriginAd.id+'-overlay'
+				}
+				
+				$scope._xd($scope.xdData);
 				break;
 		}
 	}
+	
+	/**
+	* Initialize unit
+	*/
+	$scope.init();
 }

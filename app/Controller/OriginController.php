@@ -277,11 +277,12 @@ class OriginController extends AppController {
 	/**
 	* Displays the ad
 	*/
-	public function ad() {
+	public function ad($originAd_state = '') {
 		$this->layout 	= 'ad';
 		
 		$originAd_id		= $this->request->params['originAd_id'];
 		$originAd_platform	= $this->request->params['originAd_platform'];
+		//$originAd_state		= $originAd_state;
 		
 		$origin_ad		= $this->OriginAd->find('first', 
 			array(
@@ -296,8 +297,9 @@ class OriginController extends AppController {
 				)
 			)
 		);
-		$this->set('originAd_platform', $originAd_platform);
 		$this->set('origin_ad', $origin_ad);
+		$this->set('originAd_platform', $originAd_platform);
+		$this->set('originAd_state', $originAd_state);
 	}
 
 /* =======================================================================
@@ -349,7 +351,6 @@ class OriginController extends AppController {
 	* Public demo page viewer
 	*/
 	public function demo() {
-		$this->set('title_for_layout', 'Demo');//NEEDS TO BE DYNAMIC!
 		$this->layout 	= 'demo_public';
 		
 		
@@ -360,7 +361,11 @@ class OriginController extends AppController {
 				)
 			)
 		);
-		$this->set('demo', $demo);
+		
+		$demo['OriginDemo']['config']	= json_decode($demo['OriginDemo']['config']);
+		
+		$this->set('demo', json_encode($demo));
+		$this->set('title_for_layout', $demo['OriginDemo']['name']);
 	}
 	
 	/**
@@ -375,11 +380,25 @@ class OriginController extends AppController {
 	*/
 	public function demoEdit() {
 		$this->layout 	= 'demo';
-		$this->set('title_for_layout', 'Ad Demo');
+		$origin_ad		= $this->OriginAd->find('first', 
+			array(
+				'conditions'=>array(
+					'OriginAd.id'=>$this->request->params['originAd_id']
+				),
+				'recursive'=>-1
+			)
+		);
 		
-		$this->set('originAd_id', $this->request->params['originAd_id']);
+		$origin_ad['OriginAd']['config']	= json_decode($origin_ad['OriginAd']['config']);
+		$origin_ad['OriginAd']['content']	= json_decode($origin_ad['OriginAd']['content']);
+		
+		$this->set('origin_ad', json_encode($origin_ad));
+		
+		
+		$this->set('title_for_layout', $origin_ad['OriginAd']['name'].' Demo');
+		
+		
 		//$this->jsonAdUnit($this->request->params['originAd_id']);
-		
 		//$this->render('/Origin/json/json_ad_unit');	
 	}
 	
@@ -412,7 +431,7 @@ class OriginController extends AppController {
 	* Save/update an Origin site demo page
 	*/
 	private function demoSave($data) {
-		$data['config']			= json_encode($data);
+		$data['config']			= json_encode($data['config']);
 		
 		if(!isset($data['id'])) {
 			$data['create_by']	= $this->UserAuth->getUserId();
