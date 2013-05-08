@@ -366,7 +366,7 @@ angular.module('originApp.directives', [])
 			}	
 		}
 	})
-	.directive('chart', function(Monitor) {
+	.directive('chart', function() {
         return {
           restrict: 'A',
           link: function(scope, element, attr) {
@@ -388,7 +388,7 @@ angular.module('originApp.directives', [])
 				data.addRows( rowArray );
 				// Set chart options
 			    var options = {'title':'Audience Overview',
-							   'width':1323,
+							   'width':1013,
 							   'height':160};
 				
 
@@ -403,4 +403,26 @@ angular.module('originApp.directives', [])
 			
 		}
       }			
+    })
+	.directive("accordion", function() {
+        return {
+            restrict: "E",
+            link: function (scope, element, attrs) {
+				var content = '<accordion accordion-id="'+scope.item.event+'" accordion-title="collapseId" parent="accordion2">';
+                content += '<div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="'+attrs.parent+'" href="#'+scope.item.event+'">'+scope.item.event+' '+scope.item.totalEvents+' '+scope.item.uniqueEvents+'</a></div>';
+                content += '<div id="'+scope.item.event+'" class="accordion-body in collapse"><div class="accordion-inner">';
+                
+				if(scope.item.labels!='') { //console.log(scope.item.labels);
+					//console.log(scope.item.labels[1].label);
+					content += scope.item.labels[1].label +' '+ scope.item.labels[1].totalEvents +' '+ scope.item.labels[1].uniqueEvents;
+				}
+				else {
+					content += 'no labels';
+				}
+				
+                content += '</div></div>';
+				content += '</accordion>';
+                element.html(content);
+            }
+        };
     });

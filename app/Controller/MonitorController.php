@@ -26,8 +26,12 @@ class MonitorController extends AppController {
 
 	public function jsonEvent() {
 		$category 	= $this->request->params['category'];
-		$event = $this->Monitor->getEvent($category);
-		$this->set('monitor', $event);
+		$action = $this->Monitor->getEventAction($category);
+		$label = $this->Monitor->getEventLabel($category);
+		//$this->set('monitor', $event);
+		$this->set('action', $action);
+		$this->set('label', $label);
+		$this->set('category', $category);
 	}
 
 	public function jsonVisits() {

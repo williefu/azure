@@ -52,17 +52,26 @@ class Monitor extends AppModel {
 		return $monitor;
 	}
 	
-	function getEvent($data) {
+	function getEventAction($data) {
 		$end_date = date("Y-m-d",strtotime('-1 day'));
 		$start_date = date('Y-m-d',strtotime('-31 day')); 
 		$dimensions = 'ga:eventAction';
 		$metrics = 'ga:totalEvents,ga:uniqueEvents';
 		$sort = '-ga:totalEvents';
 		$filters = $data;
-		//$filters = new analytics_filters('ga:eventCategory','=@','Assassins Creed [Horizon - DO NOT MODIFY]');
-		$monitor = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
-		
-		return $monitor;
+		$monitorEvents = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
+		return $monitorEvents;
+	}
+	
+	function getEventLabel($data) {
+		$end_date = date("Y-m-d",strtotime('-1 day'));
+		$start_date = date('Y-m-d',strtotime('-31 day')); 
+		$dimensions = 'ga:eventAction,ga:eventLabel';
+		$metrics = 'ga:totalEvents,ga:uniqueEvents';
+		$sort = '-ga:totalEvents';
+		$filters = $data;
+		$monitorLabels = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
+		return $monitorLabels;
 	}
 	
 	function pullAnalyticsData($dimensions=false, $metrics, $sort, $start_date, $end_date, $save=false, $filters=false) {

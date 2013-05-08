@@ -43,10 +43,14 @@
 				<td><?php echo __('Total Events');?></td>
 				<td><?php echo __('Unique Events');?></td>
 			</tr>
+			 <?php $index = 0;?>
 			<tr ng:repeat="item in monitor_list | orderBy:'totalEvents' | filter:monitorObj.category">
-				<td ng:click="categoryData(item.category)" style="{{monitor_title=='Event Category' && 'cursor:pointer'}}">{{item.category}}</td>
-				<td>{{item.totalEvents}}</td>
-				<td>{{item.uniqueEvents}}</td>
+					<td ng:click="categoryData(item.category)" style="{{monitor_title=='Event Category' && 'cursor:pointer'}}" ng-show="monitor_title=='Event Category'">{{item.category}}</td>
+					<td ng-show="monitor_title=='Event Category'">{{item.totalEvents}}</td>
+					<td ng-show="monitor_title=='Event Category'">{{item.uniqueEvents}}</td>
+					<td ng-hide="monitor_title=='Event Category'"> 
+						<accordion></accordion>
+					</td>    
 			</tr>
 		</table>
 	</div>
@@ -54,7 +58,7 @@
 </div>
 <script src="https://www.google.com/jsapi"></script>
 <?php
-	echo $this->Minify->script(array('controllers/monitorController'));
+	echo $this->Minify->script(array('controllers/monitorController','monitor/bootstrap-collapse'));
 ?>
 
 <script type="text/javascript">

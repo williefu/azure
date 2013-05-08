@@ -76,8 +76,13 @@ var monitorCtrl = function($scope, Monitor) {
 		$scope.monitor_list = data.data;
 		$scope.monitor_filter = data.filter;
 		$scope.monitor_totals = data.total;
+		$scope.monitorObj.start_date = data.filter.startDate;
+		$scope.monitorObj.end_date = data.filter.endDate;
+		console.log($scope.monitor_list);
+		
+		
 		//Load Visits data
-		Monitor.get('visits/'+$scope.monitor_filter.start_date+'/'+$scope.monitor_filter.end_date+'/'+$scope.monitorObj.category).then(function(data) {
+		Monitor.get('visits/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+$scope.monitorObj.category).then(function(data) {
 				$scope.monitor_visits = data.visits;
 		});
 	}
@@ -86,10 +91,23 @@ var monitorCtrl = function($scope, Monitor) {
 		if($scope.monitor_title!='Event Action') {
 			Monitor.get('event/'+category).then(function(data) {
 				$scope.monitorObj.category = category;
+				console.log(data);
 				$scope.refreshMonitor(data);
 				$scope.monitor_title = 'Event Action';
 			});
 		}
 	}
+	/*
+	$scope.panelOptions = {
+        collapsed : false
+    };
+
+    $scope.collapsePanel = function() {
+        $scope.panelOptions.collapsed = true;
+    };
+
+    $scope.expandPanel = function() {
+        $scope.panelOptions.collapsed = false;
+    };*/
 
 }
