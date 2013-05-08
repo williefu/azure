@@ -2,7 +2,7 @@
 	<div class="inline">Toggle on</div>
 	<div id="editorToggle-type" class="inline">
 		<div class="originUI-switch">
-		    <input type="checkbox" name="editorToggleTypeSwitch" class="originUI-switchInput" id="editorToggleTypeSwitch" ng:model="editor.content.event">
+		    <input type="checkbox" name="editorToggleTypeSwitch" class="originUI-switchInput" id="editorToggleTypeSwitch" ng:model="editor.content.event" ng:checked="editor.content.event">
 		    <label class="originUI-switchLabel" for="editorToggleTypeSwitch">
 		    	<div class="originUI-switchInner">
 		    		<div class="originUI-switchActive">
@@ -19,12 +19,17 @@
 	<script type="text/javascript">
 		var componentCtrl = function($scope) {
 			var toggleEvent;
+			var _scope = angular.element($j('#ad-edit')).scope();
+
+			if(_scope.editor.content.event === undefined) {
+				_scope.editor.content.event = true;
+			}
 			
+/*
 			if(!$scope.editor.content.event) {
 				$scope.editor.content.event = true;
 			}
-		
-			var _scope = angular.element($j('#ad-edit')).scope();
+*/
 			
 				_scope.$watch('editor.content', function() {
 					switch($scope.editor.content.event) {
@@ -35,7 +40,7 @@
 							toggleEvent 	= 'ng:click="toggle()"';
 							break;
 					}
-					_scope.editor.render			= '<a href="javascript:void(0)" class="cta toggle" '+toggleEvent+'></a>';
+					_scope.editor.render	= '<a href="javascript:void(0)" class="cta toggle" '+toggleEvent+'></a>';
 				}, true);
 		}
 	</script>

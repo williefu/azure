@@ -16,16 +16,19 @@
 		<div id="originBar-settings" class="">
 			<div id="originBar-settingsIcon" class="originUI-borderColor dropdown-toggle">Settings</div>
 			<ul class="dropdown-menu originUI-bgColorSecondary originUI-borderColor">
+				<li>
+					<a href="/administrator/" id="originBar-dashboard" class="originBar-settings">Dashboard</a>
+				</li>
 				<?php if($this->UserAuth->isAdmin()) { ?>
 				<li>
-					<a href="/administrator/dashboard" id="originBar-dashboard" class="originBar-settings">Dashboard</a>
+					<a href="/administrator/settings" id="originBar-config" class="originBar-settings">Settings</a>
 				</li>
 				<li>
-					<a href="/administrator/dashboard/profile/<?php echo $userId;?>" id="originBar-account" class="originBar-settings">My Account</a>
+					<a href="/administrator/settings/profile/<?php echo $userId;?>" id="originBar-account" class="originBar-settings">My Account</a>
 				</li>
 				<?php } else { ?>
 				<li>
-					<a href="/administrator/dashboard/password" id="originBar-account" class="originBar-settings">Update Password</a>
+					<a href="/administrator/settings/password" id="originBar-account" class="originBar-settings">Update Password</a>
 				</li>
 				<?php } ?>
 				<li>

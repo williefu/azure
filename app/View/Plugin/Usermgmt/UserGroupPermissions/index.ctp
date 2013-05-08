@@ -3,32 +3,32 @@ echo $this->Html->script('/usermgmt/js/umupdate');
 ?>
 <div id="system-config" class="" ng:controller="originSystems">
 	<h2 class="originUI-header">System Configuration</h2>
-	<div id="systemConfig-groupAdd" class="dashboard-left originUI-bgColor originUI-shadow" data-intro="Create new user groups" data-position="bottom">
-		<h3 id="groupAdd-header" class="originUiModal-header originUI-borderColor originUI-textColor">Add Group</h3>
-		<form id="groupAdd-form">
+	<div id="systemConfig-groupAdd" class="originUI-tileLeft originUI-bgColor originUI-shadow" data-intro="Create new user groups" data-position="bottom">
+		<h3 id="groupAdd-header" class="originUI-tileHeader originUI-borderColor originUI-textColor">Add Group</h3>
+		<form id="groupAdd-form" class="originUI-tileContent" name="groupAddForm" novalidate>
 			<ul class="originUI-list">
 				<li>
 					<label>Group Name</label>
 					<div class="originUI-field">
 						<div class="originUI-fieldBracket"></div>
-						<input type="text" class="originUI-input originUI-bgColorSecondary" placeholder="Name" ng:model="editor.name" ng:change="groupAlias()"/>
+						<input type="text" class="originUI-input originUI-bgColorSecondary" placeholder="Name" ng:model="editor.name" ng:change="groupAlias()" required/>
 					</div>
 				</li>
 				<li>
 					<label>Group Alias</label>
 					<div class="originUI-field">
 						<div class="originUI-fieldBracket"></div>
-						<input type="text" class="originUI-input originUI-bgColorSecondary" placeholder="Alias" ng:model="editor.alias_name"/>
+						<input type="text" class="originUI-input originUI-bgColorSecondary" placeholder="Alias" ng:model="editor.alias_name" required/>
 					</div>
 				</li>
 			</ul>
 		</form>
-		<div class="originUiModal-footer">
-			<div class="originUiModalFooter-center" ng:click="groupCreate()">Create Group</div>
+		<div class="originUI-tileFooter">
+			<button class="originUI-tileFooterCenter" ng:click="groupCreate()" ng-disabled="groupAddForm.$invalid">Create Group</button>
 		</div>
-	</div>
-	<div id="systemConfig-access" class="dashboard-right originUI-bgColor originUI-shadow" data-intro="Manage system access" data-position="top">
-		<h3 id="systemConfig-header" class="originUiModal-header originUI-borderColor originUI-textColor">System Access</h3>
+	</div><!--
+	--><div id="systemConfig-access" class="originUI-tileRight originUI-bgColor originUI-shadow" data-intro="Manage system access" data-position="top">
+		<h3 id="systemConfig-header" class="originUI-tileHeader originUI-borderColor originUI-textColor">System Access</h3>
 		<?php 
 			echo $this->Form->input('controller', array('type'=>'select','div'=>array('id'=>'systemConfig-select', 'class'=>'originUI-field'), 'options'=>$allControllers, 'selected'=>$c, 'label'=>false, 'onchange'=>"window.location='".SITE_URL."administrator/dashboard/access/?c='+(this).value", 'class'=>'originUI-select originUI-bgColorSecondary'));
 		?>

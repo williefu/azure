@@ -41,8 +41,8 @@
 		</li>
 	</ul>
 <?php } else if($view === 'right') { ?>
-	<a href="javascript:void(0)" id="formCreate-toggle" ng:click="templateToggle()"></a>
-	<select id="formCreate-template" class="originUI-select originUI-bgColorSecondary" ng:model="editor.template" ng:options="template.OriginTemplate.name for template in templates" ng:change="templateLoad()">
+	<a href="javascript:void(0)" class="originUI-superAdmin" id="formCreate-toggle" ng:click="templateToggle()"></a>
+	<select id="formCreate-template" class="originUI-select originUI-bgColorSecondary" ng:model="editor.template" ng:options="template.OriginTemplate.name for template in templates|filter:{OriginTemplate.status: '1'}" ng:change="templateLoad()">
 		<option style="display:none" value="">Select Template</option>
 	</select>
 	<div ng:show="editor.advance == false">

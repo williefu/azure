@@ -37,7 +37,7 @@
 	</div>
 	
 	<div modal="originModal" close="$parent.originModalClose()" options="$parent.originModalOptions">
-		<form id="adComponent-edit" name="adComponent-edit" class="originUI-bgColorSecondary originUI-modal" novalidate>
+		<form id="adComponent-edit" name="adComponentEdit" class="originUI-bgColorSecondary originUI-modal" novalidate>
 			<input type="hidden" name="uploadDir" value="/assets/components/"/>
 			<input type="hidden" ng:model="editorModal.id"/>
 			<h3 id="adComponent-editHeader" class="originUI-tileHeader originUI-borderColor originUI-textColor">Edit Component</h3>
@@ -54,8 +54,8 @@
 				<div class="clear"></div>		
 			</div>
 			<div class="originUI-tileFooter">
-				<div class="originUI-tileFooterLeft" ng:click="$parent.originModalClose()">Cancel</div>
-				<div class="originUI-tileFooterRight" ng:click="componentSave()">Save</div>
+				<button class="originUI-tileFooterLeft" ng:click="$parent.originModalClose()">Cancel</button>
+				<button class="originUI-tileFooterRight" ng:click="componentSave()" ng-disabled="adComponentEdit.$invalid">Save</button>
 			</div>
 		</form>
 	</div>

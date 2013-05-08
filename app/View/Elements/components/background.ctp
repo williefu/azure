@@ -32,6 +32,7 @@
 			function generateRender() {
 				_scope.editor.config.height	= _scope.editor.config.width = '100%';
 				_scope.editor.render		= '<img src="'+$scope.$parent.editor.content.image+'" class="background"/>';
+				_scope.editor.order 		= '-1';
 			}
 		}
 	</script>

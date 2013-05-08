@@ -1,18 +1,18 @@
-<div id="user-login" class="origin-usermgmt origin-usermgmt-login">
-	<h2 class="originUiModal-header originUI-borderColor originUI-textColor originUI-textColor">Login</h2>
-	<form method="post" id="UserLoginForm" class="originUiModal-content" action="/administrator/login">
+<form id="UserLoginForm" name="UserLoginForm" class="originUI-tileLeft originUI-bgColor originUI-shadow" method="post" action="/administrator/login" novalidate>
+	<h3 id="login-header" class="originUI-tileHeader originUI-borderColor originUI-textColor">Login</h3>
+	<div class="originUI-tileContent">
 		<ul class="originUI-list">
 			<li id="login-email">
 				<div class="originUI-field">
 					<div class="originUI-fieldBracket"></div>
-					<input type="text" class="originUI-input originUI-bgColorSecondary" name="data[User][email]" id="UserEmail" placeholder="Username or Email"/>
+					<input type="text" class="originUI-input originUI-bgColorSecondary" name="data[User][email]" id="UserEmail" placeholder="Username or Email" required/>
 				</div>
 				
 			</li>
 			<li id="login-password">
 				<div class="originUI-field">
 					<div class="originUI-fieldBracket"></div>
-					<input type="password" class="originUI-input originUI-bgColorSecondary" name="data[User][password]" id="UserPassword" placeholder="Password"/>
+					<input type="password" class="originUI-input originUI-bgColorSecondary" name="data[User][password]" id="UserPassword" placeholder="Password" required/>
 				</div>
 			</li>
 			<li id="login-settings">
@@ -32,11 +32,11 @@
 				<a class="inline login-forgot" href="/administrator/forgotPassword">Forgot Password?</a>
 			</li>
 		</ul>
-	</form>
-	<div class="originUiModal-footer">
-		<div class="originUiModalFooter-center" ng:click="formSubmit('UserLoginForm')">Sign In</div>
 	</div>
-</div>
+	<div class="originUI-tileFooter">
+		<button class="originUI-tileFooterCenter" ng:click="formSubmit('UserLoginForm')" ng-disabled="UserLoginForm.$invalid">Login</button>
+	</div>
+</form>
 <script>
 document.getElementById("UserEmail").focus();
 </script>

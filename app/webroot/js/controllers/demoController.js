@@ -1,19 +1,3 @@
-	
-	/**
-	* Prevent accidental clicks leaving the editor
-	*/
-/*
-	$j('#origin-bar').find('a').not('#originBar-help, #originNotification-close').each(function() {
-		$j(this).click(function() {
-			var ask = confirm('Do you want to exit Origin\'s Ad Creator?');
-			if(ask){
-				window.location = $j(this).attr('href');
-			} else {
-				return false;
-			}
-		});
-	});
-*/
 var demoController = function($scope, $filter, $compile, Origin) {	
 	$scope.demo 				= {};
 	$scope.demo.templateAlias	= 'origin';
@@ -28,7 +12,11 @@ var demoController = function($scope, $filter, $compile, Origin) {
 		type:	$scope.origin_ad.OriginAd.config.template
 	};
 	
-	$scope.embed				= $compile(decodeURIComponent(origin_embed.replace(/\+/g, ' ')))($scope);	
+	
+	$scope.bindEmbed = function(event) {
+		angular.element(event.currentTarget).parent().find('div').html('test');
+		//$scope.embed				= $compile(decodeURIComponent(origin_embed.replace(/\+/g, ' ')))($scope);		
+	}
 	
 	/**
 	* Loads the site demo templates

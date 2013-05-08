@@ -14,6 +14,14 @@
 	}	
 	$template	= $origin_ad['OriginAd']['config']->template;
 ?>
+
+
+<?php if(isset($origin_ad['OriginAd']['content']->ga_id)) {?>
+	<script type="text/javascript">
+	var _gaq=_gaq||[];_gaq.push(["_setAccount","<?php echo $origin_ad['OriginAd']['content']->ga_id;?>"]);_gaq.push(["_trackPageview"]);var ga=document.createElement("script");ga.type="text/javascript";ga.async=!0;ga.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga,s);
+	</script>
+<?php }?>
+
 <script type="text/javascript">
 	var origin_ad		= '<?php echo json_encode($origin_ad);?>';
 	var origin_platform	= '<?php echo $originAd_platform;?>';
@@ -24,4 +32,4 @@
 
 <?php
 	echo $this->Minify->css(array('ad/ad', 'ad/'.$template));
-	echo $this->Minify->script(array('angularjs', 'ad/app/anim', 'ad/app/xd', 'ad/app/app', 'ad/app/controller', 'ad/app/directives'));
+	echo $this->Minify->script(array('ad/app/angularjs', 'ad/app/anim', 'ad/app/cm', 'ad/app/xd', 'ad/app/app', 'ad/app/controller', 'ad/app/directives', 'ad/app/services'));

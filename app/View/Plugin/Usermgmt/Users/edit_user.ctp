@@ -5,43 +5,40 @@
 
 <div id="user-account" ng:controller="originUser">
 	<h2 class="originUI-header">My Account</h2>
-	<div id="userAccount-left" class="dashboard-left originUI-bgColor originUI-shadow">
-		<h3 id="userAccountPassword-header" class="originUiModal-header originUI-borderColor originUI-textColor originUI-textColor">Update Password</h3>
-		<form class="originUiModal-content">
+	<form id="userAccount-left" class="originUI-tileLeft originUI-bgColor originUI-shadow" name="userAccountPasswordForm" novalidate>
+		<h3 id="userAccountPassword-header" class="originUI-tileHeader originUI-borderColor originUI-textColor">Update Password</h3>
+		<div class="originUI-tileContent">
 			<ul class="originUI-list">
-				<li class="originUI-field">
-					Old Password
-					<div class="originUI-fieldBracket"></div>
-					<input type="password" id="UserOldpassword" class="originUI-input originUI-bgColorSecondary" name="data[User][oldpassword]" placeholder="" ng:model="password.oldpassword">
+				<li>
+					<label>Old Password</label>
+					<div class="originUI-field">
+						<div class="originUI-fieldBracket"></div>
+						<input type="password" id="UserOldpassword" class="originUI-input originUI-bgColorSecondary" name="data[User][oldpassword]" placeholder="" ng:model="password.oldpassword" required>
+					</div>
 				</li>
-				<li class="originUI-field">
-					New Password
-					<div class="originUI-fieldBracket"></div>
-					<input type="password" id="UserOldpassword" class="originUI-input originUI-bgColorSecondary" name="data[User][password]" placeholder="" ng:model="password.password">
+				<li>
+					<label>New Password</label>
+					<div class="originUI-field">
+						<div class="originUI-fieldBracket"></div>
+						<input type="password" id="UserOldpassword" class="originUI-input originUI-bgColorSecondary" name="data[User][password]" placeholder="" ng:model="password.password" required>
+					</div>
 				</li>
-				<li class="originUI-field">
-					Confirm New Password
-					<div class="originUI-fieldBracket"></div>
-					<input type="password" id="UserOldpassword" class="originUI-input originUI-bgColorSecondary" name="data[User][cpassword]" placeholder="" ng:model="password.cpassword">
+				<li>
+					<label>Confirm New Password</label>
+					<div class="originUI-field">
+						<div class="originUI-fieldBracket"></div>
+						<input type="password" id="UserOldpassword" class="originUI-input originUI-bgColorSecondary" name="data[User][cpassword]" placeholder="" ng:model="password.cpassword" required>
+					</div>
 				</li>
 			</ul>
-		</form>
-		<div class="originUiModal-footer">
-			<div class="originUiModalFooter-center" ng:click="userPasswordUpdate()">Update Password</div>
 		</div>
-	</div><!--
-		
-	
-	
-	<div id="userAccount-left" class="dashboard-left inline">
-		<a href="/administrator/dashboard/password" id="userAccount-password" class="originUI-tiles">
-			<div class="originTile-title">Update Password</div>
-		</a>
-	</div>
-	--><div id="userAccount-right" class="dashboard-right originUI-bgColor originUI-shadow">
-		<h3 id="userAccount-header" class="originUiModal-header originUI-borderColor originUI-textColor">Profile</h3>
-		<form accept-charset="utf-8" method="post" id="UserEditUserForm" action="/administrator/dashboard/profile/<?php echo $user['User']['id'];?>" class="originUiModal-content">
-		
+		<div class="originUI-tileFooter">
+			<button class="originUI-tileFooterCenter" ng:click="userPasswordUpdate()" ng-disabled="userAccountPasswordForm.$invalid">Update Password</button>
+		</div>
+	</form><!--
+	--><div id="userAccount-right" class="originUI-tileRight originUI-bgColor originUI-shadow">
+		<h3 id="userAccount-header" class="originUI-tileHeader originUI-borderColor originUI-textColor">Profile</h3>
+		<form accept-charset="utf-8" method="post" id="UserEditUserForm" action="/administrator/dashboard/profile/<?php echo $user['User']['id'];?>" class="originUI-tileContent" novalidate>
 			<input type="hidden" id="id" name="data[id]" value="<?php echo $user['User']['id'];?>">
 			<input type="hidden" value="PUT" name="_method">
 			
@@ -69,31 +66,39 @@
 				</li>
 -->
 				<?php } ?>
-<li class="originUI-field">
-					First Name
-					<div class="originUI-fieldBracket"></div>
-					<input type="text" id="first_name" class="originUI-input originUI-bgColorSecondary" name="data[first_name]" value="<?php echo $user['User']['first_name'];?>" placeholder="First Name">
+				<li>
+					<label>First Name</label>
+					<div class="originUI-field">
+						<div class="originUI-fieldBracket"></div>
+						<input type="text" id="first_name" class="originUI-input originUI-bgColorSecondary" name="data[first_name]" value="<?php echo $user['User']['first_name'];?>" placeholder="First Name">
+					</div>
 				</li>
-				<li class="originUI-field">
-					Last Name
-					<div class="originUI-fieldBracket"></div>
-					<input type="text" id="last_name" class="originUI-input originUI-bgColorSecondary" name="data[last_name]" value="<?php echo $user['User']['last_name'];?>" placeholder="Last Name">
+				<li>
+					<label>Last Name</label>
+					<div class="originUI-field">
+						<div class="originUI-fieldBracket"></div>
+						<input type="text" id="last_name" class="originUI-input originUI-bgColorSecondary" name="data[last_name]" value="<?php echo $user['User']['last_name'];?>" placeholder="Last Name">
+					</div>
 				</li>
-				<li class="originUI-field">
-					Username
-					<div class="originUI-fieldBracket"></div>
-					<input type="text" id="username" class="originUI-input originUI-bgColorSecondary" name="data[username]" value="<?php echo $user['User']['username'];?>" placeholder="Username">
+				<li>
+					<label>Username</label>
+					<div class="originUI-field">
+						<div class="originUI-fieldBracket"></div>
+						<input type="text" id="username" class="originUI-input originUI-bgColorSecondary" name="data[username]" value="<?php echo $user['User']['username'];?>" placeholder="Username" required>
+					</div>
 				</li>
-				<li class="originUI-field">
-					Email
-					<div class="originUI-fieldBracket"></div>
-					<input type="text" id="email" class="originUI-input originUI-bgColorSecondary" name="data[email]" value="<?php echo $user['User']['email'];?>" placeholder="Email">
+				<li>
+					<label>Email</label>
+					<div class="originUI-field">
+						<div class="originUI-fieldBracket"></div>
+						<input type="text" id="email" class="originUI-input originUI-bgColorSecondary" name="data[email]" value="<?php echo $user['User']['email'];?>" placeholder="Email" required>
+					</div>
 				</li>
 			</ul>
+			<div class="originUI-tileFooter">
+				<button class="originUI-tileFooterCenter" ng:click="formSubmit('UserEditUserForm')" ng-disabled="userAccountForm.$invalid">Update Profile</button>
+			</div>
 		</form>
-		<div class="originUiModal-footer">
-			<div class="originUiModalFooter-center" ng:click="formSubmit('UserEditUserForm')">Update Profile</div>
-		</div>
 	</div>
 </div>
 

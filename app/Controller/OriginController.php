@@ -64,13 +64,9 @@ class OriginController extends AppController {
 		
 		exit;
 	}
-	
-	
-	
-	
-	
 
 	public function index() {
+		$this->set('title_for_layout', 'Dashboard');
 /*
 		$ad_units	= $this->Creator->find('all');
 		//print_r($ad_units);
@@ -82,128 +78,7 @@ class OriginController extends AppController {
 	}
 	
 
-	
-	/**
-	* Dashboard page
-	*/
-	public function dashboard() {
-		$this->set('title_for_layout', 'Dashboard');
-	}
-	
-	/**
-	* Origin system permissions page
-	*/
-	public function dashboardAccess() {
-		$this->set('title_for_layout', 'System Settings');
-	}
-	
-	/**
-	* Adds a new user permissions group
-	*/
-	private function dashboardGroupAdd($data) {
-		$this->UserGroup->set($data);
-		if($this->UserGroup->addValidate()) {
-			$this->UserGroup->save($data, false);
-		}
-	}
-	
-	/**
-	* ?
-	*/
-/*
-	public function dashboardUser() {
-		
-	}
-*/
-	
-	/**
-	* Creates a new user
-	*/
-	private function dashboardUserAdd($data) {
-		if($this->User->RegisterValidate()) {
-			$data['email_verified']		= 1;
-			$data['active']				= 1;
-			$salt						= $this->UserAuth->makeSalt();
-			$data['salt'] 				= $salt;
-			$data['password'] 			= $this->UserAuth->makePassword($data['password'], $salt);
-			$this->User->save($data,false);
-		} else {
-			return json_encode($this->User->invalidFields());
-		}
-	}
-	
-	/**
-	* Updates an user's password
-	*/
-	private function dashboardUserPasswordUpdate($data) {
-		$userId = $this->UserAuth->getUserId();		
-		$this->User->set($data);
-		
-		if($this->User->RegisterValidate()) {
-			$user	= array();
-			$user['User']['id']=$userId;
-			$salt=$this->UserAuth->makeSalt();
-			$user['User']['salt'] = $salt;
-			$user['User']['password'] = $this->UserAuth->makePassword($data['password'], $salt);
-			$this->User->save($user,false);
-			$this->LoginToken->deleteAll(array('LoginToken.user_id'=>$userId), false);
-		} else {
-			return json_encode($this->User->invalidFields());
-		}
-	}
-	
-	/**
-	* Toggles an user's status
-	*/
-	private function dashboardUserStatus($data) {
-		$userId			= $data['id'];
-		$active			= $data['status'];
-		
-		if (!empty($userId)) {
-			$user=array();
-			$user['User']['id']=$userId;
-			$user['User']['active']=($active) ? 1 : 0;
-			$this->User->save($user,false);
-		}	
-	}
-	
-	/**
-	* Updates an user's account
-	*/
-	private function dashboardUserUpdate($data) {		
-		if(isset($data['cpassword'])) {
-			$this->User->set($data);
-			
-			if($data['password'] === $data['cpassword']) {
-				$salt				= $this->UserAuth->makeSalt();
-				$data['salt'] 		= $salt;
-				$data['password'] 	= $this->UserAuth->makePassword($data['password'], $salt);
-				if($this->User->RegisterValidate()) {
-					$this->User->save($data, false);
-				} else {
-					return json_encode($this->User->invalidFields());
-				}
-			} else {
-				unset($data['password']);
-			}
-		} else {
-			unset($data['salt']);
-			unset($data['password']);
-			unset($data['cpassword']);
-			unset($data['email_verified']);
-			unset($data['active']);
-			unset($data['ip_address']);
-			unset($data['created']);
-			unset($data['modified']);
-			$this->User->set($data);
-			
-			if($this->User->RegisterValidate()) {
-				$this->User->save($data, false);
-			} else {
-				return json_encode($this->User->invalidFields());
-			}
-		}	
-	}
+
 	
 
 	
@@ -213,17 +88,7 @@ class OriginController extends AppController {
 	public function templateEdit($id) {
 		
 	}
-	
 
-	
-		
-
-	
-	
-	
-	
-	
-	
 	/**
 	* Toggles the 'status' field of a model
 	*/
@@ -272,7 +137,7 @@ class OriginController extends AppController {
 	
 	
 /* =======================================================================
-	Public Ad rendering
+	Public: Ad rendering
 ========================================================================== */
 	/**
 	* Displays the ad
@@ -300,6 +165,30 @@ class OriginController extends AppController {
 		$this->set('origin_ad', $origin_ad);
 		$this->set('originAd_platform', $originAd_platform);
 		$this->set('originAd_state', $originAd_state);
+		
+		$this->set('title_for_layout', $origin_ad['OriginAd']['name']);
+	}
+	
+/* =======================================================================
+	Public: Spec sheets/guidelines
+========================================================================== */
+	/**
+	* Displays ad template guidelines
+	*/
+	public function guidelines() {
+		$specsheet	= $this->OriginTemplate->find('first', 
+			array(
+				'conditions'=>array(
+					'OriginTemplate.alias'=>$this->request->params['specsheet_alias']
+				)
+			)
+		);
+		$specsheet				= $specsheet['OriginTemplate'];
+		$specsheet['content']	= json_decode($specsheet['content']);
+		$specsheet['config']	= json_decode($specsheet['config']);
+		
+		$this->set('specsheet', $specsheet);
+		$this->set('title_for_layout', $specsheet['name'].' Guidelines');
 	}
 
 /* =======================================================================
@@ -331,10 +220,42 @@ class OriginController extends AppController {
 		$component 		= $this->request->params['component'];
 		$this->set('component', $component);
 	}
+
+/* =======================================================================
+	Ad Templates
+========================================================================== */
+	/**
+	* Loads the template model
+	*/
+	private function _loadOriginTemplate() {
+		$origin_templates	= $this->OriginTemplate->find('all', 
+			array('order'=>array('OriginTemplate.name ASC'))
+		);
+		$this->set('origin_templates', $origin_templates);
+		return $this->render('/Origin/json/json_template');
+	}
+	
+	/**
+	* Origin ad template manager
+	*/
+	public function templateList() {
+		$this->set('title_for_layout', 'Ad Templates');
+	}
 	
 /* =======================================================================
 	Demo page of Origin units (both administrator and public)
 ========================================================================== */
+	/**
+	* Loads the site demo list
+	*/
+	private function _loadOriginSite() {
+		$origin_sites	= $this->OriginSite->find('all', 
+			array('order'=>array('OriginSite.name ASC'))
+		);
+		$this->set('origin_sites', $origin_sites);
+		return $this->render('/Origin/json/json_site');
+	}
+
 	/**
 	* Loads the model data
 	*/
@@ -474,31 +395,160 @@ class OriginController extends AppController {
 		$this->set('title_for_layout', 'Demo Manager');
 	}
 	
-
 /* =======================================================================
-	Ad Templates
-========================================================================== */
+	Settings
+========================================================================== */		
 	/**
-	* Loads the template model
+	* Settings page
 	*/
-	private function _loadOriginTemplate() {
-		$origin_templates	= $this->OriginTemplate->find('all', 
-			array('order'=>array('OriginTemplate.name ASC'))
-		);
-		$this->set('origin_templates', $origin_templates);
-		return $this->render('/Origin/json/json_template');
+	public function settings() {
+		$this->set('title_for_layout', 'Settings');
 	}
 	
 	/**
-	* Origin ad template manager
+	* Origin system permissions page
 	*/
-	public function templateList() {
-		$this->set('title_for_layout', 'Ad Templates');
+	public function dashboardAccess() {
+		$this->set('title_for_layout', 'System Settings');
+	}
+	
+	/**
+	* Adds a new user permissions group
+	*/
+	private function dashboardGroupAdd($data) {
+		$this->UserGroup->set($data);
+		if($this->UserGroup->addValidate()) {
+			$this->UserGroup->save($data, false);
+		}
+	}
+	
+	/**
+	* ?
+	*/
+/*
+	public function dashboardUser() {
+		
+	}
+*/
+	
+	/**
+	* Creates a new user
+	*/
+	private function dashboardUserAdd($data) {
+		if($this->User->RegisterValidate()) {
+			$data['email_verified']		= 1;
+			$data['active']				= 1;
+			$salt						= $this->UserAuth->makeSalt();
+			$data['salt'] 				= $salt;
+			$data['password'] 			= $this->UserAuth->makePassword($data['password'], $salt);
+			$this->User->save($data,false);
+		} else {
+			return json_encode($this->User->invalidFields());
+		}
+	}
+	
+	/**
+	* Updates an user's password
+	*/
+	private function dashboardUserPasswordUpdate($data) {
+		$userId = $this->UserAuth->getUserId();		
+		$this->User->set($data);
+		
+		if($this->User->RegisterValidate()) {
+			$user	= array();
+			$user['User']['id']=$userId;
+			$salt=$this->UserAuth->makeSalt();
+			$user['User']['salt'] = $salt;
+			$user['User']['password'] = $this->UserAuth->makePassword($data['password'], $salt);
+			$this->User->save($user,false);
+			$this->LoginToken->deleteAll(array('LoginToken.user_id'=>$userId), false);
+		} else {
+			return json_encode($this->User->invalidFields());
+		}
+	}
+	
+	/**
+	* Toggles an user's status
+	*/
+	private function dashboardUserStatus($data) {
+		$userId			= $data['id'];
+		$active			= $data['status'];
+		
+		if (!empty($userId)) {
+			$user=array();
+			$user['User']['id']=$userId;
+			$user['User']['active']=($active) ? 1 : 0;
+			$this->User->save($user,false);
+		}	
+	}
+	
+	/**
+	* Updates an user's account
+	*/
+	private function dashboardUserUpdate($data) {		
+		if(isset($data['cpassword'])) {
+			$this->User->set($data);
+			
+			if($data['password'] === $data['cpassword']) {
+				$salt				= $this->UserAuth->makeSalt();
+				$data['salt'] 		= $salt;
+				$data['password'] 	= $this->UserAuth->makePassword($data['password'], $salt);
+				if($this->User->RegisterValidate()) {
+					$this->User->save($data, false);
+				} else {
+					return json_encode($this->User->invalidFields());
+				}
+			} else {
+				unset($data['password']);
+			}
+		} else {
+			unset($data['salt']);
+			unset($data['password']);
+			unset($data['cpassword']);
+			unset($data['email_verified']);
+			unset($data['active']);
+			unset($data['ip_address']);
+			unset($data['created']);
+			unset($data['modified']);
+			$this->User->set($data);
+			
+			if($this->User->RegisterValidate()) {
+				$this->User->save($data, false);
+			} else {
+				return json_encode($this->User->invalidFields());
+			}
+		}	
 	}
 	
 /* =======================================================================
 	JSON feeds
 ========================================================================== */	
+	/**
+	* JSON feed of user activity
+	*/
+	public function jsonActivity() {
+		
+		$activities = $this->OriginAd->query('
+						SELECT id, name, modify_by as userid, date, action 
+						FROM (
+							SELECT id, name, create_by, modify_by, date, action 
+							FROM (
+								SELECT id, name, create_by, modify_by, create_date as "date", "created" as "action"
+								FROM origin_ads ORDER BY create_date DESC LIMIT 30
+								) AS A
+							UNION ALL (
+								SELECT id, name, create_by, modify_by, modify_date as "date", "modified" as "action"
+								FROM origin_ads ORDER BY modify_date DESC LIMIT 30
+								)
+							) AS activity
+						ORDER BY date DESC LIMIT 30');
+		
+		$users		= $this->User->find('all');
+		$this->set('activities', $activities);
+		$this->set('users', $users);
+	}
+
+
 
 	/**
 	* JSON feed of the specified Origin ad template
@@ -648,7 +698,7 @@ class OriginController extends AppController {
 			}
 			
 			//Move optional temporary image into new location			
-			if(isset($tempContent['img_thumbnail'])) {
+			if(isset($tempContent['img_thumbnail']) && $tempContent['img_thumbnail'] !== '') {
 				$newLocation 	= '/assets/creator/'.$this->OriginAd->id.'/'.basename($tempContent['img_thumbnail']);
 			
 				rename('../webroot'.$tempContent['img_thumbnail'], '../webroot'.$newLocation);
@@ -686,8 +736,19 @@ class OriginController extends AppController {
 	* Creates an Origin ad unit's content record
 	*/
 	private function creatorContentSave($data) {
+	
+		//SELECT MAX(`order`) FROM origin_ad_desktop_initial_contents WHERE origin_ad_schedule_id = 15
+		$order	= $this->{'OriginAd'.$data['model'].'Content'}->find('first',
+			array(
+				'conditions'=>array('OriginAd'.$data['model'].'Content.origin_ad_schedule_id'=>$data['origin_ad_schedule_id']),
+				'fields'=>array('MAX(`order`) as `order`')
+			)
+		);
+		$order	= (int)$order[0]['order'] + 1;
+	
 		$data['content']		= json_encode($data['content']);
 		$data['config']			= json_encode($data['config']);
+		$data['order']			= $order;
 		
 		if($this->{'OriginAd'.$data['model'].'Content'}->save($data)) {
 			return $this->_creatorAdLoad($data);

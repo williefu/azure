@@ -5,7 +5,6 @@
 <!-- 	<textarea id="embedModal-content" class="originUI-textarea originUI-bgColorSecondary"><script type="text/javascript" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/min-js?f=/js/ad/origin.js" data-auto="{{embedOptions.auto}}" data-close="{{embedOptions.close}}" data-hover="{{embedOptions.hover}}" data-dcopt="true" data-id="<?php echo $this->params['originAd_id'];?>" data-type="{{workspace.ad.OriginAd.config.template}}" data-xd="local.origin_test_prod" data-init="true"></script></textarea> -->
 </div>
 <div id="embedModal-config">
-	<h4>Config</h4>
 	<ul class="originUI-list">
 		<li>
 			<label>Frequency Cap (per 24hrs)</label>

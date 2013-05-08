@@ -88,18 +88,9 @@ var creatorController = function($scope, $filter, Origin) {
 				});	
 			//});
 			
-			
-			
-			
-			
 			Origin.get('templates').then(function(response) {
 				$scope.templates		= response;
 			});
-			
-			
-			
-			
-			
 		});
 	});
 	
@@ -214,7 +205,6 @@ height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.pl
 				remove: false
 			}
 		}
-		
 		$scope.editor.template		= '/administrator/get/components/'+$scope.workspace.modal.alias;
 	}
 		
@@ -269,6 +259,18 @@ height:	$scope.workspace.template.config.dimensions[$scope.ui.view][$scope.ui.pl
 			$scope.editor = {};
 			$scope.refreshUI(response);
 			$scope.$parent.notificationOpen('Asset added to workspace');
+		});
+	}
+	
+	/**
+	* Saves any workspace changes and exits to listing page
+	*/
+	$scope.creatorSaveExit = function() {
+		$scope.editor.data					= $scope.workspace.ad.OriginAdSchedule;
+		$scope.editor.route					= 'creatorWorkspaceUpdate';
+		
+		Origin.post($scope.editor).then(function() {
+			window.location		= '/administrator/list';
 		});
 	}
 	

@@ -36,16 +36,17 @@
 				<h3 id="adList-moduleAdHeader">
 					<a href="/administrator/Origin/ad/edit/{{module.id}}">{{module.name}}</a>
 				</h3>
-				<img ng:src="{{module.content.img_thumbnail}}"/>
+				<img id="adList-moduleAdThumbnail" ng:src="{{module.content.img_thumbnail}}"/>
 				<span class="adList-moduleAdDetails">Last Modified {{module.modify_date}} by {{module.modify_by}}</span>
 				<span class="adList-moduleAdDetails">Created {{module.create_date}} by {{module.create_by}}</span>
 				<!-- <h4>Metrics</h4> -->
 				<h4 id="adList-moduleEmbedHeader" class="originUI-borderColorSecondary" ng:click="embedCreate()">Generate Embed</h4>
 				<h4 id="adList-moduleDemoHeader" class="originUI-borderColorSecondary">
-					<a href="/demo/Origin/{{module.id}}" target="_blank">Demo Links</a>
+					<a href="/administrator/demo/{{module.id}}" target="_blank">Demo</a>
 				</h4>
 				<ul id="adList-moduleDemoList" class="originUI-list">
-					<li class="originUI-listItem" ng:repeat="demo in demos"><a href="/demo/{{demo.OriginDemo.alias}}" target="_blank">{{demo.OriginDemo.name}}</a></li>
+					<!-- <li class="originUI-listItem"><a href="/demo/Origin/{{module.id}}" -->
+					<li ng:repeat="demo in demos"><a href="/demo/{{demo.OriginDemo.alias}}" target="_blank">{{demo.OriginDemo.name}}</a></li>
 				</ul>
 			</div>
 		</div>

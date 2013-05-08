@@ -37,7 +37,7 @@
 	</div>
 	
 	<div modal="originModal" close="$parent.originModalClose()" options="$parent.originModalOptions">
-		<form id="adTemplate-edit" name="adTemplate-edit" class="originUI-bgColorSecondary originUI-modal">
+		<form id="adTemplate-edit" name="adTemplateEdit" class="originUI-bgColorSecondary originUI-modal">
 			<input type="hidden" name="uploadDir" value="/assets/templates/"/>
 			<input type="hidden" ng:model="editorModal.id"/>
 			<h3 id="adTemplate-editHeader" class="originUI-tileHeader originUI-borderColor originUI-textColor">Edit Template</h3>
@@ -54,8 +54,8 @@
 				<div class="clear"></div>		
 			</div>
 			<div class="originUI-tileFooter">
-				<div class="originUI-tileFooterLeft" ng:click="$parent.originModalClose()">Cancel</div>
-				<div class="originUI-tileFooterRight" ng:click="templateSave()">Save</div>
+				<button class="originUI-tileFooterLeft" ng:click="$parent.originModalClose()">Cancel</button>
+				<button class="originUI-tileFooterRight" ng:click="templateSave()" ng-disabled="adTemplateEdit.$invalid">Save</button>
 			</div>
 		</form>
 	</div>

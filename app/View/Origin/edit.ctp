@@ -46,7 +46,7 @@
 						<a href="javascript:void(0)" id="option-settings" class="option" ng:click="settingsModalOpen()">Settings</a>
 					</li>
 					<li>
-						<a href="/administrator/list" id="option-exit" class="option">Save &amp; Exit</a>
+						<a href="javascript:void(0)" id="option-exit" class="option" ng:click="creatorSaveExit()">Save &amp; Exit</a>
 					</li>
 				</ul>
 			</div>
@@ -187,7 +187,7 @@
 			<div class="originUI-modalContent">
 				<div class="originUI-modalLeft"><?php echo $this->element('form_setting', array('view'=>'left'));?></div>
 				<div class="originUI-modalRight">
-					<select id="settingsModal-template" class="originUI-select originUI-bgColorSecondary" ng:model="editor.template" ng:options="template.OriginTemplate.name for template in templates" ng:change="templateLoad()">
+					<select id="settingsModal-template" class="originUI-select originUI-bgColorSecondary" ng:model="editor.template" ng:options="template.OriginTemplate.name for template in templates|filter:{OriginTemplate.status: '1'}" ng:change="templateLoad()">
 						<option style="display:none" value="">Load Template</option>
 					</select>
 					<?php echo $this->element('form_template', array('view'=>'right', 'editor' => 'editor'));?>

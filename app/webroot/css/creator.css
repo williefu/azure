@@ -619,5 +619,13 @@ body {
 	margin: 0 0 0 10px;
 }
 
+#settingsModal-template {
+	margin: 6px 0 10px;
+}
 
 /***** END: SETTINGS MODAL *****/
+
+
+#origin-notification {
+	top: 100px;
+}

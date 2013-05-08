@@ -1,3 +1,11 @@
+body.originUI-superAdmin .originUI-superAdmin {
+	visibility: visible;
+}
+
+body:not(.originUI-superAdmin) .originUI-superAdmin {
+	visibility: hidden;
+}
+
 .originUI-borderColor {
 	border-color: #0099cc;
 }
@@ -9,6 +17,19 @@
 .originUI-fixed {
 	position: fixed; 
 	top: 0;
+}
+
+.originUI-gradient:after {
+	background-image: -moz-linear-gradient(right center, rgba(33, 33, 35, 0) 0px, #212123 75%);
+	background-size: auto 100%;
+	left: 320px;
+	bottom: 0;
+	top: 0;
+	content: "";
+	display: block;
+	position: absolute;
+	width: 135px;
+	height: 100px;
 }
 
 .originUI-list {
@@ -73,6 +94,15 @@
 /* =======================================================================
 	Elements
 ========================================================================== */
+.originUI-header {
+	margin: 10px 0;
+	text-transform: uppercase;
+	font-weight: normal;
+	line-height: normal;
+	font-size: 30px;
+}
+
+
 .originUI-upload {
 	position: relative;
 	overflow: hidden;
@@ -160,6 +190,12 @@
 	position: absolute;
 }
 
+body.originClass-guidelines #originBar-search,
+body.originClass-display #originBar-search,
+body.originClass-login #originBar-search {
+	display: none;
+}
+
 #originBar-search .originUI-input {
 	background-image: url(/img/icon-search.png);
 	background-position: 2px center;
@@ -201,6 +237,10 @@
 	background-image: url(/img/dropdown-dashboard.png);
 }
 
+#originBar-config {
+	background-image: url(/img/dropdown-setting.png);
+}
+
 #originBar-account {
 	background-image: url(/img/dropdown-account.png);
 }
@@ -213,19 +253,196 @@
 	background-image: url(/img/dropdown-exit.png);
 }
 
-
 /* =======================================================================
 	Dashboard
 ========================================================================== */
-
 #dashboard .originUI-tiles {
+	width: 100%;
+	height: 190px;
+/*
+	background-position: center 50px;
+	background-repeat: no-repeat;
+	background-color: #0099CC;
+*/
+}
+
+#dashboard>#dashboard-activity {
+	width: 560px;
+	height: 400px;
+}
+
+.dashboard-activityUser {
+	text-transform: capitalize;
+}
+
+#dashboard>#dashboard-activity:hover {
+	cursor: default;
+	transform: scale(1, 1);
+}
+
+#dashboard-right {
+	width: 420px;
+}
+
+#dashboard-right #home-creator {
+	width: 400px;
+}
+
+#dashboard-right #dashboard-analytics,
+#dashboard-right #dashboard-demo {
+	width: 190px;
+}
+
+/* =======================================================================
+	Guidelines
+========================================================================== */
+#guidelines-summary,
+#guidelines-dimensions {
+	position: relative;
+	padding: 10px 0;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+}
+
+#guidelines-summary {
+	height: 130px;	
+}
+
+#guidelines-dimensions {
+	height: 200px;
+}
+
+.guidelines-left {
+	width: 60%;
+	position: absolute;
+}
+
+.guidelines-right {
+	width: 300px;
+	position: absolute;
+	right: 0;
+}
+
+.guidelines-header {
+	font-weight: normal;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	margin: 0;
+	line-height: normal;
+	width: 100%;
+}
+
+#guidelines-summaryDescription {
+	position: absolute;
+	width: 100%;
+}
+
+#guidelines-summaryStoryboard {
+	top: 20px;
+}
+
+#guidelines-dimensionsPlatforms {
+	position: absolute;
+	top: 0;
+	left: 450px;
+}
+
+.guidelines-dimensionsIcon {
+	width: 26px;
+	height: 26px;
+	cursor: pointer;
+	text-indent: -5000em;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: inline-block;
+	margin: 8px;
+}
+
+#guidelines-dimensionsDesktop {
+	background-image: url(/img/desktop-26x26.png);
+}
+
+#guidelines-dimensionsTablet {
+	background-image: url(/img/tablet-26x26.png);
+}
+
+#guidelines-dimensionsMobile {
+	background-image: url(/img/mobile-26x26.png);
+}
+
+.guidelines-component {
+	margin: 10px 15px;
+	width: 150px;
+	height: 100px;
+	border-width: 0 0 1px 3px;
+	border-style: solid;
+}
+
+
+/*
+#guidelines-summary {
+	width: 330px;
+}
+
+#guidelines-dimensions {
+	width: 645px;
+}
+
+#guidelines-dimensionsPlatforms {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.guidelines-dimensionsIcon {
+	width: 26px;
+	height: 26px;
+	cursor: pointer;
+	text-indent: -5000em;
+	background-repeat: no-repeat;
+	background-position: center center;
+	display: inline-block;
+	margin: 8px;
+}
+
+.guidelines-dimensionsIcon:active {
+	
+}
+
+#guidelines-dimensionsDesktop {
+	background-image: url(/img/desktop-26x26.png);
+}
+
+#guidelines-dimensionsTablet {
+	background-image: url(/img/tablet-26x26.png);
+}
+
+#guidelines-dimensionsMobile {
+	background-image: url(/img/mobile-26x26.png);
+}
+
+
+.guidelines-dimensionsInitial {
+	position: relative;
+	max-width: 100%;
+	margin: 15px auto;
+}
+*/
+
+
+
+/* =======================================================================
+	Settings
+========================================================================== */
+
+#settings .originUI-tiles {
 	width: 180px;
 	height: 250px;
 	background-position: center 65px;
 	background-repeat: no-repeat;
 }
 
-#dashboard .originTile-title {
+#settings .originTile-title {
 	bottom: auto;
 	top: 5px;
 	right: 10px;
@@ -233,29 +450,29 @@
 	font-size: 17px;
 }
 
-#dashboard-templates {
+#settings-templates {
 	background-color: #0099cc;
 	background-image: url(/img/ad-template-150x150.png);
 }
 
-#dashboard-components {
+#settings-components {
 	background-color: #669900;
-	background-image: url(/img/dashboard-components.png);
+	background-image: url(/img/settings-components.png);
 }
 
-#dashboard-demo {
+#settings-demo {
 	background-color: #ff8800;
-	background-image: url(/img/dashboard-demo.png);
+	background-image: url(/img/settings-demo.png);
 }
 
-#dashboard-users {
-	background-image: url(/img/dashboard-users.png);
+#settings-users {
+	background-image: url(/img/settings-users.png);
 	background-color: #9933cc;
 }
 
-#dashboard-config {
+#settings-config {
 	background-color: #cc0000;
-	background-image: url(/img/dashboard-config.png);
+	background-image: url(/img/settings-config.png);
 }
 
 
@@ -429,25 +646,100 @@
 }
 
 /* =======================================================================
+	Notification
+========================================================================== */
+#origin-notification {
+	z-index: 1000020;
+	position: absolute;
+	top: 40px;
+	right: 5px;
+	width: 250px;
+	height: 50px;
+	border-width: 0 0 1px 3px;
+	border-style: solid;
+}
+
+.originNotification-default {
+	border-color: #669900;
+}
+
+.originNotification-alert {
+	border-color: #cc0000;
+}
+
+#originNotification-icon {
+	margin: 12px 10px;
+}
+
+#originNotification-message {
+	width: 200px;
+	height: 100%;
+	position: relative;
+}
+
+#originNotification-close {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background: transparent url(/img/notification-close.png) no-repeat 0 0;
+	text-indent: -5000em;
+	width: 14px;
+	height: 14px;
+	opacity: .3;
+}
+
+#originNotification-close:hover {
+	opacity: 1;
+}
+
+/*
+#originNotification-header {
+	color: #fff;
+	text-transform:  uppercase;
+	font-size: 16px;
+	line-height: 14px;
+	margin: 5px 0;
+}
+*/
+
+#originNotification-content {
+	font-size: 14px;
+	width: 180px;
+	margin: 5px 0;
+}
+
+/* =======================================================================
 	Ad Template Manager
 ========================================================================== */
+#adTemplate-create,
+#adTemplate-list {
+	min-height: 622px;
+}
+
 #adTemplate-createHeader {
 	background-image: url(/img/ad-template-add-26x26.png);
 }
 
 .adTemplate-config {
 	width: 20%;
-	margin: 5px;
+	margin: 4px;
 	text-align: center;
 	font-size: 14px;
 }
 
-#adTemplate-storyboardUpload {
-	width: 100%;
+#adTemplate-templateConfig {
+	height: 239px;
+	display: block;
 }
 
-#adTemplate-list  {
-	min-height: 656px;
+/*
+#adTemplate-templateConfig .accordion-inner {
+	min-height: 117px;
+}
+*/
+
+#adTemplate-storyboardUpload {
+	width: 100%;
 }
 
 #adTemplate-listHeader,
@@ -505,6 +797,11 @@
 /* =======================================================================
 	Demo Manager
 ========================================================================== */
+#siteManager-create,
+#siteManager-list {
+	min-height: 288px;
+}
+
 #siteManager-createHeader {
 	background-image: url(/img/demo-26x26.png);
 }
@@ -513,23 +810,6 @@
 #siteManager-listHeader,
 #siteManager-editHeader {
 	background-image: url(/img/demo-26x26.png);
-}
-
-#user-createHeader {
-	background-image: url(/img/user-add-26x26.png);
-}
-
-#user-listHeader,
-#user-editHeader {
-	background-image: url(/img/user-26x26.png);
-}
-
-#user-list {
-	min-height: 475px;
-}
-
-#user-table .originUI-tableHeadName {
-	width: 100px;
 }
 
 #demo-panel {
@@ -563,18 +843,39 @@
 }
 
 /* =======================================================================
+	User Manager
+========================================================================== */
+
+#user-createHeader {
+	background-image: url(/img/user-add-26x26.png);
+}
+
+#user-listHeader,
+#user-editHeader {
+	background-image: url(/img/user-26x26.png);
+}
+
+#user-list {
+	min-height: 475px;
+}
+
+#user-table .originUI-tableHeadName {
+	width: 100px;
+}
+
+/* =======================================================================
 	Ad List Manager
 ========================================================================== */
 #adList-left {
-	width: 680px;
-	margin: 0 20px 0 0;
+	width: 685px;
+	margin: 0 15px 0 0;
 }
 
 .adList-item {
 	display: block;
 	width: 100%;
 	height: 100px;
-	margin: 0 0 20px 0;
+	margin: 0 0 15px 0;
 	cursor: pointer;
 	border-width: 0 0 1px 2px;
 	border-style: solid;
@@ -717,6 +1018,11 @@
 	height: 26px;
 	white-space: nowrap;
 	overflow: hidden;
+	margin: 5px 0 0;
+}
+
+#adList-moduleAdThumbnail {
+	margin: 5px auto;
 }
 
 .adList-moduleAdDetails {
@@ -753,6 +1059,10 @@
 
 .adList-moduleDemoListItem {
 	margin: 5px 0 5px 10px;	
+}
+
+#adList-moduleDemoList .originUI-listItem {
+	overflow: hidden;
 }
 
 #adList-modalHeader {

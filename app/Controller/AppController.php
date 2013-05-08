@@ -34,6 +34,7 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 		public $helpers 	= array('Form', 'Html', 'Session', 'Js', 'Usermgmt.UserAuth', 'Minify.Minify');
 		public $components 	= array('Session','RequestHandler', 'Usermgmt.UserAuth');
+		public $originKey;
 		
 		function beforeFilter(){
 			$this->userAuth();

@@ -40,7 +40,7 @@
 </ul>
 
 <?php } else if($view === 'right') { ?>
-<accordion close-others="true" id="adTemplate-templateConfig" class="originUI-accordion">
+<accordion close-others="true" id="adTemplate-templateConfig" class="originUI-accordion originUI-superAdmin">
 	<?php 
 		$platforms	= array('Desktop', 'Tablet', 'Mobile');
 		foreach($platforms as $key=>$platform) {

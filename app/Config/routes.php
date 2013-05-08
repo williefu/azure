@@ -37,7 +37,7 @@
 */
 	Router::mapResources('creator');
 	Router::parseExtensions();
-	
+
 /**
 * Origin
 */
@@ -69,13 +69,14 @@ Router::connect('/administrator/viewUser/*', array('plugin' => 'usermgmt', 'cont
 
 
 //SYSTEMS
-Router::connect('/administrator/dashboard', array('controller' => 'origin', 'action' => 'dashboard'));
-Router::connect('/administrator/dashboard/access', array('plugin' => 'usermgmt', 'controller' => 'user_group_permissions', 'action' => 'index'));
-Router::connect('/administrator/dashboard/profile/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'editUser'));
-Router::connect('/administrator/dashboard/password', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'changePassword'));
-Router::connect('/administrator/dashboard/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
-Router::connect('/administrator/dashboard/templates', array('controller'=>'origin', 'action'=>'templateList'));
-Router::connect('/administrator/dashboard/components', array('controller'=>'origin', 'action'=>'componentList'));
+Router::connect('/administrator/settings', array('controller' => 'origin', 'action' => 'settings'));
+Router::connect('/administrator/settings/access', array('plugin' => 'usermgmt', 'controller' => 'user_group_permissions', 'action' => 'index'));
+Router::connect('/administrator/settings/components', array('controller'=>'origin', 'action'=>'componentList'));
+Router::connect('/administrator/settings/password', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'changePassword'));
+Router::connect('/administrator/settings/profile/*', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'editUser'));
+Router::connect('/administrator/settings/templates', array('controller'=>'origin', 'action'=>'templateList'));
+Router::connect('/administrator/settings/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
+
 
 //Router::connect('/administrator/Origin/templates', array('controller'=>'origin', 'action'=>'jsonTemplate'));
 //Router::connect('/administrator/Origin/template/:template_id', array('controller'=>'origin', 'action'=>'jsonAdTemplate'));
@@ -88,6 +89,7 @@ Router::connect('/administrator/Origin/upload', array('controller'=>'origin', 'a
 
 
 //JSON Feeds
+Router::connect('/administrator/get/activity', array('controller'=>'origin', 'action'=>'jsonActivity'));
 Router::connect('/administrator/get/ads', array('controller'=>'origin', 'action'=>'jsonList'));
 Router::connect('/administrator/get/ad/:originAd_id', array('controller'=>'origin', 'action'=>'jsonAdUnit'));
 Router::connect('/administrator/get/components', array('controller'=>'origin', 'action'=>'jsonComponent'));
@@ -109,7 +111,7 @@ Router::connect('/administrator/get/sites', array('controller'=>'origin', 'actio
 Router::connect('/administrator/get/templates/:template', array('controller'=>'origin', 'action'=>'demoLoadTemplate'));
 Router::connect('/administrator/demos', array('controller'=>'origin', 'action'=>'demoList'));
 Router::connect('/administrator/demo/:originAd_id', array('controller'=>'origin', 'action'=>'demoEdit'));
-Router::connect('/administrator/dashboard/sites', array('controller'=>'origin', 'action'=>'siteList'));
+Router::connect('/administrator/settings/sites', array('controller'=>'origin', 'action'=>'siteList'));
 Router::connect('/demo/Origin/:originAd_id', array('controller'=>'origin', 'action'=>'demoOrigin'));
 Router::connect('/demo/:alias', array('controller'=>'origin', 'action'=>'demo'));
 
@@ -125,6 +127,13 @@ Router::connect('/ad/:originAd_id/:originAd_platform/*', array('controller'=>'or
 Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor'));
 Router::connect('/administrator/Monitor/Post', array('controller'=>'monitor', 'action'=>'post'));
 //Router::connect('/administrator/Monitor/export/:data', array('controller'=>'monitor', 'action'=>'monitorExport'));
+
+/**
+* PUBLIC VIEWS
+*/
+//Spec Sheets/Guidelines
+Router::connect('/guidelines/:specsheet_alias', array('controller'=>'origin', 'action'=>'guidelines'));
+
 
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 

@@ -35,7 +35,7 @@
 	</div>
 	
 	<div modal="originModal" close="$parent.originModalClose()" options="$parent.originModalOptions">
-		<form id="siteManager-edit" name="siteManager-edit" class="originUI-bgColorSecondary originUI-modal" novalidate>
+		<form id="siteManager-edit" name="siteManagerEdit" class="originUI-bgColorSecondary originUI-modal" novalidate>
 			<input type="hidden" ng:model="editorModal.id"/>
 			<h3 id="siteManager-editHeader" class="originUI-tileHeader originUI-borderColor originUI-textColor">Edit Site</h3>
 			
@@ -51,8 +51,8 @@
 				<div class="clear"></div>		
 			</div>
 			<div class="originUI-tileFooter">
-				<div class="originUI-tileFooterLeft" ng:click="$parent.originModalClose()">Cancel</div>
-				<div class="originUI-tileFooterRight" ng:click="siteSave()">Save</div>
+				<button class="originUI-tileFooterLeft" ng:click="$parent.originModalClose()">Cancel</button>
+				<button class="originUI-tileFooterRight" ng:click="siteSave()" ng-disabled="siteManagerEdit.$invalid">Save</button>
 			</div>
 		</form>
 	</div>

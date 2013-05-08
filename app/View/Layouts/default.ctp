@@ -1,5 +1,6 @@
 <?php
-$cakeDescription = __d('cake_dev', 'Origin');
+$cakeDescription 	= __d('cake_dev', 'Origin');
+$userAdmin			= ($this->UserAuth->isAdmin())? 'originUI-superAdmin': '';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,7 +21,7 @@ $cakeDescription = __d('cake_dev', 'Origin');
 		//echo $this->fetch('script');
 	?>
 </head>
-<body class="originUI-bgTexture" ng:app="originApp" ng:controller="originGeneral">
+<body class="originUI-bgTexture <?php echo $userAdmin;?> <?php echo 'originClass-'.$this->params['action'];?>" ng:app="originApp" ng:controller="originGeneral">
 	<?php echo $this->element('bar');?>
 	<div id="container" class="wrapper">
 		<?php echo $this->Session->flash(); ?>
