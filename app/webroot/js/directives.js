@@ -403,27 +403,4 @@ angular.module('originApp.directives', [])
 			
 		}
       }			
-    })
-	.directive("accordion", function() {
-        return {
-            restrict: "E",
-            link: function (scope, element, attrs) {
-				var content = '<accordion accordion-id="'+scope.item.event+'" accordion-title="collapseId" parent="accordion2">';
-                content += '<div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="'+attrs.parent+'" href="#'+scope.item.event+'">'+scope.item.event+' '+scope.item.totalEvents+' '+scope.item.uniqueEvents+'</a></div>';
-                content += '<div id="'+scope.item.event+'" class="accordion-body in collapse"><div class="accordion-inner">';
-                
-				if(scope.item.labels!='') {
-					angular.forEach(scope.item.labels, function(obj) {
-						content += obj.label +' '+ obj.totalEvents +' '+ obj.uniqueEvents;
-					});
-				}
-				else {
-					content += 'no labels';
-				}
-				
-                content += '</div></div>';
-				content += '</accordion>';
-                element.html(content);
-            }
-        };
     });
