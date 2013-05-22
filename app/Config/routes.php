@@ -105,7 +105,6 @@ Router::connect('/administrator/get/monitor/event/:category', array('controller'
 Router::connect('/administrator/get/monitor/visits', array('controller' => 'monitor', 'action' => 'jsonVisits'));
 Router::connect('/administrator/get/monitor/visits/:start_date/:end_date/:category', array('controller' => 'monitor', 'action' => 'jsonVisits'));
 Router::connect('/administrator/get/sites', array('controller'=>'origin', 'action'=>'jsonSite'));
-//Router::connect('/administrator/get/monitor/export/:data', array('controller'=>'monitor', 'action'=>'monitorExport'));
 
 //DEMO
 Router::connect('/administrator/get/templates/:template', array('controller'=>'origin', 'action'=>'demoLoadTemplate'));
@@ -126,7 +125,7 @@ Router::connect('/ad/:originAd_id/:originAd_platform/*', array('controller'=>'or
 //Analytics
 Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor'));
 Router::connect('/administrator/Monitor/Post', array('controller'=>'monitor', 'action'=>'post'));
-//Router::connect('/administrator/Monitor/export/:data', array('controller'=>'monitor', 'action'=>'monitorExport'));
+Router::connect('/administrator/monitor/export/:category/:start/:end', array('controller'=>'monitor', 'action'=>'export_xls'));
 
 /**
 * PUBLIC VIEWS

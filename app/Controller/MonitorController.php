@@ -2,7 +2,7 @@
 
 class MonitorController extends AppController {
 	
-	public $uses = array('Monitor','MonitorExport');
+	public $uses = array('Monitor');
 
 	public function index() {
 	}
@@ -47,6 +47,29 @@ class MonitorController extends AppController {
 		$this->set('visits', $visits);
 	}
 	
+	public function export_xls() {
+		$data['category'] = $this->request->params['category'];
+		$data['start_date'] = $this->request->params['start'];
+		$data['end_date'] = $this->request->params['end'];
+				
+		if($data['category']=="ALL") {
+			$monitor = $this->Monitor->getMonitor();
+			$this->set('monitor',$monitor);
+			$this->set('category', 'ALL');
+		}
+		else {
+			$action = $this->Monitor->getEventAction($data['category']);
+			$label = $this->Monitor->getEventLabel($data['category']);
+		
+			$this->set('action', $action);
+			$this->set('label', $label);
+			$this->set('category', $data['category']);
+		}
+		
+		$this->render('export_xls','export_xls');
+	}
+	
+	
 	public function post() {
 		if($this->request->data['route']) {
 			$route		= $this->request->data['route'];
@@ -56,36 +79,4 @@ class MonitorController extends AppController {
 			//$this->set('data', $this->request->data);
 		}
 	}
-	
-	public function monitorExport() {
-		$this->MonitorExport->export($this->request->data);
-		//print_r($this->request->data);
-		//$this->set('post', $response);
-		/*
-		debug($this->request->params['data']['type']);
-		//$this->set('data', $this->request->params['data']);
-		
-		$start = $data['monitor_filter']['startDate'];
-				$end = $data['monitor_filter']['endDate'];
-				
-				ob_start();
-				header("Content-type: application/x-msdownload");
-				header("Content-Disposition: attachment; filename=extraction.xls");
-				header("Pragma: no-cache");
-				header("Expires: 0");
-
-				$header = "# ------------------------------------------------------------\n";
-				$header.= "# SI Event Category\n";
-				$header.= "# Top Events\n";
-				$header.= "#". $start ." - ".$end."\n";
-				$header.= "# ------------------------------------------------------------\n";
-				//$header.= "Event Action\tTotal Events\tUnique Events\tEvent Value\tAvg. Value";
-				$info = "Event Category\tTotal Events\tUnique Events\n";
-				foreach($data['monitor_list'] as $key=>$row) {
-					$info .= $row['category'] . "\t" . $row['totalEvents'] . "\t" . $row['uniqueEvents']. "\n";
-				}
-				
-				print "$header\n$info";*/
-	}
-	
 }

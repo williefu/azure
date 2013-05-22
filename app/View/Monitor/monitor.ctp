@@ -18,10 +18,11 @@
 		<form name="test" ng-submit="">
 			<input ng-model="monitorObj.start_date" ui-date="{ dateFormat: 'yy-mm-dd' }" ui-date-format="yy-mm-dd" name="datepicker1" type="text" class="input-medium" value="{{monitor_filter.startDate}}" placeholder="">
 			<input ng-model="monitorObj.end_date" ui-date="{ dateFormat: 'yy-mm-dd' }" ui-date-format="yy-mm-dd" name="datepicker2" type="text" class="input-medium" value="{{monitor_filter.endDate}}" placeholder="">
+			<!--p>Date: <input type="text" id="datepicker" ui-date></p--> 
 			<input type="text" name="category" ng-model="monitorObj.category" id="category" placeholder="<?php echo __('Event Category Title');?>" style=""/><br/>
 			<button ng-click="getData()">Search</button>
-			<a href="/administrator/monitor/export/{{monitor_list}}" id="export-monitor" class="" >export</a>
-			<button ng-click="exportData()">Export</button>
+			<a ng-href="/administrator/monitor/export/ALL/{{monitor_filter.startDate}}/{{monitor_filter.endDate}}" id="export-monitor" class="" ng-show="monitor_title=='Event Category'">Export</a>
+			<a ng-href="/administrator/monitor/export/{{monitorObj.category}}/{{monitor_filter.startDate}}/{{monitor_filter.endDate}}" id="export-monitor" class="" ng-hide="monitor_title=='Event Category'">Export</a>
 		</form>
 	</div>
 	<div id="totals">
@@ -52,11 +53,13 @@
 					<td ng-show="monitor_title=='Event Category'">{{item.uniqueEvents}}</td>
 					<td ng-hide="monitor_title=='Event Category'"> 
 						<!--accordion></accordion-->
+						<accordion>
 						<accordion-group heading="{{item.event}}  {{item.totalEvents}}  {{item.uniqueEvents}}">
 							<div ng:repeat="label in item.labels">
 								{{label.label}}  {{label.totalEvents}}  {{label.uniqueEvents}}
 							</div>
 						</accordion-group>
+						</accordion>
 					</td>    
 					<td>
 					
