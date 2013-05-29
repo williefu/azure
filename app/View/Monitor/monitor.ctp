@@ -14,12 +14,11 @@
 	<div id="visits">
 		<div chart></div>
 	</div>
-	<div id="filter" style="float:right;">
+	<div id="filters" style="float:right;">
 		<form name="test" ng-submit="">
 			<input ng-model="monitorObj.start_date" ui-date="{ dateFormat: 'yy-mm-dd' }" ui-date-format="yy-mm-dd" name="datepicker1" type="text" class="input-medium" value="{{monitor_filter.startDate}}" placeholder="">
 			<input ng-model="monitorObj.end_date" ui-date="{ dateFormat: 'yy-mm-dd' }" ui-date-format="yy-mm-dd" name="datepicker2" type="text" class="input-medium" value="{{monitor_filter.endDate}}" placeholder="">
-			<!--p>Date: <input type="text" id="datepicker" ui-date></p--> 
-			<input type="text" name="category" ng-model="monitorObj.category" id="category" placeholder="<?php echo __('Event Category Title');?>" style=""/><br/>
+			<input type="text" ng-model="monitorObj.category" id="category" name="category" placeholder="<?php echo __('Event Category Title');?>" style=""></input><br/>
 			<button ng-click="getData()">Search</button>
 			<a ng-href="/administrator/monitor/export/ALL/{{monitor_filter.startDate}}/{{monitor_filter.endDate}}" id="export-monitor" class="" ng-show="monitor_title=='Event Category'">Export</a>
 			<a ng-href="/administrator/monitor/export/{{monitorObj.category}}/{{monitor_filter.startDate}}/{{monitor_filter.endDate}}" id="export-monitor" class="" ng-hide="monitor_title=='Event Category'">Export</a>
@@ -45,14 +44,13 @@
 				<td><?php echo __('Total Events');?></td>
 				<td><?php echo __('Unique Events');?></td>
 			</tr>
-			 
-
-			<tr ng:repeat="item in monitor_list | orderBy:'totalEvents' | filter:monitorObj.category">
-					<td ng:click="categoryData(item.category)" style="{{monitor_title=='Event Category' && 'cursor:pointer'}}" ng-show="monitor_title=='Event Category'">{{item.category}}</td>
-					<td ng-show="monitor_title=='Event Category'">{{item.totalEvents}}</td>
-					<td ng-show="monitor_title=='Event Category'">{{item.uniqueEvents}}</td>
+			<tr ng-repeat="item in listFilter()" ng-show="monitor_title=='Event Category'">
+					<td ng:click="categoryData(item.category)" style="{{monitor_title=='Event Category' && 'cursor:pointer'}}">{{item.category}}</td>
+					<td>{{item.totalEvents}}</td>
+					<td>{{item.uniqueEvents}}</td>
+			</tr>
+			<tr ng-repeat="item in monitor_list" ng-hide="monitor_title=='Event Category'">
 					<td ng-hide="monitor_title=='Event Category'"> 
-						<!--accordion></accordion-->
 						<accordion>
 						<accordion-group heading="{{item.event}}  {{item.totalEvents}}  {{item.uniqueEvents}}">
 							<div ng:repeat="label in item.labels">
@@ -61,9 +59,6 @@
 						</accordion-group>
 						</accordion>
 					</td>    
-					<td>
-					
-					</td>
 			</tr>
 		</table>
 	</div>

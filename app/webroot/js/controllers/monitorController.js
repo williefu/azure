@@ -3,7 +3,7 @@
 * Monitor Controller
 **/
 
-var monitorCtrl = function($scope, Monitor) {
+var monitorCtrl = function($scope, Monitor, $filter) {
 	//Global Monitor object
 	$scope.monitorObj = {};
 	$scope.monitor_filter = {};
@@ -25,7 +25,23 @@ var monitorCtrl = function($scope, Monitor) {
 			$scope.monitor_totals = data.total;
 			$scope.monitor_list = data.data;
 			$scope.monitor_title = 'Event Category';
+			$scope.listFilter = function() {
+				var array = [];
+				for(var key in $scope.monitor_list) {
+				  array.push($scope.monitor_list[key]);
+				}
+				return $filter('filter')(array, $scope.monitorObj.category);
+			};
 	});
+	
+	/*$scope.listFilter = function(data) {
+				var array = [];
+				for(var key in data) {
+				  array.push(data[key]);
+				}
+				console.log($filter('filter')(array, $scope.monitorObj.category));
+				return $filter('filter')(array, $scope.monitorObj.category);
+	}*/
 	
 	//Load Visits data
 	Monitor.get('visits').then(function(data) {
@@ -33,12 +49,18 @@ var monitorCtrl = function($scope, Monitor) {
 	});
 
 	$scope.getData = function() {
-		//$scope.monitorObj.start_date = $scope.parseDate($scope.monitorObj.start_date);
-		//$scope.monitorObj.end_date = $scope.parseDate($scope.monitorObj.end_date);
 		$scope.monitorObj.category = ($scope.monitorObj.category == '' ? 'undefined' : $scope.monitorObj.category);
 		Monitor.get('list/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+$scope.monitorObj.category).then(function(data) {
 			$scope.monitorObj.category = ($scope.monitorObj.category == 'undefined' ? '' : $scope.monitorObj.category);
+			$scope.monitor_title = 'Event Category';
 			$scope.refreshMonitor(data);
+			$scope.listFilter = function() {
+				var array = [];
+				for(var key in data.data) {
+				  array.push(data.data[key]);
+				}
+				return $filter('filter')(array, $scope.monitorObj.category);
+			};
 		});
 	}
 	
@@ -51,50 +73,26 @@ var monitorCtrl = function($scope, Monitor) {
 	  if(day < 10) day = '0' + day;
 	  return year + '-' + month + '-' + day;	// 2013-03-22
 	}
-	/*
-	$scope.exportData = function() {
-		$scope.monitor.route		= 'monitorExport';
-		$scope.monitor.type = 'multiple';
-		$scope.monitor.monitor_filter = $scope.monitor_filter;
-		$scope.monitor.monitor_totals = $scope.monitor_totals;
-		$scope.monitor.monitor_list = $scope.monitor_list;
-		Monitor.export1($scope.monitor).then(function(response) {
-			//console.log(response);
-		});
-		/*Monitor.get('export/'+$scope.monitor).then(function(response) {
-			//console.log(response);
-		});*/
-		/*Monitor.get('export/').then(function(response) {
-			//console.log(response);
-		});*/
-		/*Monitor.file('export/'+$scope.monitor).then(function(data) {
-			$scope.monitor_filter = data.filter;
-			$scope.monitor_totals = data.total;
-			$scope.monitor_list = data.data;
-			$scope.monitor_title = 'Event Category';
-		});*/
-	//}
-	
+			
 	$scope.refreshMonitor = function(data) {
 		$scope.monitor_list = data.data;
 		$scope.monitor_filter = data.filter;
 		$scope.monitor_totals = data.total;
 		$scope.monitorObj.start_date = data.filter.startDate;
 		$scope.monitorObj.end_date = data.filter.endDate;
-		console.log($scope.monitor_list);
-		
 		
 		//Load Visits data
 		Monitor.get('visits/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+$scope.monitorObj.category).then(function(data) {
 				$scope.monitor_visits = data.visits;
 		});
+		
 	}
 	
 	$scope.categoryData = function(category) {
 		if($scope.monitor_title!='Event Action') {
+			//category = encodeURI(encodeURI(category));
 			Monitor.get('event/'+category).then(function(data) {
 				$scope.monitorObj.category = category;
-				console.log(data);
 				$scope.refreshMonitor(data);
 				$scope.monitor_title = 'Event Action';
 			});
