@@ -18,7 +18,10 @@
 	foreach($monitor->data as $key=>$item) {
 		$index++;
 		$monitorList['data'][$index]->category = $key;
-		$monitorList['data'][$index]->categoryEncode = urlencode($key);
+		$firstPos = strpos($key, '[Origin ID');
+		$lastPos = strlen($key)-1;
+		$monitorList['data'][$index]->categoryId = substr($key,$firstPos,$lastPos);
+		//$monitorList['data'][$index]->categoryEncode = urlencode($key);
 		$monitorList['data'][$index]->totalEvents = $item->{"ga:totalEvents"};
 		$monitorList['data'][$index]->uniqueEvents = $item->{"ga:uniqueEvents"};
 	}

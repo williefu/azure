@@ -88,10 +88,9 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 		
 	}
 	
-	$scope.categoryData = function(category) {
+	$scope.categoryData = function(id,category) {
 		if($scope.monitor_title!='Event Action') {
-			//category = encodeURI(encodeURI(category));
-			Monitor.get('event/'+category).then(function(data) {
+			Monitor.get('event/'+id).then(function(data) {
 				$scope.monitorObj.category = category;
 				$scope.refreshMonitor(data);
 				$scope.monitor_title = 'Event Action';

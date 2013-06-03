@@ -45,7 +45,7 @@
 				<td><?php echo __('Unique Events');?></td>
 			</tr>
 			<tr ng-repeat="item in listFilter()" ng-show="monitor_title=='Event Category'">
-					<td ng:click="categoryData(item.category)" style="{{monitor_title=='Event Category' && 'cursor:pointer'}}">{{item.category}}</td>
+					<td ng:click="categoryData(item.categoryId,item.category)" style="{{monitor_title=='Event Category' && 'cursor:pointer'}}">{{item.category}}</td>
 					<td>{{item.totalEvents}}</td>
 					<td>{{item.uniqueEvents}}</td>
 			</tr>
