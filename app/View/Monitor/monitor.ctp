@@ -53,8 +53,12 @@
 					<td ng-hide="monitor_title=='Event Category'"> 
 						<accordion>
 						<accordion-group heading="{{item.event}}  {{item.totalEvents}}  {{item.uniqueEvents}}">
+							
 							<div ng:repeat="label in item.labels">
 								{{label.label}}  {{label.totalEvents}}  {{label.uniqueEvents}}
+							</div>
+							<div ng-hide="item.labels">
+								There is no label data for this event action.
 							</div>
 						</accordion-group>
 						</accordion>

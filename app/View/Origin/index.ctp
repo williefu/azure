@@ -20,7 +20,7 @@
 			--><a href="/administrator/demos" id="dashboard-demo" class="originUI-tiles" data-intro="List of all demo pages" data-position="left">
 				<div class="originTile-title">Demos</div>
 			</a><!--
-			--><a href="/administrator/" id="dashboard-analytics" class="originUI-tiles" data-intro="View Origin ad metrics" data-position="left">
+			--><a href="/administrator/analytics" id="dashboard-analytics" class="originUI-tiles" data-intro="View Origin ad metrics" data-position="left">
 				<div class="originTile-title">Analytics</div>
 			</a>
 	</div>
