@@ -32,6 +32,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 				}
 				return $filter('filter')(array, $scope.monitorObj.category);
 			};
+			$scope.note = 'empty';
 	});
 	
 	/*$scope.listFilter = function(data) {
@@ -50,17 +51,25 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 
 	$scope.getData = function() {
 		$scope.monitorObj.category = ($scope.monitorObj.category == '' ? 'undefined' : $scope.monitorObj.category);
+		//$scope.monitorObj.start_date = '20130601';
+		//$scope.monitorObj.end_date = '20130604';
 		Monitor.get('list/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+$scope.monitorObj.category).then(function(data) {
 			$scope.monitorObj.category = ($scope.monitorObj.category == 'undefined' ? '' : $scope.monitorObj.category);
 			$scope.monitor_title = 'Event Category';
-			$scope.refreshMonitor(data);
-			$scope.listFilter = function() {
-				var array = [];
-				for(var key in data.data) {
-				  array.push(data.data[key]);
-				}
-				return $filter('filter')(array, $scope.monitorObj.category);
-			};
+			if( data.data != undefined ) {
+				$scope.refreshMonitor(data);
+				$scope.listFilter = function() {
+					var array = [];
+					for(var key in data.data) {
+					  array.push(data.data[key]);
+					}
+					return $filter('filter')(array, $scope.monitorObj.category);
+				};
+				$scope.note = 'empty';
+			}
+			else {
+				$scope.note = 'There is no data for this view.';
+			}
 		});
 	}
 	
@@ -94,7 +103,12 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 				$scope.monitorObj.category = category;
 				$scope.refreshMonitor(data);
 				$scope.monitor_title = 'Event Action';
+				$scope.note = 'empty';
 			});
 		}
+	}
+	
+	$scope.conditions = function() {
+		return $scope.monitor_title=='Event Category' && $scope.note=='empty';
 	}
 }
