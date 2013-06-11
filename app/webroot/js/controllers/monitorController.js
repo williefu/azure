@@ -35,15 +35,6 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 			$scope.note = 'empty';
 	});
 	
-	/*$scope.listFilter = function(data) {
-				var array = [];
-				for(var key in data) {
-				  array.push(data[key]);
-				}
-				console.log($filter('filter')(array, $scope.monitorObj.category));
-				return $filter('filter')(array, $scope.monitorObj.category);
-	}*/
-	
 	//Load Visits data
 	Monitor.get('visits').then(function(data) {
 			$scope.monitor_visits = data.visits;
@@ -72,7 +63,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 			}
 		});
 	}
-	
+	/*
 	$scope.parseDate = function(date) {
 	  var d = new Date(date);
 	  var month = d.getMonth() + 1;
@@ -81,7 +72,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 	  if(month < 10) month = '0' + month;
 	  if(day < 10) day = '0' + day;
 	  return year + '-' + month + '-' + day;	// 2013-03-22
-	}
+	}*/
 			
 	$scope.refreshMonitor = function(data) {
 		$scope.monitor_list = data.data;
@@ -95,20 +86,5 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 				$scope.monitor_visits = data.visits;
 		});
 		
-	}
-	
-	$scope.categoryData = function(id,category) {
-		if($scope.monitor_title!='Event Action') {
-			Monitor.get('event/'+id).then(function(data) {
-				$scope.monitorObj.category = category;
-				$scope.refreshMonitor(data);
-				$scope.monitor_title = 'Event Action';
-				$scope.note = 'empty';
-			});
-		}
-	}
-	
-	$scope.conditions = function() {
-		return $scope.monitor_title=='Event Category' && $scope.note=='empty';
 	}
 }

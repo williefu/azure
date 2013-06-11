@@ -7,11 +7,17 @@ class MonitorController extends AppController {
 	public function index() {
 	}
 	
-	public function monitor() {
-		$this->render('monitor');
+	public function monitor_list() {
+		$this->render('monitor_list');
 	}
 	
-	public function jsonList() { 
+	public function monitor_actions() {
+		$category = $this->request->params['id'];
+		$this->set('category', $category);
+		$this->render('monitor_actions');
+	}
+	
+	public function jsonList() {
 		if(isset($this->request->params['start_date'])) {
 			$data['start_date'] 	= $this->request->params['start_date']!='undefined' ? $this->request->params['start_date']:date('Y-m-d',strtotime('-31 day'));
 			$data['end_date'] 	= $this->request->params['end_date']!='undefined' ? $this->request->params['end_date']:date("Y-m-d",strtotime('-1 day'));
@@ -28,7 +34,7 @@ class MonitorController extends AppController {
 		$category 	= $this->request->params['category'];
 		$action = $this->Monitor->getEventAction($category);
 		$label = $this->Monitor->getEventLabel($category);
-		//$this->set('monitor', $event);
+		
 		$this->set('action', $action);
 		$this->set('label', $label);
 		$this->set('category', $category);
@@ -36,7 +42,7 @@ class MonitorController extends AppController {
 
 	public function jsonVisits() {
 		if(isset($this->request->params['start_date'])) {
-			$data['start_date'] 	= $this->request->params['start_date']!='undefined' ? $this->request->params['start_date']:date('Y-m-d',strtotime('-31 day'));
+			$data['start_date'] = $this->request->params['start_date']!='undefined' ? $this->request->params['start_date']:date('Y-m-d',strtotime('-31 day'));
 			$data['end_date'] 	= $this->request->params['end_date']!='undefined' ? $this->request->params['end_date']:date("Y-m-d",strtotime('-1 day'));
 			$data['category'] 	= $this->request->params['category']!='undefined' ? $this->request->params['category']:'';
 			$visits = $this->Monitor->getVisitsData($data);

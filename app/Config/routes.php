@@ -123,7 +123,8 @@ Router::connect('/administrator/Origin/ad/edit/:originAd_id', array('controller'
 Router::connect('/ad/:originAd_id/:originAd_platform/*', array('controller'=>'origin', 'action'=>'ad'));
 
 //Analytics
-Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor'));
+Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor_list'));
+Router::connect('/administrator/analytics/actions/:id', array('controller'=>'monitor', 'action'=>'monitor_actions'));
 Router::connect('/administrator/Monitor/Post', array('controller'=>'monitor', 'action'=>'post'));
 Router::connect('/administrator/monitor/export/:category/:start/:end', array('controller'=>'monitor', 'action'=>'export_xls'));
 
