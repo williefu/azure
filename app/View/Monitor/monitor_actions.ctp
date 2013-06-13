@@ -3,7 +3,7 @@
 		<div chart></div>
 	</div>
 	<input type="hidden" ng-model="actionsObj.categoryId" id="categoryId" name="categoryId" ng-init="actionsObj.categoryId='<?php echo $category; ?>'"></input>
-	<?php echo $this->element('form_filters');?>
+	<?php echo $this->element('form_monitor');?>
 	<div id="totals">
 		<table>
 			<tr>

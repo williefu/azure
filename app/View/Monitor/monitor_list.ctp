@@ -2,7 +2,7 @@
 	<div id="visits">
 		<div chart></div>
 	</div>
-	<?php echo $this->element('form_filters');?>
+	<?php echo $this->element('form_monitor');?>
 	<div id="totals">
 		<table>
 			<tr>

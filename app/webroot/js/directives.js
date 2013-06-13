@@ -399,8 +399,28 @@ angular.module('originApp.directives', [])
 			//});			
 			
 			});
-			
-			
 		}
       }			
+    })
+	.directive('pickadate', function() {
+        return {
+          restrict: 'E',
+          replace: true,
+		  template: '<div><input id="startDate" ng-model="monitorObj.start_date" type="text" class="datepicker" data-value=""></input><input id="endDate" ng-model="monitorObj.end_date" type="text" class="datepicker" data-value=""></input></div>',
+		  replace: true,
+		  link: function(scope, element, attr) {
+			  scope.$watch('monitor_filter', function() {
+					$j('#startDate').pickadate({
+						onStart: function() {
+							this.set(scope.monitor_filter.startDate);
+						}
+					});
+					$j('#endDate').pickadate({
+						onStart: function() {
+							this.set(scope.monitor_filter.endDate);
+						}
+					});
+			  });	
+		  }
+		}			
     });
