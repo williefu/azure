@@ -403,24 +403,33 @@ angular.module('originApp.directives', [])
       }			
     })
 	.directive('pickadate', function() {
-        return {
-          restrict: 'E',
-          replace: true,
-		  template: '<div><input id="startDate" ng-model="monitorObj.start_date" type="text" class="datepicker" data-value=""></input><input id="endDate" ng-model="monitorObj.end_date" type="text" class="datepicker" data-value=""></input></div>',
-		  replace: true,
-		  link: function(scope, element, attr) {
-			  scope.$watch('monitor_filter', function() {
-					$j('#startDate').pickadate({
-						onStart: function() {
-							this.set(scope.monitor_filter.startDate);
-						}
-					});
-					$j('#endDate').pickadate({
-						onStart: function() {
-							this.set(scope.monitor_filter.endDate);
-						}
-					});
-			  });	
-		  }
-		}			
+			return {
+			  restrict: 'E',
+			  template: '<div><input id="startDate" ng-model="monitorObj.start_date" type="text" class="datepicker" data-value=""></input><input id="endDate" ng-model="monitorObj.end_date" type="text" class="datepicker" data-value=""></input></div>',
+			  replace: true,
+			  link: function(scope, element, attr) {
+				scope.$watch('monitor_filter', function() {
+				  $j('#startDate').pickadate({
+					format: 'mmm dd, yyyy',
+					formatSubmit: 'yyyy-mm-dd',
+					hiddenSuffix: 'start_date',
+					onSet: function(event) {
+						//var date = new Date(event.select * 1000);
+						scope.monitorObj.start_date = $j('input[name=start_date]').val();
+					}
+				  });
+				  $j('#endDate').pickadate({
+					format: 'mmm dd, yyyy',
+					formatSubmit: 'yyyy-mm-dd',
+					hiddenSuffix: 'end_date',
+					onSet: function(event) {
+						console.log(event);
+						//var date = new Date(event.select * 1000);
+						scope.monitorObj.end_date = $j('input[name=end_date]').val();
+					}
+				  });
+				  
+				});  
+			  }
+		}       		
     });

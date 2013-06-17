@@ -2,7 +2,7 @@
 		<form name="test" ng-submit="">
 			<pickadate></pickadate>
 			<input type="text" ng-model="monitorObj.category" id="category" name="category" placeholder="<?php echo __('Event Category Title');?>"></input><br/>
-			<button ng-click="getData()">Search</button>
+			<button ng-click="getData()" enable>Search</button>
 			<a ng-href="/administrator/monitor/export/ALL/{{monitor_filter.startDate}}/{{monitor_filter.endDate}}" id="export-monitor" class="" ng-show="monitor_title=='Event Category'">Export</a>
 			<a ng-href="/administrator/monitor/export/{{monitorObj.category}}/{{monitor_filter.startDate}}/{{monitor_filter.endDate}}" id="export-monitor" class="" ng-hide="monitor_title=='Event Category'">Export</a><br/>
 		</form>
