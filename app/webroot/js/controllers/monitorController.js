@@ -25,6 +25,12 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 			$scope.monitor_totals = data.total;
 			$scope.monitor_list = data.data;
 			$scope.monitor_title = 'Event Category';
+			/*var mydate = new Date(data.filter.startDate);
+			$scope.monitorObj.start_date = mydate.toString("MMMM yyyy");*/
+			
+			//$scope.monitorObj.start_date = Date.parse(data.filter.startDate).toString("MMMM yyyy");
+			$scope.monitorObj.start_date = data.filter.startDate;
+		$scope.monitorObj.end_date = data.filter.endDate;
 			$scope.listFilter = function() {
 				var array = [];
 				for(var key in $scope.monitor_list) {
@@ -41,14 +47,13 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 	});
 
 	$scope.getData = function() {
-		$scope.monitorObj.category = ($scope.monitorObj.category == '' ? 'undefined' : $scope.monitorObj.category);
+		category = ($scope.monitorObj.category == '' ? 'undefined' : $scope.monitorObj.category);
 		//$scope.monitorObj.start_date = '20130601';
 		//$scope.monitorObj.end_date = '20130604';
-		Monitor.get('list/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+$scope.monitorObj.category).then(function(data) {
-			$scope.monitorObj.category = ($scope.monitorObj.category == 'undefined' ? '' : $scope.monitorObj.category);
+		Monitor.get('list/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+category).then(function(data) {
 			$scope.monitor_title = 'Event Category';
 			if( data.data != undefined ) {
-				$scope.refreshMonitor(data);
+				$scope.refreshMonitor(data, category);
 				$scope.listFilter = function() {
 					var array = [];
 					for(var key in data.data) {
@@ -74,7 +79,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 	  return year + '-' + month + '-' + day;	// 2013-03-22
 	}*/
 			
-	$scope.refreshMonitor = function(data) {
+	$scope.refreshMonitor = function(data, category) {
 		$scope.monitor_list = data.data;
 		$scope.monitor_filter = data.filter;
 		$scope.monitor_totals = data.total;
@@ -82,7 +87,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 		$scope.monitorObj.end_date = data.filter.endDate;
 		
 		//Load Visits data
-		Monitor.get('visits/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+$scope.monitorObj.category).then(function(data) {
+		Monitor.get('visits/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+category).then(function(data) {
 				$scope.monitor_visits = data.visits;
 		});
 		

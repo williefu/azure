@@ -23,7 +23,7 @@
 				<td><?php echo __('Total Events');?></td>
 				<td><?php echo __('Unique Events');?></td>
 			</tr>
-			<tr ng-repeat="item in listFilter()">
+			<tr ng-repeat="item in listFilter()" ng-show="note=='empty'">
 					<td><a ng-href='/administrator/analytics/actions/{{item.categoryId}}'>{{item.category}}</a></td>
 					<td>{{item.totalEvents}}</td>
 					<td>{{item.uniqueEvents}}</td>

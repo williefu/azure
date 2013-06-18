@@ -423,13 +423,11 @@ angular.module('originApp.directives', [])
 					formatSubmit: 'yyyy-mm-dd',
 					hiddenSuffix: 'end_date',
 					onSet: function(event) {
-						console.log(event);
 						//var date = new Date(event.select * 1000);
 						scope.monitorObj.end_date = $j('input[name=end_date]').val();
 					}
 				  });
-				  
 				});  
-			  }
-		}       		
+			  }	
+			}       		
     });
