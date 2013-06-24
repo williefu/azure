@@ -2,8 +2,11 @@
 	<div id="visits">
 		<div chart></div>
 	</div>
-	<input type="hidden" ng-model="actionsObj.categoryId" id="categoryId" name="categoryId" ng-init="actionsObj.categoryId='<?php echo $category; ?>'"></input>
 	<?php echo $this->element('form_monitor');?>
+	<input type="hidden" ng-model="monitorObj.category_id" id="categoryId" name="categoryId" ng-init="monitorObj.category_id='<?php echo $actions['category']; ?>'"></input>
+	<input type="hidden" ng-model="monitorObj.start_date" id="startDate" name="startDate" ng-init="monitorObj.start_date='<?php echo $actions['startDate']; ?>'"></input>
+	<input type="hidden" ng-model="monitorObj.end_date" id="endDate" name="endDate" ng-init="monitorObj.end_date='<?php echo $actions['endDate']; ?>'"></input>
+	
 	<div id="totals">
 		<table>
 			<tr>

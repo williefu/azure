@@ -24,7 +24,7 @@
 				<td><?php echo __('Unique Events');?></td>
 			</tr>
 			<tr ng-repeat="item in listFilter()" ng-show="note=='empty'">
-					<td><a ng-href='/administrator/analytics/actions/{{item.categoryId}}'>{{item.category}}</a></td>
+					<td><a ng-href='/administrator/analytics/actions/{{item.categoryId}}/{{monitorObj.start_date}}/{{monitorObj.end_date}}'>{{item.category}}</a></td>
 					<td>{{item.totalEvents}}</td>
 					<td>{{item.uniqueEvents}}</td>
 			</tr>

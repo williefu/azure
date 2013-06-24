@@ -48,28 +48,27 @@ class Monitor extends AppModel {
 		$sort = '-ga:totalEvents';
 		$filters = $data['category'];
 		$monitor = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
-		
 		return $monitor;
 	}
 	
 	function getEventAction($data) {
-		$end_date = date("Y-m-d",strtotime('-1 day'));
-		$start_date = date('Y-m-d',strtotime('-31 day')); 
+		$end_date = $data['end_date'];
+		$start_date = $data['start_date'];
 		$dimensions = 'ga:eventAction';
 		$metrics = 'ga:totalEvents,ga:uniqueEvents';
 		$sort = '-ga:totalEvents';
-		$filters = $data;
+		$filters = $data['category'];
 		$monitorEvents = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
 		return $monitorEvents;
 	}
 	
 	function getEventLabel($data) {
-		$end_date = date("Y-m-d",strtotime('-1 day'));
-		$start_date = date('Y-m-d',strtotime('-31 day')); 
+		$end_date = $data['end_date'];
+		$start_date = $data['start_date'];
 		$dimensions = 'ga:eventAction,ga:eventLabel';
 		$metrics = 'ga:totalEvents,ga:uniqueEvents';
 		$sort = '-ga:totalEvents';
-		$filters = $data;
+		$filters = $data['category'];
 		$monitorLabels = json_decode($this->pullAnalyticsData($dimensions, $metrics, $sort, $start_date, $end_date, true, $filters));
 		return $monitorLabels;
 	}
@@ -81,6 +80,7 @@ class Monitor extends AppModel {
 		$password = Configure::read ( "Monitor.password" );
 
 		$id = Configure::read ( "Monitor.origin_table_id" );
+		//$id = Configure::read ( "Monitor.si_event_table_id" );
 		
 		App::import('Vendor', 'ga_api');
 		

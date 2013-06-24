@@ -12,8 +12,10 @@ class MonitorController extends AppController {
 	}
 	
 	public function monitor_actions() {
-		$category = $this->request->params['id'];
-		$this->set('category', $category);
+		$actions['category'] = $this->request->params['id'];
+		$actions['startDate'] 	= $this->request->params['start'];
+		$actions['endDate'] 	= $this->request->params['end'];
+		$this->set('actions', $actions);
 		$this->render('monitor_actions');
 	}
 	
@@ -31,13 +33,16 @@ class MonitorController extends AppController {
 	}
 
 	public function jsonEvent() {
-		$category 	= $this->request->params['category'];
-		$action = $this->Monitor->getEventAction($category);
-		$label = $this->Monitor->getEventLabel($category);
+		$data['start_date'] = $this->request->params['start_date'];
+		$data['end_date']	= $this->request->params['end_date'];
+		$data['category']	= $this->request->params['category'];
+		
+		$action = $this->Monitor->getEventAction($data);
+		$label = $this->Monitor->getEventLabel($data);
 		
 		$this->set('action', $action);
 		$this->set('label', $label);
-		$this->set('category', $category);
+		$this->set('category', $data['category']);
 	}
 
 	public function jsonVisits() {
