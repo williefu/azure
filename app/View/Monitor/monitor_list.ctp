@@ -1,7 +1,5 @@
 <div id="monitorWorkspace" ng:controller="monitorCtrl" ng:cloak>
-	<div id="visits">
-		<div chart></div>
-	</div>
+	<h2>Top Events</h2>
 	<?php echo $this->element('form_monitor');?>
 	<div id="totals">
 		<table>

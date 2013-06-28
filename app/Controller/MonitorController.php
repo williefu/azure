@@ -2,7 +2,7 @@
 
 class MonitorController extends AppController {
 	
-	public $uses = array('Monitor');
+	public $uses = array('Monitor','OriginAd');
 
 	public function index() {
 	}
@@ -12,10 +12,25 @@ class MonitorController extends AppController {
 	}
 	
 	public function monitor_actions() {
-		$actions['category'] = $this->request->params['id'];
+		$actions['category_id'] = $this->request->params['id'];
 		$actions['startDate'] 	= $this->request->params['start'];
 		$actions['endDate'] 	= $this->request->params['end'];
+		
+		$origin		= $this->OriginAd->find('first', 
+			array(
+				'recursive'=>2,
+				'conditions'=>array(
+					'OriginAd.id'=>$actions['category_id']
+				)
+			)
+		);
+		$actions['category'] = $origin['OriginAd']['name'];
+		
 		$this->set('actions', $actions);
+		$this->render('monitor_actions');
+	}
+	
+	public function monitor_actions1() {
 		$this->render('monitor_actions');
 	}
 	
