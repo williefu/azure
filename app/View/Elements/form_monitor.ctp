@@ -1,4 +1,4 @@
-<div id="monitorHeader" ng-show="monitor_title='Event Action'">
+<div id="monitorHeader" ng-show="monitor_title=='Event Action'">
 	<a ng-href="/administrator/analytics">ALL</a>>> Event Category: {{title}}
 </div>
 </br>
@@ -11,7 +11,7 @@
 			<input type="text" ng-model="monitorObj.category" id="category" name="category" placeholder="<?php echo __('Event Category Title');?>" style="width:400px;"></input><br/>
 			<button ng-click="getData()" enable>Search</button>
 			<a ng-href="/administrator/monitor/export/ALL/{{monitorObj.start_date}}/{{monitorObj.end_date}}" id="export-monitor" class="" ng-show="monitor_title=='Event Category'">Export</a>
-			<a ng-href="/administrator/monitor/export/{{monitorObj.category_id}}/{{monitorObj.start_date}}/{{monitorObj.end_date}}" id="export-monitor" class="" ng-hide="monitor_title=='Event Category'">Export</a><br/>
+			<a ng-href="/administrator/monitor/export/{{monitorObj.category}}/{{monitorObj.start_date}}/{{monitorObj.end_date}}" id="export-monitor" class="" ng-hide="monitor_title=='Event Category'">Export</a><br/>
 		</form>
 </div>
 

@@ -84,8 +84,8 @@ class MonitorController extends AppController {
 			$this->set('category', 'ALL');
 		}
 		else {
-			$action = $this->Monitor->getEventAction($data['category']);
-			$label = $this->Monitor->getEventLabel($data['category']);
+			$action = $this->Monitor->getEventAction($data);
+			$label = $this->Monitor->getEventLabel($data);
 		
 			$this->set('action', $action);
 			$this->set('label', $label);
