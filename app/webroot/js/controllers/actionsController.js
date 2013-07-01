@@ -4,6 +4,7 @@
 
 var actionsCtrl = function($scope, Monitor) {
 	$scope.monitor_actions = {};
+	$scope.exp_template = 2;
 	
 	$scope.$watch('monitorObj.category_id', function() {
 		$scope.title = $scope.monitorObj.category;	

@@ -73,23 +73,31 @@ class MonitorController extends AppController {
 		$this->set('visits', $visits);
 	}
 	
-	public function export_xls() {
+	public function export_xls() { 
 		$data['category'] = $this->request->params['category'];
 		$data['start_date'] = $this->request->params['start'];
 		$data['end_date'] = $this->request->params['end'];
-				
-		if($data['category']=="ALL") {
-			$monitor = $this->Monitor->getMonitor();
-			$this->set('monitor',$monitor);
-			$this->set('category', 'ALL');
-		}
-		else {
-			$action = $this->Monitor->getEventAction($data);
-			$label = $this->Monitor->getEventLabel($data);
+		$data['template'] = $this->request->params['template'];
+		$this->set('category', $data['category']);
+		$this->set('template', $data['template']);
 		
-			$this->set('action', $action);
-			$this->set('label', $label);
-			$this->set('category', $data['category']);
+		switch($data['template']) {
+			case 0: 
+					$monitor = $this->Monitor->getMonitor();
+					$this->set('monitor',$monitor);
+					break;
+			case 1: 
+					$monitor = $this->Monitor->searchData($data);
+					$this->set('monitor',$monitor);
+					break;
+			case 2:
+					$data['category'] = $this->request->params['category'];
+					$action = $this->Monitor->getEventAction($data);
+					$label = $this->Monitor->getEventLabel($data);
+				
+					$this->set('action', $action);
+					$this->set('label', $label);
+					break;
 		}
 		
 		$this->render('export_xls','export_xls');

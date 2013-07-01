@@ -17,13 +17,13 @@
 		<td><b># -------------------------------------------------<b></td>
 	</tr>
 	<tr>
-		<td><b># SI Event Tracking <?php echo ($category=='ALL') ? '':'for: '.$category; ?><b></td>
+		<td><b># Evolve Origin Tracking <?php echo ($category=='ALL') ? '':'for: '.$category; ?><b></td>
 	</tr>
 	<tr>
 		<td><b># Top Events<b></td>
 	</tr>
 	<tr>
-		<td><b># <?php echo ($category=='ALL') ? $monitor->totals->start_date . '  -  ' . $monitor->totals->end_date : $action->totals->start_date . ' - ' . $action->totals->end_date; ?><b></td>
+		<td><b># <?php echo ($template!=2) ? $monitor->totals->start_date . '  -  ' . $monitor->totals->end_date : $action->totals->start_date . ' - ' . $action->totals->end_date; ?><b></td>
 	</tr>
 	<tr>
 		<td><b># -------------------------------------------------<b></td>
@@ -34,7 +34,7 @@
 			
 		<?php 
 			$index = 0;
-			if($category!='ALL') { 
+			if($template==2) { 
 				foreach($action->data as $key=>$item) {
 					$index++;
 					$monitor[$index]->event = $key;

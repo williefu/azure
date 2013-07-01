@@ -11,26 +11,14 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 	$scope.monitor_list = {};
 	$scope.monitor = {};
 	
-	/*$scope.dateOptions = {
-        changeYear: false,
-        changeMonth: false,
-        nextText: '<i class=icon-arrow-right></i>',
-        prevText: '<i class=icon-arrow-left></i>',
-        dateFormat: 'mmm dd, yyyy'
-    };*/
-	
 	//Load Monitor data
 	Monitor.get('list').then(function(data) {
 			$scope.monitor_filter = data.filter;
 			$scope.monitor_totals = data.total;
 			$scope.monitor_list = data.data;
 			$scope.monitor_title = 'Event Category';
-			/*var mydate = new Date(data.filter.startDate);
-			$scope.monitorObj.start_date = mydate.toString("MMMM yyyy");*/
-			
-			//$scope.monitorObj.start_date = Date.parse(data.filter.startDate).toString("MMMM yyyy");
 			$scope.monitorObj.start_date = data.filter.startDate;
-		$scope.monitorObj.end_date = data.filter.endDate;
+			$scope.monitorObj.end_date = data.filter.endDate;
 			$scope.listFilter = function() {
 				var array = [];
 				for(var key in $scope.monitor_list) {
@@ -38,7 +26,15 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 				}
 				return $filter('filter')(array, $scope.monitorObj.category);
 			};
+			
 			$scope.note = 'empty';
+	});
+	
+	$scope.$watch('monitorObj.category', function() {
+		if($scope.monitorObj.category=='') 
+			$scope.exp_template = 0;
+		else 
+			$scope.exp_template = 1;
 	});
 	
 	//Load Visits data
@@ -68,17 +64,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 			}
 		});
 	}
-	/*
-	$scope.parseDate = function(date) {
-	  var d = new Date(date);
-	  var month = d.getMonth() + 1;
-	  var day = d.getDate();
-	  var year = d.getFullYear();
-	  if(month < 10) month = '0' + month;
-	  if(day < 10) day = '0' + day;
-	  return year + '-' + month + '-' + day;	// 2013-03-22
-	}*/
-			
+	
 	$scope.refreshMonitor = function(data, category) {
 		$scope.monitor_list = data.data;
 		$scope.monitor_filter = data.filter;

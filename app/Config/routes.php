@@ -101,7 +101,7 @@ Router::connect('/administrator/get/template/:template_id', array('controller'=>
 Router::connect('/administrator/get/users', array('plugin' => 'usermgmt', 'controller' => 'users', 'action' => 'index'));
 Router::connect('/administrator/get/monitor/list', array('controller' => 'monitor', 'action' => 'jsonList'));
 Router::connect('/administrator/get/monitor/list/:start_date/:end_date/:category', array('controller' => 'monitor', 'action' => 'jsonList'));
-Router::connect('/administrator/get/monitor/event/:category', array('controller' => 'monitor', 'action' => 'jsonEvent'));
+Router::connect('/administrator/get/monitor/event/:category/:start_date/:end_date', array('controller' => 'monitor', 'action' => 'jsonEvent'));
 Router::connect('/administrator/get/monitor/visits', array('controller' => 'monitor', 'action' => 'jsonVisits'));
 Router::connect('/administrator/get/monitor/visits/:start_date/:end_date/:category', array('controller' => 'monitor', 'action' => 'jsonVisits'));
 Router::connect('/administrator/get/sites', array('controller'=>'origin', 'action'=>'jsonSite'));
@@ -124,9 +124,10 @@ Router::connect('/ad/:originAd_id/:originAd_platform/*', array('controller'=>'or
 
 //Analytics
 Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor_list'));
-Router::connect('/administrator/analytics/actions/:id', array('controller'=>'monitor', 'action'=>'monitor_actions'));
+Router::connect('/administrator/analytics/actions/:id/:start/:end', array('controller'=>'monitor', 'action'=>'monitor_actions'));
+Router::connect('/administrator/analytics/actions/', array('controller'=>'monitor', 'action'=>'monitor_actions1'));
 Router::connect('/administrator/Monitor/Post', array('controller'=>'monitor', 'action'=>'post'));
-Router::connect('/administrator/monitor/export/:category/:start/:end', array('controller'=>'monitor', 'action'=>'export_xls'));
+Router::connect('/administrator/monitor/export/:category/:start/:end/:template', array('controller'=>'monitor', 'action'=>'export_xls'));
 
 /**
 * PUBLIC VIEWS

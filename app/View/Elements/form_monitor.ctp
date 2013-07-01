@@ -10,8 +10,8 @@
 			<pickadate></pickadate>
 			<input type="text" ng-model="monitorObj.category" id="category" name="category" placeholder="<?php echo __('Event Category Title');?>" style="width:400px;"></input><br/>
 			<button ng-click="getData()" enable>Search</button>
-			<a ng-href="/administrator/monitor/export/ALL/{{monitorObj.start_date}}/{{monitorObj.end_date}}" id="export-monitor" class="" ng-show="monitor_title=='Event Category'">Export</a>
-			<a ng-href="/administrator/monitor/export/{{monitorObj.category}}/{{monitorObj.start_date}}/{{monitorObj.end_date}}" id="export-monitor" class="" ng-hide="monitor_title=='Event Category'">Export</a><br/>
+			<a ng-href="/administrator/monitor/export/ALL/{{monitorObj.start_date}}/{{monitorObj.end_date}}/{{exp_template}}" id="export-monitor" class="" ng-hide="monitorObj.category">Export</a>
+			<a ng-href="/administrator/monitor/export/{{monitorObj.category}}/{{monitorObj.start_date}}/{{monitorObj.end_date}}/{{exp_template}}" id="export-monitor" class="" ng-show="monitorObj.category">Export</a><br/>
 		</form>
 </div>
 
