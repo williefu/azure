@@ -36,7 +36,7 @@ class MonitorController extends AppController {
 	
 	public function jsonList() {
 		if(isset($this->request->params['start_date'])) {
-			$data['start_date'] 	= $this->request->params['start_date']!='undefined' ? $this->request->params['start_date']:date('Y-m-d',strtotime('-31 day'));
+			$data['start_date'] = $this->request->params['start_date']!='undefined' ? $this->request->params['start_date']:date('Y-m-d',strtotime('-31 day'));
 			$data['end_date'] 	= $this->request->params['end_date']!='undefined' ? $this->request->params['end_date']:date("Y-m-d",strtotime('-1 day'));
 			$data['category'] 	= $this->request->params['category']!='undefined' ? $this->request->params['category']:'';
 			$monitor = $this->Monitor->searchData($data);
@@ -73,7 +73,18 @@ class MonitorController extends AppController {
 		$this->set('visits', $visits);
 	}
 	
-	public function export_xls() { 
+	public function export_xls() {
+		$this->getData();
+		$this->render('export_xls','xls');
+	}
+	
+	public function export_pdf() {
+		//create image
+		$this->getData();
+		$this->render('export_pdf','pdf');
+	}
+	
+	public function getData() {
 		$data['category'] = $this->request->params['category'];
 		$data['start_date'] = $this->request->params['start'];
 		$data['end_date'] = $this->request->params['end'];
@@ -99,10 +110,7 @@ class MonitorController extends AppController {
 					$this->set('label', $label);
 					break;
 		}
-		
-		$this->render('export_xls','export_xls');
 	}
-	
 	
 	public function post() {
 		if($this->request->data['route']) {

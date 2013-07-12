@@ -127,7 +127,8 @@ Router::connect('/administrator/analytics', array('controller'=>'monitor', 'acti
 Router::connect('/administrator/analytics/actions/:id/:start/:end', array('controller'=>'monitor', 'action'=>'monitor_actions'));
 Router::connect('/administrator/analytics/actions/', array('controller'=>'monitor', 'action'=>'monitor_actions1'));
 Router::connect('/administrator/Monitor/Post', array('controller'=>'monitor', 'action'=>'post'));
-Router::connect('/administrator/monitor/export/:category/:start/:end/:template', array('controller'=>'monitor', 'action'=>'export_xls'));
+Router::connect('/administrator/monitor/exportXls/:category/:start/:end/:template', array('controller'=>'monitor', 'action'=>'export_xls'));
+Router::connect('/administrator/monitor/exportPdf/:category/:start/:end/:template', array('controller'=>'monitor', 'action'=>'export_pdf'));
 
 /**
 * PUBLIC VIEWS
