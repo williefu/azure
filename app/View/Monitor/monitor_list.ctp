@@ -36,7 +36,7 @@
 
 <script src="https://www.google.com/jsapi"></script>
 <?php
-	echo $this->Minify->script(array('controllers/monitorController'));
+	echo $this->Minify->script(array('monitor/monitorController'));
 ?>
 
 <script type="text/javascript">

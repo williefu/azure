@@ -34,5 +34,5 @@
 
 <?php
 	echo $this->Minify->css(array('monitor/pickadate/default','monitor/pickadate/default.date','monitor/pickadate/default.time'));
-	echo $this->Minify->script(array('monitor/pickadate/picker','monitor/pickadate/picker.date','monitor/pickadate/picker.time','monitor/pickadate/legacy'));
+	echo $this->Minify->script(array('monitor/monitorServices','monitor/monitorDirectives','monitor/pickadate/picker','monitor/pickadate/picker.date','monitor/pickadate/picker.time','monitor/pickadate/legacy'));
 ?>

@@ -1,7 +1,4 @@
 <div id="actionsWorkspace" ng:controller="actionsCtrl" ng:cloak>
-	<!--div id="visits">
-		<div chart></div>
-	</div-->
 	<h2>Top Events</h2>
 	<?php echo $this->element('form_monitor');?>
 	<input type="hidden" ng-model="monitorObj.category_id" id="categoryId" name="categoryId" ng-init="monitorObj.category_id='<?php echo $actions['category_id']; ?>'"></input>
@@ -49,7 +46,7 @@
 
 <script src="https://www.google.com/jsapi"></script>
 <?php
-	echo $this->Minify->script(array('controllers/actionsController'));
+	echo $this->Minify->script(array('monitor/actionsController'));
 ?>
 
 <script type="text/javascript">

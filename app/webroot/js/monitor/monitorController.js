@@ -2,6 +2,7 @@
 /**
 * Monitor Controller
 **/
+//angular.module('monitorApp', ['monitorApp.services', 'monitorApp.directives']);
 
 var monitorCtrl = function($scope, Monitor, $filter) {
 	//Global Monitor object
@@ -10,7 +11,19 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 	$scope.monitor_totals = {};
 	$scope.monitor_list = {};
 	$scope.monitor = {};
+	$scope.selectedItem = "Export";
+	$scope.monitor.extensions = [
+		{extId: 0, extTitle: 'xls'},
+		{extId: 1, extTitle: 'pdf'},
+	];
 	
+	/*$scope.monitorObj.start_date = '20130601';
+	$scope.monitorObj.end_date = '20130604';
+	$scope.exp_template = 0;
+	*/
+ /* $scope.OnItemClick = function(event) {
+    $scope.selectedItem = event;
+  }*/
 	//Load Monitor data
 	Monitor.get('list').then(function(data) {
 			$scope.monitor_filter = data.filter;
@@ -19,6 +32,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 			$scope.monitor_title = 'Event Category';
 			$scope.monitorObj.start_date = data.filter.startDate;
 			$scope.monitorObj.end_date = data.filter.endDate;
+			
 			$scope.listFilter = function() {
 				var array = [];
 				for(var key in $scope.monitor_list) {
@@ -31,10 +45,14 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 	});
 	
 	$scope.$watch('monitorObj.category', function() {
-		if($scope.monitorObj.category=='') 
+		if($scope.monitorObj.category==undefined) {
 			$scope.exp_template = 0;
-		else 
+			//$scope.exp_url = 'ALL/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/0';
+		}
+		else { 
 			$scope.exp_template = 1;
+			//$scope.exp_url = $scope.monitorObj.category+'/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/1';
+		}
 	});
 	
 	//Load Visits data
