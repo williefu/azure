@@ -10,20 +10,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 	$scope.monitor_filter = {};
 	$scope.monitor_totals = {};
 	$scope.monitor_list = {};
-	$scope.monitor = {};
-	$scope.selectedItem = "Export";
-	$scope.monitor.extensions = [
-		{extId: 0, extTitle: 'xls'},
-		{extId: 1, extTitle: 'pdf'},
-	];
-	
-	/*$scope.monitorObj.start_date = '20130601';
-	$scope.monitorObj.end_date = '20130604';
-	$scope.exp_template = 0;
-	*/
- /* $scope.OnItemClick = function(event) {
-    $scope.selectedItem = event;
-  }*/
+
 	//Load Monitor data
 	Monitor.get('list').then(function(data) {
 			$scope.monitor_filter = data.filter;
@@ -44,17 +31,6 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 			$scope.note = 'empty';
 	});
 	
-	$scope.$watch('monitorObj.category', function() {
-		if($scope.monitorObj.category==undefined) {
-			$scope.exp_template = 0;
-			//$scope.exp_url = 'ALL/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/0';
-		}
-		else { 
-			$scope.exp_template = 1;
-			//$scope.exp_url = $scope.monitorObj.category+'/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/1';
-		}
-	});
-	
 	//Load Visits data
 	Monitor.get('visits').then(function(data) {
 			$scope.monitor_visits = data.visits;
@@ -62,8 +38,6 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 
 	$scope.getData = function() {
 		category = ($scope.monitorObj.category == '' ? 'undefined' : $scope.monitorObj.category);
-		//$scope.monitorObj.start_date = '20130601';
-		//$scope.monitorObj.end_date = '20130604';
 		Monitor.get('list/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+category).then(function(data) {
 			$scope.monitor_title = 'Event Category';
 			if( data.data != undefined ) {
@@ -81,6 +55,8 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 				$scope.note = 'There is no data for this view.';
 			}
 		});
+		$scope.exp_template = 0;//template for categories
+		$scope.exp_url = $scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+category+'/'+$scope.exp_template;
 	}
 	
 	$scope.refreshMonitor = function(data, category) {

@@ -4,7 +4,7 @@
 
 var actionsCtrl = function($scope, Monitor) {
 	$scope.monitor_actions = {};
-	$scope.exp_template = 2;
+	$scope.exp_template = 1;//template for events/actions
 	
 	$scope.$watch('monitorObj.category_id', function() {
 		$scope.title = $scope.monitorObj.category;	
@@ -18,6 +18,7 @@ var actionsCtrl = function($scope, Monitor) {
 				
 				$scope.monitor_title = 'Event Action';
 				$scope.note = 'There is no label data for this event action.';
+				$scope.exp_url = $scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+$scope.monitorObj.category_id+'/'+$scope.exp_template;
 		});
 	});
 	

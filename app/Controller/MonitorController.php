@@ -15,25 +15,26 @@ class MonitorController extends AppController {
 		$actions['category_id'] = $this->request->params['id'];
 		$actions['startDate'] 	= $this->request->params['start'];
 		$actions['endDate'] 	= $this->request->params['end'];
-		
-		$origin		= $this->OriginAd->find('first', 
-			array(
-				'recursive'=>2,
-				'conditions'=>array(
-					'OriginAd.id'=>$actions['category_id']
-				)
-			)
-		);
-		$actions['category'] = $origin['OriginAd']['name'];
+		$actions['category'] 	= $this->getTitle($actions['category_id']);
 		
 		$this->set('actions', $actions);
 		$this->render('monitor_actions');
 	}
 	
-	public function monitor_actions1() {
-		$this->render('monitor_actions');
-	}
+	public function getTitle($category_id) {
+		$origin		= $this->OriginAd->find('first', 
+			array(
+				'recursive'=>2,
+				'conditions'=>array(
+					'OriginAd.id'=>$category_id
+				)
+			)
+		);
+		$title = $origin['OriginAd']['name'];
 	
+		return $title;
+	}
+		
 	public function jsonList() {
 		if(isset($this->request->params['start_date'])) {
 			$data['start_date'] = $this->request->params['start_date']!='undefined' ? $this->request->params['start_date']:date('Y-m-d',strtotime('-31 day'));
@@ -85,30 +86,33 @@ class MonitorController extends AppController {
 	}
 	
 	public function getData() {
-		$data['category'] = $this->request->params['category'];
-		$data['start_date'] = $this->request->params['start'];
-		$data['end_date'] = $this->request->params['end'];
-		$data['template'] = $this->request->params['template'];
-		$this->set('category', $data['category']);
-		$this->set('template', $data['template']);
-		
-		switch($data['template']) {
-			case 0: 
-					$monitor = $this->Monitor->getMonitor();
-					$this->set('monitor',$monitor);
-					break;
-			case 1: 
+		if(isset($this->request->params['category'])) {
+			$data['category'] = $this->request->params['category'];
+			$data['start_date'] = $this->request->params['start'];
+			$data['end_date'] = $this->request->params['end'];
+			$data['template'] = $this->request->params['template'];
+			
+			$this->set('template', $data['template']);
+			
+			switch($data['template']) {
+				case 0: 
+					$this->set('category', $data['category']);
 					$monitor = $this->Monitor->searchData($data);
 					$this->set('monitor',$monitor);
 					break;
-			case 2:
-					$data['category'] = $this->request->params['category'];
+				case 1:
+					$this->set('category', $this->getTitle($data['category']));
 					$action = $this->Monitor->getEventAction($data);
 					$label = $this->Monitor->getEventLabel($data);
 				
 					$this->set('action', $action);
 					$this->set('label', $label);
 					break;
+			}
+		}
+		else {
+			$monitor = $this->Monitor->getMonitor();
+			$this->set('monitor',$monitor);
 		}
 	}
 	

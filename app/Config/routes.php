@@ -125,10 +125,11 @@ Router::connect('/ad/:originAd_id/:originAd_platform/*', array('controller'=>'or
 //Analytics
 Router::connect('/administrator/analytics', array('controller'=>'monitor', 'action'=>'monitor_list'));
 Router::connect('/administrator/analytics/actions/:id/:start/:end', array('controller'=>'monitor', 'action'=>'monitor_actions'));
-Router::connect('/administrator/analytics/actions/', array('controller'=>'monitor', 'action'=>'monitor_actions1'));
 Router::connect('/administrator/Monitor/Post', array('controller'=>'monitor', 'action'=>'post'));
-Router::connect('/administrator/monitor/exportXls/:category/:start/:end/:template', array('controller'=>'monitor', 'action'=>'export_xls'));
-Router::connect('/administrator/monitor/exportPdf/:category/:start/:end/:template', array('controller'=>'monitor', 'action'=>'export_pdf'));
+Router::connect('/administrator/monitor/exportXls', array('controller'=>'monitor', 'action'=>'export_xls'));
+Router::connect('/administrator/monitor/exportXls/:start/:end/:category/:template', array('controller'=>'monitor', 'action'=>'export_xls'));
+Router::connect('/administrator/monitor/exportPdf', array('controller'=>'monitor', 'action'=>'export_pdf'));
+Router::connect('/administrator/monitor/exportPdf/:start/:end/:category/:template', array('controller'=>'monitor', 'action'=>'export_pdf'));
 
 /**
 * PUBLIC VIEWS

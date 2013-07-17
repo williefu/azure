@@ -17,13 +17,25 @@
 		<td><b># -------------------------------------------------<b></td>
 	</tr>
 	<tr>
-		<td><b># Evolve Origin Tracking <?php echo ($category=='ALL') ? '':'for: '.$category; ?><b></td>
+		<td><b># Evolve Origin Tracking <?php if(isset($category))
+														echo 'for: '.$category;
+										?><b></td>
 	</tr>
 	<tr>
 		<td><b># Top Events<b></td>
 	</tr>
 	<tr>
-		<td><b># <?php echo ($template!=2) ? $monitor->totals->start_date . '  -  ' . $monitor->totals->end_date : $action->totals->start_date . ' - ' . $action->totals->end_date; ?><b></td>
+		<td><b># 
+		<?php if(isset($template)) {
+				if($template==0)
+					echo $monitor->totals->start_date . '  -  ' . $monitor->totals->end_date;
+				else
+					echo $action->totals->start_date . ' - ' . $action->totals->end_date;
+			}
+			else {
+				echo $monitor->totals->start_date . '  -  ' . $monitor->totals->end_date;
+			}
+		?><b></td>
 	</tr>
 	<tr>
 		<td><b># -------------------------------------------------<b></td>
@@ -34,7 +46,7 @@
 			
 		<?php 
 			$index = 0;
-			if($template==2) { 
+			if(isset($template) && $template==1) { 
 				foreach($action->data as $key=>$item) {
 					$index++;
 					$monitor[$index]->event = $key;
@@ -95,10 +107,11 @@
 				echo '<td class="tableTd">Total Events</td>';
 				echo '<td class="tableTd">Unique Events</td>';
 				echo '</tr>	';	
-				
+				$cont = 0;
 				foreach($monitor->data as $row=>$value):
+					$cont++;
 					echo '<tr>';
-					echo '<td class="tableTdContent">'.$row.'</td>';
+					echo '<td class="tableTdContent">'.$cont.'. '.$row.'</td>';
 					echo '<td class="tableTdContent">'.$value->{"ga:totalEvents"}.'</td>';
 					echo '<td class="tableTdContent">'.$value->{"ga:uniqueEvents"}.'</td>';
 					echo '</tr>';
