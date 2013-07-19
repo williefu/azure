@@ -45,8 +45,8 @@
 	</tr>
 			
 		<?php 
-			$index = 0;
 			if(isset($template) && $template==1) { 
+				$index = 0;
 				foreach($action->data as $key=>$item) {
 					$index++;
 					$monitor[$index]->event = $key;
@@ -75,10 +75,11 @@
 				echo '<td class="tableTd">Total Events</td>';
 				echo '<td class="tableTd">Unique Events</td>';
 				echo '</tr>	';
-		
+				$cont = 0;
 				foreach($monitor as $row=>$value):
+					$cont++;
 					echo '<tr>';
-					echo '<td class="tableTdContent">'.$value->event.'</td>';
+					echo '<td class="tableTdContent">'.$cont.'. '.$value->event.'</td>';
 					echo '<td class="tableTdContent"></td>';
 					echo '<td class="tableTdContent">'.$value->totalEvents.'</td>';
 					echo '<td class="tableTdContent">'.$value->uniqueEvents.'</td>';
