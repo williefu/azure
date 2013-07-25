@@ -107,6 +107,31 @@ class MonitorController extends AppController {
 				
 					$this->set('action', $action);
 					$this->set('label', $label);
+					//build monitor obj
+					$index = 0;
+					foreach($action->data as $key=>$item) {
+						$index++;
+						$monitor[$index]->event = $key;
+						$monitor[$index]->totalEvents = $item->{"ga:totalEvents"};
+						$monitor[$index]->uniqueEvents = $item->{"ga:uniqueEvents"};
+
+						if(isset($label->data)) {
+							$i = 0;
+							$monitorLabel = array();
+							foreach($label->data as $event=>$value) {
+								if($event==$key) {
+									foreach($value as $label1=>$value) {
+										$i++;
+										$monitorLabel[$i]->label = $label1;
+										$monitorLabel[$i]->totalEvents = $value->{"ga:totalEvents"};
+										$monitorLabel[$i]->uniqueEvents = $value->{"ga:uniqueEvents"};
+									}
+								}
+							}
+							$monitor[$index]->labels = $monitorLabel;		
+						}
+					}
+					$this->set('monitor',$monitor);
 					break;
 			}
 		}
