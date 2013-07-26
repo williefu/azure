@@ -12,21 +12,23 @@ class MonitorController extends AppController {
 	}
 	
 	public function monitor_actions() {
-		$actions['category_id'] = $this->request->params['id'];
+		$actions['category_id'] = $this->request->params['id'];//[Origin ID: XXX]
 		$actions['startDate'] 	= $this->request->params['start'];
 		$actions['endDate'] 	= $this->request->params['end'];
-		$actions['category'] 	= $this->getTitle($actions['category_id']);
+		
+		$origin_id = substr($actions['category_id'], 11, -1);
+		$actions['category'] 	= $this->getTitle($origin_id);
 		
 		$this->set('actions', $actions);
 		$this->render('monitor_actions');
 	}
 	
-	public function getTitle($category_id) {
+	public function getTitle($origin_id) {
 		$origin		= $this->OriginAd->find('first', 
 			array(
 				'recursive'=>2,
 				'conditions'=>array(
-					'OriginAd.id'=>$category_id
+					'OriginAd.id'=>$origin_id
 				)
 			)
 		);
@@ -101,7 +103,8 @@ class MonitorController extends AppController {
 					$this->set('monitor',$monitor);
 					break;
 				case 1:
-					$this->set('category', $this->getTitle($data['category']));
+					$origin_id = substr($data['category'], 11, -1);
+					$this->set('category', $this->getTitle($origin_id));
 					$action = $this->Monitor->getEventAction($data);
 					$label = $this->Monitor->getEventLabel($data);
 				
