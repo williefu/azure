@@ -72,4 +72,14 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 		});
 		
 	}
+	
+	$scope.getAccount = function() {
+		var property_id = 'UA-12310597-73';
+		Monitor.get('account/'+property_id).then(function(data) {
+			var items = data['items'][0];
+			var profile_id = items['id'];
+			console.log('Property ID: ga:'+profile_id);
+		});
+	}
+	
 }

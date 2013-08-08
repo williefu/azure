@@ -153,4 +153,10 @@ class MonitorController extends AppController {
 			//$this->set('data', $this->request->data);
 		}
 	}
+	
+	public function jsonAccount() { 
+		$account_id = $this->request->params['account'];
+		$data = $this->Monitor->pullAccountData($account_id);
+		$this->set('account',$data);
+	}
 }

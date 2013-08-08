@@ -104,6 +104,7 @@ Router::connect('/administrator/get/monitor/list/:start_date/:end_date/:category
 Router::connect('/administrator/get/monitor/event/:category/:start_date/:end_date', array('controller' => 'monitor', 'action' => 'jsonEvent'));
 Router::connect('/administrator/get/monitor/visits', array('controller' => 'monitor', 'action' => 'jsonVisits'));
 Router::connect('/administrator/get/monitor/visits/:start_date/:end_date/:category', array('controller' => 'monitor', 'action' => 'jsonVisits'));
+Router::connect('/administrator/get/monitor/account/:account', array('controller' => 'monitor', 'action' => 'jsonAccount'));
 Router::connect('/administrator/get/sites', array('controller'=>'origin', 'action'=>'jsonSite'));
 
 //DEMO

@@ -26,6 +26,7 @@
 			</li>
 		  </ul>
 		</div>
+		<button ng-click="getAccount()" enable>Get Property ID</button>
 </div>
 
 <?php

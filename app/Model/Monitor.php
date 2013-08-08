@@ -117,4 +117,30 @@ class Monitor extends AppModel {
 			return false;
 		}
 	}
+	
+	function pullAccountData($account) {
+		$arrAccount = explode('-', $account, 3);
+		$account_id = $arrAccount[1];
+		
+		//Google count
+		$login = Configure::read ( "Monitor.login" );
+		
+		$password = Configure::read ( "Monitor.password" );
+		
+		App::import('Vendor', 'ga_api');
+		
+		$api = new analytics_api();
+		
+		if($api->login($login, $password)) {
+			if(true) {
+				$data = $api->call('https://www.googleapis.com/analytics/v3/management/accounts/'.$account_id.'/webproperties/'.$account.'/profiles?max-results=30&start-index=1');
+				
+				return json_encode($data);
+			}
+			else {
+				return false;
+			}
+		}
+	}
+
 }
