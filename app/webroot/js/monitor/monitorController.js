@@ -37,7 +37,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 	});
 
 	$scope.getData = function() {
-		category = ($scope.monitorObj.category == '' ? 'undefined' : $scope.monitorObj.category);
+		var category = ($scope.monitorObj.category == '' ? 'undefined' : $scope.monitorObj.category);
 		Monitor.get('list/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+category).then(function(data) {
 			$scope.monitor_title = 'Event Category';
 			if( data.data != undefined ) {
