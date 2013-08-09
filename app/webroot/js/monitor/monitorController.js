@@ -55,8 +55,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 				$scope.note = 'There is no data for this view.';
 			}
 		});
-		$scope.exp_template = 0;//template for categories
-		$scope.exp_url = $scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+category+'/'+$scope.exp_template;
+		$scope.exp_url = '_data/'+$scope.monitorObj.start_date+'/'+$scope.monitorObj.end_date+'/'+category;
 	}
 	
 	$scope.refreshMonitor = function(data, category) {
@@ -78,7 +77,7 @@ var monitorCtrl = function($scope, Monitor, $filter) {
 		Monitor.get('account/'+property_id).then(function(data) {
 			var items = data['items'][0];
 			var profile_id = items['id'];
-			console.log('Property ID: ga:'+profile_id);
+			console.log('Porfile ID: ga:'+profile_id);
 		});
 	}
 	

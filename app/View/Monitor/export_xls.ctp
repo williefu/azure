@@ -26,15 +26,12 @@
 	</tr>
 	<tr>
 		<td><b># 
-		<?php if(isset($template)) {
-				if($template==0)
-					echo $monitor->totals->start_date . '  -  ' . $monitor->totals->end_date;
-				else
+		<?php if(isset($events)) {
 					echo $action->totals->start_date . ' - ' . $action->totals->end_date;
-			}
-			else {
-				echo $monitor->totals->start_date . '  -  ' . $monitor->totals->end_date;
-			}
+				}
+				else {
+					echo $monitor->totals->start_date . '  -  ' . $monitor->totals->end_date;
+				}
 		?><b></td>
 	</tr>
 	<tr>
@@ -45,7 +42,7 @@
 	</tr>
 			
 		<?php 
-			if(isset($template) && $template==1) { 
+			if(isset($events)) { 
 				echo '<tr id="titles">';
 				echo '<td class="tableTd">Event Action</td>';
 				echo '<td class="tableTd">Event Label</td>';
@@ -53,7 +50,7 @@
 				echo '<td class="tableTd">Unique Events</td>';
 				echo '</tr>	';
 				$cont = 0;
-				foreach($monitor as $row=>$value):
+				foreach($events as $row=>$value):
 					$cont++;
 					echo '<tr>';
 					echo '<td class="tableTdContent">'.$cont.'. '.$value->event.'</td>';

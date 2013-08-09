@@ -19,14 +19,14 @@
 
 		  <ul id="exportOptions" class="dropdown-menu originUI-bgColorSecondary originUI-borderColor" role="menu" aria-labelledby="dLabel">
 			<li class="dropdown-item">
-				<a ng-href="/administrator/monitor/exportXls/{{exp_url}}"  id="export-monitor_xls">Excel (XLSX)</a>
+				<a ng-href="/administrator/monitor/exportxls{{exp_url}}"  id="export-monitor_xls">Excel (XLSX)</a>
 			</li>
 			<li class="dropdown-item">
-				<a ng-href="/administrator/monitor/exportPdf/{{exp_url}}"  id="export-monitor_pdf">PDF</a>
+				<a ng-href="/administrator/monitor/exportpdf{{exp_url}}"  id="export-monitor_pdf">PDF</a>
 			</li>
 		  </ul>
 		</div>
-		<button ng-click="getAccount()" enable>Get Property ID</button>
+		<button ng-click="getAccount()" enable>Get Profile ID</button>
 </div>
 
 <?php

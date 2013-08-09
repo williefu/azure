@@ -74,13 +74,13 @@ class Monitor extends AppModel {
 	}
 	
 	function pullAnalyticsData($dimensions=false, $metrics, $sort, $start_date, $end_date, $save=false, $filters=false) {
-		//Google count
+		//Google account
 		$login = Configure::read ( "Monitor.login" );
 		
 		$password = Configure::read ( "Monitor.password" );
 
-		$id = Configure::read ( "Monitor.origin_table_id" );
-		//$id = Configure::read ( "Monitor.si_event_table_id" );
+		//$id = Configure::read ( "Monitor.origin_table_id" );
+		$id = Configure::read ( "Monitor.si_event_table_id" );
 		
 		App::import('Vendor', 'ga_api');
 		
@@ -122,7 +122,7 @@ class Monitor extends AppModel {
 		$arrAccount = explode('-', $account, 3);
 		$account_id = $arrAccount[1];
 		
-		//Google count
+		//Google account
 		$login = Configure::read ( "Monitor.login" );
 		
 		$password = Configure::read ( "Monitor.password" );

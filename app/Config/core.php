@@ -285,6 +285,6 @@ Configure::write('MinifyAsset', true);
 Configure::write('Monitor', array(
 		'login' => 'evolveorigin@gmail.com',
 		'password' => 'evolve-origin',
-		'origin_table_id' => 'ga:50292723'//Evolve Origin Table Id
-		//'si_event_table_id' => 'ga:26782196'//SI Event Tracking Table Id
+		'origin_table_id' => 'ga:50292723',//Evolve Origin Table Id
+		'si_event_table_id' => 'ga:26782196'//SI Event Tracking Table Id
 	));

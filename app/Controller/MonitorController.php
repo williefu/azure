@@ -77,81 +77,118 @@ class MonitorController extends AppController {
 	}
 	
 	public function export_xls() {
-		$this->getData();
+		$monitor = $this->Monitor->getMonitor();
+		$this->set('monitor',$monitor);
 		$this->render('export_xls','xls');
+	}
+	
+	public function export_xls_data() {
+		$data['category'] = $this->request->params['category'];
+		$data['start_date'] = $this->request->params['start'];
+		$data['end_date'] = $this->request->params['end'];
+		
+		$this->set('category', $data['category']);
+		$monitor = $this->Monitor->searchData($data);
+		$this->set('monitor',$monitor);
+		$this->render('export_xls','xls');
+	}
+	
+	public function export_xls_events() {
+		$data['category'] = $this->request->params['category'];
+		$data['start_date'] = $this->request->params['start'];
+		$data['end_date'] = $this->request->params['end'];
+		
+		$origin_id = substr($data['category'], 11, -1);
+		$this->set('category', $this->getTitle($origin_id));
+		$action = $this->Monitor->getEventAction($data);
+		$label = $this->Monitor->getEventLabel($data);
+				
+		$this->set('action', $action);
+		$this->set('label', $label);
+		//build events obj
+		$index = 0;
+		foreach($action->data as $key=>$item) {
+			$index++;
+			$events[$index]->event = $key;
+			$events[$index]->totalEvents = $item->{"ga:totalEvents"};
+			$events[$index]->uniqueEvents = $item->{"ga:uniqueEvents"};
+
+			if(isset($label->data)) {
+				$i = 0;
+				$monitorLabel = array();
+				foreach($label->data as $event=>$value) {
+					if($event==$key) {
+						foreach($value as $label1=>$value) {
+							$i++;
+							$monitorLabel[$i]->label = $label1;
+							$monitorLabel[$i]->totalEvents = $value->{"ga:totalEvents"};
+							$monitorLabel[$i]->uniqueEvents = $value->{"ga:uniqueEvents"};
+						}
+					}
+				}
+				$events[$index]->labels = $monitorLabel;		
+			}
+		}
+		$this->set('events',$events);
+		$this->render('export_xls','xls');			
 	}
 	
 	public function export_pdf() {
 		//create image
-		$this->getData();
+		$monitor = $this->Monitor->getMonitor();
+		$this->set('monitor',$monitor);
 		$this->render('export_pdf','pdf');
 	}
 	
-	public function getData() {
-		if(isset($this->request->params['category'])) {
-			$data['category'] = $this->request->params['category'];
-			$data['start_date'] = $this->request->params['start'];
-			$data['end_date'] = $this->request->params['end'];
-			$data['template'] = $this->request->params['template'];
-			
-			$this->set('template', $data['template']);
-			
-			switch($data['template']) {
-				case 0: 
-					$this->set('category', $data['category']);
-					$monitor = $this->Monitor->searchData($data);
-					$this->set('monitor',$monitor);
-					break;
-				case 1:
-					$origin_id = substr($data['category'], 11, -1);
-					$this->set('category', $this->getTitle($origin_id));
-					$action = $this->Monitor->getEventAction($data);
-					$label = $this->Monitor->getEventLabel($data);
-				
-					$this->set('action', $action);
-					$this->set('label', $label);
-					//build monitor obj
-					$index = 0;
-					foreach($action->data as $key=>$item) {
-						$index++;
-						$monitor[$index]->event = $key;
-						$monitor[$index]->totalEvents = $item->{"ga:totalEvents"};
-						$monitor[$index]->uniqueEvents = $item->{"ga:uniqueEvents"};
-
-						if(isset($label->data)) {
-							$i = 0;
-							$monitorLabel = array();
-							foreach($label->data as $event=>$value) {
-								if($event==$key) {
-									foreach($value as $label1=>$value) {
-										$i++;
-										$monitorLabel[$i]->label = $label1;
-										$monitorLabel[$i]->totalEvents = $value->{"ga:totalEvents"};
-										$monitorLabel[$i]->uniqueEvents = $value->{"ga:uniqueEvents"};
-									}
-								}
-							}
-							$monitor[$index]->labels = $monitorLabel;		
-						}
-					}
-					$this->set('monitor',$monitor);
-					break;
-			}
-		}
-		else {
-			$monitor = $this->Monitor->getMonitor();
-			$this->set('monitor',$monitor);
-		}
+	public function export_pdf_data() {
+		$data['category'] = $this->request->params['category'];
+		$data['start_date'] = $this->request->params['start'];
+		$data['end_date'] = $this->request->params['end'];
+		
+		$this->set('category', $data['category']);
+		$monitor = $this->Monitor->searchData($data);
+		$this->set('monitor',$monitor);
+		$this->render('export_pdf','pdf');
 	}
 	
-	public function post() {
-		if($this->request->data['route']) {
-			$route		= $this->request->data['route'];
-			unset($this->request->data['route']);
-			$response	= $this->$route($this->request->data);
-			$this->set('post', $response);
-			//$this->set('data', $this->request->data);
+	public function export_pdf_events() {
+		$data['category'] = $this->request->params['category'];
+		$data['start_date'] = $this->request->params['start'];
+		$data['end_date'] = $this->request->params['end'];
+		
+		$origin_id = substr($data['category'], 11, -1);
+		$this->set('category', $this->getTitle($origin_id));
+		$action = $this->Monitor->getEventAction($data);
+		$label = $this->Monitor->getEventLabel($data);
+				
+		$this->set('action', $action);
+		$this->set('label', $label);
+		//build events obj
+		$index = 0;
+		foreach($action->data as $key=>$item) {
+			$index++;
+			$events[$index]->event = $key;
+			$events[$index]->totalEvents = $item->{"ga:totalEvents"};
+			$events[$index]->uniqueEvents = $item->{"ga:uniqueEvents"};
+
+			if(isset($label->data)) {
+				$i = 0;
+				$monitorLabel = array();
+				foreach($label->data as $event=>$value) {
+					if($event==$key) {
+						foreach($value as $label1=>$value) {
+							$i++;
+							$monitorLabel[$i]->label = $label1;
+							$monitorLabel[$i]->totalEvents = $value->{"ga:totalEvents"};
+							$monitorLabel[$i]->uniqueEvents = $value->{"ga:uniqueEvents"};
+						}
+					}
+				}
+				$events[$index]->labels = $monitorLabel;		
+			}
 		}
+		$this->set('events',$events);
+		$this->render('export_pdf','pdf');
 	}
 	
 	public function jsonAccount() { 

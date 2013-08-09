@@ -25,7 +25,7 @@ $pdf->AddPage();
 
 $pdf->Write(0, 'Top Events', '', 0, 'L', 0);
 
-if(isset($template) && $template==1)
+if(isset($events))
 	$pdf->Write(0, $action->totals->start_date . ' - ' . $action->totals->end_date, '', 0, 'R', 1);
 else
 	$pdf->Write(0, $monitor->totals->start_date . ' - ' . $monitor->totals->end_date, '', 0, 'R', 1);
@@ -34,8 +34,8 @@ $pdf->SetFont('helvetica', '', 8);
 // -----------------------------------------------------------------------------
 $data = "";
 $cont = 0;
-if(isset($template) && $template==1){
-foreach($monitor as $row=>$value):
+if(isset($events)){
+foreach($events as $row=>$value):
 	$cont++;
 	$data .= '<tr>';
 	$data .= '<td>'.$cont.'. '.$value->event.'</td>';
